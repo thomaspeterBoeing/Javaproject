@@ -1566,13 +1566,10 @@
         <members>Chatter Free User</members>
         <members>Chatter Moderator User</members>
         <members>ContractManager</members>
-        <members>End User</members>
-        <members>Executive Sponsor</members>
         <members>Guest License User</members>
         <members>Identity User</members>
         <members>MarketingProfile</members>
         <members>Minimum Access - Salesforce</members>
-        <members>Read Only</members>
         <members>Sales Insights Integration User</members>
         <members>Salesforce API Only System Integrations</members>
         <members>SolutionManager</members>
