@@ -64,6 +64,7 @@
         <members>standard__LightningService</members>
         <members>standard__Marketing</members>
         <members>standard__OnlineSales</members>
+        <members>standard__Optimizer</members>
         <members>standard__Platform</members>
         <members>standard__Sales</members>
         <members>standard__SalesforceCMS</members>

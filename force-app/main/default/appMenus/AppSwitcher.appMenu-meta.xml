@@ -88,4 +88,8 @@
         <name>DEVHUB_sxp28mq1tcz7z5o1kabc</name>
         <type>ConnectedApp</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>standard__Optimizer</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
 </AppMenu>

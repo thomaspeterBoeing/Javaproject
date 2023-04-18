@@ -28,5 +28,5 @@
     <isMeetTheAssistantDisabledInClassic>false</isMeetTheAssistantDisabledInClassic>
     <isMeetTheAssistantDisabledInLightning>false</isMeetTheAssistantDisabledInLightning>
     <isSmartNudgesDisabled>false</isSmartNudgesDisabled>
-    <optimizerAppEnabled>false</optimizerAppEnabled>
+    <optimizerAppEnabled>true</optimizerAppEnabled>
 </UserEngagementSettings>
