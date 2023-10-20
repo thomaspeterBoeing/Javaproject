@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MarketingName__c</fullName>
+    <businessOwnerGroup>ITDataOwner</businessOwnerGroup>
+    <businessStatus>Active</businessStatus>
+    <description>Sourced from CUIC. </description>
+    <externalId>false</externalId>
+    <label>Marketing Name</label>
+    <length>100</length>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

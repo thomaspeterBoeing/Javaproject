@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AffiliationCompactLayout</fullName>
+    <fields>Name</fields>
+    <fields>ContractNumberFormatted__c</fields>
+    <fields>DomicileState__c</fields>
+    <label>Affiliation Compact Layout</label>
+</CompactLayout>
