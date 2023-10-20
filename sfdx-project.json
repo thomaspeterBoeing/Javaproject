@@ -1,12 +1,22 @@
 {
   "packageDirectories": [
     {
-      "path": "force-app",
-      "default": true
+      "path": "d2c-org/d2c-core/unpackaged-configurations",
+      "default": false
+    },
+    {
+      "path": "d2c-org/d2c-core/base-configurations",
+      "default": true,
+      "package": "D2C Core Base Configurations",
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "versionDescription": "Configurations that may be shared for all tenants in the D2C Org."
     }
   ],
-  "name": "X5J8NBVa2oJyJNiO_retrieve",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "55.0"
+  "sourceApiVersion": "59.0",
+  "packageAliases": {
+    "D2C Core Base Configurations": "0HoDm0000004CEIKA2"
+  }
 }

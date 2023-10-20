@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HierarchyNumberOfContacts</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>Calculated field for number of contacts associated with the campaign hierarchy.</description>
+    <securityClassification>Internal</securityClassification>
+</CustomField>

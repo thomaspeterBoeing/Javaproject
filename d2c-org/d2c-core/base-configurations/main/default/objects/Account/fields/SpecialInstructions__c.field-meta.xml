@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SpecialInstructions__c</fullName>
+    <businessOwnerGroup>ITDataOwner</businessOwnerGroup>
+    <businessStatus>Active</businessStatus>
+    <description>?? Add Description</description>
+    <externalId>false</externalId>
+    <label>Special Instructions</label>
+    <length>32768</length>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>LongTextArea</type>
+    <visibleLines>6</visibleLines>
+</CustomField>
