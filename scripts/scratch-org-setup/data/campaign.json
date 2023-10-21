@@ -1,0 +1,34 @@
+{
+	"records" : [
+		{
+			"attributes" : {
+				"type" : "Campaign",
+				"referenceId" : "CampRef1"
+			},
+			"Name" : "October SIWL",
+			"IsActive" : true,			
+			"StartDate": "2023-10-01",
+			"EndDate": "2025-10-01",
+			"Type" : "Email",
+			"Status" : "In Progress",	
+			"ActualCost" : "100000",
+			"TFN__c" : "1-800-555-5555",
+			"TFNType__c" : "Inbound Call"		
+		},
+		{
+			"attributes" : {
+				"type" : "Campaign",
+				"referenceId" : "CampRef2"
+			},
+			"Name" : "November SIWL",
+			"IsActive" : true,			
+			"StartDate": "2023-11-01",
+			"EndDate": "2025-11-01",
+			"Type" : "Email",
+			"Status" : "In Progress",	
+			"ActualCost" : "150000",
+			"TFN__c" : "1-800-555-6666",
+			"TFNType__c" : "Inbound Call"		
+		}
+	]
+}

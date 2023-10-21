@@ -1,0 +1,11 @@
+ [
+	{
+		"sobject" : "Account",
+		"saveRefs" : true,
+		"resolveRefs" : false,
+		"files" : [
+			"personaccount.json",
+			"campaign.json"
+		]
+	}
+]    
