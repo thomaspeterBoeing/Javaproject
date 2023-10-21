@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HealthAssessment__c</fullName>
+    <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
+    <businessStatus>Active</businessStatus>
+    <description>Health concerns that may prevent customer from qualifying for a traditional, underwritten life insurance policy.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Are you aware of any medical issues or health concerns that you think would keep you from qualifying for a traditional, underwritten life insurance policy?</inlineHelpText>
+    <label>Health Assessment</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Health Issues</fullName>
+                <default>false</default>
+                <label>Health Issues</label>
+            </value>
+            <value>
+                <fullName>No Health Issues</fullName>
+                <default>false</default>
+                <label>No Health Issues</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

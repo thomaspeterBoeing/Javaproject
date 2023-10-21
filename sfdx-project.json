@@ -6,17 +6,32 @@
     },
     {
       "path": "d2c-org/d2c-core/base-configurations",
-      "default": true,
+      "default": false,
       "package": "D2C Core Base Configurations",
       "versionName": "ver 0.1",
       "versionNumber": "0.1.0.NEXT",
       "versionDescription": "Configurations that may be shared for all tenants in the D2C Org."
+    },   
+    {
+      "path": "d2c-org/ilh-sales/base-configurations",
+      "default": true,
+      "package": "ILH Sales Base Configurations",
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "versionDescription": "Configurations for ILH Sales applications.",
+      "dependencies": [
+        {
+          "package": "D2C Core Base Configurations",
+          "versionNumber": "0.1.0.LATEST"
+        }
+      ]
     }
   ],
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "59.0",
   "packageAliases": {
-    "D2C Core Base Configurations": "0HoDm0000004CEIKA2"
+    "D2C Core Base Configurations": "0HoDm0000004CEIKA2",
+    "ILH Sales Base Configurations": "0HoDm0000004CENKA2"
   }
 }
