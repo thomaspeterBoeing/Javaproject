@@ -6,8 +6,8 @@
 @REM -------------------------------------------------------------------------------------------------------
 echo off
 echo "Install D2C Core Base Configuration Version"
-set /p packageversionId=Enter Package Version ID to install:
-call sf package install --package %packageversionId% --installation-key d2c-xe35G@Y --wait 2  
+@REM set /p packageversionId=Enter Package Version ID to install:
+@REM call sf package install --package %packageversionId% --installation-key d2c-xe35G@Y --wait 2  
 
 call sf org assign permset --name Admin_ILHSalesBaseConfiguration_ModifyAll
 
