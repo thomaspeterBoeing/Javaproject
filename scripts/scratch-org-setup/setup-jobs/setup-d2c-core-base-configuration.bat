@@ -16,7 +16,4 @@ call sf data import tree  --plan scripts\scratch-org-setup\data\d2c-core-base-co
 echo "*** Updating Account record type ..."
 call sf apex run -f scripts\scratch-org-setup\apex\D2CBaseConfig_UpdateAccountRecordtype.apex
 
-@REM  Following script does not work until D2C Adminstrator Profile is setup.  Package is unable to deploy a new profile.
-@REM echo "*** Insert Admin User assigned to D2C Administrator Profile ****"
-@REM call sf apex run -f scripts\scratch-org-setup\apex\D2CBaseConfig_InsertD2CAdminUser.apex
 echo "*** Test Data Loaded for D2C Core Base Configuration Package :) ***"
