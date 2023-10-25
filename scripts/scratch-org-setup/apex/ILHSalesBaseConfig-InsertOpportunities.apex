@@ -21,7 +21,7 @@ For(Contact cnt: cntList){
        oppty.CloseDate = System.today();
        oppty.AccountId = cnt.AccountId;
        oppty.RecordTypeId = rt.id;
-       oppty.StageName = 'Needs Analysis';
+       oppty.StageName = 'Needs Assessment';
        oppty.Amount = 25000;
        oppty.InsurancePurpose__c = 'Final Expenses';
        oppty.HealthAssessment__c = 'No Health Issues';
