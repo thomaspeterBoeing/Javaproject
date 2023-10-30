@@ -2,18 +2,12 @@
   "packageDirectories": [
     
     {
-      "path": "d2c-org/ilh-sales/base-configurations",
+      "path": "d2c-org/d2c-core/base-code",
       "default": true,
-      "package": "ILH Sales Base Configurations",
+      "package": "D2C Core Base Code",
       "versionName": "ver 0.1",
       "versionNumber": "0.1.0.NEXT",
-      "versionDescription": "Configurations for ILH Sales applications.",
-      "dependencies": [
-        {
-          "package": "D2C Core Base Configurations",
-          "versionNumber": "0.1.0.LATEST"
-        }
-      ]
+      "versionDescription": "Code that can be shared by all tenants in the org."    
     }
   ],
   "namespace": "",
@@ -21,6 +15,7 @@
   "sourceApiVersion": "59.0",
   "packageAliases": {
     "D2C Core Base Configurations": "0HoDm0000004CEIKA2",
-    "ILH Sales Base Configurations": "0HoDm0000004CENKA2"
+    "ILH Sales Base Configurations": "0HoDm0000004CENKA2",
+    "D2C Core Base Code": "0HoDm000000blK7KAI"
   }
 }

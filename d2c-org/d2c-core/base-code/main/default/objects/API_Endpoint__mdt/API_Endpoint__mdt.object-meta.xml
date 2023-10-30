@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Store the rest/soap api endpoint information like method,URL,named credentials, timeout etc</description>
+    <label>API Endpoint</label>
+    <pluralLabel>API Endpoints</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>
