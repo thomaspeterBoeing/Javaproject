@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StackTrace__c</fullName>
+    <businessOwnerGroup>ITDataOwner</businessOwnerGroup>
+    <businessStatus>Active</businessStatus>
+    <description>The stack trace of a thrown exception</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The stack trace of a thrown exception</inlineHelpText>
+    <label>Stack Trace</label>
+    <length>32768</length>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

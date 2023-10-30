@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Message Channel to pass Count updates</description>
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>Dialed Number</description>
+        <fieldName>dnis</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Phone number that originated call</description>
+        <fieldName>ani</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Salesforce Person Account Id</description>
+        <fieldName>accountId</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>TBD</description>
+        <fieldName>personId</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Date of Birth   MM/DD/YYYY String value</description>
+        <fieldName>birthDate</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>For Quoting Valid values Male or Female</description>
+        <fieldName>gender</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Mailing Address Street Address</description>
+        <fieldName>mailingStreet</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Mailing Address Zip Code</description>
+        <fieldName>mailingPostalCode</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Mailing Address 2 character abbreviation for State</description>
+        <fieldName>mailingState</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Mailing Address City</description>
+        <fieldName>mailingCity</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Work Phone</description>
+        <fieldName>workPhone</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Mobile or Cell phone</description>
+        <fieldName>mobile</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Default Phone</description>
+        <fieldName>homePhone</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Suffix of consumer name</description>
+        <fieldName>suffixName</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Consumer Middle Name</description>
+        <fieldName>middleName</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Last Name of Consumer</description>
+        <fieldName>lastName</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>First Name of Consumer</description>
+        <fieldName>firstName</fieldName>
+    </lightningMessageFields>
+    <masterLabel>ConsumerData</masterLabel>
+</LightningMessageChannel>

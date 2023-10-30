@@ -1,0 +1,216 @@
+<template>	
+	<div class="slds-grid slds-gutters_direct">
+		<div class="slds-col slds-size_2-of-6" onkeyup={keyUpSearch}>
+			<lightning-card>
+				<div if:true={isSearching}>
+					<lightning-spinner variant="brand" size="large" alternative-text="waiting..."></lightning-spinner>
+				</div>
+				<div class="titleContainer">
+					<div class="childTitle">
+						<h1 class="searchPadding slds-align--absolute-left">Consumer Search</h1>	
+					</div>
+					<div class="childTitle slds-form-element__icon">
+						<button id="btnIcon" aria-label="btnIcon" class="slds-button slds-button_icon" onmouseover={toggleSearchHelp} onmouseout={toggleSearchHelp}>
+							<lightning-icon icon-name="utility:info" alternative-text="Info" size="xx-small" title=""></lightning-icon>
+						</button>
+						<div class={seachHelpClass} role="tooltip" id="help"
+							style="position:absolute;top:-110px;left:-15px;width:500px">
+							<div class="slds-popover__body">
+								Valid Search Combinations: <br>
+								<ul class="slds-list_dotted">
+									<li>SSN</li>
+									<li>Policy Number</li>
+									<li>Phone and (First Name or Last Name or Zip Code)</li>
+									<li>Phone</li>
+									<li>First Name and Last Name and Zip Code</li>
+									<li>First Name and Last Name and Birth Date</li>
+								</ul>							
+							</div>
+						</div>
+					</div>
+				</div>		
+				<div class="searchPadding slds-grid slds-gutters slds-wrap">
+					<div class="slds-col slds-size_12-of-12">
+						<lightning-layout multiple-rows="true">
+							<lightning-layout-item size="12"> 
+								<lightning-input 
+									name="firstName" 
+									label="First Name" 
+									value={firstName} 
+									onchange={changeFirstName} 
+									pattern="(\s?\*?[\w\s\-]{2,}\*?\s?)"
+									minlength="2"
+									message-when-bad-input="First Name required to be at least two characters." 
+									message-when-pattern-mismatch="First Name required to be at least two characters." 
+									field-level-help="WildCard * can be placed before and after entered characters. Minimum 2 characters should be entered. EX: *Sm*">
+								</lightning-input>
+							</lightning-layout-item> 
+							<lightning-layout-item size="12">
+								<lightning-input 
+									name="lastName" 
+									label="Last Name" 
+									value={lastName} 
+									onchange={changeLastName} 
+									pattern="(\s?\*?[\w\s\-]{2,}\*?\s?)" 
+									minlength="2"
+									message-when-bad-input="Last Name required to be at least two characters." 
+									message-when-pattern-mismatch="Last Name required to be at least two characters." 
+									field-level-help="WildCard * can be placed before and after entered characters. Minimum 2 characters should be entered. EX: *Sm*">
+								</lightning-input>
+							</lightning-layout-item>
+							<lightning-layout-item size="12">
+								<lightning-input 
+									name="ssn" 
+									label="SSN" 
+									value={ssn} 
+									onchange={changeSSN} 
+									pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" 
+									minlength="11"
+									maxlength="11" 
+									message-when-bad-input="Invalid format. Expecting 999-99-9999." 
+									message-when-pattern-mismatch="Invalid format. Expecting 999-99-9999."
+									field-level-help="SSN should be 9 digits. EX: 999-99-9999">
+								</lightning-input>
+							</lightning-layout-item>
+							<lightning-layout-item size="12">
+								<lightning-input 
+									name="dateOfBirth" 
+									date-style="short" 
+									type="date" 
+									label="Date of Birth" 
+									value={dateOfBirth} 
+									onchange={changeDateOfBirth} 
+									message-when-bad-input="Invalid date or format. Expecting 05/14/1959." 
+									message-when-pattern-mismatch="Invalid date or format. Expecting 05/14/1959." 
+									field-level-help="Date of Birth should be in specified format of MM/DD/YYYY. EX: 05/14/1959">
+								</lightning-input>
+							</lightning-layout-item>
+							<lightning-layout-item size="12">
+								<lightning-input 
+									name="phone" 
+									label="Phone" 
+									minlength="14"
+									maxlength="14" 
+									pattern="(\(|\s*|\(\d{3}\)\s\d{3}-\d{4})" 
+									message-when-bad-input="Invalid format. Expecting (999) 999-9999"
+									message-when-pattern-mismatch="Invalid format. Expecting (999) 999-9999" 
+									value={phone} 
+									onchange={changePhone} 
+									field-level-help="Phone Number should be 10 digits. EX: (999) 999-9999">
+								</lightning-input>
+							</lightning-layout-item>
+							<lightning-layout-item size="12">									
+								<lightning-combobox 
+									name="state" 
+									label="State" 
+									value={state} 
+									placeholder="Select State" 
+									options={stateOptions} 
+									onchange={changeState} 
+									field-level-help="State code should be in specified format. EX: LA" >
+								</lightning-combobox>
+							</lightning-layout-item>
+							<lightning-layout-item size="12">
+								<lightning-input 
+									name="postalCode" 
+									label="Zip Code" 
+									value={postalCode} 
+									onchange={changePostalCode} 
+									minlength="5" 
+									maxlength="10" 
+									pattern="(\s|\d{4}\*|\d{5}|\d{5}-\d{4})" 
+									message-when-bad-input="Invalid format. Expecting 99999 or 99999-9999." 
+									message-when-pattern-mismatch="Invalid format. Expecting 99999 or 99999-9999." 
+									field-level-help="Zip Code should be 5 or 9 digits. EX: 99999 or 99999-9999.">
+								</lightning-input>
+							</lightning-layout-item>
+							<lightning-layout-item size="12">									
+								<lightning-input 
+									name="policyNumber" 
+									label="Policy Number" 
+									minlength="5" 
+									maxlength="16" 
+									value={policyNumber} 
+									onchange={changeCaseNumber}  
+									message-when-too-short="Policy Number required to be between 5 and 16 characters." 
+									message-when-too-long="Policy Number required to be between 5 and 16 characters." 
+									field-level-help="Policy Number should be between 5 and 16 characters." 
+									data-id="policyNumber">
+								</lightning-input>
+								<div style="text-align:center;" >
+									<lightning-button variant="base" data-id="btnPolicyFormat" name="btnPolicyFormat" label="Policy Format" onclick={openPolicyFormat}></lightning-button>
+								</div>
+							</lightning-layout-item>
+						</lightning-layout>							
+					</div>
+				</div>
+				<div class="slds-col slds-form-element slds-m-top--small slds-align_absolute-center">
+					<p data-id="errorDisplay" style="color:red">{errorMessage}</p>
+				</div>
+				<div class="slds-col slds-form-element slds-m-top--small slds-align_absolute-center">
+					<lightning-button data-id="btnSearch" variant="brand" label="Search" title="Search action" onclick={clickSearch} class="slds-m-left_x-small"></lightning-button>
+					<lightning-button variant="brand" label="Clear" title="Clear action" onclick={clickClear} class="slds-m-left_x-small"></lightning-button>
+				</div>
+			</lightning-card>
+		</div>
+		<div class="slds-col  slds-size_4-of-6">
+			<lightning-card title="Search Results">
+				<div class="newBtnDiv" >
+				<template if:true={showNew}>
+					<lightning-button  variant="Neutral" label="New" value="22" title="New" onclick={createNew} class="slds-m-left_x-small"></lightning-button>
+				</template>
+				</div>
+				<table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_striped">
+					<thead>
+						<tr class="slds-text-title--caps">
+							<th>
+								<a role="button" tabindex="0" onclick={sortRecs} name="fullName">Name</a> 
+							</th>
+							<th>
+								<a name="dateOfBirth" role="button" tabindex="0" onclick={sortRecs}>Birth Date</a> 
+							</th>
+							<th>SSN</th>
+							<th>
+								<a role="button" tabindex="0" onclick={sortRecs} name="gender">Gender</a> 								
+							</th>
+							<th>
+								<a name="street" role="button" tabindex="0" onclick={sortRecs}>Street</a> 								
+							</th>
+							<th>
+								<a name="city" role="button" tabindex="0"  onclick={sortRecs}>City</a> 								
+							</th>
+							<th>
+								<a name="state" role="button" tabindex="0"  onclick={sortRecs}>State</a> 
+							</th>
+							<th>
+								<a name="postalCode" role="button" tabindex="0"  onclick={sortRecs}>Zip Code</a> 
+							</th>
+							<th>
+								<a name="homePhone" role="button" tabindex="0"  onclick={sortRecs}>Phone Number</a> 
+							</th>							
+						</tr>
+					</thead>
+					<tbody>
+						<template for:each={searchResults} for:item='cs'>
+							<tr key={cs.personId}>
+								<td>
+									<lightning-button variant="base" label={cs.fullName} title="View Request" onclick={clickRequest} data-name={cs.personId}></lightning-button>
+								</td>								
+								<td>{cs.dateOfBirth}</td>								
+								<td>
+									<div if:true={cs.ssnLast4}>XXX-XX-{cs.ssnLast4}</div>
+								</td>
+								<td>{cs.gender}</td>
+								<td>{cs.street}</td>
+								<td>{cs.city}</td>
+								<td>{cs.state}</td>
+								<td>{cs.postalCode}</td>
+								<td>{cs.homePhone}</td>
+							</tr>
+						</template>
+					</tbody>
+				</table>
+			</lightning-card>
+		</div>		
+	</div>
+</template>

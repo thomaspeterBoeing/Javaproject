@@ -1,0 +1,584 @@
+{
+    "SearchResponseInfo": {
+        "ResultsReturned": 1,
+        "ExceededMaxResultsToReturn": false
+    },
+    "SearchConsumerProfile": {
+        "TaxId": null,
+        "SimpleProductSummary": null,
+        "PhoneNumber": null,
+        "PersonName": null,
+        "PersonId": "2000000081816",
+        "Organization": null,
+        "EmailAddress": null,
+        "ContactInteractionId": null,
+        "CommonAddress": null,
+        "BirthDate": null,
+        "ApplicationConfirmationNumber": 0,
+        "AddressDerivedKey": null
+    },
+    "ConsumerProfileList": [
+        {
+            "SuppressionList": [
+                {
+                    "UserId": "MFA5670",
+                    "SourceEnum": "ADD",
+                    "Source": 1,
+                    "ReasonEnum": "REQUESTED",
+                    "Reason": 0,
+                    "Organization": null,
+                    "EndDateStr": "12/31/9999",
+                    "EndDate": "9999-12-31",
+                    "ChannelEnum": "MAIL",
+                    "Channel": 0,
+                    "BeginDateStr": "07/26/2013",
+                    "BeginDate": "2013-07-26"
+                },
+                {
+                    "UserId": "MFA1234",
+                    "SourceEnum": "MEMBERSMARKETINGDATABASE",
+                    "Source": 9,
+                    "ReasonEnum": "REQUESTED",
+                    "Reason": 0,
+                    "Organization": null,
+                    "EndDateStr": "12/31/9999",
+                    "EndDate": "9999-12-31",
+                    "ChannelEnum": "MAIL",
+                    "Channel": 0,
+                    "BeginDateStr": "07/26/2013",
+                    "BeginDate": "2013-07-26"
+                },
+                {
+                    "UserId": "MFA5670",
+                    "SourceEnum": "ADD",
+                    "Source": 1,
+                    "ReasonEnum": "REQUESTED",
+                    "Reason": 0,
+                    "Organization": null,
+                    "EndDateStr": "12/31/9999",
+                    "EndDate": "9999-12-31",
+                    "ChannelEnum": "MAIL",
+                    "Channel": 1,
+                    "BeginDateStr": "07/26/2013",
+                    "BeginDate": "2013-07-26"
+                },
+                {
+                    "UserId": "MFA1234",
+                    "SourceEnum": "MEMBERSMARKETINGDATABASE",
+                    "Source": 9,
+                    "ReasonEnum": "REQUESTED",
+                    "Reason": 0,
+                    "Organization": null,
+                    "EndDateStr": "12/31/9999",
+                    "EndDate": "9999-12-31",
+                    "ChannelEnum": "MAIL",
+                    "Channel": 1,
+                    "BeginDateStr": "07/26/2013",
+                    "BeginDate": "2013-07-26"
+                },
+                {
+                    "UserId": "thigg",
+                    "SourceEnum": "DIRECTMARKETINGASSOCIATION",
+                    "Source": 3,
+                    "ReasonEnum": "REQUESTED",
+                    "Reason": 2,
+                    "Organization": {
+                        "OrganizationSegment": null,
+                        "OrganizationId": null,
+                        "ContractNumber": "00000000"
+                    },
+                    "EndDateStr": "12/31/2013",
+                    "EndDate": "2013-12-31",
+                    "ChannelEnum": "MAIL",
+                    "Channel": 1,
+                    "BeginDateStr": "01/01/2013",
+                    "BeginDate": "2013-01-01"
+                }
+            ],
+            "SourceRecordList": [
+                {
+                    "UniqueId": 508816,
+                    "SourceSystemKey": "76JV5309346 O",
+                    "SourceSystemId": "LIFEPRO",
+                    "Organization": null
+                },
+                {
+                    "UniqueId": 565634,
+                    "SourceSystemKey": "28808112OWNER",
+                    "SourceSystemId": "ASHING",
+                    "Organization": null
+                },
+                {
+                    "UniqueId": 703482,
+                    "SourceSystemKey": "003e00000088yE2AAI",
+                    "SourceSystemId": "SFORCECS",
+                    "Organization": null
+                },
+                {
+                    "UniqueId": 703646,
+                    "SourceSystemKey": "003e0000004xH4qAAE",
+                    "SourceSystemId": "SFORCECS",
+                    "Organization": null
+                }
+            ],
+            "MembershipList": [
+                {
+                    "TerminationDate": null,
+                    "Organization": {
+                        "OrganizationSegment": null,
+                        "OrganizationId": null,
+                        "ContractNumber": "03400034"
+                    },
+                    "MembershipType": "0",
+                    "FinancialAccountList": null,
+                    "EnrollmentDate": null
+                }
+            ],
+            "MarketingOptOut": {
+                "UserId": null,
+                "ReasonEnum": "REQUESTED",
+                "Reason": 0,
+                "OptOutDateStr": "08/01/2013",
+                "OptOutDate": "2013-08-01"
+            },
+            "ContactInteractionHistory": null,
+            "ConsumerProductSummaryList": [
+                {
+                    "SourceSystemId": "ASHING",
+                    "ProductRelationship": 1,
+                    "ProductNumber": "28808112",
+                    "TerminationDate": null,
+                    "Status": "ACTIVE",
+                    "SourceSystemProductKey": "ASHDA-ING",
+                    "EffectiveDate": "2006-01-01",
+                    "CoverageInformation": null,
+                    "CommonStatus": "0",
+                    "Organization": {
+                        "OrganizationSegment": null,
+                        "OrganizationId": null,
+                        "ContractNumber": "00000000"
+                    }
+                },
+                {
+                    "SourceSystemId": "LIFEPRO",
+                    "ProductRelationship": 2,
+                    "ProductNumber": "76JV5309346",
+                    "TerminationDate": null,
+                    "Status": "ACTIVE",
+                    "SourceSystemProductKey": "GILT75",
+                    "EffectiveDate": "1993-03-06",
+                    "CoverageInformation": null,
+                    "CommonStatus": "0",
+                    "Organization": {
+                        "OrganizationSegment": null,
+                        "OrganizationId": null,
+                        "ContractNumber": "03703922"
+                    }
+                },
+                {
+                    "SourceSystemId": "AD&D",
+                    "ProductRelationship": 1,
+                    "ProductNumber": "28808112",
+                    "TerminationDate": null,
+                    "Status": "ACTIVE",
+                    "SourceSystemProductKey": "ASHDA-ING",
+                    "EffectiveDate": "2006-01-01",
+                    "CoverageInformation": null,
+                    "CommonStatus": "0",
+                    "Organization": {
+                        "OrganizationSegment": null,
+                        "OrganizationId": null,
+                        "ContractNumber": "00000000"
+                    }
+                },
+                {
+                    "SourceSystemId": "ADDM",
+                    "ProductRelationship": 2,
+                    "ProductNumber": "28808112",
+                    "TerminationDate": null,
+                    "Status": "ACTIVE",
+                    "SourceSystemProductKey": "ASHDA-ING",
+                    "EffectiveDate": "2006-01-01",
+                    "CoverageInformation": null,
+                    "CommonStatus": "0",
+                    "Organization": {
+                        "OrganizationSegment": null,
+                        "OrganizationId": null,
+                        "ContractNumber": "00000000"
+                    }
+                }
+            ],
+            "ConsumerMarketingPerson": {
+                "SocialSecurityNumberInformation": {
+                    "TaxId": "800093025",
+                    "TaxIdLastFour": null,
+                    "SocialSecurityNumberType": null,
+                    "ChangedAttribute": null
+                },
+                "PhoneList": [
+                    {
+                        "PhoneType": 1,
+                        "PhoneNumber": "6109210331",
+                        "EffectiveChangedAttribute": null
+                    },
+                    {
+                        "PhoneType": 2,
+                        "PhoneNumber": "14154496368111111",
+                        "EffectiveChangedAttribute": null
+                    },
+                    {
+                        "PhoneType": 3,
+                        "PhoneNumber": "",
+                        "EffectiveChangedAttribute": null
+                    }
+                ],
+                "PersonId": "2000000081816",
+                "MaritalStatus": {
+                    "MaritalStatusCode": "5",
+                    "ChangedAttribute": null
+                },
+                "Gender": {
+                    "GenderType": null,
+                    "GenderCode": 1,
+                    "ChangedAttribute": null
+                },
+                "EmailAddressList": null,
+                "DeceasedInformation": {
+                    "DeceasedFlagInfo": {
+                        "DeceasedIndicator": false,
+                        "ChangedAttribute": null
+                    },
+                    "DeathDateInfo": {
+                        "DeathDate": null,
+                        "ChangedAttribute": null
+                    }
+                },
+                "ConsumerMarketingPersonName": {
+                    "Suffix": "",
+                    "Prefix": "",
+                    "MiddleName": "J",
+                    "LastName": "Wegner",
+                    "FirstName": "Brad",
+                    "Designation": "",
+                    "EffectiveChangedAttribute": null
+                },
+                "BirthDateInformation": {
+                    "IncompleteBirthDate": null,
+                    "BirthDateType": "0",
+                    "BirthDate": "1979-09-05",
+                    "ChangedAttribute": null
+                },
+                "AddressList": [
+                    {
+                        "StateProvince": "WI",
+                        "PostalCode": "537194031",
+                        "GeographicInfo": null,
+                        "Country": "",
+                        "City": "MADISON",
+                        "AddressStandardizationInfo": {
+                            "ConfidenceCode": null,
+                            "AddressStandardizationType": "0"
+                        },
+                        "AddressLines": [
+                            "3901 MAMMOTH TRL"
+                        ],
+                        "AddressDerivedKey": "537194031xx3901MAMMOTHTRL",
+                        "PreferredFlag": true,
+                        "MailableFlag": null,
+                        "EffectiveChangedAttribute": {
+                            "ValidationInfo": {
+                                "ValidationDateTime": "2013-08-22T05:00:00.000Z",
+                                "UserId": null
+                            },
+                            "CreationInfo": null,
+                            "EndDateTime": null,
+                            "EffectiveDateTime": "2013-07-26T05:00:00.000Z"
+                        }
+                    }
+                ]
+            },
+            "ApplicationList": null
+        },
+        {
+            "SuppressionList": [
+                {
+                    "UserId": "MFA5670",
+                    "SourceEnum": "ADD",
+                    "Source": 1,
+                    "ReasonEnum": "REQUESTED",
+                    "Reason": 0,
+                    "Organization": null,
+                    "EndDateStr": "12/31/9999",
+                    "EndDate": "9999-12-31",
+                    "ChannelEnum": "MAIL",
+                    "Channel": 0,
+                    "BeginDateStr": "07/26/2013",
+                    "BeginDate": "2013-07-26"
+                },
+                {
+                    "UserId": "MFA1234",
+                    "SourceEnum": "MEMBERSMARKETINGDATABASE",
+                    "Source": 9,
+                    "ReasonEnum": "REQUESTED",
+                    "Reason": 0,
+                    "Organization": null,
+                    "EndDateStr": "12/31/9999",
+                    "EndDate": "9999-12-31",
+                    "ChannelEnum": "MAIL",
+                    "Channel": 0,
+                    "BeginDateStr": "07/26/2013",
+                    "BeginDate": "2013-07-26"
+                },
+                {
+                    "UserId": "MFA5670",
+                    "SourceEnum": "ADD",
+                    "Source": 1,
+                    "ReasonEnum": "REQUESTED",
+                    "Reason": 0,
+                    "Organization": null,
+                    "EndDateStr": "12/31/9999",
+                    "EndDate": "9999-12-31",
+                    "ChannelEnum": "MAIL",
+                    "Channel": 1,
+                    "BeginDateStr": "07/26/2013",
+                    "BeginDate": "2013-07-26"
+                },
+                {
+                    "UserId": "MFA1234",
+                    "SourceEnum": "MEMBERSMARKETINGDATABASE",
+                    "Source": 9,
+                    "ReasonEnum": "REQUESTED",
+                    "Reason": 0,
+                    "Organization": null,
+                    "EndDateStr": "12/31/9999",
+                    "EndDate": "9999-12-31",
+                    "ChannelEnum": "MAIL",
+                    "Channel": 1,
+                    "BeginDateStr": "07/26/2013",
+                    "BeginDate": "2013-07-26"
+                },
+                {
+                    "UserId": "thigg",
+                    "SourceEnum": "DIRECTMARKETINGASSOCIATION",
+                    "Source": 3,
+                    "ReasonEnum": "REQUESTED",
+                    "Reason": 2,
+                    "Organization": {
+                        "OrganizationSegment": null,
+                        "OrganizationId": null,
+                        "ContractNumber": "00000000"
+                    },
+                    "EndDateStr": "12/31/2013",
+                    "EndDate": "2013-12-31",
+                    "ChannelEnum": "MAIL",
+                    "Channel": 1,
+                    "BeginDateStr": "01/01/2013",
+                    "BeginDate": "2013-01-01"
+                }
+            ],
+            "SourceRecordList": [
+                {
+                    "UniqueId": 508816,
+                    "SourceSystemKey": "76JV5309346 O",
+                    "SourceSystemId": "LIFEPRO",
+                    "Organization": null
+                },
+                {
+                    "UniqueId": 565634,
+                    "SourceSystemKey": "28808112OWNER",
+                    "SourceSystemId": "ASHING",
+                    "Organization": null
+                },
+                {
+                    "UniqueId": 703482,
+                    "SourceSystemKey": "003e00000088yE2AAI",
+                    "SourceSystemId": "SFORCECS",
+                    "Organization": null
+                },
+                {
+                    "UniqueId": 703646,
+                    "SourceSystemKey": "003e0000004xH4qAAE",
+                    "SourceSystemId": "SFORCECS",
+                    "Organization": null
+                }
+            ],
+            "MembershipList": [
+                {
+                    "TerminationDate": null,
+                    "Organization": {
+                        "OrganizationSegment": null,
+                        "OrganizationId": null,
+                        "ContractNumber": "03400034"
+                    },
+                    "MembershipType": "0",
+                    "FinancialAccountList": null,
+                    "EnrollmentDate": null
+                }
+            ],
+            "MarketingOptOut": {
+                "UserId": null,
+                "ReasonEnum": "REQUESTED",
+                "Reason": 0,
+                "OptOutDateStr": "08/01/2013",
+                "OptOutDate": "2013-08-01"
+            },
+            "ContactInteractionHistory": null,
+            "ConsumerProductSummaryList": [
+                {
+                    "SourceSystemId": "ASHING",
+                    "ProductRelationship": 1,
+                    "ProductNumber": "28808112",
+                    "TerminationDate": null,
+                    "Status": "ACTIVE",
+                    "SourceSystemProductKey": "ASHDA-ING",
+                    "EffectiveDate": "2006-01-01",
+                    "CoverageInformation": null,
+                    "CommonStatus": "0",
+                    "Organization": {
+                        "OrganizationSegment": null,
+                        "OrganizationId": null,
+                        "ContractNumber": "00000000"
+                    }
+                },
+                {
+                    "SourceSystemId": "LIFEPRO",
+                    "ProductRelationship": 2,
+                    "ProductNumber": "76JV5309346",
+                    "TerminationDate": null,
+                    "Status": "ACTIVE",
+                    "SourceSystemProductKey": "GILT75",
+                    "EffectiveDate": "1993-03-06",
+                    "CoverageInformation": null,
+                    "CommonStatus": "0",
+                    "Organization": {
+                        "OrganizationSegment": null,
+                        "OrganizationId": null,
+                        "ContractNumber": "03703922"
+                    }
+                },
+                {
+                    "SourceSystemId": "AD&D",
+                    "ProductRelationship": 1,
+                    "ProductNumber": "28808112",
+                    "TerminationDate": null,
+                    "Status": "ACTIVE",
+                    "SourceSystemProductKey": "ASHDA-ING",
+                    "EffectiveDate": "2006-01-01",
+                    "CoverageInformation": null,
+                    "CommonStatus": "0",
+                    "Organization": {
+                        "OrganizationSegment": null,
+                        "OrganizationId": null,
+                        "ContractNumber": "00000000"
+                    }
+                },
+                {
+                    "SourceSystemId": "ADDM",
+                    "ProductRelationship": 2,
+                    "ProductNumber": "28808112",
+                    "TerminationDate": null,
+                    "Status": "ACTIVE",
+                    "SourceSystemProductKey": "ASHDA-ING",
+                    "EffectiveDate": "2006-01-01",
+                    "CoverageInformation": null,
+                    "CommonStatus": "0",
+                    "Organization": {
+                        "OrganizationSegment": null,
+                        "OrganizationId": null,
+                        "ContractNumber": "00000000"
+                    }
+                }
+            ],
+            "ConsumerMarketingPerson": {
+                "SocialSecurityNumberInformation": {
+                    "TaxId": "800093025",
+                    "TaxIdLastFour": null,
+                    "SocialSecurityNumberType": null,
+                    "ChangedAttribute": null
+                },
+                "PhoneList": [
+                    {
+                        "PhoneType": 1,
+                        "PhoneNumber": "6109210331",
+                        "EffectiveChangedAttribute": null
+                    },
+                    {
+                        "PhoneType": 2,
+                        "PhoneNumber": "14154496368",
+                        "EffectiveChangedAttribute": null
+                    },
+                    {
+                        "PhoneType": 3,
+                        "PhoneNumber": "",
+                        "EffectiveChangedAttribute": null
+                    }
+                ],
+                "PersonId": "2000000081817",
+                "MaritalStatus": {
+                    "MaritalStatusCode": "5",
+                    "ChangedAttribute": null
+                },
+                "Gender": {
+                    "GenderType": null,
+                    "GenderCode": 0,
+                    "ChangedAttribute": null
+                },
+                "EmailAddressList": null,
+                "DeceasedInformation": {
+                    "DeceasedFlagInfo": {
+                        "DeceasedIndicator": false,
+                        "ChangedAttribute": null
+                    },
+                    "DeathDateInfo": {
+                        "DeathDate": null,
+                        "ChangedAttribute": null
+                    }
+                },
+                "ConsumerMarketingPersonName": {
+                    "Suffix": "",
+                    "Prefix": "",
+                    "MiddleName": "J",
+                    "LastName": "Wegner",
+                    "FirstName": "Brad",
+                    "Designation": "",
+                    "EffectiveChangedAttribute": null
+                },
+                "BirthDateInformation": {
+                    "IncompleteBirthDate": null,
+                    "BirthDateType": "0",
+                    "BirthDate": "1979-09-06",
+                    "ChangedAttribute": null
+                },
+                "AddressList": [
+                    {
+                        "StateProvince": "WI",
+                        "PostalCode": "537194031",
+                        "GeographicInfo": null,
+                        "Country": "",
+                        "City": "MADISON",
+                        "AddressStandardizationInfo": {
+                            "ConfidenceCode": null,
+                            "AddressStandardizationType": "0"
+                        },
+                        "AddressLines": [
+                            "3901 MAMMOTH TRL"
+                        ],
+                        "AddressDerivedKey": "537194031xx3901MAMMOTHTRL",
+                        "PreferredFlag": true,
+                        "MailableFlag": null,
+                        "EffectiveChangedAttribute": {
+                            "ValidationInfo": {
+                                "ValidationDateTime": "2013-08-22T05:00:00.000Z",
+                                "UserId": null
+                            },
+                            "CreationInfo": null,
+                            "EndDateTime": null,
+                            "EffectiveDateTime": "2013-07-26T05:00:00.000Z"
+                        }
+                    }
+                ]
+            },
+            "ApplicationList": null
+        }
+    ]
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>QuoteProductData</masterLabel>
+    <isExposed>true</isExposed>
+    <description>TBD</description>
+    <lightningMessageFields>
+        <fieldName>gender</fieldName>
+        <description></description>
+    </lightningMessageFields> 
+    <lightningMessageFields>
+        <fieldName>state</fieldName>
+        <description></description>
+    </lightningMessageFields> 
+    <lightningMessageFields>
+        <fieldName>zipCode</fieldName>
+        <description>Zip Code</description>
+    </lightningMessageFields>  
+    <lightningMessageFields>
+        <fieldName>age</fieldName>
+        <description>age</description>
+    </lightningMessageFields> 
+    <lightningMessageFields>
+        <fieldName>birthDate</fieldName>
+        <description></description>
+    </lightningMessageFields> 
+    <lightningMessageFields>
+        <fieldName>requestingSystemName</fieldName>
+        <description></description>
+    </lightningMessageFields>   
+    <lightningMessageFields>
+        <fieldName>contractNumber</fieldName>
+        <description></description>
+    </lightningMessageFields>    
+    <lightningMessageFields>
+        <fieldName>organizationId</fieldName>
+        <description></description>
+    </lightningMessageFields>  
+    <lightningMessageFields>
+        <fieldName>tobaccoUse</fieldName>
+        <description></description>
+    </lightningMessageFields>   
+    <lightningMessageFields>
+        <fieldName>channel</fieldName>
+        <description></description>
+    </lightningMessageFields>               
+</LightningMessageChannel>

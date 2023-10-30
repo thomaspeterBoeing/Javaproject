@@ -2,12 +2,41 @@
   "packageDirectories": [
     
     {
-      "path": "d2c-org/d2c-core/base-code",
-      "default": true,
-      "package": "D2C Core Base Code",
+      "path": "d2c-org/d2c-core/error-handling-framework",
+      "package": "D2C Core Error Handling Framework",
       "versionName": "ver 0.1",
       "versionNumber": "0.1.0.NEXT",
-      "versionDescription": "Code that can be shared by all tenants in the org."    
+      "default": false,
+      "versionDescription": "Common error handling components in D2C Org",
+      "dependencies": [
+        {
+          "package": "D2C Core Base Configurations",
+          "versionNumber": "0.1.0.LATEST"
+        }
+      ]
+    },
+    {
+      "path": "d2c-org/ilh-sales/base-code",
+      "default": true,
+      "package": "ILH Sales Base Code",
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "versionDescription": "Code shared in ILH Sales applications",
+      "dependencies": [
+        {
+          "package": "D2C Core Base Configurations",
+          "versionNumber": "0.1.0.LATEST"
+        },
+        {
+          "package": "D2C Core Error Handling Framework",
+          "versionNumber": "0.1.0.LATEST"
+        }
+
+      ]
+    },
+    {
+      "path": "d2c-org/ilh-sales/consumer-search",
+      "default": false
     }
   ],
   "namespace": "",
@@ -16,6 +45,8 @@
   "packageAliases": {
     "D2C Core Base Configurations": "0HoDm0000004CEIKA2",
     "ILH Sales Base Configurations": "0HoDm0000004CENKA2",
-    "D2C Core Base Code": "0HoDm000000blK7KAI"
+    "D2C Core Base Code": "0HoDm000000blK7KAI",
+    "ILH Sales Base Code": "0HoDm0000004CESKA2",
+    "D2C Core Error Handling Framework": "0HoDm0000004CEXKA2"
   }
 }
