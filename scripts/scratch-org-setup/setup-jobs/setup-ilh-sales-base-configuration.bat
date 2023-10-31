@@ -1,10 +1,10 @@
-
+echo off
 REM -----------------------------------------------------------------------------------------------------
 REM This script will install package version for ILH Sales Base Configuration package.
 REM Test data is also generated along with test admin user account is created if selected.  
 REM  !!!!  This should only be used for scratch org setup.  !!!!!!!
 REM -------------------------------------------------------------------------------------------------------
-echo off
+
 IF [%1] == [] goto setup
 
 Set devhub= %1
@@ -33,8 +33,10 @@ echo "*** Load data ... "
 call sf data import tree  --plan scripts\scratch-org-setup\data\ilh-sales-base-configuration-data-plan.json
 echo "*** Updating Person Account record type ...."
 call sf apex run -f scripts\scratch-org-setup\apex\ILHSalesBaseConfig-UpdatePersonAccountRecordtype.apex
-echo "*** Assign Account Contact Relation... "
-call sf apex run -f scripts\scratch-org-setup\apex\ILHSalesBaseConfig-InsertAccountContactRelation.apex
+REM This feature was disabled. Will keep code for now in case it is enabled in the future. 
+REM echo "*** Assign Account Contact Relation... "
+REM call sf apex run -f scripts\scratch-org-setup\apex\ILHSalesBaseConfig-InsertAccountContactRelation.apex
+
 echo "*** Update Campaign RecordType... "
 call sf apex run -f scripts\scratch-org-setup\apex\ILHSalesBaseConfig-UpdateCampaignRecordtype.apex
 echo "*** Insert Opportunities... "

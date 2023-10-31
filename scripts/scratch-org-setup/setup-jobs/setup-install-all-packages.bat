@@ -23,4 +23,7 @@ call sf project deploy start --source-dir "d2c-org/d2c-core/unpackaged-configura
 call scripts\scratch-org-setup\setup-jobs\setup-d2c-core-base-configuration.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-base-configuration.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-d2c-core-base-code.bat %DevHub% %InstallationKey%
+call scripts\scratch-org-setup\setup-jobs\setup-d2c-core-error-handling-framework.bat %DevHub% %InstallationKey%
+call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-base-code.bat %DevHub% %InstallationKey%
+call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-consumer-search.bat %DevHub% %InstallationKey%
 

@@ -1,44 +1,36 @@
 {
   "packageDirectories": [
-    
     {
-      "path": "d2c-org/d2c-core/error-handling-framework",
-      "package": "D2C Core Error Handling Framework",
-      "versionName": "ver 0.1",
-      "versionNumber": "0.1.0.NEXT",
-      "default": false,
-      "versionDescription": "Common error handling components in D2C Org",
-      "dependencies": [
-        {
-          "package": "D2C Core Base Configurations",
-          "versionNumber": "0.1.0.LATEST"
-        }
-      ]
-    },
-    {
-      "path": "d2c-org/ilh-sales/base-code",
+      "path": "d2c-org/ilh-sales/consumer-search",
       "default": true,
-      "package": "ILH Sales Base Code",
+      "package": "ILH Sales Consumer Search ",
       "versionName": "ver 0.1",
       "versionNumber": "0.1.0.NEXT",
-      "versionDescription": "Code shared in ILH Sales applications",
-      "dependencies": [
+      "versionDescription": "LWC used for searching for consumers in CPS and the D2C Org",
+        "dependencies": [
         {
           "package": "D2C Core Base Configurations",
           "versionNumber": "0.1.0.LATEST"
         },
         {
+          "package": "ILH Sales Base Configurations",
+          "versionNumber": "0.1.0.LATEST"
+        },
+        {
+          "package": "D2C Core Base Code",
+          "versionNumber": "0.1.0.LATEST"
+        },
+        {
           "package": "D2C Core Error Handling Framework",
           "versionNumber": "0.1.0.LATEST"
-        }
-
+        },
+        {
+          "package": "ILH Sales Base Code",
+          "versionNumber": "0.1.0.LATEST"
+        } 
       ]
-    },
-    {
-      "path": "d2c-org/ilh-sales/consumer-search",
-      "default": false
     }
-  ],
+  ],    
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "59.0",
@@ -47,6 +39,7 @@
     "ILH Sales Base Configurations": "0HoDm0000004CENKA2",
     "D2C Core Base Code": "0HoDm000000blK7KAI",
     "ILH Sales Base Code": "0HoDm0000004CESKA2",
-    "D2C Core Error Handling Framework": "0HoDm0000004CEXKA2"
+    "D2C Core Error Handling Framework": "0HoDm0000004CEXKA2",
+    "ILH Sales Consumer Search ": "0HoDm0000004CEcKAM"
   }
 }
