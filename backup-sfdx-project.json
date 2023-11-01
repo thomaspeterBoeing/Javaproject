@@ -91,6 +91,10 @@
           "versionNumber": "0.1.0.LATEST"
         } 
       ]
+    },
+    {
+      "path": "d2c-org/ilh-sales/post-install-configurations",        
+      "default": true      
     }
   ],    
   "namespace": "",

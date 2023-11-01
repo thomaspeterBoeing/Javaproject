@@ -26,4 +26,5 @@ call scripts\scratch-org-setup\setup-jobs\setup-d2c-core-base-code.bat %DevHub% 
 call scripts\scratch-org-setup\setup-jobs\setup-d2c-core-error-handling-framework.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-base-code.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-consumer-search.bat %DevHub% %InstallationKey%
+call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-lightning-applications.bat %DevHub% %InstallationKey%
 

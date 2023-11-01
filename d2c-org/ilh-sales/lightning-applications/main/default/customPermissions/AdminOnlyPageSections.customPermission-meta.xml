@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Sections on Lightning pages should only be visible to Admins for support needs.  Permission is used in filters to display these sections.</description>
+    <isLicensed>false</isLicensed>
+    <label>Admin Only Page Sections</label>
+</CustomPermission>

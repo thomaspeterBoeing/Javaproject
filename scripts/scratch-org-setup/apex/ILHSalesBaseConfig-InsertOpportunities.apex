@@ -1,5 +1,7 @@
 List<Opportunity> opptylist = New List<Opportunity>();
 List<Contact> cntList = [SELECT Id, LastName, AccountId FROM Contact WHERE IsPersonAccount = True];
+
+/*  Disabled Feature
 List<AccountContactRelation> acrList = [SELECT Id,AccountID,ContactID FROM AccountContactRelation];
 
 Map<String,String> acrMap = new Map<String,String>();
@@ -7,7 +9,7 @@ For(AccountContactRelation acr : acrList) {
   acrMap.put(acr.ContactId,acr.AccountId);
 
 }
-
+*/
 
 RecordType rt = 
 [SELECT Id, Name
@@ -25,7 +27,7 @@ For(Contact cnt: cntList){
        oppty.Amount = 25000;
        oppty.InsurancePurpose__c = 'Final Expenses';
        oppty.HealthAssessment__c = 'No Health Issues';
-       oppty.Affiliation__c = acrMap.get(cnt.id);
+       //oppty.Affiliation__c = cnt.Affiliation__c;
        opptylist.add(oppty);      
   
   }

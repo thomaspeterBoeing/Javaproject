@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>All permission required for the Sales Representative role.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>ILH Sales Representative Role</label>
+    <permissionSets>Account_Affiliation_D2CBaseConfiguration_R</permissionSets>
+    <permissionSets>Campaign_ILHSalesBaseConfiguration_R</permissionSets>
+    <permissionSets>ILHSalesConsole_ILHSalesConsoleApplication_AppAccess</permissionSets>
+    <permissionSets>ILHSalesRepTabVisibility_ILHSaleConsoleApplication</permissionSets>
+    <permissionSets>OpptySales_ILHSalesBaseConfiguration_RE</permissionSets>
+    <permissionSets>PersonAccount_ILHSalesBaseConfiguration_R</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>
