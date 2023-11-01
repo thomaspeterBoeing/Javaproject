@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ErrorDescription__c</fullName>
+    <businessOwnerGroup>ITDataOwner</businessOwnerGroup>
+    <businessStatus>Active</businessStatus>
+    <description>Detailed description of error.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Detailed description of error.</inlineHelpText>
+    <label>Error Description</label>
+    <length>32768</length>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

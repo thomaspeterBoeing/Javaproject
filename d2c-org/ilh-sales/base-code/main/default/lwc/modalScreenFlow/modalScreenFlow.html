@@ -1,0 +1,14 @@
+<template>
+    <lightning-modal-header label={modalTitle}></lightning-modal-header>
+    <lightning-modal-body>        
+        <lightning-flow
+            flow-api-name={flowAPIName}   
+            flow-input-variables={flowInputVariables}         
+            onstatuschange={handleFlowStatusChange}>          
+        </lightning-flow>
+    </lightning-modal-body>
+    
+    <!--Footer was not included. 
+         <lightning-modal-footer>  </lightning-modal-footer> 
+    -->
+</template>

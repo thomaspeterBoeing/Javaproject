@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>is_Active__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Whether this endpoint is active or not</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>is Active</label>
+    <type>Checkbox</type>
+</CustomField>

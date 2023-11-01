@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>OpporutnityData</masterLabel>
+    <isExposed>true</isExposed>
+    <description>TBD</description>
+    <lightningMessageFields>
+        <fieldName>accountId</fieldName>
+        <description>Salesforce Person Account Id</description>
+    </lightningMessageFields> 
+    <lightningMessageFields>
+        <fieldName>dnis</fieldName>
+        <description>Dialed Number Used to check for Toll Free Number Marketing Campaign</description>
+    </lightningMessageFields>       
+</LightningMessageChannel>

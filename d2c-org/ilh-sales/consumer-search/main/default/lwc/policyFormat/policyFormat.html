@@ -1,0 +1,174 @@
+<template>
+    <lightning-modal-header label="Policy Number Formatting"></lightning-modal-header>
+    <lightning-modal-body>
+        <lightning-card>
+            <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+                <lightning-accordion-section   name="ADD" label="AD&D">
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >Policy # format for policy search</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >xxx-xxxx-x	</lightning-layout-item>
+                        <lightning-layout-item size="3" >Axxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" >01701434A2350386</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >xxx-xxxx-x	</lightning-layout-item>
+                        <lightning-layout-item size="3" >Dxxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" >03400209D0609452</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >xxx-xxxx-x	</lightning-layout-item>
+                        <lightning-layout-item size="3" >Mxxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" >0420450xM7932014</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >xxx-xxxx-x	</lightning-layout-item>
+                        <lightning-layout-item size="3" >Txxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" >04201119T1269994</lightning-layout-item>
+                    </lightning-layout>
+                </lightning-accordion-section>
+
+                <lightning-accordion-section name="Life70" label="Life 70">
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="3" >01</lightning-layout-item>
+                        <lightning-layout-item size="3" >xxxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >0101107340</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >0130001244</lightning-layout-item>
+
+                        <lightning-layout-item size="3" >06</lightning-layout-item>
+                        <lightning-layout-item size="3" >xxxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >0660097491</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >0636xxxxxx</lightning-layout-item>
+
+                        <lightning-layout-item size="3" >81</lightning-layout-item>
+                        <lightning-layout-item size="3" >xxxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >8100133997</lightning-layout-item>
+
+                    </lightning-layout>
+                </lightning-accordion-section>
+
+                <lightning-accordion-section name="LifeProf2f" label="LifePRO - Face to Face">
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="3" >06</lightning-layout-item>
+                        <lightning-layout-item size="3" >000036xxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" >VUL</lightning-layout-item>
+                        <lightning-layout-item size="3" >06000036025002</lightning-layout-item>
+
+                        <lightning-layout-item size="3" >06</lightning-layout-item>
+                        <lightning-layout-item size="3" >000045xxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" >TERM</lightning-layout-item>
+                        <lightning-layout-item size="3" >06000045008610</lightning-layout-item>
+
+                        <lightning-layout-item size="3" >06</lightning-layout-item>
+                        <lightning-layout-item size="3" >000040xxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" >VA</lightning-layout-item>
+                        <lightning-layout-item size="3" >06000040016288</lightning-layout-item>
+                    </lightning-layout>
+                </lightning-accordion-section>
+                <lightning-accordion-section name="LifeProDirect" label="LifePRO - Direct Response">
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="3" >21</lightning-layout-item>
+                        <lightning-layout-item size="3" >01xxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >21011057312</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >00xxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >21007870801</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >37xxxxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >2137384343141</lightning-layout-item>
+
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >MLxxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >21ML0000402</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >MHxxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >21MH0003012</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >10000xxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >2110000xxxxx</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >00000xxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >2100000xxxx</lightning-layout-item>
+
+                        <lightning-layout-item size="3" >41</lightning-layout-item>
+                        <lightning-layout-item size="3" >CLxxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >41CLxxxxxxx</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >JVxxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >41JV03863</lightning-layout-item>
+
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >ISxxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >41ISxxxxxxx</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >CHxxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >41CHxxxxxxx</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >FPxxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >41FP0009999</lightning-layout-item>
+
+                        <lightning-layout-item size="3" >51</lightning-layout-item>
+                        <lightning-layout-item size="3" >000xxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >51000432111</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >HPxxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >51HP0004222</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >HPxxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >51IH0220260</lightning-layout-item>
+
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >NJxxxxxxx</lightning-layout-item>
+                        <lightning-layout-item size="3" ></lightning-layout-item>
+                        <lightning-layout-item size="3" >51NJ4047870</lightning-layout-item>
+                    </lightning-layout>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </lightning-card>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button data-id="btnClose" label="OK" onclick={handleClose}></lightning-button>
+    </lightning-modal-footer>
+</template>

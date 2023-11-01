@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Created by Lightning App Builder</description>
+    <flexiPage>ILH_Sales_Consumer_Search</flexiPage>
+    <label>Consumer Search</label>
+    <motif>Custom15: People</motif>
+</CustomTab>

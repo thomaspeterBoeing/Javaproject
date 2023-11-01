@@ -1,0 +1,14 @@
+.mainTitle {
+    overflow: hidden;
+    width: 200px;
+    text-overflow: ellipsis;
+}
+
+:host {
+    --slds-c-accordion-heading-text-color: white;    
+    --slds-c-accordion-heading-font-size: 1.0rem;   
+    --slds-c-accordion-color-border:black;	
+    --slds-c-accordion-heading-line-height:1.25;
+    --slds-c-accordion-summary-color-background	:black;	
+}
+

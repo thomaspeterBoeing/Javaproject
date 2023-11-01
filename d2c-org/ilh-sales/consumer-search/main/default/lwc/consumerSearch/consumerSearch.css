@@ -1,0 +1,50 @@
+.list-first {
+    border-top: 1px solid blue;
+    padding-top: 5px;
+}
+
+.list-last {
+    border-bottom: 1px solid blue;
+    padding-bottom: 5px;
+}
+
+.slds-box {
+	background-color: #FFF;
+}
+
+h1 {
+    font-size: medium;
+    padding-bottom:10px;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+.searchPadding{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.newBtnDiv{
+    width:100%; 
+    padding-right:10px; 
+    padding-bottom:3px; 
+    text-align: right;
+}
+
+.titleContainer {    
+    margin: 1rem;    
+}
+  
+.childTitle {
+    display: inline-block;        
+    vertical-align: top;
+}
+
+:host {       
+    –slds-c-button-color-border: black;
+    –slds-c-button-spacing-block-end: 1rem;
+    –slds-c-button-spacing-block-start: 1rem;
+    –slds-c-button-spacing-inline-end: 1rem;
+    –slds-c-button-spacing-inline-start: 1rem;    
+}

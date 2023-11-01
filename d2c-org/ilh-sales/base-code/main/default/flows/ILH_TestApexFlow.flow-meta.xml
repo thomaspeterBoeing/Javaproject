@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <assignments>
+        <description>Assigns the output variable using a formula variable that concatenates the input variables.</description>
+        <name>Assign_Output_Variable</name>
+        <label>Assign Output Variable</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <assignmentItems>
+            <assignToReference>outputTxt_ValueC</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>outputFormula</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>This flow is used within Apex test classes for testing Apex classes that call flows.  The flow accepts two input variables and will concatenate those variables and assign to an output variable.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>outputFormula</name>
+        <dataType>String</dataType>
+        <expression>{!inputTxt_ValueA} + {!inputTxt_ValueB}</expression>
+    </formulas>
+    <interviewLabel>ILH Test Apex Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>ILH Test Apex Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <runInMode>DefaultMode</runInMode>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Assign_Output_Variable</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+    <variables>
+        <description>Input variable</description>
+        <name>inputTxt_ValueA</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Input variable</description>
+        <name>inputTxt_ValueB</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Output Variable.</description>
+        <name>outputTxt_ValueC</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

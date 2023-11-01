@@ -1,13 +1,46 @@
 {
   "orgName": "TruStage D2C",
-  "sourceOrg": "00DDm000000IAHr",
-  "features": ["PersonAccounts"],
+  "description": "Scratch org",
+  "edition": "Enterprise",    
+  "country": "US",
+  "language": "en_US",
+  "features": ["PersonAccounts"],  
   "settings": {
-    "lightningExperienceSettings": {
-      "enableS1DesktopEnabled": true
+    "userManagementSettings": {
+      "enableEnhancedPermsetMgmt": true,
+      "enableNewProfileUI": true,
+      "permsetsInFieldCreation": true     
     },
-    "mobileSettings": {
-      "enableS1EncryptedStoragePref2": false
+    "nameSettings":{
+        "enableMiddleName": true,
+        "enableNameSuffix": true
+    },   
+    "securitySettings": {
+      "sessionSettings":{
+        "forceRelogin": false      
+      },
+      "enableAdminLoginAsAnyUser": true
+    }
+  },
+  "objectSettings": {
+    "opportunity": {
+      "sharingModel": "private",
+      "defaultRecordType": "default"
+    },
+    "account": {
+      "sharingModel": "private",
+      "defaultRecordType": "default"
+    },
+    "contact": {
+      "sharingModel": "private",
+      "defaultRecordType": "default"
+    },
+    "campaign": {
+      "sharingModel": "private",
+      "defaultRecordType": "default"
+    },
+    "user": {
+      "sharingModel": "private"
     }
   }
-}
+}  

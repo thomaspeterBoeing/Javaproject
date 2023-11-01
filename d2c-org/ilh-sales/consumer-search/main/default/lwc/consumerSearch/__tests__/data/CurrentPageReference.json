@@ -1,0 +1,13 @@
+{
+    "type": "standard__navItemPage",
+    "attributes": {
+        "apiName": "Member_Search"
+    },
+    "state": {
+        "c__ani":"(800)000-9999",
+        "c__dnis":"(800)000-2222",
+        "c__sggid":"UNIQUEIDFORPHONESYSTEM",
+        "c__lob":"Sutherland"
+    }
+   
+}
