@@ -14,7 +14,7 @@
     },   
     {
       "path": "d2c-org/ilh-sales/base-configurations",
-      "default": true,
+      "default": false,
       "package": "ILH Sales Base Configurations",
       "versionName": "ver 0.1",
       "versionNumber": "0.1.0.NEXT",
@@ -65,7 +65,7 @@
     {
       "path": "d2c-org/ilh-sales/consumer-search",
       "default": false,
-      "package": "ILH Sales Consumer Search ",
+      "package": "ILH Sales Consumer Search",
       "versionName": "ver 0.1",
       "versionNumber": "0.1.0.NEXT",
       "versionDescription": "LWC used for searching for consumers in CPS and the D2C Org",
@@ -91,12 +91,46 @@
           "versionNumber": "0.1.0.LATEST"
         } 
       ]
+    },    
+    {
+      "path": "d2c-org/ilh-sales/lightning-applications",
+      "default": false,
+      "package": "ILH Sales Lightning Applications",
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "versionDescription": "Lightning apps, lightning pages and other components for ILH Sales users",
+      "dependencies": [
+        {
+          "package": "D2C Core Base Configurations",
+          "versionNumber": "0.1.0.LATEST"
+        },
+        {
+          "package": "ILH Sales Base Configurations",
+          "versionNumber": "0.1.0.LATEST"
+        },
+        {
+          "package": "D2C Core Base Code",
+          "versionNumber": "0.1.0.LATEST"
+        },
+        {
+          "package": "D2C Core Error Handling Framework",
+          "versionNumber": "0.1.0.LATEST"
+        },
+        {
+          "package": "ILH Sales Base Code",
+          "versionNumber": "0.1.0.LATEST"
+        },
+        {
+          "package": "ILH Sales Consumer Search",
+          "versionNumber": "0.1.0.LATEST"
+        }  
+      ]
     },
     {
-      "path": "d2c-org/ilh-sales/post-install-configurations",        
-      "default": true      
+      "path": "d2c-org/ilh-sales/post-install-unpackaged",        
+      "default": true     
     }
-  ],    
+  ],
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "59.0",
@@ -106,6 +140,7 @@
     "D2C Core Base Code": "0HoDm000000blK7KAI",
     "ILH Sales Base Code": "0HoDm0000004CESKA2",
     "D2C Core Error Handling Framework": "0HoDm0000004CEXKA2",
-    "ILH Sales Consumer Search ": "0HoDm0000004CEcKAM"
+    "ILH Sales Consumer Search": "0HoDm0000004CEcKAM",
+    "ILH Sales Lightning Applications": "0HoDm0000004CEhKAM"
+    }
   }
-}

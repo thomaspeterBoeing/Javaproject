@@ -1,7 +1,10 @@
 
 echo off
-REM This script will install package version for D2C Core Base code package. 
+REM This script will install package version for ILH Sales Base code package. 
 REM  !!!!  This should only be used for scratch org setup.  !!!!!!!
+REM
+REM  Dependencies:
+REM    - D2C Core Error Handling Framework
 REM -------------------------------------------------------------------------------------------------------
 
 IF [%1] == [] goto Setup

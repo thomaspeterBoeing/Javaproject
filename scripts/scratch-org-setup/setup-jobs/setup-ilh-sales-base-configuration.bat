@@ -3,6 +3,9 @@ REM ----------------------------------------------------------------------------
 REM This script will install package version for ILH Sales Base Configuration package.
 REM Test data is also generated along with test admin user account is created if selected.  
 REM  !!!!  This should only be used for scratch org setup.  !!!!!!!
+REM
+REM  Dependencies:   
+REM       -  D2C Core Base Configuration
 REM -------------------------------------------------------------------------------------------------------
 
 IF [%1] == [] goto setup

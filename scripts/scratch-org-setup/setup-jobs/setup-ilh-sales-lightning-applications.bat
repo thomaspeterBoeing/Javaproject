@@ -1,7 +1,16 @@
 
 echo off
-REM This script will install package version for D2C Core Base code package. 
+REM This script will install package version for ILH Sales Lightning Applications package. 
 REM  !!!!  This should only be used for scratch org setup.  !!!!!!!
+REM
+REM  Dependencies:
+REM       - D2C Core Base Configurations
+REM       - ILH Sales Base Configurations
+REM       - D2C Core Base Code
+REM       - D2C Core Error Handling Framework
+REM       - ILH Sales Base Code
+REM       - ILH Sales Consumer Search
+REM        
 REM -------------------------------------------------------------------------------------------------------
 IF [%1] == [] goto Setup
 
@@ -24,6 +33,9 @@ for /f "tokens=1,2 delims=:{} " %%A in (c:\temp\packageVerID.json) do (
 
 echo Found Package Version ID %packageversionid%  Installing package 
 call sf package install --package %packageversionid% --installation-key %installationkey% --wait 5 --security-type AllUsers 
+
+echo "*** Assign Permission Sets ...."
+call sf org assign permset --name ILHSalesAdminRole
 
 echo *********** Installed package ILH Sales Lightning Applications
 

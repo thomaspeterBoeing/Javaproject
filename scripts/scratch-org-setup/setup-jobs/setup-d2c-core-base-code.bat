@@ -2,6 +2,8 @@
 echo off
 REM This script will install package version for D2C Core Base code package. 
 REM  !!!!  This should only be used for scratch org setup.  !!!!!!!
+REM
+REM  Dependencies:   None
 REM -------------------------------------------------------------------------------------------------------
 IF [%1] == [] goto Setup
 
