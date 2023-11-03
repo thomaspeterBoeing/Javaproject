@@ -70,5 +70,9 @@
         <description>First Name of Consumer</description>
         <fieldName>firstName</fieldName>
     </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Email</description>
+        <fieldName>email</fieldName>
+    </lightningMessageFields>
     <masterLabel>ConsumerData</masterLabel>
 </LightningMessageChannel>

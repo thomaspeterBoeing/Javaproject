@@ -3,6 +3,8 @@ echo off
 REM This script will install package version for D2C Core Base Configuration package.
 REM Test data is also generated along with test admin user account is created if selected.  
 REM  !!!!  This should only be used for scratch org setup.  !!!!!!!
+REM
+REM  Dependencies:   None
 REM -------------------------------------------------------------------------------------------------------
 IF [%1] == [] goto Setup
 

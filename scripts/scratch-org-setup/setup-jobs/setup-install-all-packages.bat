@@ -20,11 +20,16 @@ set /p InstallationKey= Enter Installation Key for packages:
 
 :LoadSO
 call sf project deploy start --source-dir "d2c-org/d2c-core/unpackaged-configurations"
+if %ERRORLEVEL% NEQ 0 goto :Done
 call scripts\scratch-org-setup\setup-jobs\setup-d2c-core-base-configuration.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-base-configuration.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-d2c-core-base-code.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-d2c-core-error-handling-framework.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-base-code.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-consumer-search.bat %DevHub% %InstallationKey%
+call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-consumer-opportunity-automation.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-lightning-applications.bat %DevHub% %InstallationKey%
+call sf project deploy start --source-dir "d2c-org/ilh-sales/post-install-unpackaged"
+
+:Done
 
