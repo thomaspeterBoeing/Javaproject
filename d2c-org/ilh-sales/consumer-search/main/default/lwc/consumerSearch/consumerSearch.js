@@ -133,7 +133,7 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 			mailingStreet: currentItem.street,
 			mailingCity: currentItem.city,
 			mailingState: currentItem.state,
-			mailingPostalCode: currentItem.zipcode				
+			mailingPostalCode: currentItem.zipcode							
         };			
         publish(this.MessageContext, CONSUMER_DATA_CHANNEL, payload);		
 	}
@@ -429,7 +429,10 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
             firstName: this.firstName,
             lastName: this.lastName,
             homePhone: this.phone,
-            gender: this.gender
+            gender: this.gender,
+			mailingPostalCode: this.postalCode,
+			birthDate: this.dateOfBirth
+
         };		
         publish(this.MessageContext, CONSUMER_DATA_CHANNEL, payload);
 	}

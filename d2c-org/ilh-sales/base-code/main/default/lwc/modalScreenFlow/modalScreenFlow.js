@@ -44,6 +44,7 @@ export default class ModalScreenFlow extends LightningModal{
     @api modalTitle;
     @api flowAPIName;
     @api flowInputVariables;    
+ 
    
     // When Screen Flow is finished modal window will close
     // Output variables will be passed to calling LWC

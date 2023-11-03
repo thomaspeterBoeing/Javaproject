@@ -91,7 +91,37 @@
           "versionNumber": "0.1.0.LATEST"
         } 
       ]
-    },    
+    },
+    {
+      "path": "d2c-org/ilh-sales/consumer-opportunity-automation",
+      "default": false,
+      "package": "ILH Sales Consumer and Opportunity Automation",
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "versionDescription": "Creation of Consumer Person Account and Opportunity processes",
+      "dependencies": [        
+        {
+          "package": "D2C Core Base Configurations",
+          "versionNumber": "0.1.0.LATEST"
+        },
+        {
+          "package": "ILH Sales Base Configurations",
+          "versionNumber": "0.1.0.LATEST"
+        },   
+        {
+          "package": "D2C Core Base Code",
+          "versionNumber": "0.1.0.LATEST"
+        },     
+        {
+          "package": "D2C Core Error Handling Framework",
+          "versionNumber": "0.1.0.LATEST"
+        },
+        {
+          "package": "ILH Sales Base Code",
+          "versionNumber": "0.1.0.LATEST"
+        }        
+      ]
+    },
     {
       "path": "d2c-org/ilh-sales/lightning-applications",
       "default": false,
@@ -141,6 +171,7 @@
     "ILH Sales Base Code": "0HoDm0000004CESKA2",
     "D2C Core Error Handling Framework": "0HoDm0000004CEXKA2",
     "ILH Sales Consumer Search": "0HoDm0000004CEcKAM",
-    "ILH Sales Lightning Applications": "0HoDm0000004CEhKAM"
-    }
+    "ILH Sales Lightning Applications": "0HoDm0000004CEhKAM",
+    "ILH Sales Consumer and Opportunity Automation": "0HoDm0000004CErKAM"
   }
+}
