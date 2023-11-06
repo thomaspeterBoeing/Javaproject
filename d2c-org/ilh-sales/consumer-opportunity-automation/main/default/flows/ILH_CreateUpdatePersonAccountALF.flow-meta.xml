@@ -47,10 +47,6 @@
         <locationY>1466</locationY>
         <actionName>ErrorLogger</actionName>
         <actionType>apex</actionType>
-        <connector>
-            <isGoTo>true</isGoTo>
-            <targetReference>Assignment030_Error_Message</targetReference>
-        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>errorDescription</name>
@@ -80,10 +76,6 @@
         <locationY>974</locationY>
         <actionName>ErrorLogger</actionName>
         <actionType>apex</actionType>
-        <connector>
-            <isGoTo>true</isGoTo>
-            <targetReference>Assignment030_Error_Message</targetReference>
-        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>errorDescription</name>
@@ -113,10 +105,6 @@
         <locationY>974</locationY>
         <actionName>ErrorLogger</actionName>
         <actionType>apex</actionType>
-        <connector>
-            <isGoTo>true</isGoTo>
-            <targetReference>Assignment030_Error_Message</targetReference>
-        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>errorDescription</name>
@@ -146,10 +134,6 @@
         <locationY>242</locationY>
         <actionName>ErrorLogger</actionName>
         <actionType>apex</actionType>
-        <connector>
-            <isGoTo>true</isGoTo>
-            <targetReference>Assignment030_Error_Message</targetReference>
-        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>errorDescription</name>
@@ -179,9 +163,6 @@
         <locationY>1532</locationY>
         <actionName>ErrorLogger</actionName>
         <actionType>apex</actionType>
-        <connector>
-            <targetReference>Assignment030_Error_Message</targetReference>
-        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>errorDescription</name>
@@ -372,26 +353,12 @@
         <name>Assignment020_Account_ID_to_Output_Variable</name>
         <label>Assignment020 Account ID to Output Variable</label>
         <locationX>1040</locationX>
-        <locationY>1964</locationY>
+        <locationY>1856</locationY>
         <assignmentItems>
             <assignToReference>outputTxt_AccountId</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>recordPersonAccountToCreateUpdate.Id</elementReference>
-            </value>
-        </assignmentItems>
-    </assignments>
-    <assignments>
-        <description>Capture error message to pass back to calling flow</description>
-        <name>Assignment030_Error_Message</name>
-        <label>Assignment030 Error Message</label>
-        <locationX>930</locationX>
-        <locationY>1640</locationY>
-        <assignmentItems>
-            <assignToReference>outputTxt_ErrorMsg</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Flow.FaultMessage</elementReference>
             </value>
         </assignmentItems>
     </assignments>
@@ -572,7 +539,7 @@ else create Person Account</description>
             <label>RTMI ID matches existing account with different Salesforce ID</label>
         </rules>
     </decisions>
-    <description>This flow takes in information about an individual and creates or updates a Person Account based on whether the Account ID field is populated. It also checks whether the RTMI ID already exists before inserting a new record.</description>
+    <description>This flow takes in information about an individual (either record or individual fields) and creates or updates a Person Account based on whether the Account ID field is populated. It also checks whether the RTMI ID already exists before inserting a new record. The Account ID is returned to the calling flow.</description>
     <environments>Default</environments>
     <interviewLabel>Create-Update Person Account ALF {!$Flow.CurrentDateTime}</interviewLabel>
     <label>ILH: Create-Update Person Account ALF</label>
@@ -833,14 +800,6 @@ else create Person Account</description>
     <variables>
         <description>Store value of account ID of record created by this flow and return to calling flow</description>
         <name>outputTxt_AccountId</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>true</isOutput>
-    </variables>
-    <variables>
-        <description>If fault occurs, capture error message and return to calling flow</description>
-        <name>outputTxt_ErrorMsg</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>

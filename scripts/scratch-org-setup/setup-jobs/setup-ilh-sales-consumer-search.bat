@@ -33,5 +33,5 @@ for /f "tokens=1,2 delims=:{} " %%A in (c:\temp\packageVerID.json) do (
 echo Found Package Version ID %packageversionid%  Installing package 
 call sf package install --package %packageversionid% --installation-key %installationkey% --wait 5 --security-type AllUsers 
 
-echo *********** Installed package ILH Sales Consumer Search
+echo **********  Installed Package ILH Sales Consumer Search  **********
 
