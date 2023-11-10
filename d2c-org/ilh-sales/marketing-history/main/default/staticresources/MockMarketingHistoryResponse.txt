@@ -1,0 +1,668 @@
+[
+    {
+        "ContactInteractionId": 454489775,
+        "SequenceNumber": 1009877134222,
+        "ContactType": "DirectMail",
+        "Person": {
+            "PersonId": "3700006554210",
+            "SocialSecurityNumber": null,
+            "SocialSecurityNumberToken": 875099325,
+            "FirstName": "Test First",
+            "MiddleName": "J",
+            "LastName": "Test Last",
+            "GenerationName": null,
+            "Gender": "F",
+            "PhoneNumber": "3301984178",
+            "BirthDate": "1974-02-22T00:00:00",
+            "Address": {
+                "AddressLine1": "123 Main Street",
+                "AddressLine2": "NULL",
+                "AddressLine3": "NULL",
+                "City": "Madison",
+                "State": "WI",
+                "Zipcode": "53718"
+            }
+        },
+        "PersonRole": null,
+        "InitiatingProduct": {
+            "CampaignProductCode": "2QWP",
+            "InsuranceProductCode": null,
+            "OfsProductCode": "ISWLN21"
+        },
+        "ContactDate": "3023-07-10T00:00:00",
+        "FollowupFlag": false,
+        "ReplyByDate": null,
+        "Offer": [
+            {
+                "AgentDisclosure": {
+                    "Agent": null,
+                    "ExistingInsurance": null,
+                    "ReplacesPolicy": null,
+                    "ReplacementReason": null,
+                    "SalesMaterialsUsed": null,
+                    "SpecialInstructions": null,
+                    "ConversionDate": null,
+                    "CoverageAmount": null,
+                    "RespondentFirstName": "Test First",
+                    "RespondentLastName": "Test Last",
+                    "Relationship": null
+                },
+                "BillingDetail": {
+                    "BillingIndicatorCode": "J",
+                    "BillMethod": null,
+                    "BillingFrequency": null
+                },
+                "OfferExternalKey": null,
+                "OfferCode": "000006750",
+                "OfferCodeDescription": "0622 SIWL NB Letter New Creative Strategy",
+                "OfferVersion": "V003   ",
+                "OfferVersionDescription": " T2 - Designer’s Choice",
+                "OfferType": "T",
+                "KitCode": "SESI",
+                "KitCodeDescription": "SIWL ANB - T2 Designer’s Choice - Initial",
+                "ExcludeLifeUpgrade": true,
+                "OfferAgent": null
+            },
+            {
+                "AgentDisclosure": {
+                    "Agent": null,
+                    "ExistingInsurance": null,
+                    "ReplacesPolicy": null,
+                    "ReplacementReason": null,
+                    "SalesMaterialsUsed": null,
+                    "SpecialInstructions": null,
+                    "ConversionDate": null,
+                    "CoverageAmount": null,
+                    "RespondentFirstName": "Test First",
+                    "RespondentLastName": "Test Last",
+                    "Relationship": null
+                },
+                "BillingDetail": {
+                    "BillingIndicatorCode": "J",
+                    "BillMethod": null,
+                    "BillingFrequency": null
+                },
+                "OfferExternalKey": null,
+                "OfferCode": "000006750",
+                "OfferCodeDescription": "0622 SIWL NB Letter New Creative Strategy",
+                "OfferVersion": "V003   ",
+                "OfferVersionDescription": " T2 - Designer’s Choice",
+                "OfferType": "T",
+                "KitCode": "SESI",
+                "KitCodeDescription": "SIWL ANB - T2 Designer’s Choice - Initial",
+                "ExcludeLifeUpgrade": true,
+                "OfferAgent": null
+            }
+        ],
+        "Application": {
+            "SourceSystem": "CMG",
+            "SourceSystemKey": null,
+            "PolicyNumber": null,
+            "FormNumber": "ICC17-SIWLAPP"
+        },
+        "CampaignCode": "C000005170",
+        "CampaignCodeDescription": "2022-06 ILH C000005170",
+        "CampaignTypeDescription": "ILH",
+        "CreateTimestamp": "2022-09-23T15:08:32",
+        "Organization": {
+            "ContractNumber": "11111111",
+            "OrganizationSegmentKey": 1
+        },
+        "QualityControlIssues": []
+    },
+    {
+        "ContactInteractionId": 454489775,
+        "SequenceNumber": 1009877134222,
+        "ContactType": "DirectMail",
+        "Person": {
+            "PersonId": "3700006554210",
+            "SocialSecurityNumber": null,
+            "SocialSecurityNumberToken": 875099325,
+            "FirstName": "Test First",
+            "MiddleName": "J",
+            "LastName": "Test Last",
+            "GenerationName": null,
+            "Gender": "F",
+            "PhoneNumber": "3301984178",
+            "BirthDate": "1974-02-22T00:00:00",
+            "Address": {
+                "AddressLine1": "123 Main Street",
+                "AddressLine2": "NULL",
+                "AddressLine3": "NULL",
+                "City": "Madison",
+                "State": "WI",
+                "Zipcode": "53718"
+            }
+        },
+        "PersonRole": null,
+        "InitiatingProduct": {
+            "CampaignProductCode": "2QWP",
+            "InsuranceProductCode": null,
+            "OfsProductCode": "ISWLN21"
+        },
+        "ContactDate": "3023-07-30T00:00:00",
+        "FollowupFlag": false,
+        "ReplyByDate": null,
+        "Offer": [
+            {
+                "AgentDisclosure": {
+                    "Agent": null,
+                    "ExistingInsurance": null,
+                    "ReplacesPolicy": null,
+                    "ReplacementReason": null,
+                    "SalesMaterialsUsed": null,
+                    "SpecialInstructions": null,
+                    "ConversionDate": null,
+                    "CoverageAmount": null,
+                    "RespondentFirstName": "Test First",
+                    "RespondentLastName": "Test Last",
+                    "Relationship": null
+                },
+                "BillingDetail": {
+                    "BillingIndicatorCode": "J",
+                    "BillMethod": null,
+                    "BillingFrequency": null
+                },
+                "OfferExternalKey": null,
+                "OfferCode": "000006750",
+                "OfferCodeDescription": "0622 SIWL NB Letter New Creative Strategy",
+                "OfferVersion": "V003   ",
+                "OfferVersionDescription": " T2 - Designer’s Choice",
+                "OfferType": "T",
+                "KitCode": "SESI",
+                "KitCodeDescription": "SIWL ANB - T2 Designer’s Choice - Initial",
+                "ExcludeLifeUpgrade": true,
+                "OfferAgent": null
+            },
+            {
+                "AgentDisclosure": {
+                    "Agent": null,
+                    "ExistingInsurance": null,
+                    "ReplacesPolicy": null,
+                    "ReplacementReason": null,
+                    "SalesMaterialsUsed": null,
+                    "SpecialInstructions": null,
+                    "ConversionDate": null,
+                    "CoverageAmount": null,
+                    "RespondentFirstName": "Test First",
+                    "RespondentLastName": "Test Last",
+                    "Relationship": null
+                },
+                "BillingDetail": {
+                    "BillingIndicatorCode": "J",
+                    "BillMethod": null,
+                    "BillingFrequency": null
+                },
+                "OfferExternalKey": null,
+                "OfferCode": "000006750",
+                "OfferCodeDescription": "0622 SIWL NB Letter New Creative Strategy",
+                "OfferVersion": "V003   ",
+                "OfferVersionDescription": " T2 - Designer’s Choice",
+                "OfferType": "T",
+                "KitCode": "SESI",
+                "KitCodeDescription": "SIWL ANB - T2 Designer’s Choice - Initial",
+                "ExcludeLifeUpgrade": true,
+                "OfferAgent": null
+            }
+        ],
+        "Application": {
+            "SourceSystem": "CMG",
+            "SourceSystemKey": null,
+            "PolicyNumber": null,
+            "FormNumber": "ICC17-SIWLAPP"
+        },
+        "CampaignCode": "C000005170",
+        "CampaignCodeDescription": "2022-06 ILH C000005170",
+        "CampaignTypeDescription": "ILH",
+        "CreateTimestamp": "2022-09-23T15:08:32",
+        "Organization": {
+            "ContractNumber": "22222222",
+            "OrganizationSegmentKey": 1
+        },
+        "QualityControlIssues": []
+    },
+    {
+        "ContactInteractionId": 454489775,
+        "SequenceNumber": 1009877134222,
+        "ContactType": "DirectMail",
+        "Person": {
+            "PersonId": "3700006554210",
+            "SocialSecurityNumber": null,
+            "SocialSecurityNumberToken": 875099325,
+            "FirstName": "Test First",
+            "MiddleName": "J",
+            "LastName": "Test Last",
+            "GenerationName": null,
+            "Gender": "F",
+            "PhoneNumber": "3301984178",
+            "BirthDate": "1974-02-22T00:00:00",
+            "Address": {
+                "AddressLine1": "123 Main Street",
+                "AddressLine2": "NULL",
+                "AddressLine3": "NULL",
+                "City": "Madison",
+                "State": "WI",
+                "Zipcode": "53718"
+            }
+        },
+        "PersonRole": null,
+        "InitiatingProduct": {
+            "CampaignProductCode": "2QWP",
+            "InsuranceProductCode": null,
+            "OfsProductCode": "ISWLN21"
+        },
+        "ContactDate": "3023-07-15T00:00:00",
+        "FollowupFlag": false,
+        "ReplyByDate": null,
+        "Offer": [
+            {
+                "AgentDisclosure": {
+                    "Agent": null,
+                    "ExistingInsurance": null,
+                    "ReplacesPolicy": null,
+                    "ReplacementReason": null,
+                    "SalesMaterialsUsed": null,
+                    "SpecialInstructions": null,
+                    "ConversionDate": null,
+                    "CoverageAmount": null,
+                    "RespondentFirstName": "Test First",
+                    "RespondentLastName": "Test Last",
+                    "Relationship": null
+                },
+                "BillingDetail": {
+                    "BillingIndicatorCode": "J",
+                    "BillMethod": null,
+                    "BillingFrequency": null
+                },
+                "OfferExternalKey": null,
+                "OfferCode": "000006750",
+                "OfferCodeDescription": "0622 SIWL NB Letter New Creative Strategy",
+                "OfferVersion": "V003   ",
+                "OfferVersionDescription": " T2 - Designer’s Choice",
+                "OfferType": "T",
+                "KitCode": "SESI",
+                "KitCodeDescription": "SIWL ANB - T2 Designer’s Choice - Initial",
+                "ExcludeLifeUpgrade": true,
+                "OfferAgent": null
+            },
+            {
+                "AgentDisclosure": {
+                    "Agent": null,
+                    "ExistingInsurance": null,
+                    "ReplacesPolicy": null,
+                    "ReplacementReason": null,
+                    "SalesMaterialsUsed": null,
+                    "SpecialInstructions": null,
+                    "ConversionDate": null,
+                    "CoverageAmount": null,
+                    "RespondentFirstName": "Test First",
+                    "RespondentLastName": "Test Last",
+                    "Relationship": null
+                },
+                "BillingDetail": {
+                    "BillingIndicatorCode": "J",
+                    "BillMethod": null,
+                    "BillingFrequency": null
+                },
+                "OfferExternalKey": null,
+                "OfferCode": "000006750",
+                "OfferCodeDescription": "0622 SIWL NB Letter New Creative Strategy",
+                "OfferVersion": "V003   ",
+                "OfferVersionDescription": " T2 - Designer’s Choice",
+                "OfferType": "T",
+                "KitCode": "SESI",
+                "KitCodeDescription": "SIWL ANB - T2 Designer’s Choice - Initial",
+                "ExcludeLifeUpgrade": true,
+                "OfferAgent": null
+            }
+        ],
+        "Application": {
+            "SourceSystem": "CMG",
+            "SourceSystemKey": null,
+            "PolicyNumber": null,
+            "FormNumber": "ICC17-SIWLAPP"
+        },
+        "CampaignCode": "C000005170",
+        "CampaignCodeDescription": "2022-06 ILH C000005170",
+        "CampaignTypeDescription": "ILH",
+        "CreateTimestamp": "2022-09-23T15:08:32",
+        "Organization": {
+            "ContractNumber": "33333333",
+            "OrganizationSegmentKey": 1
+        },
+        "QualityControlIssues": []
+    },
+    {
+        "ContactInteractionId": 454489775,
+        "SequenceNumber": 1009877134222,
+        "ContactType": "DirectMail",
+        "Person": {
+            "PersonId": "3700006554210",
+            "SocialSecurityNumber": null,
+            "SocialSecurityNumberToken": 875099325,
+            "FirstName": "Test First",
+            "MiddleName": "J",
+            "LastName": "Test Last",
+            "GenerationName": null,
+            "Gender": "F",
+            "PhoneNumber": "3301984178",
+            "BirthDate": "1974-02-22T00:00:00",
+            "Address": {
+                "AddressLine1": "123 Main Street",
+                "AddressLine2": "NULL",
+                "AddressLine3": "NULL",
+                "City": "Madison",
+                "State": "WI",
+                "Zipcode": "53718"
+            }
+        },
+        "PersonRole": null,
+        "InitiatingProduct": {
+            "CampaignProductCode": "AD3P",
+            "InsuranceProductCode": null,
+            "OfsProductCode": "ISWLN21"
+        },
+        "ContactDate": "3023-07-20T00:00:00",
+        "FollowupFlag": false,
+        "ReplyByDate": null,
+        "Offer": [
+            {
+                "AgentDisclosure": {
+                    "Agent": null,
+                    "ExistingInsurance": null,
+                    "ReplacesPolicy": null,
+                    "ReplacementReason": null,
+                    "SalesMaterialsUsed": null,
+                    "SpecialInstructions": null,
+                    "ConversionDate": null,
+                    "CoverageAmount": null,
+                    "RespondentFirstName": "Test First",
+                    "RespondentLastName": "Test Last",
+                    "Relationship": null
+                },
+                "BillingDetail": {
+                    "BillingIndicatorCode": "J",
+                    "BillMethod": null,
+                    "BillingFrequency": null
+                },
+                "OfferExternalKey": null,
+                "OfferCode": "000006750",
+                "OfferCodeDescription": "0622 SIWL NB Letter New Creative Strategy",
+                "OfferVersion": "V003   ",
+                "OfferVersionDescription": " T2 - Designer’s Choice",
+                "OfferType": "T",
+                "KitCode": "SESI",
+                "KitCodeDescription": "SIWL ANB - T2 Designer’s Choice - Initial",
+                "ExcludeLifeUpgrade": true,
+                "OfferAgent": null
+            },
+            {
+                "AgentDisclosure": {
+                    "Agent": null,
+                    "ExistingInsurance": null,
+                    "ReplacesPolicy": null,
+                    "ReplacementReason": null,
+                    "SalesMaterialsUsed": null,
+                    "SpecialInstructions": null,
+                    "ConversionDate": null,
+                    "CoverageAmount": null,
+                    "RespondentFirstName": "Test First",
+                    "RespondentLastName": "Test Last",
+                    "Relationship": null
+                },
+                "BillingDetail": {
+                    "BillingIndicatorCode": "J",
+                    "BillMethod": null,
+                    "BillingFrequency": null
+                },
+                "OfferExternalKey": null,
+                "OfferCode": "000006750",
+                "OfferCodeDescription": "0622 SIWL NB Letter New Creative Strategy",
+                "OfferVersion": "V003   ",
+                "OfferVersionDescription": " T2 - Designer’s Choice",
+                "OfferType": "T",
+                "KitCode": "SESI",
+                "KitCodeDescription": "SIWL ANB - T2 Designer’s Choice - Initial",
+                "ExcludeLifeUpgrade": true,
+                "OfferAgent": null
+            }
+        ],
+        "Application": {
+            "SourceSystem": "CMG",
+            "SourceSystemKey": null,
+            "PolicyNumber": null,
+            "FormNumber": "ICC17-SIWLAPP"
+        },
+        "CampaignCode": "C000005170",
+        "CampaignCodeDescription": "2022-06 ILH C000005170",
+        "CampaignTypeDescription": "ILH",
+        "CreateTimestamp": "2022-09-23T15:08:32",
+        "Organization": {
+            "ContractNumber": "44444444",
+            "OrganizationSegmentKey": 1
+        },
+        "QualityControlIssues": []
+    },
+    {
+        "ContactInteractionId": 454489776,
+        "SequenceNumber": 1009877134223,
+        "ContactType": "DirectMail",
+        "Person": {
+            "PersonId": "3700006554210",
+            "SocialSecurityNumber": null,
+            "SocialSecurityNumberToken": 875099326,
+            "FirstName": "Test First",
+            "MiddleName": "J",
+            "LastName": "Test Last",
+            "GenerationName": null,
+            "Gender": "F",
+            "PhoneNumber": "3301984178",
+            "BirthDate": "1974-02-22T00:00:00",
+            "Address": {
+                "AddressLine1": "123 Main Street",
+                "AddressLine2": "NULL",
+                "AddressLine3": "NULL",
+                "City": "Madison",
+                "State": "WI",
+                "Zipcode": "53718"
+            }
+        },
+        "PersonRole": null,
+        "InitiatingProduct": {
+            "CampaignProductCode": "2QWP",
+            "InsuranceProductCode": null,
+            "OfsProductCode": "ISWLN21"
+        },
+        "ContactDate": "2022-07-20T00:00:00",
+        "FollowupFlag": false,
+        "ReplyByDate": null,
+        "Offer": [
+            {
+                "AgentDisclosure": {
+                    "Agent": null,
+                    "ExistingInsurance": null,
+                    "ReplacesPolicy": null,
+                    "ReplacementReason": null,
+                    "SalesMaterialsUsed": null,
+                    "SpecialInstructions": null,
+                    "ConversionDate": null,
+                    "CoverageAmount": null,
+                    "RespondentFirstName": "Test First",
+                    "RespondentLastName": "Test Last",
+                    "Relationship": null
+                },
+                "BillingDetail": {
+                    "BillingIndicatorCode": "J",
+                    "BillMethod": null,
+                    "BillingFrequency": null
+                },
+                "OfferExternalKey": null,
+                "OfferCode": "000006750",
+                "OfferCodeDescription": "0622 SIWL NB Letter New Creative Strategy",
+                "OfferVersion": "V003   ",
+                "OfferVersionDescription": " T2 - Designer’s Choice",
+                "OfferType": "T",
+                "KitCode": "SESI",
+                "KitCodeDescription": "SIWL ANB - T2 Designer’s Choice - Initial",
+                "ExcludeLifeUpgrade": true,
+                "OfferAgent": null
+            },
+            {
+                "AgentDisclosure": {
+                    "Agent": null,
+                    "ExistingInsurance": null,
+                    "ReplacesPolicy": null,
+                    "ReplacementReason": null,
+                    "SalesMaterialsUsed": null,
+                    "SpecialInstructions": null,
+                    "ConversionDate": null,
+                    "CoverageAmount": null,
+                    "RespondentFirstName": "Test First",
+                    "RespondentLastName": "Test Last",
+                    "Relationship": null
+                },
+                "BillingDetail": {
+                    "BillingIndicatorCode": "J",
+                    "BillMethod": null,
+                    "BillingFrequency": null
+                },
+                "OfferExternalKey": null,
+                "OfferCode": "000006750",
+                "OfferCodeDescription": "0622 SIWL NB Letter New Creative Strategy",
+                "OfferVersion": "V003   ",
+                "OfferVersionDescription": " T2 - Designer’s Choice",
+                "OfferType": "T",
+                "KitCode": "SESI",
+                "KitCodeDescription": "SIWL ANB - T2 Designer’s Choice - Initial",
+                "ExcludeLifeUpgrade": true,
+                "OfferAgent": null
+            }
+        ],
+        "Application": {
+            "SourceSystem": "CMG",
+            "SourceSystemKey": null,
+            "PolicyNumber": null,
+            "FormNumber": "ICC17-SIWLAPP"
+        },
+        "CampaignCode": "C000005170",
+        "CampaignCodeDescription": "2022-06 ILH C000005170",
+        "CampaignTypeDescription": "ILH",
+        "CreateTimestamp": "2022-09-23T15:08:32",
+        "Organization": {
+            "ContractNumber": "55555555",
+            "OrganizationSegmentKey": 1
+        },
+        "QualityControlIssues": []
+    },
+    {
+        "ContactInteractionId": 454489778,
+        "SequenceNumber": 1009877134225,
+        "ContactType": "DirectMail",
+        "Person": {
+            "PersonId": "3700006554210",
+            "SocialSecurityNumber": null,
+            "SocialSecurityNumberToken": 875099327,
+            "FirstName": "Test First",
+            "MiddleName": "J",
+            "LastName": "Test Last",
+            "GenerationName": null,
+            "Gender": "F",
+            "PhoneNumber": "3301984178",
+            "BirthDate": "1974-02-22T00:00:00",
+            "Address": {
+                "AddressLine1": "123 Main Street",
+                "AddressLine2": "NULL",
+                "AddressLine3": "NULL",
+                "City": "Madison",
+                "State": "WI",
+                "Zipcode": "53718"
+            }
+        },
+        "PersonRole": null,
+        "InitiatingProduct": {
+            "CampaignProductCode": "AUTP",
+            "InsuranceProductCode": null,
+            "OfsProductCode": "ISWLN21"
+        },
+        "ContactDate": null,
+        "FollowupFlag": false,
+        "ReplyByDate": null,
+        "Offer": [
+            {
+                "AgentDisclosure": {
+                    "Agent": null,
+                    "ExistingInsurance": null,
+                    "ReplacesPolicy": null,
+                    "ReplacementReason": null,
+                    "SalesMaterialsUsed": null,
+                    "SpecialInstructions": null,
+                    "ConversionDate": null,
+                    "CoverageAmount": null,
+                    "RespondentFirstName": "Test First",
+                    "RespondentLastName": "Test Last",
+                    "Relationship": null
+                },
+                "BillingDetail": {
+                    "BillingIndicatorCode": "J",
+                    "BillMethod": null,
+                    "BillingFrequency": null
+                },
+                "OfferExternalKey": null,
+                "OfferCode": "000006750",
+                "OfferCodeDescription": "0622 SIWL NB Letter New Creative Strategy",
+                "OfferVersion": "V003   ",
+                "OfferVersionDescription": " T2 - Designer’s Choice",
+                "OfferType": "T",
+                "KitCode": "SESI",
+                "KitCodeDescription": "SIWL ANB - T2 Designer’s Choice - Initial",
+                "ExcludeLifeUpgrade": true,
+                "OfferAgent": null
+            },
+            {
+                "AgentDisclosure": {
+                    "Agent": null,
+                    "ExistingInsurance": null,
+                    "ReplacesPolicy": null,
+                    "ReplacementReason": null,
+                    "SalesMaterialsUsed": null,
+                    "SpecialInstructions": null,
+                    "ConversionDate": null,
+                    "CoverageAmount": null,
+                    "RespondentFirstName": "Test First",
+                    "RespondentLastName": "Test Last",
+                    "Relationship": null
+                },
+                "BillingDetail": {
+                    "BillingIndicatorCode": "J",
+                    "BillMethod": null,
+                    "BillingFrequency": null
+                },
+                "OfferExternalKey": null,
+                "OfferCode": "000006750",
+                "OfferCodeDescription": "0622 SIWL NB Letter New Creative Strategy",
+                "OfferVersion": "V003   ",
+                "OfferVersionDescription": " T2 - Designer’s Choice",
+                "OfferType": "T",
+                "KitCode": "SESI",
+                "KitCodeDescription": "SIWL ANB - T2 Designer’s Choice - Initial",
+                "ExcludeLifeUpgrade": true,
+                "OfferAgent": null
+            }
+        ],
+        "Application": {
+            "SourceSystem": "CMG",
+            "SourceSystemKey": null,
+            "PolicyNumber": null,
+            "FormNumber": "ICC17-SIWLAPP"
+        },
+        "CampaignCode": "C000005170",
+        "CampaignCodeDescription": "2022-06 ILH C000005170",
+        "CampaignTypeDescription": "ILH",
+        "CreateTimestamp": "2022-09-23T15:08:32",
+        "Organization": {
+            "ContractNumber": "66666666",
+            "OrganizationSegmentKey": 1
+        },
+        "QualityControlIssues": []
+    }
+]

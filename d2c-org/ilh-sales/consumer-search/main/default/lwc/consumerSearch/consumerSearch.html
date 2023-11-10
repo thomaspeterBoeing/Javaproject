@@ -131,7 +131,7 @@
 									minlength="5" 
 									maxlength="16" 
 									value={policyNumber} 
-									onchange={changeCaseNumber}  
+									onchange={changePolicyNumber}  
 									message-when-too-short="Policy Number required to be between 5 and 16 characters." 
 									message-when-too-long="Policy Number required to be between 5 and 16 characters." 
 									field-level-help="Policy Number should be between 5 and 16 characters." 
@@ -144,8 +144,14 @@
 						</lightning-layout>							
 					</div>
 				</div>
-				<div class="slds-col slds-form-element slds-m-top--small slds-align_absolute-center">
-					<p data-id="errorDisplay" style="color:red">{errorMessage}</p>
+				<div class="slds-col slds-form-element slds-align_absolute-center" data-id="errorWrapper">
+					<lightning-layout multiple-rows="true">
+						<template for:each={errors} for:item="error">
+							<lightning-layout-item size="12" key={error.id} class="slds-p-vertical_xx-small slds-p-horizontal_small">
+								<p style="color:red" data-id="errorDisplay">{error.message}</p>
+							</lightning-layout-item>
+						</template>
+					</lightning-layout>
 				</div>
 				<div class="slds-col slds-form-element slds-m-top--small slds-align_absolute-center">
 					<lightning-button data-id="btnSearch" variant="brand" label="Search" title="Search action" onclick={clickSearch} class="slds-m-left_x-small"></lightning-button>
@@ -192,7 +198,7 @@
 					</thead>
 					<tbody>
 						<template for:each={searchResults} for:item='cs'>
-							<tr key={cs.personId}>
+							<tr key={cs.personId} class="dummy">
 								<td>
 									<lightning-button variant="base" label={cs.fullName} title="View Request" onclick={clickRequest} data-name={cs.personId}></lightning-button>
 								</td>								

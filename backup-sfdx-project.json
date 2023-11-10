@@ -57,6 +57,14 @@
       "versionDescription": "Code shared in ILH Sales applications",
       "dependencies": [
         {
+          "package": "D2C Core Base Objects",
+          "versionNumber": "0.1.0.LATEST"
+        },
+        {
+          "package": "ILH Sales Base Objects",
+          "versionNumber": "0.1.0.LATEST"
+        },
+        {
           "package": "D2C Core Base Code",
           "versionNumber": "0.1.0.LATEST"
         },
@@ -95,6 +103,37 @@
           "versionNumber": "0.1.0.LATEST"
         } 
       ]
+    },
+    {
+      "path": "d2c-org/ilh-sales/marketing-history",
+      "default": true,
+      "package": "ILH Sales Market History",
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "versionDescription": "Marketing History Compent Code",
+      "dependencies": [
+        {
+          "package": "D2C Core Base Objects",
+          "versionNumber": "0.1.0.LATEST"
+        },
+        {
+          "package": "ILH Sales Base Objects",
+          "versionNumber": "0.1.0.LATEST"
+        },
+        {
+          "package": "D2C Core Base Code",
+          "versionNumber": "0.1.0.LATEST"
+        },
+        {
+          "package": "D2C Core Error Handling Framework",
+          "versionNumber": "0.1.0.LATEST"
+        },
+        {
+          "package": "ILH Sales Base Code",
+          "versionNumber": "0.1.0.LATEST"
+        } 
+      ]
+
     },
     {
       "path": "d2c-org/ilh-sales/consumer-opportunity-automation",

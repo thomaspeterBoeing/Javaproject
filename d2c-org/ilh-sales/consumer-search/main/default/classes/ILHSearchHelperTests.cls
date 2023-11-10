@@ -1,3 +1,7 @@
+/**
+ * Copyright: TruStage
+ * Purpose: Unit tests for ILHSearchHelper class
+ */
 @isTest
 public class ILHSearchHelperTests {
     
@@ -95,19 +99,19 @@ public class ILHSearchHelperTests {
         
         Test.startTest();
         ConsumerProfileServiceRequest searchRequest = ILHSearchHelper.createCPSSearchRequest(kvpSearchCriteria, 10);
-        List<ILHConsumerResultsWrapper> items = ILHSearchHelper.searchCPS(searchRequest);
-        Assert.areEqual(2, items.size());
+        ILHConsumerResultsWrapper wrapper = ILHSearchHelper.searchCPS(searchRequest);
+        Assert.areEqual(2, wrapper.results.size());
 
-        Assert.areEqual('Brad', items[0].firstName);
-        Assert.areEqual('Wegner', items[0].lastName);
-        Assert.areEqual('2000000081816', items[0].personId);
-        Assert.areEqual(Date.newInstance(1979, 09, 05), items[0].dateOfBirth);
-        Assert.areEqual('Female', items[0].gender);
-        Assert.areEqual('6109210331', items[0].homePhone);
-        Assert.areEqual('14154496368111111', items[0].workPhone);
-        Assert.areEqual('MADISON', items[0].city);
-        Assert.areEqual('537194031', items[0].postalCode);
-        Assert.areEqual('WI', items[0].stateProvince);
+        Assert.areEqual('Brad', wrapper.results[0].firstName);
+        Assert.areEqual('Wegner', wrapper.results[0].lastName);
+        Assert.areEqual('2000000081816', wrapper.results[0].personId);
+        Assert.areEqual(Date.newInstance(1979, 09, 05), wrapper.results[0].dateOfBirth);
+        Assert.areEqual('Female', wrapper.results[0].gender);
+        Assert.areEqual('6109210331', wrapper.results[0].homePhone);
+        Assert.areEqual('14154496368111111', wrapper.results[0].workPhone);
+        Assert.areEqual('MADISON', wrapper.results[0].city);
+        Assert.areEqual('537194031', wrapper.results[0].postalCode);
+        Assert.areEqual('WI', wrapper.results[0].stateProvince);
 
         //Sending a null request to search
         Assert.areEqual(null, ILHSearchHelper.searchCPS(null), 'Expecting null result since we passed in a null value');
@@ -126,7 +130,8 @@ public class ILHSearchHelperTests {
 
         Test.startTest();
         List<ILHConsumerResultsWrapper> resultsWrapper = (new ILHConsumerSearch()).search(kvpSearchCriteria);
-        List<ILHConsumerResultsWrapper> sfResultsWrapper = new List<ILHConsumerResultsWrapper>();
+        ILHConsumerResultsWrapper sfResultsWrapper = new ILHConsumerResultsWrapper();
+        ILHConsumerResultsWrapper contactPersonWrapper = new ILHConsumerResultsWrapper();
         List<ILHConsumerResultsWrapper> contactPersonList;
         
 
@@ -134,38 +139,39 @@ public class ILHSearchHelperTests {
         Assert.areEqual(1, allAccounts.size(), 'There is a total of 1 test account');
 
         //Testing Combination 1
-        ILHConsumerResultsWrapper noContactsWithPersonId = new ILHConsumerResultsWrapper();
+        ILHConsumerResultsWrapper.SearchResult noContactsWithPersonId = new ILHConsumerResultsWrapper.SearchResult();
         noContactsWithPersonId.personId = '2000000081816';
-        contactPersonList = new List<ILHConsumerResultsWrapper>{noContactsWithPersonId};
+        contactPersonWrapper.results.add(noContactsWithPersonId);
+        contactPersonList = new List<ILHConsumerResultsWrapper>{contactPersonWrapper};
 
         kvpSearchCriteria = new Map<String,Object> {
             'ssn' => '111111111'
         };
         sfResultsWrapper = ILHSearchHelper.searchSF(kvpSearchCriteria, contactPersonList);
-        Assert.areEqual(1, sfResultsWrapper.size());
-        Assert.areEqual(allAccounts[0].PersonContactId, sfResultsWrapper[0].sourceSystemKeys[0]);
+        Assert.areEqual(1, sfResultsWrapper.results.size());
+        Assert.areEqual(allAccounts[0].PersonContactId, sfResultsWrapper.results[0].sourceSystemKeys[0]);
 
         contactPersonList = new List<ILHConsumerResultsWrapper>();
         sfResultsWrapper = ILHSearchHelper.searchSF(kvpSearchCriteria, contactPersonList);
-        Assert.areEqual(0, sfResultsWrapper.size(), 'No results due to empty contact person list');
+        Assert.areEqual(0, sfResultsWrapper.results.size(), 'No results due to empty contact person list');
 
         //Testing Combination 2
         kvpSearchCriteria = new Map<String,Object> {
             'policyNumber' => '11111111'
         };
         sfResultsWrapper = ILHSearchHelper.searchSF(kvpSearchCriteria, resultsWrapper);
-        Assert.areEqual(1, sfResultsWrapper.size());
-        Assert.areEqual(allAccounts[0].PersonContactId, sfResultsWrapper[0].sourceSystemKeys[0]);
+        Assert.areEqual(1, sfResultsWrapper.results.size());
+        Assert.areEqual(allAccounts[0].PersonContactId, sfResultsWrapper.results[0].sourceSystemKeys[0]);
 
         ILHConsumerResultsWrapper noPersonIdOrContacts = new ILHConsumerResultsWrapper();
         contactPersonList = new List<ILHConsumerResultsWrapper>{noPersonIdOrContacts};
 
         sfResultsWrapper = ILHSearchHelper.searchSF(kvpSearchCriteria, contactPersonList);
-        Assert.areEqual(0, sfResultsWrapper.size(), 'No results due to no data in contact person list');
+        Assert.areEqual(0, sfResultsWrapper.results.size(), 'No results due to no data in contact person list');
 
         contactPersonList = new List<ILHConsumerResultsWrapper>();
         sfResultsWrapper = ILHSearchHelper.searchSF(kvpSearchCriteria, contactPersonList);
-        Assert.areEqual(0, sfResultsWrapper.size(), 'No results due to empty contact person list');
+        Assert.areEqual(0, sfResultsWrapper.results.size(), 'No results due to empty contact person list');
 
         //Testing Combination 3
         kvpSearchCriteria = new Map<String,Object> {
@@ -176,8 +182,8 @@ public class ILHSearchHelperTests {
             'state' => 'WI'
         };
         sfResultsWrapper = ILHSearchHelper.searchSF(kvpSearchCriteria, resultsWrapper);
-        Assert.areEqual(1, sfResultsWrapper.size());
-        Assert.areEqual(allAccounts[0].PersonContactId, sfResultsWrapper[0].sourceSystemKeys[0]);
+        Assert.areEqual(1, sfResultsWrapper.results.size());
+        Assert.areEqual(allAccounts[0].PersonContactId, sfResultsWrapper.results[0].sourceSystemKeys[0]);
 
         //Testing Combination 4
         kvpSearchCriteria = new Map<String,Object> {
@@ -187,8 +193,8 @@ public class ILHSearchHelperTests {
             'state' => 'WI'
         };
         sfResultsWrapper = ILHSearchHelper.searchSF(kvpSearchCriteria, resultsWrapper);
-        Assert.areEqual(1, sfResultsWrapper.size());
-        Assert.areEqual(allAccounts[0].PersonContactId, sfResultsWrapper[0].sourceSystemKeys[0]);
+        Assert.areEqual(1, sfResultsWrapper.results.size());
+        Assert.areEqual(allAccounts[0].PersonContactId, sfResultsWrapper.results[0].sourceSystemKeys[0]);
 
         //Testing Combination 5
         kvpSearchCriteria = new Map<String,Object> {
@@ -200,8 +206,8 @@ public class ILHSearchHelperTests {
             'zipCode' => '53719'
         };
         sfResultsWrapper = ILHSearchHelper.searchSF(kvpSearchCriteria, resultsWrapper);
-        Assert.areEqual(1, sfResultsWrapper.size());
-        Assert.areEqual(allAccounts[0].PersonContactId, sfResultsWrapper[0].sourceSystemKeys[0]);
+        Assert.areEqual(1, sfResultsWrapper.results.size());
+        Assert.areEqual(allAccounts[0].PersonContactId, sfResultsWrapper.results[0].sourceSystemKeys[0]);
 
         //Testing Combination 6
         kvpSearchCriteria = new Map<String,Object> {
@@ -211,8 +217,8 @@ public class ILHSearchHelperTests {
             'dateOfBirth' => '1979-09-07'
         };
         sfResultsWrapper = ILHSearchHelper.searchSF(kvpSearchCriteria, resultsWrapper);
-        Assert.areEqual(1, sfResultsWrapper.size());
-        Assert.areEqual(allAccounts[0].PersonContactId, sfResultsWrapper[0].sourceSystemKeys[0]);
+        Assert.areEqual(1, sfResultsWrapper.results.size());
+        Assert.areEqual(allAccounts[0].PersonContactId, sfResultsWrapper.results[0].sourceSystemKeys[0]);
 
         //Making sure we don't have any error with an empty request
         kvpSearchCriteria = new Map<String,Object> {};

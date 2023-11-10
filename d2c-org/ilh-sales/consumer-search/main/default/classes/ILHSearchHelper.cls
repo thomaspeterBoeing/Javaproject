@@ -1,30 +1,18 @@
-/**********************************************************************************
- * Title:  Search Helper
- * Date:   Sept 2023
- * 
- * Description:  Apex Class to build reusable objects for Consumer Search   
- * 
- * Details:      Create SPS Request. 
- *               Call CPS Search Service.
- *               Search SF  
- *          
- * Modifications:
- *************************************************************************************/
+/**
+ * Copyright: TruStage
+ * Purpose: Apex Class to build reusable objects for Consumer Search 
+ */
 public with sharing class ILHSearchHelper {
     public static final Integer MAX_QUERY_RESULTS = 50;//Indicates how many SF Account records we should return from SF
     public static final String POSTAL_CODE_FIELD_NAME = 'PersonMailingPostalCode';
     public static final String BIRTH_DATE_FIELD_NAME = 'PersonBirthdate';
 
     /**
-    ***************************************************************************************************************************************
-    @Method Name    : createCPSSearchRequest
-    @author         : Adam Perschke-Ely
-    @param kvpSearchCriteria : kvp's in the form of search criteria
-    @param maxResultsToReturn : number of results that should be returned from the service
-    @return : Transformed request object
-    @description    : This method tansforms kvp criteria to request object
-    ***************************************************************************************************************************************
-    */
+     * Purpose: This method tansforms kvp criteria to request object
+     * @param kvpSearchCriteria : kvp's in the form of search criteria
+     * @param maxResultsToReturn : number of results that should be returned from the service
+     * @return : Transformed request object
+     */
     public static ConsumerProfileServiceRequest createCPSSearchRequest(Map<String, Object> kvpSearchCriteria,integer maxResultsToReturn) {
         ConsumerProfileServiceRequest.SearchCriteria searchCriteria = createSearchCriteria(kvpSearchCriteria);
 
@@ -48,36 +36,30 @@ public with sharing class ILHSearchHelper {
         searchInfo.MaxResultsToReturn = maxResultsToReturn;//Set max number of records to return from service
         return new ConsumerProfileServiceRequest(searchProfile, searchInfo);
     }
-
+    
     /**
-    ***************************************************************************************************************************************
-    @Method Name    : createSearchCriteria
-    @author         : Adam Perschke-Ely
-    @param kvpSearchCriteria : kvp's in the form of search criteria
-    @return : Transformed Search Criteria object
-    @description    : This method tansforms kvp criteria to Search Criteria object
-    ***************************************************************************************************************************************
-    */
+     * Purpose: This method tansforms kvp criteria to Search Criteria object
+     * @param kvpSearchCriteria : kvp's in the form of search criteria
+     * @return : Transformed Search Criteria object
+     */
     public static ConsumerProfileServiceRequest.SearchCriteria createSearchCriteria(Map<String, Object> kvpSearchCriteria) {
         String criteriaString = JSON.serialize(kvpSearchCriteria);
         return (ConsumerProfileServiceRequest.SearchCriteria)JSON.deserialize(criteriaString, ConsumerProfileServiceRequest.SearchCriteria.class);
     }
   
     /**
-    ***************************************************************************************************************************************
-    @Method Name    : searchCPS
-    @author         : Adam Perschke-Ely
-    @param cpsRequest : Consumer Profile Service Request
-    @return : Returns a List of search results from CPS
-    @description    : This method searches Salesforce for SF contacts
-    ***************************************************************************************************************************************
-    */
-    public static List<ILHConsumerResultsWrapper> searchCPS(ConsumerProfileServiceRequest cpsRequest) {
+     * Purpose: This method searches Salesforce for SF contacts
+     * @param cpsRequest : Consumer Profile Service Request
+     * @return : Returns a List of search results from CPS
+     */
+    public static ILHConsumerResultsWrapper searchCPS(ConsumerProfileServiceRequest cpsRequest) {
         //No request sent to method, so return null
         if (cpsRequest == null) {
             return null;
         }
-        List<ILHConsumerResultsWrapper> ilhSearchResults = new List<ILHConsumerResultsWrapper>();
+        ILHConsumerResultsWrapper wrapper = new ILHConsumerResultsWrapper();
+        wrapper.mySource = ILHConsumerResultsWrapper.Source.CPS;
+
         //Remove all formatting from Phone Number
         if (cpsRequest?.SearchConsumerProfile?.phoneNumber != null) {
             cpsRequest.SearchConsumerProfile.PhoneNumber = Utilities.removeAllPhoneFormatting(cpsRequest.SearchConsumerProfile.phoneNumber);
@@ -96,29 +78,30 @@ public with sharing class ILHSearchHelper {
             DataWeave.Result dwresult = script.execute(new Map<String, Object>{'payload' => response.getBody()});
             List<Object> results = (List<Object>)dwresult?.getValue();//Need to cast results to a list of object before casting to wrapper to check for null or empty result
             if (results != null && !results.isEmpty()) {
-                ilhSearchResults = ILHConsumerResultsWrapper.applyBusinessRules((List<ILHConsumerResultsWrapper>)dwresult?.getValue(), ILHConsumerResultsWrapper.Source.CPS);
+                wrapper.results = (List<ILHConsumerResultsWrapper.SearchResult>)dwresult?.getValue();
+                wrapper.applyBusinessRules();
             }
         } catch (Exception ex) {
+            wrapper.errors.add('The Consumer Profile Service is currently unavailable. Search results will be impacted. Please proceed with creating a new consumer as needed.');
             new ErrorLogger(ex, null, 'ILHSearchHelper.cls', null, 'CPS Search', requestPayload, 'CPS_Search', response?.getStatusCode());
         }
-        return ilhSearchResults;
+        return wrapper;
     }  
 
     /**
-    ***************************************************************************************************************************************
-    @Method Name    : searchSF
-    @author         : Adam Perschke-Ely
-    @param kvpSearchCriteria -- The search criteria in the format of a key-value-pair mapping
-    @return : Returns a List of search results from Salesforce
-    @description    : This method searches Salesforce for SF contacts
-    ***************************************************************************************************************************************
-    */
-    public static List<ILHConsumerResultsWrapper> searchSF(Map<String, Object> kvpSearchCriteria, List<ILHConsumerResultsWrapper> searchServiceResults) {
+     * Purpose: This method searches Salesforce for SF contacts
+     * @param kvpSearchCriteria -- The search criteria in the format of a key-value-pair mapping
+     * @return : Returns a List of search results from Salesforce 
+     */
+    public static ILHConsumerResultsWrapper searchSF(Map<String, Object> kvpSearchCriteria, List<ILHConsumerResultsWrapper> wrappers) {
         Boolean isValidSearchCriteria = true;
         Boolean blnSkipSFSearch = false;
         String optionalSearchCriteria = '';
         String soqlClause = '';
         Map<String, Object> queryParams = new Map<String, Object>();
+
+        ILHConsumerResultsWrapper newWrapper = new ILHConsumerResultsWrapper();
+        newWrapper.mySource = ILHConsumerResultsWrapper.Source.SALESFORCE;
 
         //Variables that hold data from search criteria
         String ssn = (String)kvpSearchCriteria.get('ssn');
@@ -146,13 +129,13 @@ public with sharing class ILHSearchHelper {
         //Combination 1: Social Security Number (Contact.SSN__c)
         //Removing ssn from search criteria since we won't be searching SF for ssn
         if (String.isNotEmpty(ssn)) {
-            if (searchServiceResults == null || searchServiceResults?.isEmpty()) {
+            if (wrappers == null || wrappers?.isEmpty()) {
                 blnSkipSFSearch = true;
             }
         }
         //Combination 2: Policy Number
         else if (String.isNotEmpty(policyNumber)) {
-            if (searchServiceResults == null || searchServiceResults?.isEmpty()) {
+            if (wrappers == null || wrappers?.isEmpty()) {
                 blnSkipSFSearch = true;
             }
         } 
@@ -202,8 +185,8 @@ public with sharing class ILHSearchHelper {
 
             //Building query for person id and account id
             String keyFields;
-            if (searchServiceResults != null) {
-                keyFields = buildKeyMatchSearchFields(searchServiceResults, queryParams);
+            if (wrappers != null) {
+                keyFields = buildKeyMatchSearchFields(wrappers, queryParams);
             }
             if (String.isNotEmpty(keyFields)) {
                 //There's additional filtering after WHERE.  Add AND so we and add in filtering for account and person id
@@ -232,63 +215,57 @@ public with sharing class ILHSearchHelper {
                 try {
                     sfAccounts = Database.queryWithBinds(soql, queryParams, AccessLevel.USER_MODE);
                 } catch(Exception ex) {
-                    new ErrorLogger(ex, 'An error occured while searching SF.', 'ILHSearchHelper.cls', null, 'SF Search', null, null, null);
+                    new ErrorLogger(ex, null, 'ILHSearchHelper.cls', null, 'SF Search', null, null, null);
                 }
             }
 
-            List<ILHConsumerResultsWrapper> resultsToReturn = new List<ILHConsumerResultsWrapper>();
-
             //Map the account records from the query to ILHConsumerResultsWrapper class
             if (sfAccounts != null && !sfAccounts.isEmpty()) {
-                resultsToReturn = mapSFAccountToResultWrapper(sfAccounts);
+                newWrapper.results = mapSFAccountToResultWrapper(sfAccounts);
             }
-            return resultsToReturn;
+            return newWrapper;
         }           
         return null;
     }
 
     /**
-    **************************************************************************************************************************************************
-    @Method Name    : mapSFAccountToResultWrapper
-    @author         : Adam Perschke-Ely
-    @param sfAccounts  : List of results from CPS that contains person ids and person account ids that we need to extract
-    @return : A list of ILHConsumerResultsWrappers that have been mapped from SF accounts
-    @description    : This method maps SF Accounts fields to result wrapper fields so that we can easily iterate over results on consumer search page
-    **************************************************************************************************************************************************
-    */
-    private static List<ILHConsumerResultsWrapper> mapSFAccountToResultWrapper(List<Account> sfAccounts) {
-        List<ILHConsumerResultsWrapper> mappedResults = new List<ILHConsumerResultsWrapper>();
+     * Purpose: This method maps SF Accounts fields to result wrapper fields so that we can easily iterate over results on consumer search page
+     * @param sfAccounts  : List of results from CPS that contains person ids and person account ids that we need to extract
+     * @return : A list of ILHConsumerResultsWrappers that have been mapped from SF accounts
+     */
+    private static List<ILHConsumerResultsWrapper.SearchResult> mapSFAccountToResultWrapper(List<Account> sfAccounts) {
+        List<ILHConsumerResultsWrapper.SearchResult> mappedResults = new List<ILHConsumerResultsWrapper.SearchResult>();
         for (Account accnt : sfAccounts) {
-            mappedResults.add(new ILHConsumerResultsWrapper(accnt));
+            mappedResults.add(new ILHConsumerResultsWrapper.SearchResult(accnt));
         }
         return mappedResults;
     }
 
     /**
-    ***************************************************************************************************************************************
-    @Method Name    : buildKeyMatchSearchFields
-    @author         : Adam Perschke-Ely
-    @param lstToExtractKeys  : List of results from CPS that contains person ids and person account ids that we need to extract
-    @param queryParams  : Contains kvp's to use in queryWithBinds
-    @return : Portion of SOQL clause
-    @description    : This method builds filter criteria for an Account query for person ids and account ids
-    ***************************************************************************************************************************************
-    */
-    private static string buildKeyMatchSearchFields(List<ILHConsumerResultsWrapper> lstToExtractKeys, Map<String, Object> queryParams) {
+     * Purpose: This method builds filter criteria for an Account query for person ids and account ids
+     * @param wrappers  : List of results from CPS that contains person ids and person account ids that we need to extract
+     * @param queryParams  : Contains kvp's to use in queryWithBinds
+     * @return : Portion of SOQL clause
+     */
+    private static string buildKeyMatchSearchFields(List<ILHConsumerResultsWrapper> wrappers, Map<String, Object> queryParams) {
         String retSFValue = '';
         String retServiceValue = '';
         List<String> contactIds = new List<String>();//List of Person Accont ids from CPS
         List<String> personIds = new List<String>();//List of Person ids from CPS
 
         //Itterate over the results found from the service
-        for (ILHConsumerResultsWrapper searchResult : lstToExtractKeys) {
-            if (searchResult?.sourceSystemKeys != null && !searchResult.sourceSystemKeys.isEmpty()) {
-                for (String contactId : searchResult.sourceSystemKeys) {
-                    contactIds.add(contactId);
+        for (ILHConsumerResultsWrapper wrapper : wrappers) {
+            if (wrapper?.results != null && !wrapper.results.isEmpty()) {
+                for (ILHConsumerResultsWrapper.SearchResult searchResult : wrapper.results) {
+                    if (searchResult?.sourceSystemKeys != null && !searchResult.sourceSystemKeys.isEmpty()) {
+                        for (String contactId : searchResult.sourceSystemKeys) {
+                            contactIds.add(contactId);
+                        }
+                    }
+                    if (String.isNotEmpty(searchResult?.personId)) {
+                        personIds.add(searchResult.personId);
+                    }
                 }
-            }
-            if (String.isNotEmpty(searchResult?.personId)) {
-                personIds.add(searchResult.personId);
             }
         }
         if (contactIds != null && !contactIds.isEmpty()) { // remove the last comma            
@@ -309,18 +286,14 @@ public with sharing class ILHSearchHelper {
     }
 
     /**
-    ***************************************************************************************************************************************
-    @Method Name    : buildNameSearchFields
-    @author         : Adam Perschke-Ely
-    @param firstName  : First name value entered from consumer search page
-    @param lastName  : Last name value entered from consumer search page
-    @param additionalFieldVal  : Additional field value entered from consumer search page
-    @param additionalFieldName  : Field name of additional field that we want to search on
-    @param queryParams  : Contains kvp's to use in queryWithBinds
-    @return : Portion of SOQL clause
-    @description    : This method builds filter criteria for an Account query for first name, last name and zip code fields
-    ***************************************************************************************************************************************
-    */
+     * Purpose: This method builds filter criteria for an Account query for first name, last name and zip code fields
+     * @param firstName  : First name value entered from consumer search page
+     * @param lastName  : Last name value entered from consumer search page
+     * @param additionalFieldVal  : Additional field value entered from consumer search page
+     * @param additionalFieldName  : Field name of additional field that we want to search on
+     * @param queryParams  : Contains kvp's to use in queryWithBinds
+     * @return : Portion of SOQL clause
+     */
     private static String buildNameSearchFields(string firstName, string lastName, String additionalFieldVal, String additionalFieldName, Map<String, Object> queryParams) {
         string retVal = '';
         if (String.isNotEmpty(firstName)) {
@@ -363,15 +336,11 @@ public with sharing class ILHSearchHelper {
     }
 
     /**
-    ***************************************************************************************************************************************
-    @Method Name    : buildPhoneNumberSearchFields
-    @author         : Adam Perschke-Ely
-    @param phoneNumber  : Phone number value entered from consumer search page
-    @param queryParams  : Contains kvp's to use in queryWithBinds
-    @return : Portion of SOQL clause
-    @description    : This method builds filter criteria for an Account query for phone number fields.
-    ***************************************************************************************************************************************
-    */
+     * Purpose: This method builds filter criteria for an Account query for phone number fields.
+     * @param phoneNumber  : Phone number value entered from consumer search page
+     * @param queryParams  : Contains kvp's to use in queryWithBinds
+     * @return : Portion of SOQL clause
+     */
     private static String buildPhoneNumberSearchFields(String phoneNumber, Map<String, Object> queryParams) {
         string retVal;
         phoneNumber = String.escapeSingleQuotes(phoneNumber);
@@ -384,16 +353,12 @@ public with sharing class ILHSearchHelper {
     }
 
     /**
-    ***************************************************************************************************************************************
-    @Method Name    : buildOptionalSearchFields
-    @author         : Adam Perschke-Ely
-    @param birthDate  : Birthdate value entered from consumer search page
-    @param state  : State value entered from consumer search page
-    @param queryParams  : Contains kvp's to use in queryWithBinds
-    @return : Portion of SOQL clause
-    @description    : This method builds filter criteria for an Account query for birth date, and state fields
-    ***************************************************************************************************************************************
-    */
+     * Purpose: This method builds filter criteria for an Account query for birth date, and state fields
+     * @param birthDate  : Birthdate value entered from consumer search page
+     * @param state  : State value entered from consumer search page
+     * @param queryParams  : Contains kvp's to use in queryWithBinds
+     * @return : Portion of SOQL clause
+     */
     private static String buildOptionalSearchFields(String birthDate, String state, Map<String, Object> queryParams) {
         string retSearchFields = '';
 

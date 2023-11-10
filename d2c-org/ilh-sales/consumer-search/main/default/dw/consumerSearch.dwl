@@ -28,4 +28,4 @@ payload.ConsumerProfileList map(x)-> {
         SourceSystemId: item.SourceSystemId default '',
         SourceSystemKey: item.SourceSystemKey default ''
     } as Object {class: "CMGCommon.SourceRecordType"}))
-} as Object {class: "ILHConsumerResultsWrapper"}
+} as Object {class: "ILHConsumerResultsWrapper.SearchResult"}

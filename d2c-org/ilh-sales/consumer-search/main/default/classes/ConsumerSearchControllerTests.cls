@@ -1,11 +1,7 @@
 /**
- * @Author: Bernie Shishaye
- * @Create Time: 2023-09-07 17:19:56
- * @Modified by: Bernie Shishaye
- * @Modified time: 2023-09-12 18:17:55
- * @Description: Unit Tests
+ * Copyright: TruStage
+ * Purpose: Unit tests for ConsumerSearchController class
  */
-
 @isTest
 public class ConsumerSearchControllerTests {
     static final String SAMPLE_PERSON_ID = '2000000081816';
@@ -29,16 +25,15 @@ public class ConsumerSearchControllerTests {
         kvpSearchCriteria.put('dateOfBirth','1/1/2023');
         
         Test.startTest();
-        List<ILHConsumerResultsWrapper> items = ConsumerSearchController.search(kvpSearchCriteria);
+        ILHConsumerResultsWrapper wrapper = ConsumerSearchController.search(kvpSearchCriteria);
         //Verifying search results        
-        Assert.IsTrue(items.size()>0);
+        Assert.IsTrue(wrapper.results.size()>0);
         Boolean isPersonIdInSearch = false;
-        for(ILHConsumerResultsWrapper item: items){
+        for(ILHConsumerResultsWrapper.SearchResult item: wrapper.results){
           if(item.personId==SAMPLE_PERSON_ID) 
             isPersonIdInSearch=true;
         }
         Assert.isTrue(isPersonIdInSearch);
-        
     }
 
     @isTest
