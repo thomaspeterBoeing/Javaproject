@@ -417,6 +417,12 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentName>marketingHistory</componentName>
+                <identifier>c_marketingHistory</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>decorate</name>
                     <value>true</value>

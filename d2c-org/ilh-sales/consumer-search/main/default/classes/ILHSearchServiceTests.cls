@@ -1,11 +1,7 @@
 /**
- * @Author: Bernie Shishaye
- * @Create Time: 2023-09-12 12:49:32
- * @Modified by: Bernie Shishaye
- * @Modified time: 2023-09-12 18:21:42
- * @Description:
+ * Copyright: TruStage
+ * Purpose: Unit tests for the ILHSearchService class
  */
-
 @isTest
 public class ILHSearchServiceTests {
     static final String SAMPLE_PERSON_ID = '2000000081816';
@@ -30,8 +26,8 @@ public class ILHSearchServiceTests {
         kvpSearchCriteria.put('dateOfBirth','1/1/2023');
         
         Test.startTest();
-        List<ILHConsumerResultsWrapper> items = ConsumerSearchController.search(kvpSearchCriteria);
+        ILHConsumerResultsWrapper wrapper = (new ILHSearchService()).runSearch(kvpSearchCriteria);
         //Verifying search results        
-        Assert.IsTrue(items.size()>0, 'Expecting more than 1 result');
+        Assert.IsTrue(wrapper.results.size()>0, 'Expecting more than 1 result');
     }
 }

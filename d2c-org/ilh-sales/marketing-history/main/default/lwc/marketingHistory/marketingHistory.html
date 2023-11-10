@@ -1,0 +1,37 @@
+<!--
+Copyright: CUNA Mutual Group
+Purpose: Lightning Web Component controller.
+1.1 - Rick Baker   - 8/3/2023  - Created for new D2C Salesfore instance.
+-->
+<template>
+    <lightning-card  title="Marketing History">
+        <template if:true={errorMessage}>
+            <div data-id="errorDisplay" class="slds-p-left_medium" style="color:red">{errorMessage}</div>
+        </template>
+        <div if:true={showSpinner}>
+            <lightning-spinner alternative-text="Loading..." size="large"></lightning-spinner>
+        </div>
+        <!-- Do not display table if nothing in the table -->
+        <template if:true={tableData.length}>
+            <!-- The Table component -->
+            <div class={wrapperStyles}>
+                <lightning-datatable
+                    id="dummyTable"
+                    key-field            = "Id"
+                    hide-checkbox-column = "true"
+                    data                 = {tableData}
+                    columns              = {columns}
+                    sorted-by            = {sortBy}
+                    sorted-direction     = {sortDirection}
+                    onsort               = {handleSortDataTable}>
+                </lightning-datatable>
+           </div>
+        </template>
+        <template if:true={showNoResultsMessage}>
+            <div class="slds-p-horizontal_medium">
+                No results found
+            </div>
+        </template>
+    </lightning-card>
+    <c-person-id-provider-l-w-c record-id={recordId} object-api-name={objectApiName} onpersonidloaded={handlePersonIdLoaded}></c-person-id-provider-l-w-c>
+</template>

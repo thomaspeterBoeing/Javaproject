@@ -28,26 +28,30 @@ jest.mock(
     { virtual: true }
 );
 
-const SEARCH_SUCCESS = [
-    {        
-        firstName: 'Amy',
-        dateOfBirth: '1/1/1980',
-        street: '123 Main St',
-        city: 'Charlotte',
-        state:'NC',
-        postalCode:'NC',
-        phone:'123-123-1234',
-    },
-    {
-        firstName: 'Jimy',
-        dateOfBirth: '1/1/1980',
-        street: '123 Main St',
-        city: 'Colombia',
-        state:'SC',
-        postalCode:'SC',
-        phone:'123-123-1234',
-    }
-];
+const SEARCH_SUCCESS = {
+    results: [
+        {        
+            firstName: 'Amy',
+            dateOfBirth: '1/1/1980',
+            street: '123 Main St',
+            city: 'Charlotte',
+            state:'NC',
+            postalCode:'NC',
+            phone:'123-123-1234',
+            personId: '11111111'
+        },
+        {
+            firstName: 'Jimy',
+            dateOfBirth: '1/1/1980',
+            street: '123 Main St',
+            city: 'Colombia',
+            state:'SC',
+            postalCode:'SC',
+            phone:'123-123-1234',
+            personId: '22222222'
+        }
+    ]
+};
 
 describe('c-consumer-search', () => {
     afterEach(() => {
@@ -69,7 +73,6 @@ describe('c-consumer-search', () => {
 			"firstName" 	: "First",
 			"lastName" 		: "Last",
 			"dateOfBirth" 	: null,
-			"street" 		: null,
 			"state" 		: null,
 			"zipCode" 		: "28262",
 			"phoneNumber" 	: null
@@ -160,7 +163,7 @@ describe('c-consumer-search', () => {
         const buttonEl = element.shadowRoot.querySelector('lightning-button[data-id=btnSearch]');               
         buttonEl.click();
 
-        let errDisp = element.shadowRoot.querySelector('p[data-id=errorDisplay]');               
+        let errDisp = element.shadowRoot.querySelector('div[data-id=errorWrapper]');               
         
         // Wait for any asynchronous DOM updates
         await flushPromises();        
@@ -200,7 +203,7 @@ describe('c-consumer-search', () => {
         const buttonEl = element.shadowRoot.querySelector('lightning-button[data-id=btnSearch]');               
         buttonEl.click();
 
-        let errDisp = element.shadowRoot.querySelector('p[data-id=errorDisplay]');               
+        let errDisp = element.shadowRoot.querySelector('div[data-id=errorWrapper]');                
         
         // Wait for any asynchronous DOM updates
         await flushPromises();        
@@ -317,9 +320,9 @@ describe('c-consumer-search', () => {
         
     });
 
-    xit('datatable-should display the same number of rows', async() => {      
+    it('datatable-should display the same number of rows', async() => {      
         // Arrange
-        searchCPS.mockResolvedValue(SEARCH_SUCCESS);
+        search.mockResolvedValue(SEARCH_SUCCESS);
 
         const element = createElement('c-consumer-search', {
             is: consumerSearch
@@ -331,7 +334,7 @@ describe('c-consumer-search', () => {
         let allInputs = element.shadowRoot.querySelectorAll('lightning-input, lightning-combobox');
         let inputFN; 
         let inputLN; 
-        let inputSt;
+        let inputPC;
 
         for(let inpt of allInputs ){
             inpt.checkValidity = jest.fn().mockReturnValue(true);   
@@ -341,8 +344,8 @@ describe('c-consumer-search', () => {
             else if(inpt.name=="lastName"){
                inputLN = inpt;
             }
-            else if(inpt.name=="state"){
-               inputSt = inpt;
+            else if(inpt.name=="postalCode"){
+                inputPC = inpt;
             }
         }
         
@@ -352,8 +355,8 @@ describe('c-consumer-search', () => {
         inputLN.value = "Last ";
         inputLN.dispatchEvent(new CustomEvent('change'));
         
-        inputSt.value = "NC";
-        inputSt.dispatchEvent(new CustomEvent('change'));
+        inputPC.value = "11111";
+        inputPC.dispatchEvent(new CustomEvent('change'));
 
         
         // Select button for executing Apex         
@@ -363,9 +366,9 @@ describe('c-consumer-search', () => {
         // Wait for any asynchronous DOM updates
         await flushPromises();        
         // Assert        
-        let rows = element.shadowRoot.querySelectorAll('tr[class="dummy"]');               
-        expect(searchCPS).toHaveBeenCalled();        
-        expect(rows.length).toEqual(SEARCH_SUCCESS.length);
+        let rows = element.shadowRoot.querySelectorAll('tr[class=dummy]');           
+        expect(search).toHaveBeenCalled();        
+        expect(rows.length).toEqual(SEARCH_SUCCESS.results.length);
 
     });
 

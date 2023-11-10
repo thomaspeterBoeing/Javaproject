@@ -1,9 +1,6 @@
 /**
- * @Author: Bernie Shishaye
- * @Create Time: 2023-09-12 12:49:32
- * @Modified by: Bernie Shishaye
- * @Modified time: 2023-09-12 18:18:49
- * @Description: Unit Tests
+ * Copyright: TruStage
+ * Purpose: Unit tests for the ILHConsumerSearch class
  */
 @isTest
 public class ILHConsumerSearchTests {
@@ -44,6 +41,6 @@ public class ILHConsumerSearchTests {
 
         Test.startTest();
         List<ILHConsumerResultsWrapper> resultsWrapper = (new ILHConsumerSearch()).search(kvpSearchCriteria);
-        Assert.areEqual(3, resultsWrapper.size());
+        Assert.areEqual(2, resultsWrapper.size(), '2 wrapper results: CPS and SF ');
     }
 }

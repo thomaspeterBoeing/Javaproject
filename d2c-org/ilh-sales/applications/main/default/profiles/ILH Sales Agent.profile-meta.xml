@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
-    <applicationVisibilities>
-        <application>ILHSalesConsole</application>
-        <default>true</default>
-        <visible>true</visible>
-    </applicationVisibilities>
     <custom>true</custom>
     <recordTypeVisibilities>
         <default>false</default>
@@ -26,10 +21,6 @@
         <recordType>Opportunity.Default</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
-    <tabVisibilities>
-        <tab>ILH_Sales_Consumer_Search</tab>
-        <visibility>Hidden</visibility>
-    </tabVisibilities>
     <userLicense>Salesforce</userLicense>
     <userPermissions>
         <enabled>true</enabled>

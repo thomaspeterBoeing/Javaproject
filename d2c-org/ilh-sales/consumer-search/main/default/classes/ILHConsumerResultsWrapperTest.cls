@@ -1,13 +1,9 @@
-/***
-Copyright: CUNA Mutual Group
-Purpose: Unit Tests for methods in the search results wrapper.
-Created By      Bernie Shishaye   
-Created Date:   8/27/2023  
-Modified By:    Bernie Shishaye
-Modified Date:   9/7/2023
-***/
+/**
+ * Copyright: TruStage
+ * Purpose: Unit tests for the ILHConsumerResultsWrapper class
+ */
 @isTest
-public with sharing class ILHConsumerResultsWrapperTest {
+public class ILHConsumerResultsWrapperTest {
 	
 	public class WrapperObj{}
 
@@ -24,7 +20,7 @@ public with sharing class ILHConsumerResultsWrapperTest {
         insert a;
         Account aa = [Select Id, Name, Firstname, LastName,PersonContactId,Suffix,PersonHomePhone,PersonOtherPhone,PersonMobilePhone,PersonMailingStreet,PersonMailingPostalCode, PersonMailingCity,PersonMailingState,SSNLast4__pc,Gender__pc,PersonID__pc, PersonBirthdate FROM Account WHere Id=:a.Id limit 1]; 
          
-        ILHConsumerResultsWrapper ilhResult = new ILHConsumerResultsWrapper(aa);       
+        ILHConsumerResultsWrapper.SearchResult ilhResult = new ILHConsumerResultsWrapper.SearchResult(aa);       
         Assert.isNotNull(ilhResult, 'is not null');
         Assert.areEqual(aa.FirstName, ilhResult.firstName);
         Assert.areEqual(aa.LastName, ilhResult.lastName);
@@ -78,30 +74,31 @@ public with sharing class ILHConsumerResultsWrapperTest {
 
 		List<CMGCommon.SourceRecordType> recordTypes = new List<CMGCommon.SourceRecordType>{nonSF, sf};
 
-		ILHConsumerResultsWrapper result1 = new ILHConsumerResultsWrapper();
+		ILHConsumerResultsWrapper.SearchResult result1 = new ILHConsumerResultsWrapper.SearchResult();
 		result1.genderObj = male;
 		result1.addressList = addresses;
 		result1.phoneList = phones;
 		result1.sourceRecordList = recordTypes;
 
-		ILHConsumerResultsWrapper result2 = new ILHConsumerResultsWrapper();
+		ILHConsumerResultsWrapper.SearchResult result2 = new ILHConsumerResultsWrapper.SearchResult();
 		result2.genderObj = female;
 
-		List<ILHConsumerResultsWrapper> results = new List<ILHConsumerResultsWrapper>{result1, result2};
+		ILHConsumerResultsWrapper wrapper = new ILHConsumerResultsWrapper();
+		wrapper.results = new List<ILHConsumerResultsWrapper.SearchResult>{result1, result2};
 
-		results = ILHConsumerResultsWrapper.applyBusinessRules(results, ILHConsumerResultsWrapper.Source.CPS);
+		wrapper.applyBusinessRules();
 
-		Assert.areEqual('Male', results[0].gender);
-		Assert.areEqual('111111111', results[0].homePhone);
-		Assert.areEqual('222222222', results[0].workPhone);
-		Assert.areEqual('3333333333', results[0].mobilePhone);
-		Assert.areEqual('Madison', results[0].city);
-		Assert.areEqual('WI', results[0].stateProvince);
-		Assert.areEqual('12345', results[0].postalCode);
-		Assert.areEqual('123 Main Street', results[0].addressLines[0]);
-		Assert.areEqual(1, results[0].sourceSystemKeys.size());
-		Assert.areEqual('12345', results[0].sourceSystemKeys[0]);
+		Assert.areEqual('Male', wrapper.results[0].gender);
+		Assert.areEqual('111111111', wrapper.results[0].homePhone);
+		Assert.areEqual('222222222', wrapper.results[0].workPhone);
+		Assert.areEqual('3333333333', wrapper.results[0].mobilePhone);
+		Assert.areEqual('Madison', wrapper.results[0].city);
+		Assert.areEqual('WI', wrapper.results[0].stateProvince);
+		Assert.areEqual('12345', wrapper.results[0].postalCode);
+		Assert.areEqual('123 Main Street', wrapper.results[0].addressLines[0]);
+		Assert.areEqual(1, wrapper.results[0].sourceSystemKeys.size());
+		Assert.areEqual('12345', wrapper.results[0].sourceSystemKeys[0]);
 
-		Assert.areEqual('Female', results[1].gender);
+		Assert.areEqual('Female', wrapper.results[1].gender);
 	}
 }

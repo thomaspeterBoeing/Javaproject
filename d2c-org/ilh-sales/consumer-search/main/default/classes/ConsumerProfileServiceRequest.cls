@@ -1,28 +1,23 @@
-/**********************************************************************************
- * Title:  ConsumerProfileServiceRequest
- * Date:   Sept 2023
- * 
- * Description:  Request object to interact with the Consumer Profile web service.  
- *   
- * Modifications:
- *************************************************************************************/
-
-/***
-Copyright: CUNA Mutual Group
-Purpose: Request object to interact with the Consumer Profile web service.
-1.0 - Louis W (CS) - 5/15/2013 - Created
-1.1 - Dave Y       - 7/19/2013 - Modified for internal enum design
-***/
+/**
+ * Copyright: TruStage
+ * Purpose: Request object to interact with the Consumer Profile web service.
+ */
 public class ConsumerProfileServiceRequest {
     
     public SearchConsumerProfileType SearchConsumerProfile  { get; set; }
     public SearchRequestInfoType SearchRequestInfo          { get; set; }
     
+    /**
+     * Purpose: Contructor for Consumer Search Profile and Search Request Info
+     * @param searchConsumerProfile : consumer search profile
+     * @param searchRequestInfo : search request info
+     */
     public ConsumerProfileServiceRequest(SearchConsumerProfileType searchConsumerProfile, SearchRequestInfoType searchRequestInfo) {
         this.SearchConsumerProfile = searchConsumerProfile;
         this.SearchRequestInfo = searchRequestInfo;
     }
     
+    //Types of elements from CPS service
     public enum SearchRequestInfoType_enumElementsToReturn {
         PERSONID,
         NAME,
@@ -49,6 +44,9 @@ public class ConsumerProfileServiceRequest {
         DIRECTMAILCONTACTHISTORY
     }
     
+    /**
+     * Purpose: This inner class represents the consumer search profile type
+     */
     public class SearchConsumerProfileType {
         public String PersonId                              { get; set; }
         public CMGPerson.PersonNameType PersonName          { get; set; }
@@ -61,7 +59,10 @@ public class ConsumerProfileServiceRequest {
         public Integer ApplicationConfirmationNumber        { get; set; }
         public Integer ContactInteractionId                 { get; set; }
         
-        // Fully constructs a usable SearchConsumerProfileType using just a SearchCriteria parameter
+        /**
+         * Purpose: Fully constructs a usable SearchConsumerProfileType using just a SearchCriteria parameter
+         * @param searchCriteria : criteria to search on
+         */
         public SearchConsumerProfileType(SearchCriteria searchCriteria) {
             this.ApplicationConfirmationNumber = 0;
             this.ContactInteractionId = 0;
@@ -112,10 +113,10 @@ public class ConsumerProfileServiceRequest {
     }
     
     /**
-        Inner class to encapsulate Search Criteria for CPS calls, basically a simplified version of the SearchConsumerProfileType that CPSServiceRequest needs.
-        This is better encapsulated than a bunch of individual fields/parameters, has a more specific purpose than our “does way too much” MemberSearchResultsWrapper, 
-        and is easier to use than a raw SearchConsumerProfileType
-    */
+     * Purpose: Inner class to encapsulate Search Criteria for CPS calls, basically a simplified version of the SearchConsumerProfileType that CPSServiceRequest needs.
+     * This is better encapsulated than a bunch of individual fields/parameters, has a more specific purpose than our “does way too much” MemberSearchResultsWrapper, 
+     * and is easier to use than a raw SearchConsumerProfileType
+     */
     public class SearchCriteria {
         @AuraEnabled
         public String ssn                   { get; set; }
@@ -139,11 +140,17 @@ public class ConsumerProfileServiceRequest {
         public String personId              { get; set; }
     }
     
-    
+    /**
+     * Purpose: Inner class that indicates the type of elements to return
+     */
     public class SearchRequestInfoType {
         public List<Integer> ElementsToReturn               { get; set; }
         public Integer MaxResultsToReturn                   { get; set; }
         
+        /**
+         * Purpose: This method return the elements to return based on index value
+         * @param vals : Elements that you want to return
+         */
         public void setElementsToReturn(SearchRequestInfoType_enumElementsToReturn[] vals) {
             ElementsToReturn = new List<Integer>();
             for (SearchRequestInfoType_enumElementsToReturn val: vals) {

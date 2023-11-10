@@ -1,35 +1,24 @@
-/***
-Copyright: CUNA Mutual Group
-Purpose: Constructs instances of concrete classes that implement designated interfaces
-         based off of the calulated persona.
-1.0 - Rick Baker   - 822/2023  - Created for new D2C Salesfore instance.
-***/
-public with sharing class ILHSearchFactory {
+/**
+ * Copyright: CUNA Mutual Group
+ * Purpose: Constructs instances of concrete classes that implement designated interfaces based off of the calulated persona.
+ */
+public class ILHSearchFactory {
 
-    /***
-     * Gets all concrete class instances that implement interfaces that are
-     * designated in the "Interface Implementations" custom metadata.
-     *
-     * @return All instances of concrete class, each of which implements the
-     *         interface designated in the "Interface Implementations" custom metadata.
+    /**
+     * Purpose: Gets all concrete class instances that implement interfaces that are designated in the "Interface Implementations" custom metadata.
+     * @return All instances of concrete class, each of which implements the interface designated in the "Interface Implementations" custom metadata.
      */
     public static List<ISearchService> getInstances() {
         return new ILHSearchFactory().constructInstances();
     }
 
-    /***
-     * Instantiates and returns all concrete class instances that implement interfaces
-     * that are designated in the "Interface Implementations" custom metadata based on the
-     * calculated persona.
-     *
-     * @return All instances of concrete class, each of which implements the
-     *         interface designated in the "Interface Implementations" custom metadata.
+    /**
+     * Purpose: Instantiates and returns all concrete class instances that implement interfaces
+     * that are designated in the "Interface Implementations" custom metadata based on the calculated persona.
+     * @return All instances of concrete class, each of which implements the interface designated in the "Interface Implementations" custom metadata.
      */
     private List<ISearchService> constructInstances() {
-
-        // TODO: Persona logic is stubbed out for now.
-        String persona = ILHPersona.getPersona();
-
+        String persona = ILHPersona.getPersona('ILHSearchFactory');
         List<ISearchService> classInstances = new List<ISearchService>();
 
         //Get an instance of the persona from the consumer container

@@ -1,35 +1,24 @@
-/***
-Copyright: CUNA Mutual Group
-Purpose: ConsumerSearch- Search Customers from CPS and Salesforce and dedupes results.
-Param: Search Criteria
-Created By      Bernie Shishaye   
-Created Date:   9/27/2023  
-Modified By:    Bernie Shishaye
-Modified Date:   9/7/2023
-***/
-public without sharing class ConsumerSearchController {
-    
-    
-    /***
-        Copyright: CUNA Mutual Group
-        Purpose: ConsumerSearch- Search Customers from CPS and Salesforce and dedupes results.
-        Param: Search Criteria
-        Created By      Bernie Shishaye   
-        Created Date:   9/27/2023  
-        Modified By:    Bernie Shishaye
-        Modified Date:   9/7/2023
-    ***/
+/**
+ * Copyright: TruStage
+ * Purpose: Request object to interact with the Consumer Profile web service.
+ */
+public class ConsumerSearchController {
+    /**
+     * Purpose: ConsumerSearch- Search Customers from CPS and Salesforce and dedupes results.
+     * @param kvpSearchCriteria : Criteria to search on
+     * @return : An instance of the ILHConsumerResultsWrapper class with results.
+    */
     @AuraEnabled
-    public static List<ILHConsumerResultsWrapper> search(Map<String, Object> kvpSearchCriteria) {       
-        return (new ILHSearchService()).runSearch(kvpSearchCriteria);    
+    public static ILHConsumerResultsWrapper search(Map<String, Object> kvpSearchCriteria) {       
+        return (new ILHSearchService()).runSearch(kvpSearchCriteria);//We only return one instance of the wrapper the contains merged errors and results from various search services.    
     }
 
     /**
-     * Author : Bernie Shishaye
-     * Date   : 9/12/2023  
-     * For Sutherland- when a Seller agent opens an inbound call, the link should do consumer search based on callee phone number.
+     * Purpose: For Sutherland- when a Seller agent opens an inbound call, the link should do consumer search based on callee phone number.
      * First check if the number is in the excluded list, and do the search.
-    */
+     * @param phoneNumber : Phone number to dertermine if it's a searchable number.
+     * @return : Boolean value that indicates if a phone number is searchable
+     */
     @AuraEnabled
     public static Boolean checkPhoneExclusionFlag(string phoneNumber) {         
         string nonDigits = '[^0-9]';

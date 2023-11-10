@@ -1,197 +1,243 @@
-/**********************************************************************************
- * Title:  Search Merge Unit Tests
- * Date:   Sept 2023
- * 
- * Description:  Unit Tests for Results Dedupe   
- *  
- *          
- * Modifications:
- *************************************************************************************/
 /**
- * @Author: Bernie Shishaye
- * @Create Time: 2023-09-12 12:49:32
- * @Modified by: Bernie Shishaye
- * @Modified time: 2023-09-13 00:28:59
- * @Description: Unit Test for Merging logic- covers all cases.
+ * Copyright: TruStage
+ * Purpose: Units tests for the ILHSearchMergeImpl class
  */
-
 @isTest
 public class ILHSearchMergeImplTest {
     @isTest 
     public static void Cps_when_matched_personId(){
-        List<ILHConsumerResultsWrapper> searchResults = new List<ILHConsumerResultsWrapper>();
+        ILHConsumerResultsWrapper sfWrapper = new ILHConsumerResultsWrapper();
+        ILHConsumerResultsWrapper cpsWrapper = new ILHConsumerResultsWrapper();
         
-        ILHConsumerResultsWrapper cps1 = new ILHConsumerResultsWrapper();
+        sfWrapper.mySource = ILHConsumerResultsWrapper.Source.SALESFORCE;
+        cpsWrapper.mySource = ILHConsumerResultsWrapper.Source.CPS;
+        
+        ILHConsumerResultsWrapper.SearchResult cps1 = new ILHConsumerResultsWrapper.SearchResult();
         cps1.personId = 'X123456';
         cps1.lastName = 'John';
         cps1.firstName = 'Deer';
         cps1.sourceSystemKeys = new List<String>{'Id1'};
         cps1.dateOfBirth = Date.newInstance(1980,1,1);
-        cps1.mySource= ILHConsumerResultsWrapper.Source.CPS;
-        searchResults.add(cps1);
-        ILHConsumerResultsWrapper cps2 = new ILHConsumerResultsWrapper();
+        cpsWrapper.results.add(cps1);
+
+        ILHConsumerResultsWrapper.SearchResult cps2 = new ILHConsumerResultsWrapper.SearchResult();
         cps2.personId = 'X222222';
         cps2.lastName = 'James';
         cps2.firstName = 'John';
         cps2.sourceSystemKeys = new List<String>{'Id2'};       
         cps2.dateOfBirth = Date.newInstance(1980,2,1);
-        cps2.mySource= ILHConsumerResultsWrapper.Source.CPS;
-        searchResults.add(cps2);
+        cpsWrapper.results.add(cps2);
 
-        ILHConsumerResultsWrapper sf1 = new ILHConsumerResultsWrapper();
+        ILHConsumerResultsWrapper.SearchResult sf1 = new ILHConsumerResultsWrapper.SearchResult();
         sf1.personId = 'X123456';
         sf1.lastName = 'Tom';
         sf1.firstName = 'Deer';
         sf1.sourceSystemKeys = new List<String>{'Id3'};
         sf1.dateOfBirth = Date.newInstance(1970,1,1);
-        sf1.mySource= ILHConsumerResultsWrapper.Source.SALESFORCE;
-        searchResults.add(sf1);
+        sfWrapper.results.add(sf1);
+
+        List<ILHConsumerResultsWrapper> searchResults = new List<ILHConsumerResultsWrapper>{sfWrapper, cpsWrapper};
        
         Test.startTest();
-        List<ILHConsumerResultsWrapper> meargedResults = (new ILHSearchMergeImpl()).mergeResults(searchResults);
+        ILHConsumerResultsWrapper meargedResult = (new ILHSearchMergeImpl()).mergeResults(searchResults);
         Test.stopTest();        
-        Assert.isFalse(meargedResults.contains(sf1), 'Salesforce record matched based on personId');
+        Assert.isFalse(meargedResult.results.contains(sf1), 'Salesforce record matched based on personId');
         
     }
 
     @isTest
     public static void sfresult_when_not_matched(){
-        List<ILHConsumerResultsWrapper> searchResults = new List<ILHConsumerResultsWrapper>();
+        ILHConsumerResultsWrapper sfWrapper = new ILHConsumerResultsWrapper();
+        ILHConsumerResultsWrapper cpsWrapper = new ILHConsumerResultsWrapper();
         
-        ILHConsumerResultsWrapper cps1 = new ILHConsumerResultsWrapper();
+        sfWrapper.mySource = ILHConsumerResultsWrapper.Source.SALESFORCE;
+        cpsWrapper.mySource = ILHConsumerResultsWrapper.Source.CPS;
+        
+        ILHConsumerResultsWrapper.SearchResult cps1 = new ILHConsumerResultsWrapper.SearchResult();
         cps1.personId = 'X123456';
         cps1.lastName = 'John';
         cps1.firstName = 'Deer';
         cps1.sourceSystemKeys = new List<String>{'Id1'};
         cps1.dateOfBirth = Date.newInstance(1980,1,1);
-        cps1.mySource= ILHConsumerResultsWrapper.Source.CPS;
-        searchResults.add(cps1);
-        ILHConsumerResultsWrapper cps2 = new ILHConsumerResultsWrapper();
+        cpsWrapper.results.add(cps1);
+
+        ILHConsumerResultsWrapper.SearchResult cps2 = new ILHConsumerResultsWrapper.SearchResult();
         cps2.personId = 'X222222';
         cps2.lastName = 'James';
         cps2.firstName = 'John';
         cps2.sourceSystemKeys = new List<String>{'Id2'};       
         cps2.dateOfBirth = Date.newInstance(1980,2,1);
-        cps2.mySource= ILHConsumerResultsWrapper.Source.CPS;
-        searchResults.add(cps2);
+        cpsWrapper.results.add(cps2);
 
-       
-        ILHConsumerResultsWrapper sf2 = new ILHConsumerResultsWrapper();
+        ILHConsumerResultsWrapper.SearchResult sf2 = new ILHConsumerResultsWrapper.SearchResult();
         sf2.personId = 'X999999';
         sf2.lastName = 'Smith';
         sf2.firstName = 'Armstrong';
         sf2.sourceSystemKeys = new List<String>{'Id3'};
         sf2.dateOfBirth = Date.newInstance(1970,1,1);
-        sf2.mySource= ILHConsumerResultsWrapper.Source.SALESFORCE;
-        searchResults.add(sf2);
+        sfWrapper.results.add(sf2);
+
+        List<ILHConsumerResultsWrapper> searchResults = new List<ILHConsumerResultsWrapper>{sfWrapper, cpsWrapper};
        
         Test.startTest();
-        List<ILHConsumerResultsWrapper> meargedResults = (new ILHSearchMergeImpl()).mergeResults(searchResults);
+        ILHConsumerResultsWrapper meargedResult = (new ILHSearchMergeImpl()).mergeResults(searchResults);
         Test.stopTest();
 
-        Assert.isTrue(meargedResults.contains(sf2), 'Salesforce record not in CPS search result.');
+        Assert.isTrue(meargedResult.results.contains(sf2), 'Salesforce record not in CPS search result.');
 
     }
 
     @isTest
     public static void sfresult_when_matched_based_criteria(){
-        List<ILHConsumerResultsWrapper> searchResults = new List<ILHConsumerResultsWrapper>();
+        ILHConsumerResultsWrapper sfWrapper = new ILHConsumerResultsWrapper();
+        ILHConsumerResultsWrapper cpsWrapper = new ILHConsumerResultsWrapper();
         
-        ILHConsumerResultsWrapper cps1 = new ILHConsumerResultsWrapper();
+        sfWrapper.mySource = ILHConsumerResultsWrapper.Source.SALESFORCE;
+        cpsWrapper.mySource = ILHConsumerResultsWrapper.Source.CPS;
+        
+        ILHConsumerResultsWrapper.SearchResult cps1 = new ILHConsumerResultsWrapper.SearchResult();
         cps1.personId = 'X123456';
         cps1.lastName = 'John';
         cps1.firstName = 'Deer';
         cps1.sourceSystemKeys = new List<String>{'Id1'};
         cps1.dateOfBirth = Date.newInstance(1980,1,1);
-        cps1.mySource= ILHConsumerResultsWrapper.Source.CPS;
-        searchResults.add(cps1);
-        ILHConsumerResultsWrapper cps2 = new ILHConsumerResultsWrapper();
+        cpsWrapper.results.add(cps1);
+
+        ILHConsumerResultsWrapper.SearchResult cps2 = new ILHConsumerResultsWrapper.SearchResult();
         cps2.personId = 'X222222';
         cps2.lastName = 'James';
         cps2.firstName = 'John';
         cps2.sourceSystemKeys = new List<String>{'Id2'};       
         cps2.dateOfBirth = Date.newInstance(1980,2,1);
-        cps2.mySource= ILHConsumerResultsWrapper.Source.CPS;
-        searchResults.add(cps2);
+        cpsWrapper.results.add(cps2);
 
-        ILHConsumerResultsWrapper sf3 = new ILHConsumerResultsWrapper();
+        ILHConsumerResultsWrapper.SearchResult sf3 = new ILHConsumerResultsWrapper.SearchResult();
         sf3.personId = 'ttttttt';
         sf3.lastName = 'James';
         sf3.firstName = 'John';
         sf3.sourceSystemKeys = new List<String>{'Id2'};
         sf3.dateOfBirth = Date.newInstance(1980,2,1);
-        sf3.mySource= ILHConsumerResultsWrapper.Source.SALESFORCE;
-        searchResults.add(sf3);
+        sfWrapper.results.add(sf3);
+
+        List<ILHConsumerResultsWrapper> searchResults = new List<ILHConsumerResultsWrapper>{sfWrapper, cpsWrapper};
+
         Test.startTest();
-        List<ILHConsumerResultsWrapper> meargedResults = (new ILHSearchMergeImpl()).mergeResults(searchResults);
+        ILHConsumerResultsWrapper meargedResult = (new ILHSearchMergeImpl()).mergeResults(searchResults);
         Test.stopTest();
-        for(ILHConsumerResultsWrapper r: meargedResults){
+        for(ILHConsumerResultsWrapper.SearchResult r: meargedResult.results){
             Assert.areNotEqual(r.personId, sf3.personId, 'Salesforce record doesnt exist.');
         }
     }
 
     @isTest
     public static void sfresult_with_no_person_id_same_sf_id(){
-        List<ILHConsumerResultsWrapper> searchResults = new List<ILHConsumerResultsWrapper>();
+        ILHConsumerResultsWrapper sfWrapper = new ILHConsumerResultsWrapper();
+        ILHConsumerResultsWrapper cpsWrapper = new ILHConsumerResultsWrapper();
         
-        ILHConsumerResultsWrapper cps1 = new ILHConsumerResultsWrapper();
+        sfWrapper.mySource = ILHConsumerResultsWrapper.Source.SALESFORCE;
+        cpsWrapper.mySource = ILHConsumerResultsWrapper.Source.CPS;
+        
+        ILHConsumerResultsWrapper.SearchResult cps1 = new ILHConsumerResultsWrapper.SearchResult();
         cps1.lastName = 'John';
         cps1.firstName = 'Deer';
         cps1.sourceSystemKeys = new List<String>{'Id1'};
         cps1.dateOfBirth = Date.newInstance(1980,1,1);
-        cps1.mySource= ILHConsumerResultsWrapper.Source.CPS;
-        searchResults.add(cps1);
+        cpsWrapper.results.add(cps1);
 
-        ILHConsumerResultsWrapper cps2 = new ILHConsumerResultsWrapper();
+        ILHConsumerResultsWrapper.SearchResult cps2 = new ILHConsumerResultsWrapper.SearchResult();
         cps2.lastName = 'James';
         cps2.firstName = 'John';
         cps2.sourceSystemKeys = new List<String>{'Id2'};       
         cps2.dateOfBirth = Date.newInstance(1980,2,1);
-        cps2.mySource= ILHConsumerResultsWrapper.Source.SALESFORCE;
-        searchResults.add(cps2);
+        sfWrapper.results.add(cps2);
 
-        ILHConsumerResultsWrapper cps3 = new ILHConsumerResultsWrapper();
+        ILHConsumerResultsWrapper.SearchResult cps3 = new ILHConsumerResultsWrapper.SearchResult();
         cps3.lastName = 'Smith';
         cps3.firstName = 'Joe';
         cps3.sourceSystemKeys = new List<String>{'Id2'};      
         cps3.dateOfBirth = Date.newInstance(1980,2,1);
-        cps3.mySource= ILHConsumerResultsWrapper.Source.CPS;
-        searchResults.add(cps3);
+        cpsWrapper.results.add(cps3);
+
+        List<ILHConsumerResultsWrapper> searchResults = new List<ILHConsumerResultsWrapper>{sfWrapper, cpsWrapper};
 
         Test.startTest();
-        List<ILHConsumerResultsWrapper> meargedResults = (new ILHSearchMergeImpl()).mergeResults(searchResults);
+        ILHConsumerResultsWrapper meargedResult = (new ILHSearchMergeImpl()).mergeResults(searchResults);
         Test.stopTest();
-        Assert.areEqual(2, meargedResults.size());
-        for(ILHConsumerResultsWrapper r: meargedResults){
-            Assert.areEqual(ILHConsumerResultsWrapper.Source.CPS, r.mySource, 'Result is from CPS');
-        }
+        Assert.areEqual(2, meargedResult.results.size());
+        Assert.areEqual(ILHConsumerResultsWrapper.Source.SALESFORCE, meargedResult.results[0].mySource, 'Result is from SF');
+        Assert.areEqual(ILHConsumerResultsWrapper.Source.CPS, meargedResult.results[1].mySource, 'Result is from CPS');
     }
 
     @isTest
     public static void sfresult_when_matched_based_fn_ln_dob(){
-        List<ILHConsumerResultsWrapper> searchResults = new List<ILHConsumerResultsWrapper>();
+        ILHConsumerResultsWrapper sfWrapper = new ILHConsumerResultsWrapper();
+        ILHConsumerResultsWrapper cpsWrapper = new ILHConsumerResultsWrapper();
         
-        ILHConsumerResultsWrapper cps1 = new ILHConsumerResultsWrapper();
+        sfWrapper.mySource = ILHConsumerResultsWrapper.Source.SALESFORCE;
+        cpsWrapper.mySource = ILHConsumerResultsWrapper.Source.CPS;
+        
+        ILHConsumerResultsWrapper.SearchResult cps1 = new ILHConsumerResultsWrapper.SearchResult();
         cps1.personId = 'X123456';
         cps1.lastName = 'John';
         cps1.firstName = 'Deer';
         cps1.sourceSystemKeys = new List<String>{'Id1'};
         cps1.dateOfBirth = Date.newInstance(1980,1,1);
-        cps1.mySource= ILHConsumerResultsWrapper.Source.CPS;
-        searchResults.add(cps1);
+        cpsWrapper.results.add(cps1);
 
-        ILHConsumerResultsWrapper sf3 = new ILHConsumerResultsWrapper();
+        ILHConsumerResultsWrapper.SearchResult sf3 = new ILHConsumerResultsWrapper.SearchResult();
         sf3.personId = 'ttttttt';
         sf3.lastName = 'John';
         sf3.firstName = 'Deer';
         sf3.sourceSystemKeys = new List<String>{'Id2'};
         sf3.dateOfBirth = Date.newInstance(1980,1,1);
-        sf3.mySource= ILHConsumerResultsWrapper.Source.SALESFORCE;
-        searchResults.add(sf3);
+        sfWrapper.results.add(sf3);
+
+        List<ILHConsumerResultsWrapper> searchResults = new List<ILHConsumerResultsWrapper>{sfWrapper, cpsWrapper};
+
         Test.startTest();
-        List<ILHConsumerResultsWrapper> meargedResults = (new ILHSearchMergeImpl()).mergeResults(searchResults);
+        ILHConsumerResultsWrapper meargedResult = (new ILHSearchMergeImpl()).mergeResults(searchResults);
         Test.stopTest();
-        Assert.areEqual(1, meargedResults.size());
-        Assert.areEqual(ILHConsumerResultsWrapper.Source.CPS, meargedResults[0].mySource, 'Result is from SF');
+        Assert.areEqual(1, meargedResult.results.size());
+        Assert.areEqual(ILHConsumerResultsWrapper.Source.SALESFORCE, meargedResult.results[0].mySource, 'Result is from SF');
+    }
+
+    @isTest
+    public static void cps_records_with_multiple_person_contact_ids(){
+        ILHConsumerResultsWrapper sfWrapper = new ILHConsumerResultsWrapper();
+        ILHConsumerResultsWrapper cpsWrapper = new ILHConsumerResultsWrapper();
+        
+        sfWrapper.mySource = ILHConsumerResultsWrapper.Source.SALESFORCE;
+        cpsWrapper.mySource = ILHConsumerResultsWrapper.Source.CPS;
+
+        ILHConsumerResultsWrapper.SearchResult cps1 = new ILHConsumerResultsWrapper.SearchResult();
+        cps1.lastName = 'John';
+        cps1.firstName = 'Deer';
+        cps1.sourceSystemKeys = new List<String>{'Id1', 'Id2'};
+        cps1.dateOfBirth = Date.newInstance(1980,1,1);
+        cpsWrapper.results.add(cps1);
+
+        ILHConsumerResultsWrapper.SearchResult sf1 = new ILHConsumerResultsWrapper.SearchResult();
+        sf1.lastName = 'James';
+        sf1.firstName = 'John';
+        sf1.sourceSystemKeys = new List<String>{'Id1'};       
+        sf1.dateOfBirth = Date.newInstance(1980,2,1);
+        sfWrapper.results.add(sf1);
+
+        ILHConsumerResultsWrapper.SearchResult sf2 = new ILHConsumerResultsWrapper.SearchResult();
+        sf2.lastName = 'Smith';
+        sf2.firstName = 'Joe';
+        sf2.sourceSystemKeys = new List<String>{'Id2'};      
+        sf2.dateOfBirth = Date.newInstance(1980,2,1);
+        sfWrapper.results.add(sf2);
+
+        List<ILHConsumerResultsWrapper> searchResults = new List<ILHConsumerResultsWrapper>{sfWrapper, cpsWrapper};
+
+        Test.startTest();
+        ILHConsumerResultsWrapper meargedResult = (new ILHSearchMergeImpl()).mergeResults(searchResults);
+        Test.stopTest();
+        Assert.areEqual(2, meargedResult.results.size());
+        for(ILHConsumerResultsWrapper.SearchResult r: meargedResult.results){
+            Assert.areEqual(ILHConsumerResultsWrapper.Source.SALESFORCE, r.mySource, 'Record is from SF');
+        }
     }
 }
