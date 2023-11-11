@@ -3,6 +3,12 @@
     <description>Admins that require access to ILH Sales Applications</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>ILH Sales Admin Role</label>
+    <permissionSets>API_Connect_Principal_Access</permissionSets>
+    <permissionSets>Admin_D2CBaseObjects_ModifyAll</permissionSets>
+    <permissionSets>Admin_ILHSalesBaseConfiguration_ModifyAll</permissionSets>
+    <permissionSets>Error_Log_ILHSalesBaseObjects_CRED</permissionSets>
+    <permissionSets>FieldPermissions_ILHSalesBaseObjects_RE</permissionSets>
+    <permissionSets>Field_Permissions_D2CBaseObjects_RE</permissionSets>
     <permissionSets>ILHSalesConsole_ILHSalesConsoleApplication_AppAccess</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
