@@ -9,6 +9,6 @@
     <permissionSets>Error_Log_ILHSalesBaseObjects_CRED</permissionSets>
     <permissionSets>FieldPermissions_ILHSalesBaseObjects_RE</permissionSets>
     <permissionSets>Field_Permissions_D2CBaseObjects_RE</permissionSets>
-    <permissionSets>ILHSalesConsole_ILHSalesConsoleApplication_AppAccess</permissionSets>
+    <permissionSets>ILHSalesConsole_ILHSalesApplications_AppAccess</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

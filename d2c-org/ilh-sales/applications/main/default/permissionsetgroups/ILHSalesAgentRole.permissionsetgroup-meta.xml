@@ -3,5 +3,11 @@
     <description>All permission required for the Sales Agent role.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>ILH Sales Agent Role</label>
+    <permissionSets>API_Connect_Principal_Access</permissionSets>
+    <permissionSets>FieldPermissions_ILHSalesBaseObjects_RE</permissionSets>
+    <permissionSets>Field_Permissions_D2CBaseObjects_R</permissionSets>
+    <permissionSets>ILHSalesAgentObjects_ILHSaleApplications</permissionSets>
+    <permissionSets>ILHSalesAgentPermissions_ILHSalesApplications</permissionSets>
+    <permissionSets>ILHSalesConsole_ILHSalesApplications_AppAccess</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

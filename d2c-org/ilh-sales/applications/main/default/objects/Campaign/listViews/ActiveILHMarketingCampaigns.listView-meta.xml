@@ -6,9 +6,9 @@
     <columns>CAMPAIGN.END_DATE</columns>
     <columns>CAMPAIGN.CAMPAIGN_TYPE</columns>
     <columns>CAMPAIGN.STATUS</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <label>Active ILH Marketing Campaigns</label>
     <sharedTo>
-        <group>ViewILHSales</group>
+        <group>ViewILHSalesListViews</group>
     </sharedTo>
 </ListView>

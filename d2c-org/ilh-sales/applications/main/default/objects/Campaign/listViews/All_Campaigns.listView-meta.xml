@@ -10,6 +10,6 @@
     <filterScope>Everything</filterScope>
     <label>All Campaigns</label>
     <sharedTo>
-        <group>ViewILHSales</group>
+        <group>ViewILHSalesListViews</group>
     </sharedTo>
 </ListView>

@@ -3,7 +3,7 @@
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>None</contactAccessLevel>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Sales Representative</name>
-    <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>ILHSales</parentRole>
+    <name>Retention Manager</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>Retention</parentRole>
 </Role>
