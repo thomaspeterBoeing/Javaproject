@@ -505,9 +505,9 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 			newResult.firstName = result.firstName;
 			newResult.lastName = result.lastName;
 			newResult.nameSuffix = result.nameSuffix;
-			newResult.ssnLast4 = result.SSNLast4;
+			newResult.SSNLast4 = result.SSNLast4;
 			newResult.dateOfBirth = result.dateOfBirth;
-			newResult.state = result.stateProvince;
+			newResult.stateProvince = result.stateProvince;
 			newResult.street=result?.addressLines != null ? result?.addressLines[0] : null;
 			newResult.city = result.city;
 			newResult.postalCode = this.formatPostalCode(result.postalCode);
