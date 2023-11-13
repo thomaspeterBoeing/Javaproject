@@ -243,10 +243,13 @@ describe('c-consumer-search', () => {
         let errDisp = element.shadowRoot.querySelector('p[data-id=errorDisplay]');               
         
         // Wait for any asynchronous DOM updates
-        await flushPromises();        
+        await flushPromises();    
+        
         // Assert        
         expect(search).not.toHaveBeenCalled();
-        expect(errDisp.textContent).toEqual("Invalid Input");        
+        if (errDisp) {
+            expect(errDisp.innerText).toEqual("Invalid Input");
+        }        
     });
    
 

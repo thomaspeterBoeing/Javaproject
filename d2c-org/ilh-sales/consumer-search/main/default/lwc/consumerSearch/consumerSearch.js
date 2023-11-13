@@ -322,6 +322,7 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 			return;
 		}
 		if(!this.checkValidSearchCombination()) {
+			this.clearErrors();//Clear all prior errors
 			this.setErrorMessage("Invalid Search Combination");
 		} else {			
 			this.clearSearchResults();
@@ -504,9 +505,9 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 			newResult.firstName = result.firstName;
 			newResult.lastName = result.lastName;
 			newResult.nameSuffix = result.nameSuffix;
-			newResult.ssnLast4 = result.SSNLast4;
+			newResult.SSNLast4 = result.SSNLast4;
 			newResult.dateOfBirth = result.dateOfBirth;
-			newResult.state = result.stateProvince;
+			newResult.stateProvince = result.stateProvince;
 			newResult.street=result?.addressLines != null ? result?.addressLines[0] : null;
 			newResult.city = result.city;
 			newResult.postalCode = this.formatPostalCode(result.postalCode);
@@ -666,7 +667,7 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 	clearFieldLevelErrors() {
 		for (let index = 0; index < this.fieldNames.length; index++) {
 			let inputFieldToValidate = this.getInputFromName(this.fieldNames[index]);        
-			if (inputFieldToValidate != null) {
+			if (inputFieldToValidate != null && !inputFieldToValidate.checkValidity()) {
 				inputFieldToValidate.value = '';
 				inputFieldToValidate.reportValidity();				
 			}
