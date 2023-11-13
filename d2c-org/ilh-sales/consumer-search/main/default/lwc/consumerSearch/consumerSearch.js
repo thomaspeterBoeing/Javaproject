@@ -322,6 +322,7 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 			return;
 		}
 		if(!this.checkValidSearchCombination()) {
+			this.clearErrors();//Clear all prior errors
 			this.setErrorMessage("Invalid Search Combination");
 		} else {			
 			this.clearSearchResults();
@@ -666,7 +667,7 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 	clearFieldLevelErrors() {
 		for (let index = 0; index < this.fieldNames.length; index++) {
 			let inputFieldToValidate = this.getInputFromName(this.fieldNames[index]);        
-			if (inputFieldToValidate != null) {
+			if (inputFieldToValidate != null && !inputFieldToValidate.checkValidity()) {
 				inputFieldToValidate.value = '';
 				inputFieldToValidate.reportValidity();				
 			}
