@@ -1,0 +1,19 @@
+{
+    "controllerValues": {},
+    "defaultValue": null,
+    "values": [
+        {
+            "attributes": null,
+            "label": "Male",
+            "validFor": [],
+            "value": "Male"
+        },
+        
+        {
+            "attributes": null,
+            "label": "Female",
+            "validFor": [],
+            "value": "Female"
+        }
+           ]
+}
