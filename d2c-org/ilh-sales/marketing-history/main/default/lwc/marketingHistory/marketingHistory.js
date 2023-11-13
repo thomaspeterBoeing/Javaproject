@@ -38,14 +38,13 @@ export default class MarketingHistory extends LightningElement {
     showSpinner = false;
     showNoResultsMessage = false;
     personId = '';
-    objectApiName = 'Opportunity';
 
     /**
      * Purpose: This method gets person id from the related Person Account person id, then passes the person id to pullMarketingHistory funtion
      * @param event : Event from person Id Provider component 
      */
     handlePersonIdLoaded(event) {
-        this.personId = event.detail; // assign value from the event that gets preloaded
+        this.personId = event?.detail?.Account?.PersonID__pc ? event?.detail?.Account?.PersonID__pc : event?.detail?.PersonID__pc;
         this.pullMarketingHistory(this.personId);
     }
 
