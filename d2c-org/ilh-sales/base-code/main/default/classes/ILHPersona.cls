@@ -26,6 +26,9 @@ public class ILHPersona {
             when 'ILHSearchFactory' {
                 thePersona = 'ILH_CSConsumerSearch';
             }
+            when 'ILHPolicyFactory'{
+                thePersona = 'ILH_CSPolicySearch';
+            }
             when else {
                 thePersona = '';
             }
