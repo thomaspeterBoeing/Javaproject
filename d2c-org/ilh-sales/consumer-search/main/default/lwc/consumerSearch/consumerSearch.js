@@ -139,6 +139,7 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 		let currentItem = this.searchResults.find(x=>x.personId==pId);		
 		let payload = {
 			personID: currentItem.personId,
+			accountId: currentItem.accountId,
 			firstName: currentItem.firstName,
 			lastName: currentItem.lastName,
 			homePhone: currentItem.homePhone,
@@ -501,7 +502,8 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 
 		for(let result of results) {		
 			let newResult = [];
-			newResult.personId = result.personId;								
+			newResult.personId = result.personId;
+			newResult.accountId = result?.sourceSystemKeys != null ? result.sourceSystemKeys[0] : null; 								
 			newResult.fullName = result.firstName +' '+result.lastName+(result.nameSuffix? ' '+result.nameSuffix:'');
 			newResult.firstName = result.firstName;
 			newResult.lastName = result.lastName;
