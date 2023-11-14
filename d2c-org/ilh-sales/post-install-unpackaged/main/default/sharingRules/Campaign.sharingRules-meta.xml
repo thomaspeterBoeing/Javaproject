@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>ILHMarketingCampaignShare_R</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Shares all campaigns to Group View All ILH Marketing Campaigns (R)</description>
+        <label>ILH Marketing Campaign Share (R)</label>
+        <sharedTo>
+            <group>ViewAllILHMarketingCampaigns_R</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ILH Marketing</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

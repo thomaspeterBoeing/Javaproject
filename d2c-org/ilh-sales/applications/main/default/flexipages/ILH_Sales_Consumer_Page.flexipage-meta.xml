@@ -215,10 +215,6 @@
                 <identifier>RecordLastModifiedByIdField</identifier>
             </fieldInstance>
         </itemInstances>
-        <name>Facet-58255b7d-4e87-4f5c-9ded-76ba2145a669</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -229,6 +225,10 @@
                 <identifier>RecordOwnershipField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-58255b7d-4e87-4f5c-9ded-76ba2145a669</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -237,6 +237,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.RecordTypeId</fieldItem>
                 <identifier>RecordRecordTypeIdField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.PersonID__pc</fieldItem>
+                <identifier>RecordPersonID_pcField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-cd72f6d8-d264-4dbf-a5c3-4e729d31e64e</name>

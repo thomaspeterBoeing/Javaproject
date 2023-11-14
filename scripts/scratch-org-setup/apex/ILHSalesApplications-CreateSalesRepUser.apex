@@ -5,7 +5,7 @@ Integer RandomNumber2 = Integer.valueof((Math.random() * 1000));
 String strNumber2 = String.valueOf(RandomNumber2);
 
 
-Profile p = [SELECT Id FROM Profile where Name = 'ILH Sales Rep'];
+Profile p = [SELECT Id FROM Profile where Name = 'ILH Sales Agent'];
 User u = new User();
 u.FirstName = 'Sam';
 u.LastName = 'SalesRep';
@@ -20,7 +20,7 @@ u.EmailEncodingKey = 'UTF-8';
 
 insert u;
 
-PermissionSetGroup pg = [SELECT Id FROM PermissionSetGroup WHERE DeveloperName = 'ILHSalesRepresentativeRole'];
+PermissionSetGroup pg = [SELECT Id FROM PermissionSetGroup WHERE DeveloperName = 'ILHSalesAgentRole'];
 PermissionSetAssignment psa = new PermissionSetAssignment();
 psa.AssigneeId= u.id;
 psa.PermissionSetGroupId = pg.id;

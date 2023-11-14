@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>RetentionOpportunityShare_RE</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Shares all opportunity records created by Retention users with Retention users.</description>
+        <label>Retention Opportunity Share (R/E)</label>
+        <sharedTo>
+            <roleAndSubordinates>Retention</roleAndSubordinates>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>Retention</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>
