@@ -146,7 +146,7 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 			mobile: currentItem.mobilePhone,
 			gender: currentItem.gender,
 			birthDate: currentItem.dateOfBirth,
-			mailingStreet: currentItem?.addressLines != null ? currentItem?.addressLines[0] : null,
+			mailingStreet: currentItem.street,
 			mailingCity: currentItem.city,
 			mailingState: currentItem.stateProvince,
 			mailingPostalCode: currentItem.postalCode				
@@ -500,12 +500,13 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 		let newResults = [];	
 
 		for(let result of results) {		
-			let newResult = [];									
+			let newResult = [];
+			newResult.personId = result.personId;								
 			newResult.fullName = result.firstName +' '+result.lastName+(result.nameSuffix? ' '+result.nameSuffix:'');
 			newResult.firstName = result.firstName;
 			newResult.lastName = result.lastName;
 			newResult.nameSuffix = result.nameSuffix;
-			newResult.SSNLast4 = result.SSNLast4;
+			newResult.ssnLast4 = result.SSNLast4;
 			newResult.dateOfBirth = result.dateOfBirth;
 			newResult.stateProvince = result.stateProvince;
 			newResult.street=result?.addressLines != null ? result?.addressLines[0] : null;
