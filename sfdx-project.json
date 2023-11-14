@@ -139,6 +139,7 @@
       "path": "d2c-org/ilh-sales/consumer-opportunity-automation",
       "default": false,
       "package": "ILH Sales Consumer and Opportunity Automation",
+      "scopeProfiles": "true",
       "versionName": "ver 0.1",
       "versionNumber": "0.1.0.NEXT",
       "versionDescription": "Creation of Consumer Person Account and Opportunity processes",
