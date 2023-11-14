@@ -19,8 +19,8 @@ public with sharing class OIDCAuthorizeService {
         httpReq.setMethod(endpoint.Method__c);
         //httpReq.setHeader('X-IBM-Client-Secret', endPoint.Client_Secret__c); 
         httpReq.setHeader('X-IBM-Client-Id', endPoint.Client_Id__c); 
-        String username = '{!$Credential.APIConnectExternalCredential.Username}';
-        String password = '{!$Credential.APIConnectExternalCredential.Password}';
+        String username = '{!$Credential.UserName}';
+        String password = '{!$Credential.Password}';
         httpReq.setBody('grant_type=password&scope=openid+profile+address+email&username='+username+'&password='+password);
         //System.debug('@@ Request Body:-'+httpReq.getBody());
         // Make the webservice call and store the response

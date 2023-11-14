@@ -6,14 +6,10 @@ public without sharing class Utilities {
         // Get appropriate environment name from custom metadata table
         APIEnvironmentSFOrgID__mdt envt = new APIEnvironmentSFOrgID__mdt();
         API_Endpoint__mdt output = new API_Endpoint__mdt();
-        if(Test.isRunningTest()){
-            envt=MockMetadataUtils.apiEvts[0];
-            output=MockMetadataUtils.apiEndPts[0];
-        }
-        else{
-           envt = [Select Environment__c From APIEnvironmentSFOrgID__mdt Where OrgId__c =: orgId Limit 1];
-           output = [Select Id, Client_Id__c, Client_Secret__c, Service_Method__c, Timeout__c, Method__c, Mock_Response_Static_Resource__c, ContentType__c, Type__c, SOAP_Method__c, isOIDCSecured__c, Named_Credential__c from  API_Endpoint__mdt where MasterLabel =:envt.Environment__c AND ServiceName__c =:serviceName and is_Active__c=true limit 1];
-        }
+        
+        envt = [Select Environment__c From APIEnvironmentSFOrgID__mdt Where OrgId__c =: orgId Limit 1];
+        output = [Select Id, Client_Id__c, Client_Secret__c, Service_Method__c, Timeout__c, Method__c, Mock_Response_Static_Resource__c, ContentType__c, Type__c, SOAP_Method__c, isOIDCSecured__c, Named_Credential__c from  API_Endpoint__mdt where MasterLabel =:envt.Environment__c AND ServiceName__c =:serviceName and is_Active__c=true limit 1];
+    
         return output;
     }
 
@@ -68,22 +64,6 @@ public without sharing class Utilities {
      */
     public static String removeAllPhoneFormatting(String phoneNumber) {
         return phoneNumber.replace('-','').replace('(','').replace(')','').replace(' ','');
-    }
-
-    /**
-     *  This method add single quotes around the value that's passed in
-    */
-    public static String escape(String val) {
-        return '\'' + String.escapeSingleQuotes(val) + '\'';
-    }
-
-    /**
-     *   This method adds wildcard characters to returned value.  The value will be used in a LIKE query.
-    */
-    public static String escapeSuffixWildCard(String val) {
-        string retVal = String.escapeSingleQuotes(val);
-        retVal = '\'' + retVal + '%\'';
-        return retVal;
     }
 
     public static String DateFormatSwitchMMDDYYYTtoYYYYMMDD(String strDate) {   
