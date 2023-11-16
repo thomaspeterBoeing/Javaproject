@@ -1,9 +1,6 @@
 <template>
     <lightning-modal-header label={modalTitle}></lightning-modal-header>
-    <lightning-modal-body> 
-        <div class="spinner">
-            <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
-        </div>              
+    <lightning-modal-body>                     
         <lightning-flow
             flow-api-name={flowAPIName}   
             flow-input-variables={flowInputVariables}         
