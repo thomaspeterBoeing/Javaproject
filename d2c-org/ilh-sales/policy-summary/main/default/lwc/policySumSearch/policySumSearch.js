@@ -8,6 +8,8 @@ export default class policySumSearch extends LightningElement {
     @api objectApiName;
     @track policyData = [];
     @track isLoading = true;
+
+    errorMessage = undefined;
     personId ='';
     columns = [
       {
@@ -72,7 +74,8 @@ export default class policySumSearch extends LightningElement {
             })
             .catch(error => {
                 this.isLoading = false;
-                let errorMessage = reduceErrors(error);	
+                let errorMessage = reduceErrors(error);
+                this.errorMessage = errorMessage;	
                 console.error("error", errorMessage);	
                 this.setErrorMessage('Error occured while calling CPS for Policy search');			
                 this.isSearching = false;
@@ -123,4 +126,3 @@ export default class policySumSearch extends LightningElement {
 
 
 }
-
