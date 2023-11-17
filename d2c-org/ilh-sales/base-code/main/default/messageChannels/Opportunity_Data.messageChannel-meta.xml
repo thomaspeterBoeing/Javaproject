@@ -8,6 +8,10 @@
         <description>Salesforce Person Account Id</description>
     </lightningMessageFields> 
     <lightningMessageFields>
+        <fieldName>lastName</fieldName>
+        <description>Person Account Last Name</description>
+    </lightningMessageFields> 
+    <lightningMessageFields>
         <fieldName>dnis</fieldName>
         <description>Dialed Number Used to check for Toll Free Number Marketing Campaign</description>
     </lightningMessageFields>       

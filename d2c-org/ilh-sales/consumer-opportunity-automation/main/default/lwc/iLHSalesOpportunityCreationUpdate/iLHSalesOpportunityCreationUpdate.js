@@ -52,6 +52,7 @@ export default class IlhOpportunityCreateAndUpdate extends NavigationMixin(Light
     }
 
     setFlowVariables(message){
+   
      const flowInputVariables = [
            
             {
@@ -59,6 +60,11 @@ export default class IlhOpportunityCreateAndUpdate extends NavigationMixin(Light
                 type: "String",
                 value: this.checkIfNoValue(message.accountId),
             }, 
+            {
+                name: "inputTxt_LastName",
+                type: "String",
+                value: this.checkIfNoValue(message.lastName),
+            },
             {
                 name: "inputTxt_dnis",
                 type: "String",

@@ -4,6 +4,10 @@
     <description>Sales Process for ILH Sales</description>
     <isActive>true</isActive>
     <values>
+        <fullName>Application</fullName>
+        <default>false</default>
+    </values>
+    <values>
         <fullName>Closed Lost</fullName>
         <default>false</default>
     </values>
@@ -17,6 +21,10 @@
     </values>
     <values>
         <fullName>Qualification</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Quote</fullName>
         <default>false</default>
     </values>
 </BusinessProcess>
