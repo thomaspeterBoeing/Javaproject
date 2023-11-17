@@ -2,7 +2,7 @@ import { LightningElement, api,wire,track} from 'lwc';
 import { getRecord } from 'lightning/uiRecordApi';
 import { getObjectInfo  } from 'lightning/uiObjectInfoApi';
 import ModalLWC from 'c/modalScreenFlow';
-import ScreenFlowLabel from '@salesforce/label/c.PersonAccountSFlow';
+
 import ACCOUNT_OBJECT from '@salesforce/schema/Account';
 import { refreshApex } from '@salesforce/apex';
 import { reduceErrors } from 'c/ldsUtils';
@@ -15,7 +15,6 @@ const FIELDS = ["Account.FirstName","Account.LastName","Account.MiddleName","Acc
 export default class consumerDetails extends LightningElement {
    
     @api recordId;
-    flowAPIName=ScreenFlowLabel;
     @track paccountID;
     objectApiName = ACCOUNT_OBJECT;
     isLoaded=false;
@@ -207,7 +206,7 @@ export default class consumerDetails extends LightningElement {
         const outputVars = await ModalLWC.open({
             size: 'medium',            
             modalTitle: 'Complete Consumer',
-            flowAPIName: ScreenFlowLabel,     
+            flowAPIName: 'ILH_CreateUpdatePersonAccountScrF',     
             flowInputVariables: flowInputVars,
         });
         
