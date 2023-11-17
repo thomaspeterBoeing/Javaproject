@@ -28,7 +28,7 @@ import createConsumer from '@salesforce/apex/IlhAutoLaunchFlow.startFlow';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { reduceErrors } from 'c/ldsUtils';//LWC Reduces one or more LDS errors into a string[] of error messages
 
-export default class IlhConsumerCreationUpdate extends LightningElement {
+export default class ILHSalesConsumerCreationUpdate extends LightningElement {
     subscription = null;
     errorOccurred = false;             
     connectedCallback() {
@@ -56,8 +56,9 @@ export default class IlhConsumerCreationUpdate extends LightningElement {
         //read message and set flow variables
         const flowInputVars = this.setFlowVariables(message);
         let returnedAccountId;                                                    
-
-        //Check if all of the fields required on Person Account are populated
+        
+        //Check if all of the fields required on Person Account are populated. If so
+        //Call autolaunch flow.  Otherwise launch screen flow.
         if(this.verifyMandatoryFields(message)){
                 returnedAccountId = await this.callAutolaunchFlow(flowInputVars);           
         } else {
@@ -67,14 +68,15 @@ export default class IlhConsumerCreationUpdate extends LightningElement {
         //If an error occurs with the auto launch flow continue with screen flow.
         if(this.errorOccurred){
             returnedAccountId = await this.openModalFlow(flowInputVars);
-            this.publishAccountId(returnedAccountId,message.dnis);                  
+            this.publishAccountId(returnedAccountId,message.lastName,message.dnis);                  
         } else {
-            this.publishAccountId(returnedAccountId,message.dnis); 
+            this.publishAccountId(returnedAccountId,message.lastName,message.dnis); 
         }
     }
 
     setFlowVariables(message){
-         
+        console.log('Message Channel Payload ' + JSON.stringify(message),);
+
         const flowInputVariables = [
             {
                 name: "inputTxt_PersonId",
@@ -152,7 +154,7 @@ export default class IlhConsumerCreationUpdate extends LightningElement {
                 value: this.checkIfNoValue(message.mailingPostalCode),
             }            
         ]  
-      
+ 
         return flowInputVariables;
     }
 
@@ -181,36 +183,57 @@ export default class IlhConsumerCreationUpdate extends LightningElement {
     }
     // Verify that mandatory fields have valid values
     verifyMandatoryFields(message){
-          
-        return (  message.birthDate && 
-                  this.validateGender(message.gender) && 
-                  message.firstName &&
-                  message.lastName &&
-                  message.mailingCity &&
+         
+                     
+        return (  this.validateBirthDate(message.birthDate) &&
+                  this.validateGender(message.gender) &&
+                  this.validateStringValue(message.firstName) &&
+                  this.validateStringValue(message.lastName) &&
+                  this.validateStringValue(message.mailingCity) &&
                   this.validateState(message.mailingState) &&
-                  message.mailingStreet &&
-                  message.mailingPostalCode &&
-                  this.validatePhone(message.homePhone)
+                  this.validateStringValue(message.mailingStreet) &&
+                  this.validateStringValue(message.mailingPostalCode) &&
+                  this.validatePhones(message.homePhone,message.workPhone,message.mobile)
+               
               )
-  }
+        }
 
     //If variable does not contain a value then set to empty string.
-    checkIfNoValue(value){
+    checkIfNoValue(value){       
         let returnValue;
             if(!value){ returnValue = ""
         } else {
              returnValue = value
-        }
-        console.log('Value: '+returnValue);    
+        }           
         return returnValue;   
     }
+    
+    validateBirthDate(value){
+        const oldDate = new Date('1900-01-01');
+        const birthDate = new Date(value);
+        let returnValue = false;
+        if(birthDate.getTime() >  oldDate.getTime()){
+            returnValue = true;
+        } 
+        return returnValue;
+    }
+    
+    //Validate that the value does not equal empty string
+    validateStringValue(value){ 
+        let returnValue = false;      
+        if(value !== ""){
+            returnValue = true;
+        }
+        return returnValue;
 
+    }
+  
     validateGender(value){
         let returnValue = false;
         if(value){
-            if(value.toLowerCase() == 'male' || value.toLowerCase == 'female'){
+            if(value.toLowerCase() == 'male' || value.toLowerCase() == 'female'){
                 returnValue = true;
-            } 
+            }
         }
         return returnValue;
     }
@@ -230,16 +253,25 @@ export default class IlhConsumerCreationUpdate extends LightningElement {
         return returnValue;
     }
     
-    validatePhone(value){
+    validatePhones(home,work,mobile){
         let returnValue = false;
-     
-        //replace everything but numbers
-        value = value.replace(/[^0-9]/g, '');
-     
-        if(value.length == 10) {
+                     
+        if(this.validateSinglePhone(home) || this.validateSinglePhone(work) || this.validateSinglePhone(mobile))
+        {  
             returnValue = true;
-        } 
+        }
+        return returnValue;
+    }    
 
+    validateSinglePhone(value){
+        let returnValue = false;
+        if (value){
+            value = value.replace(/[^0-9]/g, '');
+     
+            if(value.length == 10) {
+            returnValue = true;
+            } 
+        }
         return returnValue;
     }
 
@@ -267,9 +299,10 @@ export default class IlhConsumerCreationUpdate extends LightningElement {
     }
     // Publish Message for Opportunity Data.  This message is subscribed to by components that 
     // create the Opportunity assigning the Person Account that was created in this component.    
-    publishAccountId(accId,dnis){
+    publishAccountId(accId,lastName,dnis){        
            const payload = {
                                 accountId: accId,
+                                lastName: lastName,
                                 dnis: dnis 
                             };
 

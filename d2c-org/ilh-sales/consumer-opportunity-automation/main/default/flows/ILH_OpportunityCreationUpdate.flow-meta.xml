@@ -4,7 +4,7 @@
         <name>Create_Opportunity_Errors</name>
         <label>Create Opportunity Errors</label>
         <locationX>440</locationX>
-        <locationY>566</locationY>
+        <locationY>458</locationY>
         <actionName>ErrorLogger</actionName>
         <actionType>apex</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -30,38 +30,9 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
-        <name>Get_Person_Account_Errors</name>
-        <label>Get Person Account Errors</label>
-        <locationX>704</locationX>
-        <locationY>350</locationY>
-        <actionName>ErrorLogger</actionName>
-        <actionType>apex</actionType>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>errorDescription</name>
-            <value>
-                <elementReference>$Flow.FaultMessage</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>operation</name>
-            <value>
-                <stringValue>Get Person Account</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>processName</name>
-            <value>
-                <stringValue>ILH_OpportunityCreationUpdate.flow</stringValue>
-            </value>
-        </inputParameters>
-        <nameSegment>ErrorLogger</nameSegment>
-        <versionSegment>1</versionSegment>
-    </actionCalls>
-    <actionCalls>
         <name>Handle_Get_Record_Type_ID_Errors</name>
         <label>Handle Get Record Type ID Errors</label>
-        <locationX>968</locationX>
+        <locationX>704</locationX>
         <locationY>242</locationY>
         <actionName>ErrorLogger</actionName>
         <actionType>apex</actionType>
@@ -92,7 +63,7 @@
         <name>Assign_Opportunity_Values</name>
         <label>Assign Opportunity Values</label>
         <locationX>176</locationX>
-        <locationY>350</locationY>
+        <locationY>242</locationY>
         <assignmentItems>
             <assignToReference>opportunityRecord.Name</assignToReference>
             <operator>Assign</operator>
@@ -136,7 +107,7 @@
         <name>Assign_Output_Variable</name>
         <label>Assign Output Variable</label>
         <locationX>176</locationX>
-        <locationY>566</locationY>
+        <locationY>458</locationY>
         <assignmentItems>
             <assignToReference>outputTxt_OpportunityId</assignToReference>
             <operator>Assign</operator>
@@ -156,7 +127,7 @@
         <description>Name consists of Person Last Name with Current Date Timestamp.</description>
         <name>OpportunityNameFormula</name>
         <dataType>String</dataType>
-        <expression>{!Get_Person_Account.LastName} + &quot; &quot; + TEXT(NOW())</expression>
+        <expression>{!inputTxt_LastName} + &quot; &quot; + TEXT(NOW())</expression>
     </formulas>
     <interviewLabel>ILH Opportunity Creation - Update {!$Flow.CurrentDateTime}</interviewLabel>
     <label>ILH Opportunity Creation - Update</label>
@@ -183,7 +154,7 @@
         <name>Create_Opportunity</name>
         <label>Create Opportunity</label>
         <locationX>176</locationX>
-        <locationY>458</locationY>
+        <locationY>350</locationY>
         <connector>
             <targetReference>Assign_Output_Variable</targetReference>
         </connector>
@@ -193,37 +164,13 @@
         <inputReference>opportunityRecord</inputReference>
     </recordCreates>
     <recordLookups>
-        <name>Get_Person_Account</name>
-        <label>Get Person Account</label>
-        <locationX>176</locationX>
-        <locationY>242</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Assign_Opportunity_Values</targetReference>
-        </connector>
-        <faultConnector>
-            <targetReference>Get_Person_Account_Errors</targetReference>
-        </faultConnector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>inputTxt_AccountId</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Account</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
         <name>GetRecordTypeID</name>
         <label>Get Record Type ID</label>
         <locationX>176</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Person_Account</targetReference>
+            <targetReference>Assign_Opportunity_Values</targetReference>
         </connector>
         <faultConnector>
             <targetReference>Handle_Get_Record_Type_ID_Errors</targetReference>
@@ -247,7 +194,7 @@
             <targetReference>GetRecordTypeID</targetReference>
         </connector>
     </start>
-    <status>Obsolete</status>
+    <status>Active</status>
     <variables>
         <name>inputTxt_AccountId</name>
         <dataType>String</dataType>
@@ -258,6 +205,14 @@
     <variables>
         <description>Number consumer dialed.  This number is used to find the marketing campaign that drove this call.</description>
         <name>inputTxt_dnis</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Last name of Person Account.  Used to create opportunity name</description>
+        <name>inputTxt_LastName</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
