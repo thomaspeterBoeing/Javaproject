@@ -1,0 +1,11 @@
+<template>  
+    <lightning-card title="Iteration In LWC">  
+      <div class="slds-p-around_small">  
+        <template for:each={accounts.data} for:item="account" for:index="index">  
+          <div class="slds-p-left_small" key={account.Id}>  
+            {account.MasterLabel}  
+          </div>  
+        </template>  
+      </div>  
+    </lightning-card>  
+  </template>  
