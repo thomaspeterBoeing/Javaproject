@@ -174,7 +174,7 @@
     },
     {
       "path": "d2c-org/ilh-sales/consumer-details",
-      "default": true,
+      "default": false,
       "package": "ILH Sales Consumer Details",
       "versionName": "ver 0.1",
       "versionNumber": "0.1.0.NEXT",
