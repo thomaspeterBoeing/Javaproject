@@ -1,29 +1,34 @@
 <template>
-    <!--lightning-card title="Policy Summary"></lightning-card-->
+    <lightning-card title="Policy Summary">
+        <template if:true={errorMessage}>
+            <div data-id="errorDisplay" class="slds-p-left_medium" style="color:red">{errorMessage}</div>
+        </template>
     <!-- Show the spinner when data is loading -->
     <template if:true={isLoading}>
         <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
     </template>
     <c-person-id-provider-l-w-c record-id={recordId} object-api-name={objectApiName} onpersonidloaded={handlePersonIdLoaded}></c-person-id-provider-l-w-c>
-    <!--c-person-id-provider record-id={recordId} object-api-name={objectApiName} onpersonidloaded={handlePersonIdLoaded}></c-person-id-provider-->
-    <!--c-per-id-provider record-id={recordId} object-api-name={objectApiName} onpersonidwired={handlePersonIdwired}></c-per-id-provider-->
-    
-    <template if:true={policyData}>
+        
+    <template if:true={policyData.length}>
         <!-- Lightning Data Table to display the policy summary data -->
-        <lightning-datatable
-            key-field="PolicyNumber"
-            data={policyData}
-            columns={columns}
-            hide-checkbox-column="true"
-            sorted-by={sortBy}
-            sorted-direction={sortDirection}
-            onsort={handleSorting}
-        ></lightning-datatable>
+        <div class={wrapperStyles}>
+            <lightning-datatable
+                id="dummyTable"
+                key-field = "Id"
+                data={policyData}
+                columns={columns}
+                hide-checkbox-column="true"
+                sorted-by={sortBy}
+                sorted-direction={sortDirection}
+                onsort={handleSorting}
+            ></lightning-datatable>
+        </div>
     </template>
     <template if:true={noPoliciesAvailable}>
         <!-- Message displayed when no policies are available -->
-        <div class="slds-m-around_medium">
-            No Active Policies Available
+        <div class="slds-p-horizontal_medium">
+            No Policies Found
         </div>
     </template>
+</lightning-card>
 </template>
