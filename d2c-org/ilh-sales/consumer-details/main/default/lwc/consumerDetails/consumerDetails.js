@@ -88,7 +88,7 @@ export default class consumerDetails extends LightningElement {
         return returnValue;   
     }
     handleonload(){
-        this.isLoaded=!this.isLoaded;
+        this.isLoaded=true;
 
     }
     setFlowVariables(){
@@ -193,9 +193,9 @@ export default class consumerDetails extends LightningElement {
         }catch(error){
 
         }finally{
-            console.log('here'+returnedAccountId);
             this.paccountID=returnedAccountId;
             refreshApex(this.paccount);
+            this.isLoaded=false;
         }
     }
 
