@@ -146,7 +146,7 @@
     } ]
   }, {
     "path" : "d2c-org/ilh-sales/applications",
-    "default" : true,
+    "default" : false,
     "package" : "ILH Sales Applications",
     "versionName" : "ver 0.1",
     "versionNumber" : "0.1.0.NEXT",
