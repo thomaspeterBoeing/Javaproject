@@ -581,10 +581,10 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 		const payload = {
             firstName: this.firstName,
             lastName: this.lastName,
-            homePhone: this.homePhone,
-            gender: this.gender,
+            homePhone: this.phone,       
 			mailingPostalCode: this.postalCode,
-			birthDate: this.dateOfBirth
+			birthDate: this.dateOfBirth,
+			mailingState: this.state
         };		
         publish(this.MessageContext, CONSUMER_DATA_CHANNEL, payload);
 	}
