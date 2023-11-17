@@ -174,7 +174,7 @@
     },
     {
       "path": "d2c-org/ilh-sales/consumer-details",
-      "default": false,
+      "default": true,
       "package": "ILH Sales Consumer Details",
       "versionName": "ver 0.1",
       "versionNumber": "0.1.0.NEXT",
@@ -244,12 +244,11 @@
     },
     {
       "path": "d2c-org/ilh-sales/applications",
-      "default": false,
+      "default": true,
       "package": "ILH Sales Applications",
       "versionName": "ver 0.1",
       "versionNumber": "0.1.0.NEXT",
       "versionDescription": "Lightning apps, lightning pages and other components for ILH Sales users",
-      "scopeProfiles": true,
       "dependencies": [
         {
           "package": "D2C Core Base Objects",
@@ -274,12 +273,16 @@
         {
           "package": "ILH Sales Consumer Search",
           "versionNumber": "0.1.0.LATEST"
+        },
+        {
+          "package": "ILH Sales Consumer and Opportunity Automation",
+          "versionNumber": "0.1.0.LATEST"
+        },  
+        {
+          "package": "ILH Sales Market History",
+          "versionNumber": "0.1.0.LATEST"
         }
       ]
-    },
-    {
-      "path": "d2c-org/ilh-sales/post-install-unpackaged",
-      "default": false
     }
   ],
   "namespace": "",
@@ -294,6 +297,6 @@
     "ILH Sales Consumer Search": "0HoDm0000004CEcKAM",
     "ILH Sales Applications": "0HoDm0000004CEhKAM",
     "ILH Sales Consumer and Opportunity Automation": "0HoDm0000004CErKAM",
-    "ILH Sales Consumer Details": "0HoDm0000004CF6KAM"
+    "ILH Sales Market History": "0HoDm0000004CEwKAM"
   }
 }
