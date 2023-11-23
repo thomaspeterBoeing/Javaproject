@@ -123,7 +123,7 @@ public with sharing class ILHSearchHelper {
 
         //Starting SOQL statement
         string soql = 'SELECT Id, FirstName, LastName, PersonMailingCity, PersonMailingStreet, PersonMailingState, PersonMailingPostalCode,'+
-            'SSNLast4__pc, Gender__pc, PersonMobilePhone, PersonHomePhone, Suffix, PersonID__pc, PersonBirthdate, PersonContactId, PersonOtherPhone' +
+            'SSNLast4__pc, Gender__pc, PersonMobilePhone, PersonHomePhone, Suffix, PersonID__pc, PersonBirthdate, PersonOtherPhone' +
             ' FROM Account WHERE ';
 
         //Combination 1: Social Security Number (Contact.SSN__c)
@@ -250,7 +250,7 @@ public with sharing class ILHSearchHelper {
     private static string buildKeyMatchSearchFields(List<ILHConsumerResultsWrapper> wrappers, Map<String, Object> queryParams) {
         String retSFValue = '';
         String retServiceValue = '';
-        List<String> contactIds = new List<String>();//List of Person Accont ids from CPS
+        List<String> accountIds = new List<String>();//List of Person Accont ids from CPS
         List<String> personIds = new List<String>();//List of Person ids from CPS
 
         //Itterate over the results found from the service
@@ -258,8 +258,8 @@ public with sharing class ILHSearchHelper {
             if (wrapper?.results != null && !wrapper.results.isEmpty()) {
                 for (ILHConsumerResultsWrapper.SearchResult searchResult : wrapper.results) {
                     if (searchResult?.sourceSystemKeys != null && !searchResult.sourceSystemKeys.isEmpty()) {
-                        for (String contactId : searchResult.sourceSystemKeys) {
-                            contactIds.add(contactId);
+                        for (String accountId : searchResult.sourceSystemKeys) {
+                            accountIds.add(accountId);
                         }
                     }
                     if (String.isNotEmpty(searchResult?.personId)) {
@@ -268,9 +268,9 @@ public with sharing class ILHSearchHelper {
                 }
             }
         }
-        if (contactIds != null && !contactIds.isEmpty()) { // remove the last comma            
-            retSFValue = 'PersonContactId IN:contactIds';
-            queryParams.put('contactIds', contactIds);
+        if (accountIds != null && !accountIds.isEmpty()) { // remove the last comma            
+            retSFValue = 'Id IN:accountIds';
+            queryParams.put('accountIds', accountIds);
         }
         if (personIds != null && !personIds.isEmpty()) {
             retServiceValue = 'PersonID__pc IN:personIds';

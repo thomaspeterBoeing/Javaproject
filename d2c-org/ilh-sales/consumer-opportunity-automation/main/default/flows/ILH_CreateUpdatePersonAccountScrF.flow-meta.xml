@@ -5,7 +5,7 @@
         <description>This assignment allows for the screen&apos;s default values to be set to the scrVar variables. Needed in case control returns to the screen after failing validation.</description>
         <name>Assignment001_Initialize_screen_values</name>
         <label>Assignment001 Initialize screen values</label>
-        <locationX>1031</locationX>
+        <locationX>380</locationX>
         <locationY>134</locationY>
         <assignmentItems>
             <assignToReference>scrVar_BirthDate</assignToReference>
@@ -120,7 +120,7 @@
         <description>Save the values from the screen in variables so they can be restored if validation fails and control returns to the screen</description>
         <name>Assignment002_Save_screen_values</name>
         <label>Assignment002 Save screen values and reset error flag</label>
-        <locationX>1031</locationX>
+        <locationX>380</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>scrVar_BirthDate</assignToReference>
@@ -242,7 +242,7 @@
         <description>Assign values from screen to object to pass to subflow</description>
         <name>Assignment010_Person_Account_Fields</name>
         <label>Assignment010 Person Account Fields</label>
-        <locationX>281</locationX>
+        <locationX>50</locationX>
         <locationY>674</locationY>
         <assignmentItems>
             <assignToReference>recordAccountToUpdate.FirstName</assignToReference>
@@ -364,13 +364,13 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Decision010_More_than_one_phone_number</targetReference>
+            <targetReference>CreateUpdatePersonAccount_ALF</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Assignment011_Error_flag</name>
         <label>Assignment011 Error flag</label>
-        <locationX>1106</locationX>
+        <locationX>314</locationX>
         <locationY>674</locationY>
         <assignmentItems>
             <assignToReference>bln_ScreenIsValid</assignToReference>
@@ -387,7 +387,7 @@
     <assignments>
         <name>Assignment012_Error_Flag</name>
         <label>Assignment012 Error Flag</label>
-        <locationX>1370</locationX>
+        <locationX>578</locationX>
         <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>bln_ScreenIsValid</assignToReference>
@@ -401,76 +401,11 @@
             <targetReference>Screen010_Person_Account_Entry</targetReference>
         </connector>
     </assignments>
-    <assignments>
-        <description>if only one phone number is populated, populate primary phone with the type of the populated phone</description>
-        <name>Assignment015_Primary_Phone</name>
-        <label>Assignment015 Primary Phone</label>
-        <locationX>50</locationX>
-        <locationY>890</locationY>
-        <assignmentItems>
-            <assignToReference>recordAccountToUpdate.PrimaryPhone__pc</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>pkl_PrimaryPhone</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>CreateUpdatePersonAccount_ALF</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assignment016_Primary_phone_is_home</name>
-        <label>Assignment016 Primary phone is home</label>
-        <locationX>314</locationX>
-        <locationY>998</locationY>
-        <assignmentItems>
-            <assignToReference>recordAccountToUpdate.PrimaryPhone__pc</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>Home</stringValue>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>CreateUpdatePersonAccount_ALF</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assignment017_Primary_phone_is_mobile</name>
-        <label>Assignment017 Primary phone is mobile</label>
-        <locationX>578</locationX>
-        <locationY>1106</locationY>
-        <assignmentItems>
-            <assignToReference>recordAccountToUpdate.PrimaryPhone__pc</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>Mobile</stringValue>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>CreateUpdatePersonAccount_ALF</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assignment018_Primary_phone_is_work</name>
-        <label>Assignment018 Primary phone is work</label>
-        <locationX>842</locationX>
-        <locationY>1106</locationY>
-        <assignmentItems>
-            <assignToReference>recordAccountToUpdate.PrimaryPhone__pc</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>Work</stringValue>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>CreateUpdatePersonAccount_ALF</targetReference>
-        </connector>
-    </assignments>
     <decisions>
         <description>There is a required property on the Address field but could not enforce it programmatically so this Decision serves that purpose</description>
         <name>Decision007_Address_is_populated</name>
         <label>Decision007 Address is populated</label>
-        <locationX>1031</locationX>
+        <locationX>380</locationX>
         <locationY>458</locationY>
         <defaultConnector>
             <targetReference>Assignment012_Error_Flag</targetReference>
@@ -559,7 +494,7 @@
         <description>One of the 3 phone numbers is a required field (home, mobile, work)</description>
         <name>Decision008_At_least_one_phone_number</name>
         <label>Decision008 At least one phone number</label>
-        <locationX>693</locationX>
+        <locationX>182</locationX>
         <locationY>566</locationY>
         <defaultConnector>
             <targetReference>Assignment011_Error_flag</targetReference>
@@ -581,106 +516,7 @@
             <label>At least one phone number</label>
         </rules>
     </decisions>
-    <decisions>
-        <description>if only one phone number is populated, populate primary phone with the type of the populated phone</description>
-        <name>Decision010_More_than_one_phone_number</name>
-        <label>Decision010 More than one phone number?</label>
-        <locationX>281</locationX>
-        <locationY>782</locationY>
-        <defaultConnector>
-            <targetReference>Decison016_Is_home_phone_populated</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Only one phone number</defaultConnectorLabel>
-        <rules>
-            <name>More_than_one_phone_number</name>
-            <conditionLogic>(1 AND 2) OR (1 AND 3) OR (2 AND 3)</conditionLogic>
-            <conditions>
-                <leftValueReference>txt_HomePhone</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue></stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>txt_MobilePhone</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue></stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>txt_WorkPhone</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue></stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assignment015_Primary_Phone</targetReference>
-            </connector>
-            <label>More than one phone number</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Decison016_Is_home_phone_populated</name>
-        <label>Decison016 Is home phone populated</label>
-        <locationX>512</locationX>
-        <locationY>890</locationY>
-        <defaultConnector>
-            <targetReference>Is_mobile_phone_populated</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Home phone is blank</defaultConnectorLabel>
-        <rules>
-            <name>Home_phone_is_populated</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>txt_HomePhone</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue></stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assignment016_Primary_phone_is_home</targetReference>
-            </connector>
-            <label>Home phone is populated</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Is_mobile_phone_populated</name>
-        <label>Is mobile phone populated</label>
-        <locationX>710</locationX>
-        <locationY>998</locationY>
-        <defaultConnector>
-            <targetReference>Assignment018_Primary_phone_is_work</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Mobile phone is blank</defaultConnectorLabel>
-        <rules>
-            <name>Mobile_phone_is_populated</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>txt_MobilePhone</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue></stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assignment017_Primary_phone_is_mobile</targetReference>
-            </connector>
-            <label>Mobile phone is populated</label>
-        </rules>
-    </decisions>
     <description>This screen flow is passed some consumer information and the PersonAccount fields are displayed for edit. After validation, the ALF is called to perform the create/update.</description>
-    <dynamicChoiceSets>
-        <description>choice set of types of phone numbers, one of which will be designated as primary</description>
-        <name>cs_PrimaryPhone</name>
-        <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
-        <picklistField>PrimaryPhone__c</picklistField>
-        <picklistObject>Contact</picklistObject>
-    </dynamicChoiceSets>
     <dynamicChoiceSets>
         <description>Gender choice set pulled from Account</description>
         <name>csGender</name>
@@ -757,7 +593,7 @@ NOT(REGEX(SUBSTITUTE ( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( {!txt_HomePhone} , &q
         <description>launched when CPS is missing info</description>
         <name>Screen010_Person_Account_Entry</name>
         <label>Screen010 Person Account Entry</label>
-        <locationX>1031</locationX>
+        <locationX>380</locationX>
         <locationY>242</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -766,10 +602,11 @@ NOT(REGEX(SUBSTITUTE ( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( {!txt_HomePhone} , &q
             <targetReference>Assignment002_Save_screen_values</targetReference>
         </connector>
         <fields>
-            <name>Screen010_Person_Account_Entry_Section1</name>
+            <name>Consumer_Details</name>
+            <fieldText>Consumer Details</fieldText>
             <fieldType>RegionContainer</fieldType>
             <fields>
-                <name>Screen010_Person_Account_Entry_Section1_Column1</name>
+                <name>Consumer_Details_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>txt_FirstName</name>
@@ -779,6 +616,29 @@ NOT(REGEX(SUBSTITUTE ( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( {!txt_HomePhone} , &q
                     </defaultValue>
                     <fieldText>First Name</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>txtMiddleName</name>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <elementReference>scrVar_MiddleName</elementReference>
+                    </defaultValue>
+                    <fieldText>Middle Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>false</isRequired>
+                </fields>
+                <fields>
+                    <name>txt_LastName</name>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <elementReference>scrVar_LastName</elementReference>
+                    </defaultValue>
+                    <fieldText>Last Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                 </fields>
                 <fields>
@@ -789,164 +649,173 @@ NOT(REGEX(SUBSTITUTE ( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( {!txt_HomePhone} , &q
                     </defaultValue>
                     <fieldText>Suffix</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
                 <inputParameters>
                     <name>width</name>
                     <value>
-                        <stringValue>4</stringValue>
+                        <stringValue>6</stringValue>
                     </value>
                 </inputParameters>
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>Screen010_Person_Account_Entry_Section1_Column2</name>
+                <name>Consumer_Details_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <name>txtMiddleName</name>
+                    <name>pklGender</name>
+                    <choiceReferences>csGender</choiceReferences>
                     <dataType>String</dataType>
                     <defaultValue>
-                        <elementReference>scrVar_MiddleName</elementReference>
+                        <elementReference>scrVar_Gender</elementReference>
                     </defaultValue>
-                    <fieldText>Middle Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>false</isRequired>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>4</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <fields>
-                <name>Screen010_Person_Account_Entry_Section1_Column3</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>txt_LastName</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>scrVar_LastName</elementReference>
-                    </defaultValue>
-                    <fieldText>Last Name</fieldText>
-                    <fieldType>InputField</fieldType>
+                    <fieldText>Gender</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                 </fields>
+                <fields>
+                    <name>dt_BirthDate</name>
+                    <dataType>Date</dataType>
+                    <defaultValue>
+                        <elementReference>scrVar_BirthDate</elementReference>
+                    </defaultValue>
+                    <fieldText>Birth Date</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>cmp_Email</name>
+                    <extensionName>flowruntime:email</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>value</name>
+                        <value>
+                            <elementReference>scrVar_Email</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
                 <inputParameters>
                     <name>width</name>
                     <value>
-                        <stringValue>4</stringValue>
+                        <stringValue>6</stringValue>
                     </value>
                 </inputParameters>
                 <isRequired>false</isRequired>
             </fields>
             <isRequired>false</isRequired>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
+            <regionContainerType>SectionWithHeader</regionContainerType>
         </fields>
         <fields>
-            <name>dt_BirthDate</name>
-            <dataType>Date</dataType>
-            <defaultValue>
-                <elementReference>scrVar_BirthDate</elementReference>
-            </defaultValue>
-            <fieldText>Birth Date</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>cmp_ilhAddressLookup</name>
-            <extensionName>c:ilhAddressLookup</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>txt_City</name>
-                <value>
-                    <elementReference>scrVar_AddressCity</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>txt_State</name>
-                <value>
-                    <elementReference>scrVar_AddressState</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>txt_Street</name>
-                <value>
-                    <elementReference>scrVar_AddressStreet</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>txt_Zip</name>
-                <value>
-                    <elementReference>scrVar_ZipCode</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>txt_Country</name>
-                <value>
-                    <elementReference>scrVar_AddressCountry</elementReference>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <name>errorMsg_AddressIsRequired</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 11px; color: rgb(231, 12, 12);&quot;&gt;Address is required&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <visibilityRule>
-                <conditionLogic>1 AND (2 OR 3 OR 4 OR 5 OR 6)</conditionLogic>
-                <conditions>
-                    <leftValueReference>bln_ScreenIsValid</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <booleanValue>false</booleanValue>
-                    </rightValue>
-                </conditions>
-                <conditions>
-                    <leftValueReference>scrVar_AddressStreet</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue></stringValue>
-                    </rightValue>
-                </conditions>
-                <conditions>
-                    <leftValueReference>scrVar_AddressCity</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue></stringValue>
-                    </rightValue>
-                </conditions>
-                <conditions>
-                    <leftValueReference>scrVar_AddressState</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue></stringValue>
-                    </rightValue>
-                </conditions>
-                <conditions>
-                    <leftValueReference>scrVar_AddressCountry</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue></stringValue>
-                    </rightValue>
-                </conditions>
-                <conditions>
-                    <leftValueReference>scrVar_ZipCode</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue></stringValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
-        </fields>
-        <fields>
-            <name>Screen010_Person_Account_Entry_Section2</name>
+            <name>Address_Phone</name>
+            <fieldText>Address/Phone</fieldText>
             <fieldType>RegionContainer</fieldType>
             <fields>
-                <name>Screen010_Person_Account_Entry_Section2_Column1</name>
+                <name>Address_Phone_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>cmp_ilhAddressLookup</name>
+                    <extensionName>c:ilhAddressLookup</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>txt_City</name>
+                        <value>
+                            <elementReference>scrVar_AddressCity</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>txt_State</name>
+                        <value>
+                            <elementReference>scrVar_AddressState</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>txt_Street</name>
+                        <value>
+                            <elementReference>scrVar_AddressStreet</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>txt_Zip</name>
+                        <value>
+                            <elementReference>scrVar_ZipCode</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>txt_Country</name>
+                        <value>
+                            <elementReference>scrVar_AddressCountry</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <fields>
+                    <name>errorMsg_AddressIsRequired</name>
+                    <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 12px; color: rgb(231, 12, 12);&quot;&gt;Address is required.&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                    <visibilityRule>
+                        <conditionLogic>1 AND (2 OR 3 OR 4 OR 5 OR 6)</conditionLogic>
+                        <conditions>
+                            <leftValueReference>bln_ScreenIsValid</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>false</booleanValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>scrVar_AddressStreet</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue></stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>scrVar_AddressCity</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue></stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>scrVar_AddressState</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue></stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>scrVar_AddressCountry</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue></stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>scrVar_ZipCode</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue></stringValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Address_Phone_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>txt_HomePhone</name>
@@ -956,6 +825,7 @@ NOT(REGEX(SUBSTITUTE ( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( {!txt_HomePhone} , &q
                     </defaultValue>
                     <fieldText>Home Phone</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <validationRule>
                         <errorMessage>&lt;p&gt;Please enter consumer&apos;s phone number in the format xxx-xxx-xxxx.&lt;/p&gt;</errorMessage>
@@ -963,8 +833,42 @@ NOT(REGEX(SUBSTITUTE ( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( {!txt_HomePhone} , &q
                     </validationRule>
                 </fields>
                 <fields>
+                    <name>txt_MobilePhone</name>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <elementReference>scrVar_MobilePhone</elementReference>
+                    </defaultValue>
+                    <fieldText>Mobile Phone</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>false</isRequired>
+                    <validationRule>
+                        <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(234, 0, 30); font-size: 11px;&quot;&gt;Please enter consumer&apos;s phone number in the format xxx-xxx-xxxx.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                        <formulaExpression>AND(LEN({!txt_MobilePhone})=10, 
+NOT(REGEX({!txt_MobilePhone} ,&quot;^[a-z A-Z]*$&quot;)) 
+)</formulaExpression>
+                    </validationRule>
+                </fields>
+                <fields>
+                    <name>txt_WorkPhone</name>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <elementReference>scrVar_WorkPhone</elementReference>
+                    </defaultValue>
+                    <fieldText>Work Phone</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>false</isRequired>
+                    <validationRule>
+                        <errorMessage>&lt;p&gt;&lt;span style=&quot;color: rgb(234, 0, 30); background-color: rgb(255, 255, 255); font-size: 11px;&quot;&gt;Please enter consumer&apos;s phone number in the format xxx-xxx-xxxx.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                        <formulaExpression>AND(LEN({!txt_WorkPhone})=10, 
+NOT(REGEX({!txt_WorkPhone} ,&quot;^[a-z A-Z]*$&quot;)) 
+)</formulaExpression>
+                    </validationRule>
+                </fields>
+                <fields>
                     <name>errorMsg_AtLeastOnePhoneNumberIsRequired</name>
-                    <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 11px; color: rgb(231, 12, 12);&quot;&gt;At least one phone number is required&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldText>&lt;p&gt;&lt;strong style=&quot;color: rgb(231, 12, 12);&quot;&gt;At least one phone number is required.&lt;/strong&gt;&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                     <visibilityRule>
                         <conditionLogic>and</conditionLogic>
@@ -1001,154 +905,32 @@ NOT(REGEX(SUBSTITUTE ( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( {!txt_HomePhone} , &q
                 <inputParameters>
                     <name>width</name>
                     <value>
-                        <stringValue>3</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <fields>
-                <name>Screen010_Person_Account_Entry_Section2_Column2</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>txt_MobilePhone</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>scrVar_MobilePhone</elementReference>
-                    </defaultValue>
-                    <fieldText>Mobile Phone</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>false</isRequired>
-                    <validationRule>
-                        <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(234, 0, 30); font-size: 11px;&quot;&gt;Please enter consumer&apos;s phone number in the format xxx-xxx-xxxx.&lt;/span&gt;&lt;/p&gt;</errorMessage>
-                        <formulaExpression>AND(LEN({!txt_MobilePhone})=10, 
-NOT(REGEX({!txt_MobilePhone} ,&quot;^[a-z A-Z]*$&quot;)) 
-)</formulaExpression>
-                    </validationRule>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>3</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <fields>
-                <name>Screen010_Person_Account_Entry_Section2_Column3</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>txt_WorkPhone</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>scrVar_WorkPhone</elementReference>
-                    </defaultValue>
-                    <fieldText>Work Phone</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>false</isRequired>
-                    <validationRule>
-                        <errorMessage>&lt;p&gt;&lt;span style=&quot;color: rgb(234, 0, 30); background-color: rgb(255, 255, 255); font-size: 11px;&quot;&gt;Please enter consumer&apos;s phone number in the format xxx-xxx-xxxx.&lt;/span&gt;&lt;/p&gt;</errorMessage>
-                        <formulaExpression>AND(LEN({!txt_WorkPhone})=10, 
-NOT(REGEX({!txt_WorkPhone} ,&quot;^[a-z A-Z]*$&quot;)) 
-)</formulaExpression>
-                    </validationRule>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>3</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <fields>
-                <name>Screen010_Person_Account_Entry_Section2_Column4</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>pkl_PrimaryPhone</name>
-                    <choiceReferences>cs_PrimaryPhone</choiceReferences>
-                    <dataType>String</dataType>
-                    <fieldText>Preferred Phone</fieldText>
-                    <fieldType>DropdownBox</fieldType>
-                    <helpText>&lt;p&gt;If more than one phone number is populated, the primary phone type is required&lt;/p&gt;</helpText>
-                    <isRequired>true</isRequired>
-                    <visibilityRule>
-                        <conditionLogic>(1 AND 2) OR (1 AND 3) OR (2 AND 3)</conditionLogic>
-                        <conditions>
-                            <leftValueReference>txt_HomePhone</leftValueReference>
-                            <operator>NotEqualTo</operator>
-                            <rightValue>
-                                <stringValue></stringValue>
-                            </rightValue>
-                        </conditions>
-                        <conditions>
-                            <leftValueReference>txt_MobilePhone</leftValueReference>
-                            <operator>NotEqualTo</operator>
-                            <rightValue>
-                                <stringValue></stringValue>
-                            </rightValue>
-                        </conditions>
-                        <conditions>
-                            <leftValueReference>txt_WorkPhone</leftValueReference>
-                            <operator>NotEqualTo</operator>
-                            <rightValue>
-                                <stringValue></stringValue>
-                            </rightValue>
-                        </conditions>
-                    </visibilityRule>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>3</stringValue>
+                        <stringValue>6</stringValue>
                     </value>
                 </inputParameters>
                 <isRequired>false</isRequired>
             </fields>
             <isRequired>false</isRequired>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
+            <regionContainerType>SectionWithHeader</regionContainerType>
         </fields>
-        <fields>
-            <name>pklGender</name>
-            <choiceReferences>csGender</choiceReferences>
-            <dataType>String</dataType>
-            <defaultValue>
-                <elementReference>scrVar_Gender</elementReference>
-            </defaultValue>
-            <fieldText>Gender</fieldText>
-            <fieldType>DropdownBox</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>cmp_Email</name>
-            <extensionName>flowruntime:email</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>value</name>
-                <value>
-                    <elementReference>scrVar_Email</elementReference>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
+        <nextOrFinishButtonLabel>Save</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
+        <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>905</locationX>
+        <locationX>254</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Assignment001_Initialize_screen_values</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Obsolete</status>
     <subflows>
         <description>calls autolaunched flow to perform insert/update logic</description>
         <name>CreateUpdatePersonAccount_ALF</name>
         <label>Create-Update Person Account ALF</label>
-        <locationX>281</locationX>
-        <locationY>1466</locationY>
+        <locationX>50</locationX>
+        <locationY>782</locationY>
         <flowName>ILH_CreateUpdatePersonAccountALF</flowName>
         <inputAssignments>
             <name>recordPersonAccountToCreateUpdate</name>
