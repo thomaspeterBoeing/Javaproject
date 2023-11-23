@@ -11,14 +11,14 @@ Hidden LWC Consumer Creation and Opportunity Creation</description>
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentName>ilhConsumerCreationUpdate</componentName>
-                <identifier>c_ilhConsumerCreationUpdate</identifier>
+                <componentName>iLHSalesConsumerCreationUpdate</componentName>
+                <identifier>c_iLHSalesConsumerCreationUpdate</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentName>ilhOpportunityCreateAndUpdate</componentName>
-                <identifier>c_ilhOpportunityCreateAndUpdate</identifier>
+                <componentName>iLHSalesOpportunityCreationUpdate</componentName>
+                <identifier>c_iLHSalesOpportunityCreationUpdate</identifier>
             </componentInstance>
         </itemInstances>
         <name>main</name>

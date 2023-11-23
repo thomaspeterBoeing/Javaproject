@@ -23,10 +23,12 @@ import { reduceErrors } from 'c/ldsUtils';//LWC Reduces one or more LDS errors i
 
 export default class IlhOpportunityCreateAndUpdate extends NavigationMixin(LightningElement)  {
     subscription = null;
-
+    spinnerActive = false;
+    
     connectedCallback(){
         
         this.subscribeToMessageChannel();
+
     }
 
     disconnectedCallback() {
@@ -76,6 +78,8 @@ export default class IlhOpportunityCreateAndUpdate extends NavigationMixin(Light
     }
     
     callAutolaunchFlow(flowInputVars){
+        //Spinner will be active until navigated off page 
+        this.spinnerActive = true;
 
         opportunityFlow(
             {
@@ -85,11 +89,12 @@ export default class IlhOpportunityCreateAndUpdate extends NavigationMixin(Light
             
             })
            .then(result=> {
-                                 
+                   this.spinnerActive = false;              
                    this.navigateToOpportunity(result);
                                 
                 })
             .catch(error=> {
+                    this.spinnerActive = false;
                     let errorMessage = reduceErrors(error);
                     this.dispatchEvent(
                         new ShowToastEvent({
@@ -112,6 +117,7 @@ export default class IlhOpportunityCreateAndUpdate extends NavigationMixin(Light
     }
 
     navigateToOpportunity(opptyId) {
+        
         this[NavigationMixin.Navigate]({
             type: 'standard__recordPage',
             attributes: {

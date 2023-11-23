@@ -41,6 +41,10 @@
                 <identifier>RecordNameField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-69265700-306a-4485-acf7-1d7412419ec8</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -51,10 +55,6 @@
                 <identifier>RecordGender_pcField</identifier>
             </fieldInstance>
         </itemInstances>
-        <name>Facet-69265700-306a-4485-acf7-1d7412419ec8</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -73,6 +73,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Age__pc</fieldItem>
                 <identifier>RecordAge_pcField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.PersonEmail</fieldItem>
+                <identifier>RecordPersonEmailField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-d56924df-3d27-4370-9b97-f23a4875423b</name>
@@ -109,16 +119,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.PersonEmail</fieldItem>
-                <identifier>RecordPersonEmailField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.PersonMailingAddress</fieldItem>
                 <identifier>RecordPersonMailingAddressField</identifier>
             </fieldInstance>
@@ -127,16 +127,6 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.PrimaryPhone__pc</fieldItem>
-                <identifier>RecordPrimaryPhone_pcField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -403,12 +393,6 @@
                 </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_dynamicRelatedList</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>marketingHistory</componentName>
-                <identifier>c_marketingHistory</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>

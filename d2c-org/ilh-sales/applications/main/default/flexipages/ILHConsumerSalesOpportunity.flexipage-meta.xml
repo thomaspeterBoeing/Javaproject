@@ -435,22 +435,7 @@
                 <componentName>flexipage:richText</componentName>
                 <identifier>flexipage_richText</identifier>
             </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>recordId</name>
-                </componentInstanceProperties>
-                <componentName>policySumSearch</componentName>
-                <identifier>c_policySumSearch</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>marketingHistory</componentName>
-                <identifier>c_marketingHistory</identifier>
-            </componentInstance>
-        </itemInstances>
+        </itemInstances>        
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>

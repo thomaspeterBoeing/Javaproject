@@ -30,7 +30,8 @@ import { reduceErrors } from 'c/ldsUtils';//LWC Reduces one or more LDS errors i
 
 export default class ILHSalesConsumerCreationUpdate extends LightningElement {
     subscription = null;
-    errorOccurred = false;             
+    errorOccurred = false;  
+    spinnerActive = false;           
     connectedCallback() {
         this.subscribeToMessageChannel();       
     }
@@ -161,6 +162,7 @@ export default class ILHSalesConsumerCreationUpdate extends LightningElement {
     
     async callAutolaunchFlow(flowInputVars){
         let returnedAccountId = "";
+        this.spinnerActive = true;
         try{           
             returnedAccountId = await createConsumer(
                 {
@@ -170,6 +172,7 @@ export default class ILHSalesConsumerCreationUpdate extends LightningElement {
                 });
         }  catch(error) {
             let errorMessage = reduceErrors(error);
+            this.spinnerActive = false;
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Error creating record',
@@ -179,6 +182,7 @@ export default class ILHSalesConsumerCreationUpdate extends LightningElement {
             );
             this.errorOccurred = true;
         }    
+        this.spinnerActive = false;
         return returnedAccountId;     
     }
     // Verify that mandatory fields have valid values
@@ -282,8 +286,8 @@ export default class ILHSalesConsumerCreationUpdate extends LightningElement {
         let returnValue;
       
         const outputVars = await ModalLWC.open({
-            size: 'medium',            
-            modalTitle: 'Complete Consumer',
+            size: 'small',            
+            modalTitle: 'Complete Consumer Details',
             flowAPIName: 'ILH_CreateUpdatePersonAccountScrF',     
             flowInputVariables: flowInputVars,
         });
@@ -299,14 +303,16 @@ export default class ILHSalesConsumerCreationUpdate extends LightningElement {
     }
     // Publish Message for Opportunity Data.  This message is subscribed to by components that 
     // create the Opportunity assigning the Person Account that was created in this component.    
-    publishAccountId(accId,lastName,dnis){        
-           const payload = {
-                                accountId: accId,
-                                lastName: lastName,
-                                dnis: dnis 
-                            };
+    publishAccountId(accId,lastName,dnis){   
+                     
+        const payload = {
+                            accountId: accId,
+                            lastName: lastName,
+                            dnis: dnis 
+                        };
 
-        publish(this.messageContext, OPPORTUNITY_DATA_CHANNEL, payload);       
+        publish(this.messageContext, OPPORTUNITY_DATA_CHANNEL, payload); 
+           
     }
    
 

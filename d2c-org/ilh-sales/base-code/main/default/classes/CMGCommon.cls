@@ -178,7 +178,8 @@ public class CMGCommon {
         public CMGReusable.OrganizationType Organization { get; set; }
         public Date EnrollmentDate { get; set; }
         public Date TerminationDate { get; set; }
-        public List<CMGFinancialAccount.FinancialAccountType> FinancialAccountList { get; set; }  
+        
+        //public List<CMGFinancialAccount.FinancialAccountType> FinancialAccountList { get; set; }  
     }
     
     public class SourceRecordType {

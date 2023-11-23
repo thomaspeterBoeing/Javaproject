@@ -3,7 +3,7 @@
  * Purpose: This is a container class that holds search results. Response from CPS and SF will be marshalled to this type for uniformity.
  */
 public class ILHConsumerResultsWrapper {
-    public static final String SF_SOURCE_SYSTEM_ID = 'SFORCECS';//Indicates the id for the current Salesforce instance id
+    public static final String SF_SOURCE_SYSTEM_ID = 'SFILHSALES';//Indicates the id for the current Salesforce instance id
     public enum Source {CPS, SALESFORCE}
     public Source mySource;
 
@@ -56,7 +56,7 @@ public class ILHConsumerResultsWrapper {
                 }
             }
 
-            //Mapping contactIds
+            //Mapping accountIds
             if (result?.sourceRecordList != null) {
                 for (CMGCommon.SourceRecordType source : result.sourceRecordList) {
                     //Source system id is equal to current Salesforce instance id
@@ -141,7 +141,7 @@ public class ILHConsumerResultsWrapper {
             mobilePhone = accnt?.PersonMobilePhone;
             personId = accnt?.PersonID__pc;
             dateOfBirth = accnt?.PersonBirthdate;
-            sourceSystemKeys = new List<String>{accnt?.PersonContactId};       
+            sourceSystemKeys = new List<String>{accnt?.Id};       
         }
     }
 }

@@ -162,9 +162,9 @@ public with sharing class CMGCommonTests {
         cmgsrt.Organization = cmgot;
         cmgsrts.add(cmgsrt);
         
-        CMGFinancialAccount.FinancialAccountType cmgfat = new CMGFinancialAccount.FinancialAccountType();
+        /*CMGFinancialAccount.FinancialAccountType cmgfat = new CMGFinancialAccount.FinancialAccountType();
         List<CMGFinancialAccount.FinancialAccountType> cmgfats = new List<CMGFinancialAccount.FinancialAccountType>();
-        cmgfats.add(cmgfat);
+        cmgfats.add(cmgfat);*/
         
         List<CMGCommon.MembershipType> cmgmts = new List<CMGCommon.MembershipType>();
         CMGCommon.MembershipType cmgmt = new CMGCommon.MembershipType();
@@ -172,7 +172,7 @@ public with sharing class CMGCommonTests {
         cmgmt.MembershipType = 'test';
         cmgmt.Organization = cmgot;
         cmgmt.TerminationDate = Date.today();
-        cmgmt.FinancialAccountList = cmgfats;
+        //cmgmt.FinancialAccountList = cmgfats;
         cmgmts.add(cmgmt);
         
         CMGProductSummary.ConsumerProductSummaryType cmgcpst = new CMGProductSummary.ConsumerProductSummaryType();
