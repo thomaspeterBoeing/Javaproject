@@ -19,6 +19,7 @@
         <fieldNames>InsurancePurpose__c</fieldNames>
         <fieldNames>HealthAssessment__c</fieldNames>
         <fieldNames>TobaccoUse__c</fieldNames>
+        <fieldNames>ProposedCoverage__c</fieldNames>
         <info>&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;Determine the need for coverage:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Example: &lt;span style=&quot;font-size: 13px;&quot;&gt;&amp;quot;Are you looking for this to cover funeral expenses or to replace future income?&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;Determine underwriting concerns:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Example&lt;span style=&quot;font-size: 13px;&quot;&gt;: &amp;quot;Do you have of any health concerns that would limit your ability to qualify for insurance?&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Updates fields.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;“You can put the policy in place right now so you have coverage, and use your 30-day trail period to review the policy documents in detail [with your spouse]. You can cancel any time in the next 30 days and receive a full refund. This way you’re covered while you think it over. How does that sound?”&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;AGENT: Click on Quote Customer Button. [QUOTE BUTTON]&lt;/strong&gt;&lt;/p&gt;</info>
         <picklistValueName>Needs Assessment</picklistValueName>
     </pathAssistantSteps>

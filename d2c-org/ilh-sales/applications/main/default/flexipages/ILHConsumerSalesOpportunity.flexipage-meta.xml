@@ -149,8 +149,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Amount</fieldItem>
-                <identifier>RecordAmountField2</identifier>
+                <fieldItem>Record.ProposedCoverage__c</fieldItem>
+                <identifier>RecordProposedCoverage_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -435,7 +435,7 @@
                 <componentName>flexipage:richText</componentName>
                 <identifier>flexipage_richText</identifier>
             </componentInstance>
-        </itemInstances>        
+        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>

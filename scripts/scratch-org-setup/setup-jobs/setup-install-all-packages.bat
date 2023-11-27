@@ -19,8 +19,8 @@ set /p InstallationKey= Enter Installation Key for packages:
 :: call sf org create scratch --set-default --definition-file config/project-scratch-def.json --alias %ScratchOrgName%  --duration-days %NumberOfDays% --wait 10
 
 :LoadSO
-call sf project deploy start --source-dir "d2c-org/d2c-core/unpackaged-configurations"
-if %ERRORLEVEL% NEQ 0 goto :Done
+rem call sf project deploy start --source-dir "d2c-org/d2c-core/unpackaged-configurations"
+rem if %ERRORLEVEL% NEQ 0 goto :Done
 call scripts\scratch-org-setup\setup-jobs\setup-d2c-core-base-objects.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-base-objects.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-d2c-core-base-code.bat %DevHub% %InstallationKey%
@@ -28,9 +28,9 @@ call scripts\scratch-org-setup\setup-jobs\setup-d2c-core-error-handling-framewor
 call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-base-code.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-consumer-search.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-consumer-opportunity-automation.bat %DevHub% %InstallationKey%
-call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-marketing-history.bat %DevHub% %InstallationKey%
+REM call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-marketing-history.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-applications.bat %DevHub% %InstallationKey%
-call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-policy-summary.bat %DevHub% %InstallationKey%
+REM call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-policy-summary.bat %DevHub% %InstallationKey%
 call sf project deploy start --source-dir "d2c-org/ilh-sales/post-install-unpackaged"
 
 echo @@@@@@@@@@@@@@@@@  SCRATCH ORG LOAD - COMPLETED   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

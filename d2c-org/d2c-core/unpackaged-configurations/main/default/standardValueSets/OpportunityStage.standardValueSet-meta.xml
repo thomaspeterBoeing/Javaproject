@@ -38,48 +38,22 @@
         <won>false</won>
     </standardValue>
     <standardValue>
-        <fullName>Value Proposition</fullName>
+        <fullName>Quote</fullName>
         <default>false</default>
-        <label>Value Proposition</label>
+        <label>Quote</label>
         <closed>false</closed>
         <forecastCategory>Pipeline</forecastCategory>
         <probability>50</probability>
         <won>false</won>
     </standardValue>
     <standardValue>
-        <fullName>Id. Decision Makers</fullName>
+        <fullName>Application</fullName>
         <default>false</default>
-        <label>Id. Decision Makers</label>
-        <closed>false</closed>
-        <forecastCategory>Pipeline</forecastCategory>
-        <probability>60</probability>
-        <won>false</won>
-    </standardValue>
-    <standardValue>
-        <fullName>Perception Analysis</fullName>
-        <default>false</default>
-        <label>Perception Analysis</label>
-        <closed>false</closed>
-        <forecastCategory>Pipeline</forecastCategory>
-        <probability>70</probability>
-        <won>false</won>
-    </standardValue>
-    <standardValue>
-        <fullName>Proposal/Price Quote</fullName>
-        <default>false</default>
-        <label>Proposal/Price Quote</label>
+        <description>Application has been started</description>
+        <label>Application</label>
         <closed>false</closed>
         <forecastCategory>Pipeline</forecastCategory>
         <probability>75</probability>
-        <won>false</won>
-    </standardValue>
-    <standardValue>
-        <fullName>Negotiation/Review</fullName>
-        <default>false</default>
-        <label>Negotiation/Review</label>
-        <closed>false</closed>
-        <forecastCategory>Pipeline</forecastCategory>
-        <probability>90</probability>
         <won>false</won>
     </standardValue>
     <standardValue>
@@ -98,15 +72,6 @@
         <closed>true</closed>
         <forecastCategory>Omitted</forecastCategory>
         <probability>0</probability>
-        <won>false</won>
-    </standardValue>
-    <standardValue>
-        <fullName>Quote</fullName>
-        <default>false</default>
-        <label>Quote</label>
-        <closed>false</closed>
-        <forecastCategory>Pipeline</forecastCategory>
-        <probability>50</probability>
         <won>false</won>
     </standardValue>
 </StandardValueSet>
