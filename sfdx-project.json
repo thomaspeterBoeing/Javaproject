@@ -97,7 +97,7 @@
         },
         {
           "package": "ILH Sales Base Objects",
-          "versionNumber": "1.0.0.4"
+          "versionNumber": "1.0.0.5"
         },
         {
           "package": "D2C Core Base Code",
@@ -159,7 +159,7 @@
         },
         {
           "package": "ILH Sales Base Objects",
-          "versionNumber": "1.0.0.4"
+          "versionNumber": "1.0.0.5"
         },
         {
           "package": "D2C Core Base Code",
@@ -190,7 +190,7 @@
         },
         {
           "package": "ILH Sales Base Objects",
-          "versionNumber": "1.0.0.4"
+          "versionNumber": "1.0.0.5"
         },
         {
           "package": "D2C Core Base Code",
@@ -224,7 +224,7 @@
         },
         {
           "package": "ILH Sales Base Objects",
-          "versionNumber": "1.0.0.4"
+          "versionNumber": "1.0.0.5"
         },
         {
           "package": "D2C Core Base Code",
@@ -245,7 +245,11 @@
         {
           "package": "ILH Sales Consumer and Opportunity Automation",
           "versionNumber": "1.0.0.5"
-        }  
+        },  
+        {
+          "package": "ILH Sales Consumer Details",
+          "versionNumber": "1.0.0.1"
+        } 
        
       ]
     },

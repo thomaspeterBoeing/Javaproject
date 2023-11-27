@@ -49,8 +49,8 @@
     <standardValue>
         <fullName>Apply</fullName>
         <default>false</default>
-        <description>Application has been started</description>
-        <label>Application</label>
+        <description>EApp Application step</description>
+        <label>Apply</label>
         <closed>false</closed>
         <forecastCategory>Pipeline</forecastCategory>
         <probability>75</probability>

@@ -4,7 +4,7 @@
     <description>Sales Process for ILH Sales</description>
     <isActive>true</isActive>
     <values>
-        <fullName>Application</fullName>
+        <fullName>Apply</fullName>
         <default>false</default>
     </values>
     <values>
