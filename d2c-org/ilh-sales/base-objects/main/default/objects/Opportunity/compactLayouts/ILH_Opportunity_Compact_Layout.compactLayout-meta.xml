@@ -5,6 +5,6 @@
     <fields>AccountId</fields>
     <fields>Affiliation__c</fields>
     <fields>CampaignId</fields>
-    <fields>Amount</fields>
+    <fields>ProposedCoverage__c</fields>
     <label>ILH Opportunity Compact Layout</label>
 </CompactLayout>

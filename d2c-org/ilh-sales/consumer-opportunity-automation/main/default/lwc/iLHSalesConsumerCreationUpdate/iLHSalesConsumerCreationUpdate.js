@@ -53,7 +53,7 @@ export default class ILHSalesConsumerCreationUpdate extends LightningElement {
 
      
     async handleMessage(message) {   
-               
+        this.spinnerActive = true;               
         //read message and set flow variables
         const flowInputVars = this.setFlowVariables(message);
         let returnedAccountId;                                                    
@@ -63,11 +63,13 @@ export default class ILHSalesConsumerCreationUpdate extends LightningElement {
         if(this.verifyMandatoryFields(message)){
                 returnedAccountId = await this.callAutolaunchFlow(flowInputVars);           
         } else {
+                this.spinnerActive = false;
                 returnedAccountId = await this.openModalFlow(flowInputVars);
         }  
         
         //If an error occurs with the auto launch flow continue with screen flow.
         if(this.errorOccurred){
+            this.spinnerActive = false;
             returnedAccountId = await this.openModalFlow(flowInputVars);
             this.publishAccountId(returnedAccountId,message.lastName,message.dnis);                  
         } else {
@@ -161,8 +163,7 @@ export default class ILHSalesConsumerCreationUpdate extends LightningElement {
 
     
     async callAutolaunchFlow(flowInputVars){
-        let returnedAccountId = "";
-        this.spinnerActive = true;
+        let returnedAccountId = "";        
         try{           
             returnedAccountId = await createConsumer(
                 {
@@ -303,7 +304,8 @@ export default class ILHSalesConsumerCreationUpdate extends LightningElement {
     }
     // Publish Message for Opportunity Data.  This message is subscribed to by components that 
     // create the Opportunity assigning the Person Account that was created in this component.    
-    publishAccountId(accId,lastName,dnis){   
+    publishAccountId(accId,lastName,dnis){  
+        this.spinnerActive = false;
                      
         const payload = {
                             accountId: accId,

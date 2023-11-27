@@ -149,8 +149,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Amount</fieldItem>
-                <identifier>RecordAmountField2</identifier>
+                <fieldItem>Record.ProposedCoverage__c</fieldItem>
+                <identifier>RecordProposedCoverage_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -424,18 +424,10 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>decorate</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>richTextValue</name>
-                    <value>&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;Consumer Details will go here&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Name:&lt;/p&gt;&lt;p&gt;Birthdate:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText</identifier>
+                <componentName>consumerDetails</componentName>
+                <identifier>c_consumerDetails</identifier>
             </componentInstance>
-        </itemInstances>        
+        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>

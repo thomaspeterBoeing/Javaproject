@@ -25,7 +25,7 @@ set /p installationkey=Enter Installation Key to install:
 
 :Install
 echo Getting latest package version id for Package Id: 0HoDm0000004CEhKAM  - ILH Sales Lightning Applications
-call sf data query --query "SELECT SubscriberPackageVersionId FROM Package2Version WHERE Package2ID = '0HoDm0000004CEhKAM' ORDER BY CreatedDate DESC LIMIT 1" > c:\temp\packageVerID.json --use-tooling-api --result-format json --target-org %devhub% --wait 2' 
+call sf data query --query "SELECT SubscriberPackageVersionId FROM Package2Version WHERE Package2ID = '0HoDm0000004CEhKAM' AND IsDeprecated = False ORDER BY CreatedDate DESC LIMIT 1" > c:\temp\packageVerID.json --use-tooling-api --result-format json --target-org %devhub% --wait 2' 
 echo Getting json file from temp drive with results from query
 for /f "tokens=1,2 delims=:{} " %%A in (c:\temp\packageVerID.json) do (
     If "%%~A"=="SubscriberPackageVersionId" set packageversionid=%%~B 

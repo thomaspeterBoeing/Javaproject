@@ -924,7 +924,7 @@ NOT(REGEX({!txt_WorkPhone} ,&quot;^[a-z A-Z]*$&quot;))
             <targetReference>Assignment001_Initialize_screen_values</targetReference>
         </connector>
     </start>
-    <status>Obsolete</status>
+    <status>Active</status>
     <subflows>
         <description>calls autolaunched flow to perform insert/update logic</description>
         <name>CreateUpdatePersonAccount_ALF</name>

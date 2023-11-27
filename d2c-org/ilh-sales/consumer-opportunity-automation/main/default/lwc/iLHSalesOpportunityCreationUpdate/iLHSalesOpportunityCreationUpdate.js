@@ -32,6 +32,7 @@ export default class IlhOpportunityCreateAndUpdate extends NavigationMixin(Light
     }
 
     disconnectedCallback() {
+        this.spinnerActive = false;
         unsubscribe(this.subscription);      
     }
 
@@ -88,8 +89,7 @@ export default class IlhOpportunityCreateAndUpdate extends NavigationMixin(Light
                 outputVar:  'outputTxt_OpportunityId'        
             
             })
-           .then(result=> {
-                   this.spinnerActive = false;              
+           .then(result=> {                       
                    this.navigateToOpportunity(result);
                                 
                 })
