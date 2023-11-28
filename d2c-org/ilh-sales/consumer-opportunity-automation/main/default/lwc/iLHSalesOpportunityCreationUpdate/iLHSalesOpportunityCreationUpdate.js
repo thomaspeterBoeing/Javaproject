@@ -117,7 +117,7 @@ export default class IlhOpportunityCreateAndUpdate extends NavigationMixin(Light
     }
 
     navigateToOpportunity(opptyId) {
-        
+        this.spinnerActive = false;
         this[NavigationMixin.Navigate]({
             type: 'standard__recordPage',
             attributes: {
