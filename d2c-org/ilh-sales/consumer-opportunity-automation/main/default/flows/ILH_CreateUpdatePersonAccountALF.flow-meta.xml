@@ -321,7 +321,7 @@ else create Person Account</description>
             <label>No Record Input Variable</label>
         </rules>
     </decisions>
-    <description>This flow takes in information about an individual (either record or individual fields) and creates or updates a Person Account based on whether the Account ID field is populated. It also checks whether the RTMI ID already exists before inserting a new record. The Account ID is returned to the calling flow.</description>
+    <description>This flow takes in information about an individual (either record or individual fields) and creates or updates a Person Account based on whether the Account ID field is populated.  The Account ID is returned to the calling flow.   During an update the fields that are sent as input variables will be updated with those values.  If no value is sent the Person Account record will be updated to an empty string an empty string.</description>
     <environments>Default</environments>
     <interviewLabel>Create-Update Person Account ALF {!$Flow.CurrentDateTime}</interviewLabel>
     <label>ILH: Create-Update Person Account ALF</label>
