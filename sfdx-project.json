@@ -177,7 +177,7 @@
     },
     {
       "path": "d2c-org/ilh-sales/consumer-opportunity-automation",
-      "default": false,
+      "default": true,
       "package": "ILH Sales Consumer and Opportunity Automation",
       "versionName": "ver 1.0",
       "versionNumber": "1.0.0.NEXT",
@@ -243,7 +243,7 @@
     },
     {
       "path": "d2c-org/ilh-sales/applications",
-      "default": true,
+      "default": false,
       "package": "ILH Sales Applications",
       "versionName": "ver 1.0",
       "versionNumber": "1.0.0.NEXT",

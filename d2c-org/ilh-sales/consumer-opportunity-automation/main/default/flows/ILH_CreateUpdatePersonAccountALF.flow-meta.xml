@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
-        <description>A record intended as an update was switched to an insert because the RTMI ID already existed</description>
-        <name>A_record_for_update_changed_to_insert_because_RTMI_ID_already_existed</name>
-        <label>A record for update changed to insert because RTMI ID already existed</label>
-        <locationX>50</locationX>
-        <locationY>1082</locationY>
+        <name>Handle_UpdateExistingPersonAccount_Errors</name>
+        <label>Handle Update Existing Person Account Errors</label>
+        <locationX>314</locationX>
+        <locationY>866</locationY>
         <actionName>ErrorLogger</actionName>
         <actionType>apex</actionType>
-        <connector>
-            <isGoTo>true</isGoTo>
-            <targetReference>Create010</targetReference>
-        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>errorDescription</name>
             <value>
-                <stringValue>Update switched to Insert</stringValue>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>operation</name>
+            <value>
+                <stringValue>Update Existing Person Account</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
@@ -33,6 +34,38 @@
         </inputParameters>
         <inputParameters>
             <name>requestData</name>
+        </inputParameters>
+        <nameSegment>ErrorLogger</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>HandleCreatePersonAccountErrors</name>
+        <label>Handle Create Person Account Errors</label>
+        <locationX>842</locationX>
+        <locationY>866</locationY>
+        <actionName>ErrorLogger</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>errorDescription</name>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>operation</name>
+            <value>
+                <stringValue>CreateNewPersonAccount</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>processName</name>
+            <value>
+                <stringValue>ILH_CreateUpdatePersonAccount_ALF.flow</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>recordId</name>
             <value>
                 <elementReference>recordPersonAccountToCreateUpdate.PersonID__pc</elementReference>
             </value>
@@ -41,96 +74,9 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
-        <name>Handle_Create010_Person_Account_Errors</name>
-        <label>Handle Create010 Person Account Errors</label>
-        <locationX>2074</locationX>
-        <locationY>1466</locationY>
-        <actionName>ErrorLogger</actionName>
-        <actionType>apex</actionType>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>errorDescription</name>
-            <value>
-                <elementReference>$Flow.FaultMessage</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>operation</name>
-            <value>
-                <stringValue>Create010 Person Account</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>processName</name>
-            <value>
-                <stringValue>ILH_CreateUpdatePersonAccount_ALF.flow</stringValue>
-            </value>
-        </inputParameters>
-        <nameSegment>ErrorLogger</nameSegment>
-        <versionSegment>1</versionSegment>
-    </actionCalls>
-    <actionCalls>
-        <name>Handle_Get015_Query_for_RTMI_ID_errors</name>
-        <label>Handle Get015 Query for RTMI ID errors</label>
-        <locationX>1634</locationX>
-        <locationY>974</locationY>
-        <actionName>ErrorLogger</actionName>
-        <actionType>apex</actionType>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>errorDescription</name>
-            <value>
-                <elementReference>$Flow.FaultMessage</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>operation</name>
-            <value>
-                <stringValue>Get015 Query if RTMI ID already exists</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>processName</name>
-            <value>
-                <stringValue>ILH_CreateUpdatePersonAccount_ALF.flow</stringValue>
-            </value>
-        </inputParameters>
-        <nameSegment>ErrorLogger</nameSegment>
-        <versionSegment>1</versionSegment>
-    </actionCalls>
-    <actionCalls>
-        <name>Handle_Get020_Accounts_with_matching_RTMI_ID_but_different_Salesforce_ID_errors</name>
-        <label>Handle Get020 Accounts with matching RTMI ID but different Salesforce ID errors</label>
-        <locationX>490</locationX>
-        <locationY>974</locationY>
-        <actionName>ErrorLogger</actionName>
-        <actionType>apex</actionType>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>errorDescription</name>
-            <value>
-                <elementReference>$Flow.FaultMessage</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>operation</name>
-            <value>
-                <stringValue>Get020 Accounts with matching RTMI ID but different Salesforce ID</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>processName</name>
-            <value>
-                <stringValue>ILH_CreateUpdatePersonAccount_ALF.flow</stringValue>
-            </value>
-        </inputParameters>
-        <nameSegment>ErrorLogger</nameSegment>
-        <versionSegment>1</versionSegment>
-    </actionCalls>
-    <actionCalls>
-        <name>Handle_Get_PersonAccount_Record_Type_ID_Errors</name>
+        <name>HandleGetPersonAccountRecordTypeIDErrors</name>
         <label>Handle Get PersonAccount Record Type ID Errors</label>
-        <locationX>2338</locationX>
+        <locationX>1106</locationX>
         <locationY>242</locationY>
         <actionName>ErrorLogger</actionName>
         <actionType>apex</actionType>
@@ -144,36 +90,7 @@
         <inputParameters>
             <name>operation</name>
             <value>
-                <stringValue>Get010_Person_Account_RecordTypeID</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>processName</name>
-            <value>
-                <stringValue>ILH_CreateUpdatePersonAccount_ALF.flow</stringValue>
-            </value>
-        </inputParameters>
-        <nameSegment>ErrorLogger</nameSegment>
-        <versionSegment>1</versionSegment>
-    </actionCalls>
-    <actionCalls>
-        <name>Handle_Update010_PersonAccount_Errors</name>
-        <label>Handle Update010 PersonAccount Errors</label>
-        <locationX>930</locationX>
-        <locationY>1532</locationY>
-        <actionName>ErrorLogger</actionName>
-        <actionType>apex</actionType>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>errorDescription</name>
-            <value>
-                <elementReference>$Flow.FaultMessage</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>operation</name>
-            <value>
-                <stringValue>Update PersonAccount</stringValue>
+                <stringValue>GetPersonAccountRecordType</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
@@ -189,7 +106,7 @@
     <assignments>
         <name>Assign_Input_Variables_to_Record</name>
         <label>Assign Input Variables to Record</label>
-        <locationX>908</locationX>
+        <locationX>182</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>recordPersonAccountToCreateUpdate.LastName</assignToReference>
@@ -297,63 +214,29 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>recordPersonAccountToCreateUpdate.PersonEmail</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>inputTxt_Email</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
             <assignToReference>recordPersonAccountToCreateUpdate.PersonMailingCity</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>inputTxt_AddressCity</elementReference>
             </value>
         </assignmentItems>
-        <connector>
-            <targetReference>Assignment010_Account_to_Person</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <description>set the record type on new Account record to Person Account</description>
-        <name>Assignment010_Account_to_Person</name>
-        <label>Assignment010 Account to Person</label>
-        <locationX>1040</locationX>
-        <locationY>542</locationY>
         <assignmentItems>
-            <assignToReference>recordPersonAccountToCreateUpdate.RecordTypeId</assignToReference>
+            <assignToReference>recordPersonAccountToCreateUpdate.PersonEmail</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Get010_Person_Account_Record_Type_ID.Id</elementReference>
+                <elementReference>inputTxt_Email</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Decision010_Is_AccountID_Populated</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <description>RTMI ID already exists so we don&apos;t want to insert another record with the same RTMI ID</description>
-        <name>Assignment015_Blank_out_RTMI_ID</name>
-        <label>Assignment015 Blank out RTMI ID</label>
-        <locationX>1194</locationX>
-        <locationY>1082</locationY>
-        <assignmentItems>
-            <assignToReference>recordPersonAccountToCreateUpdate.PersonID__pc</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue></stringValue>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Create010</targetReference>
+            <targetReference>SetRecordTypeOnAccountRecord</targetReference>
         </connector>
     </assignments>
     <assignments>
         <description>Assign value from create function to variable for output to calling flow</description>
-        <name>Assignment020_Account_ID_to_Output_Variable</name>
-        <label>Assignment020 Account ID to Output Variable</label>
-        <locationX>1040</locationX>
-        <locationY>1856</locationY>
+        <name>AssignAccountIDtoOutputVariable</name>
+        <label>Assign Account ID to Output Variable</label>
+        <locationX>314</locationX>
+        <locationY>1190</locationY>
         <assignmentItems>
             <assignToReference>outputTxt_AccountId</assignToReference>
             <operator>Assign</operator>
@@ -362,17 +245,68 @@
             </value>
         </assignmentItems>
     </assignments>
+    <assignments>
+        <name>SetRecordTypeOnAccountRecord</name>
+        <label>Set Record Type on Account Record</label>
+        <locationX>314</locationX>
+        <locationY>542</locationY>
+        <assignmentItems>
+            <assignToReference>recordPersonAccountToCreateUpdate.RecordTypeId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>GetRecordTypeID.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>IsAccountIdPopulated</targetReference>
+        </connector>
+    </assignments>
     <decisions>
-        <name>Check_if_Record_is_null</name>
-        <label>Check if Record is null</label>
-        <locationX>1040</locationX>
+        <description>if account ID is populated, update Person Account
+else create Person Account</description>
+        <name>IsAccountIdPopulated</name>
+        <label>Is Account Id populated</label>
+        <locationX>314</locationX>
+        <locationY>650</locationY>
+        <defaultConnector>
+            <targetReference>CreateNewPersonAccount</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Account Id</defaultConnectorLabel>
+        <rules>
+            <name>YesAccountId</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>recordPersonAccountToCreateUpdate.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>recordPersonAccountToCreateUpdate.Id</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>UpdateExistingPersonAccount</targetReference>
+            </connector>
+            <label>Yes Account Id</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Check if Record input variable is null.  This would indicate that the flow was launched from LWC instead of a Screen Flow.  Screen Flow populates record variable and passes this to this flow.  LWC passes individual input fields.</description>
+        <name>IsTheRecordInputVariablePopulated</name>
+        <label>Is the Record Input Variable Populated</label>
+        <locationX>314</locationX>
         <locationY>242</locationY>
         <defaultConnector>
-            <targetReference>Assignment010_Account_to_Person</targetReference>
+            <targetReference>SetRecordTypeOnAccountRecord</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <defaultConnectorLabel>Yes Record Input Variable Populated</defaultConnectorLabel>
         <rules>
-            <name>Null_Record_True</name>
+            <name>NoRecordInputVariable</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>recordPersonAccountToCreateUpdate</leftValueReference>
@@ -384,162 +318,10 @@
             <connector>
                 <targetReference>Assign_Input_Variables_to_Record</targetReference>
             </connector>
-            <label>Null Record</label>
+            <label>No Record Input Variable</label>
         </rules>
     </decisions>
-    <decisions>
-        <description>if account ID is populated, update Person Account
-else create Person Account</description>
-        <name>Decision010_Is_AccountID_Populated</name>
-        <label>Decision010 Is AccountID Populated</label>
-        <locationX>1040</locationX>
-        <locationY>650</locationY>
-        <defaultConnector>
-            <targetReference>Decision011_Is_RTMI_ID_populated</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>AccountID is blank</defaultConnectorLabel>
-        <rules>
-            <name>AccountID_is_populated</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>recordPersonAccountToCreateUpdate.Id</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>recordPersonAccountToCreateUpdate.Id</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue></stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Decision020_Is_RTMI_ID_populated</targetReference>
-            </connector>
-            <label>AccountID is populated</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <description>Before inserting a new record, check if the RTMI ID already exists and if so, blank it out</description>
-        <name>Decision011_Is_RTMI_ID_populated</name>
-        <label>Decision011 Is RTMI ID populated</label>
-        <locationX>1612</locationX>
-        <locationY>758</locationY>
-        <defaultConnector>
-            <targetReference>Create010</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>RTMI ID is blank</defaultConnectorLabel>
-        <rules>
-            <name>RTMI_ID_is_populated</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>recordPersonAccountToCreateUpdate.PersonID__pc</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue></stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>recordPersonAccountToCreateUpdate.PersonID__pc</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get015_Query_if_RTMI_ID_already_exists</targetReference>
-            </connector>
-            <label>RTMI ID is populated</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <description>If RTMI ID already exists, blank it out before inserting a new record</description>
-        <name>Decision012_Does_RTMI_ID_already_exist</name>
-        <label>Decision012 Does RTMI ID already exist</label>
-        <locationX>1326</locationX>
-        <locationY>974</locationY>
-        <defaultConnector>
-            <targetReference>Create010</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>RTMI ID does not already exist</defaultConnectorLabel>
-        <rules>
-            <name>RTMI_ID_already_exists</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Get015_Query_if_RTMI_ID_already_exists</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assignment015_Blank_out_RTMI_ID</targetReference>
-            </connector>
-            <label>RTMI ID already exists</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <description>If RTMI ID to be saved matches any accounts with different Salesforce IDs, this record needs to be inserted, not performed as an update to an existing record.</description>
-        <name>Decision020_Is_RTMI_ID_populated</name>
-        <label>Decision020 Is RTMI ID populated</label>
-        <locationX>468</locationX>
-        <locationY>758</locationY>
-        <defaultConnector>
-            <targetReference>Update010_Person_Account</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>RTMI ID is blank</defaultConnectorLabel>
-        <rules>
-            <name>RTMI_ID_is_populated2</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>recordPersonAccountToCreateUpdate.PersonID__pc</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue></stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>recordPersonAccountToCreateUpdate.PersonID__pc</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get020_Accounts_with_matching_RTMI_ID_but_different_AccountID</targetReference>
-            </connector>
-            <label>RTMI ID is populated2</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <description>If RTMI ID matches any account with a different Salesforce ID, this record is logged and an insert is performed, not an update</description>
-        <name>Decision021_Does_RTMI_ID_match_any_existing_account_with_different_Salesforce_ID</name>
-        <label>Decision021 Does RTMI ID match any existing account with different Salesforce ID</label>
-        <locationX>182</locationX>
-        <locationY>974</locationY>
-        <defaultConnector>
-            <targetReference>Update010_Person_Account</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>No existing accounts with matching RTMI ID</defaultConnectorLabel>
-        <rules>
-            <name>RTMI_ID_matches_existing_account_with_different_Salesforce_ID</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Get020_Accounts_with_matching_RTMI_ID_but_different_AccountID</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>A_record_for_update_changed_to_insert_because_RTMI_ID_already_existed</targetReference>
-            </connector>
-            <label>RTMI ID matches existing account with different Salesforce ID</label>
-        </rules>
-    </decisions>
-    <description>This flow takes in information about an individual (either record or individual fields) and creates or updates a Person Account based on whether the Account ID field is populated. It also checks whether the RTMI ID already exists before inserting a new record. The Account ID is returned to the calling flow.</description>
+    <description>This flow takes in information about an individual (either record or individual fields) and creates or updates a Person Account based on whether the Account ID field is populated.  The Account ID is returned to the calling flow.   During an update the fields that are sent as input variables will be updated with those values.  If no value is sent the Person Account record will be updated to an empty string an empty string.</description>
     <environments>Default</environments>
     <interviewLabel>Create-Update Person Account ALF {!$Flow.CurrentDateTime}</interviewLabel>
     <label>ILH: Create-Update Person Account ALF</label>
@@ -563,30 +345,30 @@ else create Person Account</description>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordCreates>
-        <description>***to do*** include all relevant details to give developer an overview</description>
-        <name>Create010</name>
-        <label>Create010 Person Account</label>
-        <locationX>1612</locationX>
-        <locationY>1358</locationY>
+        <name>CreateNewPersonAccount</name>
+        <label>Create New Person Account</label>
+        <locationX>578</locationX>
+        <locationY>758</locationY>
         <connector>
-            <targetReference>Assignment020_Account_ID_to_Output_Variable</targetReference>
+            <targetReference>AssignAccountIDtoOutputVariable</targetReference>
         </connector>
         <faultConnector>
-            <targetReference>Handle_Create010_Person_Account_Errors</targetReference>
+            <targetReference>HandleCreatePersonAccountErrors</targetReference>
         </faultConnector>
         <inputReference>recordPersonAccountToCreateUpdate</inputReference>
     </recordCreates>
     <recordLookups>
-        <name>Get010_Person_Account_Record_Type_ID</name>
-        <label>Get010 Person Account Record Type ID</label>
-        <locationX>1040</locationX>
+        <description>Get Record Type Id for Consumer on Account.</description>
+        <name>GetRecordTypeID</name>
+        <label>Get Record Type ID</label>
+        <locationX>314</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Check_if_Record_is_null</targetReference>
+            <targetReference>IsTheRecordInputVariablePopulated</targetReference>
         </connector>
         <faultConnector>
-            <targetReference>Handle_Get_PersonAccount_Record_Type_ID_Errors</targetReference>
+            <targetReference>HandleGetPersonAccountRecordTypeIDErrors</targetReference>
         </faultConnector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -596,85 +378,35 @@ else create Person Account</description>
                 <stringValue>Consumer</stringValue>
             </value>
         </filters>
+        <filters>
+            <field>SobjectType</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Account</stringValue>
+            </value>
+        </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>RecordType</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
-    <recordLookups>
-        <name>Get015_Query_if_RTMI_ID_already_exists</name>
-        <label>Get015 Query if RTMI ID already exists</label>
-        <locationX>1326</locationX>
-        <locationY>866</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Decision012_Does_RTMI_ID_already_exist</targetReference>
-        </connector>
-        <faultConnector>
-            <targetReference>Handle_Get015_Query_for_RTMI_ID_errors</targetReference>
-        </faultConnector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>PersonID__pc</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>recordPersonAccountToCreateUpdate.PersonID__pc</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Account</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <description>Query if RTMI ID matches any accounts with different Salesforce ID</description>
-        <name>Get020_Accounts_with_matching_RTMI_ID_but_different_AccountID</name>
-        <label>Get020 Accounts with matching RTMI ID but different AccountID</label>
-        <locationX>182</locationX>
-        <locationY>866</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Decision021_Does_RTMI_ID_match_any_existing_account_with_different_Salesforce_ID</targetReference>
-        </connector>
-        <faultConnector>
-            <targetReference>Handle_Get020_Accounts_with_matching_RTMI_ID_but_different_Salesforce_ID_errors</targetReference>
-        </faultConnector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>PersonID__pc</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>recordPersonAccountToCreateUpdate.PersonID__pc</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Id</field>
-            <operator>NotEqualTo</operator>
-            <value>
-                <elementReference>recordPersonAccountToCreateUpdate.Id</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Account</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
     <recordUpdates>
-        <description>**to do**</description>
-        <name>Update010_Person_Account</name>
-        <label>Update010 Person Account</label>
-        <locationX>468</locationX>
-        <locationY>1424</locationY>
+        <name>UpdateExistingPersonAccount</name>
+        <label>Update Existing Person Account</label>
+        <locationX>50</locationX>
+        <locationY>758</locationY>
         <connector>
-            <targetReference>Assignment020_Account_ID_to_Output_Variable</targetReference>
+            <targetReference>AssignAccountIDtoOutputVariable</targetReference>
         </connector>
         <faultConnector>
-            <targetReference>Handle_Update010_PersonAccount_Errors</targetReference>
+            <targetReference>Handle_UpdateExistingPersonAccount_Errors</targetReference>
         </faultConnector>
         <inputReference>recordPersonAccountToCreateUpdate</inputReference>
     </recordUpdates>
     <start>
-        <locationX>914</locationX>
+        <locationX>188</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Get010_Person_Account_Record_Type_ID</targetReference>
+            <targetReference>GetRecordTypeID</targetReference>
         </connector>
     </start>
     <status>Active</status>
