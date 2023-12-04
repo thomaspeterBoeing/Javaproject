@@ -56,14 +56,14 @@ export default class OpportunityWatcher extends LightningElement {
                 
             })
             .catch(error => {
-                console.error('Error subscribing to platform event channel:', JSON.stringify(error));
+                // Add console.log if at all there is a need to look for subscription errors.
             });
 
         // Handle errors
         onError(error => {
-            let errorMessage =reduceErrors(error);
-            console.error('EMP API Subscription error:', JSON.stringify(error));
-           /* this.dispatchEvent( 
+            //let errorMessage =reduceErrors(error); // For the commenting this out.  add console.log here for troubleshooting until we figure out how to log UI errors.
+            /* this.dispatchEvent(  // this toast message helps to see if at all there is an error message in subcription before going into console logs. For now commenting this out
+           // as this is not required. Can be permanently deleted in the future.
                 new ShowToastEvent({
                     title: 'Error Subscribing to Platform Event',
                     message: 'ERROR:  '  + errorMessage,
