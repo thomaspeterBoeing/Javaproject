@@ -28,5 +28,6 @@ echo Found Package Version ID %packageversionid%  Installing package
 call sf package install --package %packageversionid% --installation-key %installationkey% --wait 5 --security-type AllUsers 
 echo *** Assign Permission Sets ....
 call sf org assign permset --name API_Connect_Principal_Access
+call sf apex run -f scripts\scratch-org-setup\apex\ILHSalesBaseCode-ExternalCredentialAssignment.apex
 echo **********  Installled Package D2C Core Base Code **********
 
