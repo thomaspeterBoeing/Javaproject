@@ -42,19 +42,17 @@ export default class OpportunityNavigator extends NavigationMixin(LightningEleme
                        
         } else if (error) {
             // Log error
-            console.error('Error loading opportunity data', error);
+            // For the timebeing add console.log here for troubleshooting until we figure out how to log UI errors.
         }
     }
 
     handleOpportunityStageChange(message) {
         // Check if the Opportunity Id from the message matches the current Opportunity Id
         if (message.stage === this.stage && message.recordId === this.recordId) {
-            console.log('Opportunity Id matched. Proceeding with navigation.');
             // Navigate to the app page
-            //this.navigateToObjectHome();
-              this.navigateToAppPage();
+            this.navigateToAppPage();
         } else {
-            console.log('Opportunity Id did not match. Skipping navigation.');
+            // do nothing
         }
     }
 
@@ -71,7 +69,7 @@ export default class OpportunityNavigator extends NavigationMixin(LightningEleme
     }
 
     navigateToObjectHome() {
-        // Navigate to the Lead object home page //this can be removed at a later.
+        // Navigate to the Lead object home page //this can be removed later as this merely shows possibility of navigation.
         this[NavigationMixin.Navigate]({
           type: "standard__objectPage",
           attributes: {
