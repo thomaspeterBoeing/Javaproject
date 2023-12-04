@@ -240,4 +240,22 @@ public class ILHSearchMergeImplTest {
             Assert.areEqual(ILHConsumerResultsWrapper.Source.SALESFORCE, r.mySource, 'Record is from SF');
         }
     }
+
+    @isTest
+    public static void mergeContactTest() {
+        ILHConsumerResultsWrapper.SearchResult cps1 = new ILHConsumerResultsWrapper.SearchResult();
+        cps1.lastName = 'Deer';
+        cps1.firstName = 'John';
+        cps1.sourceSystemKeys = new List<String>{'Id2', 'Id1'};
+
+        ILHConsumerResultsWrapper.SearchResult sf1 = new ILHConsumerResultsWrapper.SearchResult();
+        sf1.lastName = 'James';
+        sf1.firstName = 'John';
+        sf1.sourceSystemKeys = new List<String>{'Id1'};
+
+        ILHConsumerResultsWrapper.SearchResult result = (new ILHSearchMergeImpl()).mergeContact(sf1, cps1);
+        Assert.areEqual('John', result.firstName);
+        Assert.areEqual('Deer', result.lastName);
+        Assert.areEqual('Id1', result.sourceSystemKeys[0]);
+    }
 }
