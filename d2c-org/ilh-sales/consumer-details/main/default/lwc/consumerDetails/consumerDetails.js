@@ -10,7 +10,7 @@ import { reduceErrors } from 'c/ldsUtils';
 
 const FIELDS = ["Account.FirstName","Account.LastName","Account.MiddleName","Account.Suffix","Account.PersonBirthdate","Account.Gender__pc","Account.PersonHomePhone","Account.PersonMobilePhone","Account.PersonEmail",
                 "Account.PersonMailingStreet","Account.PersonMailingCity","Account.PersonMailingState","Account.PersonMailingPostalCode","Account.PersonOtherPhone",
-                "Account.PersonMailingCountry","Account.Primary_Phone__pc","Account.PersonID__pc"];
+                "Account.PersonMailingCountry","Account.PersonID__pc"];
 
 export default class consumerDetails extends LightningElement {
    
@@ -66,7 +66,7 @@ export default class consumerDetails extends LightningElement {
             this.mstate=this.account.fields.PersonMailingState.value;
             this.mcountry=this.account.fields.PersonMailingCountry.value;
             this.email=this.account.fields.PersonEmail.value;
-            this.prefphtype=this.account.fields.Primary_Phone__pc.value;
+
             this.personid=this.account.fields.PersonID__pc.value;
                 // Initialize other fields as needed
         } else if (error) {
@@ -139,11 +139,6 @@ export default class consumerDetails extends LightningElement {
                 value: this.checkIfNoValue(this.mobph),
             },
             {
-                name: "inputTxt_MobilePhone",
-                type: "String",
-                value: this.checkIfNoValue(this.mobph),
-            },
-            {
                 name: "inputTxt_WorkPhone",
                 type: "String",
                 value: this.checkIfNoValue(this.workph),
@@ -195,7 +190,7 @@ export default class consumerDetails extends LightningElement {
         }finally{
             this.paccountID=returnedAccountId;
             refreshApex(this.paccount);
-            this.isLoaded=false;
+            
         }
     }
 
