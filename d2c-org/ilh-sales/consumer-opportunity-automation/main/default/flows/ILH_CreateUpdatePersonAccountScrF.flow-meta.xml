@@ -5,7 +5,7 @@
         <description>This assignment allows for the screen&apos;s default values to be set to the scrVar variables. Needed in case control returns to the screen after failing validation.</description>
         <name>Assignment001_Initialize_screen_values</name>
         <label>Assignment001 Initialize screen values</label>
-        <locationX>380</locationX>
+        <locationX>479</locationX>
         <locationY>134</locationY>
         <assignmentItems>
             <assignToReference>scrVar_BirthDate</assignToReference>
@@ -120,7 +120,7 @@
         <description>Save the values from the screen in variables so they can be restored if validation fails and control returns to the screen</description>
         <name>Assignment002_Save_screen_values</name>
         <label>Assignment002 Save screen values and reset error flag</label>
-        <locationX>380</locationX>
+        <locationX>479</locationX>
         <locationY>350</locationY>
         <assignmentItems>
             <assignToReference>scrVar_BirthDate</assignToReference>
@@ -370,7 +370,7 @@
     <assignments>
         <name>Assignment011_Error_flag</name>
         <label>Assignment011 Error flag</label>
-        <locationX>314</locationX>
+        <locationX>446</locationX>
         <locationY>674</locationY>
         <assignmentItems>
             <assignToReference>bln_ScreenIsValid</assignToReference>
@@ -387,7 +387,7 @@
     <assignments>
         <name>Assignment012_Error_Flag</name>
         <label>Assignment012 Error Flag</label>
-        <locationX>578</locationX>
+        <locationX>710</locationX>
         <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>bln_ScreenIsValid</assignToReference>
@@ -402,10 +402,32 @@
         </connector>
     </assignments>
     <decisions>
+        <name>CheckIfAccountIDWasReturned</name>
+        <label>Check if Account ID was returned</label>
+        <locationX>50</locationX>
+        <locationY>890</locationY>
+        <defaultConnector>
+            <targetReference>Error_Message</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Account ID not found</defaultConnectorLabel>
+        <rules>
+            <name>AccountID_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>outputTxt_AccountId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>AccountID Found</label>
+        </rules>
+    </decisions>
+    <decisions>
         <description>There is a required property on the Address field but could not enforce it programmatically so this Decision serves that purpose</description>
         <name>Decision007_Address_is_populated</name>
         <label>Decision007 Address is populated</label>
-        <locationX>380</locationX>
+        <locationX>479</locationX>
         <locationY>458</locationY>
         <defaultConnector>
             <targetReference>Assignment012_Error_Flag</targetReference>
@@ -494,7 +516,7 @@
         <description>One of the 3 phone numbers is a required field (home, mobile, work)</description>
         <name>Decision008_At_least_one_phone_number</name>
         <label>Decision008 At least one phone number</label>
-        <locationX>182</locationX>
+        <locationX>248</locationX>
         <locationY>566</locationY>
         <defaultConnector>
             <targetReference>Assignment011_Error_flag</targetReference>
@@ -590,10 +612,26 @@ NOT(REGEX(SUBSTITUTE ( SUBSTITUTE( SUBSTITUTE( SUBSTITUTE( {!txt_HomePhone} , &q
     </processMetadataValues>
     <processType>Flow</processType>
     <screens>
+        <name>Error_Message</name>
+        <label>Error Message</label>
+        <locationX>182</locationX>
+        <locationY>998</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>ErrorDisplay</name>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 14px;&quot;&gt;ERROR:  &lt;/strong&gt;An error occurred when creating/updating the consumer account record.  If this error occurred from Consumer Search, please use the New button above the search results to create a consumer.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
         <description>launched when CPS is missing info</description>
         <name>Screen010_Person_Account_Entry</name>
         <label>Screen010 Person Account Entry</label>
-        <locationX>380</locationX>
+        <locationX>479</locationX>
         <locationY>242</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -918,7 +956,7 @@ NOT(REGEX({!txt_WorkPhone} ,&quot;^[a-z A-Z]*$&quot;))
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>254</locationX>
+        <locationX>353</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Assignment001_Initialize_screen_values</targetReference>
@@ -931,6 +969,9 @@ NOT(REGEX({!txt_WorkPhone} ,&quot;^[a-z A-Z]*$&quot;))
         <label>Create-Update Person Account ALF</label>
         <locationX>50</locationX>
         <locationY>782</locationY>
+        <connector>
+            <targetReference>CheckIfAccountIDWasReturned</targetReference>
+        </connector>
         <flowName>ILH_CreateUpdatePersonAccountALF</flowName>
         <inputAssignments>
             <name>recordPersonAccountToCreateUpdate</name>

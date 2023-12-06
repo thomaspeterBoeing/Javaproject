@@ -66,13 +66,16 @@ export default class ILHSalesConsumerCreationUpdate extends LightningElement {
                 this.spinnerActive = false;
                 returnedAccountId = await this.openModalFlow(flowInputVars);
         }  
+       
         
         //If an error occurs with the auto launch flow continue with screen flow.
         if(this.errorOccurred){
             this.spinnerActive = false;
             returnedAccountId = await this.openModalFlow(flowInputVars);
-            this.publishAccountId(returnedAccountId,message.lastName,message.dnis);                  
+            this.publishAccountId(returnedAccountId,message.lastName,message.dnis);
+                             
         } else {
+            
             this.publishAccountId(returnedAccountId,message.lastName,message.dnis); 
         }
     }
@@ -306,16 +309,21 @@ export default class ILHSalesConsumerCreationUpdate extends LightningElement {
     // create the Opportunity assigning the Person Account that was created in this component.    
     publishAccountId(accId,lastName,dnis){  
         this.spinnerActive = false;
-                     
-        const payload = {
-                            accountId: accId,
-                            lastName: lastName,
-                            dnis: dnis 
-                        };
+       
+        //Do not publish if the Account ID is missing.  
+        if(accId !== null){            
+            const payload = {
+                accountId: accId,
+                lastName: lastName,
+                dnis: dnis 
+            };
+            
+            publish(this.messageContext, OPPORTUNITY_DATA_CHANNEL, payload); 
 
-        publish(this.messageContext, OPPORTUNITY_DATA_CHANNEL, payload); 
-           
+        }
     }
+                     
+        
    
 
 }
