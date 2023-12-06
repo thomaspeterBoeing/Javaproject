@@ -129,8 +129,11 @@ public class ILHSearchMergeImpl {
      * @param cpsWrapper  : CPS record to map
      * @return : Mapped wrapper result
      */
+    @TestVisible
     private ILHConsumerResultsWrapper.SearchResult mergeContact(ILHConsumerResultsWrapper.SearchResult sfWrapper, ILHConsumerResultsWrapper.SearchResult cpsWrapper) {
+        String sfId = sfWrapper.sourceSystemKeys[0];
         sfWrapper = cpsWrapper;
+        sfWrapper.sourceSystemKeys = new List<String>{sfId};//Do not overwrite SF id
         sfWrapper.mySource = ILHConsumerResultsWrapper.Source.SALESFORCE;
         return sfWrapper;
     }
