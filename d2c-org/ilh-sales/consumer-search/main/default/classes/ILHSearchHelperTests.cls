@@ -14,6 +14,7 @@ public class ILHSearchHelperTests {
       WHERE DeveloperName = 'PersonAccount' AND SobjectType = 'Account'
     ]
     .id;
+
     // Create common test accounts
     Account accnt = new Account(
       FirstName = 'Test',
@@ -114,6 +115,7 @@ public class ILHSearchHelperTests {
     mock.setStatusCode(200);
     mock.setHeader('Content-Type', 'application/json');
     Test.setMock(HttpCalloutMock.class, mock);
+
     //Creating initial search criteria for request
     Map<String, Object> kvpSearchCriteria = new Map<String, Object>();
     kvpSearchCriteria.put('firstName', 'Brad');

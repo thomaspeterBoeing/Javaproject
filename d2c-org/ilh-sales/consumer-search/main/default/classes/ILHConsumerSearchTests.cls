@@ -14,6 +14,7 @@ public class ILHConsumerSearchTests {
       WHERE DeveloperName = 'PersonAccount' AND SobjectType = 'Account'
     ]
     .id;
+
     // Create common test accounts
     Account accnt = new Account(
       FirstName = 'Test',
@@ -36,7 +37,6 @@ public class ILHConsumerSearchTests {
     Map<String, Object> kvpSearchCriteria = new Map<String, Object>{
       'ssn' => '111111111'
     };
-
     StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
     mock.setStaticResource('mock_ConsumerProfileSearchResponse');
     mock.setStatusCode(200);

@@ -25,8 +25,9 @@ public class ConsumerSearchControllerTests {
     Assert.IsTrue(wrapper.results.size() > 0);
     Boolean isPersonIdInSearch = false;
     for (ILHConsumerResultsWrapper.SearchResult item : wrapper.results) {
-      if (item.personId == SAMPLE_PERSON_ID)
+      if (item.personId == SAMPLE_PERSON_ID) {
         isPersonIdInSearch = true;
+      }
     }
     Assert.isTrue(isPersonIdInSearch);
   }
