@@ -1,0 +1,31 @@
+<template>
+    <div>
+        <lightning-card title="Consumer Info">
+            <div class="slds-grid slds-gutters slds-p-horizontal_medium">
+                <template if:true={errorMessage}>
+                    <div data-id="errorDisplay" style="color:red">{errorMessage}</div>
+                </template>
+                <template if:true={opportunity}>
+                    <div class="slds-col">
+                        <span>
+                            <p class="slds-p-vertical_x-small"><strong>Proposed Insured: {fullName}</strong></p>
+                            <p class="slds-p-vertical_x-small">Insurance Purpose: {insurancePurpose}</p>
+                            <p class="slds-p-vertical_x-small">Health Assessment: {healthAssessment}</p>
+                            <p class="slds-p-vertical_x-small">Tobacco Use: {tobaccoUse}</p>
+                            <p class="slds-p-vertical_x-small">Affiliation: {affiliation}</p>
+                            <p class="slds-p-vertical_x-small">Proposed Amount: <lightning-formatted-number format-style="currency" 
+                                currency-code="USD" value={proposedAmount} maximum-fraction-digits="0"></lightning-formatted-number></p>
+                        </span>
+                    </div>
+                    <div class="slds-col">
+                        <span>
+                            <p class="slds-p-vertical_x-small">Gender: {accountGender}</p>
+                            <p class="slds-p-vertical_x-small">Age: {accountAge}</p>
+                            <p class="slds-p-vertical_x-small">State: {accountState}</p>
+                        </span>
+                    </div>
+                </template>
+		    </div>
+		</lightning-card>
+    </div>
+</template>
