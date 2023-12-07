@@ -4,11 +4,12 @@
  */
 @isTest
 public class ILHConsumerSearchTests {
-
-    @testSetup static void setup() {
-        Date newDate = Date.newInstance(1979, 09, 07);
+    @testSetup
+    static void setup() {
+        Date newDate = Date.newInstance(1979, 9, 7);
 
         Id objectRecordTypeId = [SELECT id, DeveloperName FROM RecordType WHERE DeveloperName = 'PersonAccount' AND SobjectType = 'Account'].id;
+
         // Create common test accounts
         Account accnt = new Account(
             FirstName = 'Test',
@@ -27,17 +28,15 @@ public class ILHConsumerSearchTests {
     }
 
     @isTest
-    private static void searchTest () {
-        Map<String, Object> kvpSearchCriteria = new Map<String, Object> {
+    private static void searchTest() {
+        Map<String, Object> kvpSearchCriteria = new Map<String, Object>{
             'ssn' => '111111111'
         };
-
         StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
         mock.setStaticResource('mock_ConsumerProfileSearchResponse');
         mock.setStatusCode(200);
-        mock.setHeader('Content-Type', 'application/xml');
+        mock.setHeader('Content-Type', 'application/json');
         Test.setMock(HttpCalloutMock.class, mock);
-        MockMetadataUtils.insert_custom_metadata_mock();
 
         Test.startTest();
         List<ILHConsumerResultsWrapper> resultsWrapper = (new ILHConsumerSearch()).search(kvpSearchCriteria);
