@@ -90,6 +90,9 @@
       "versionNumber": "1.0.0.NEXT",
       "versionDescription": "LWC used for searching for consumers in CPS and the D2C Org",
       "scopeProfiles": true,
+      "unpackagedMetadata": {
+        "path": "d2c-org/d2c-core/unpackaged-configurations"
+      },
       "dependencies": [
         {
           "package": "D2C Core Base Objects",
