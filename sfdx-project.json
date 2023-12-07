@@ -83,35 +83,38 @@
       ]
     },
     {
-      "path": "d2c-org/ilh-sales/consumer-search",
-      "default": false,
-      "package": "ILH Sales Consumer Search",
-      "versionName": "ver 1.0",
-      "versionNumber": "1.0.0.NEXT",
-      "versionDescription": "LWC used for searching for consumers in CPS and the D2C Org",
-      "scopeProfiles": true,
-      "dependencies": [
-        {
-          "package": "D2C Core Base Objects",
-          "versionNumber": "1.0.0.LATEST"
+        "path": "d2c-org/ilh-sales/consumer-search",
+        "default": false,
+        "package": "ILH Sales Consumer Search",
+        "versionName": "ver 1.0",
+        "versionNumber": "1.0.0.NEXT",
+        "versionDescription": "LWC used for searching for consumers in CPS and the D2C Org",
+        "scopeProfiles": true,
+        "unpackagedMetadata": {
+            "path": "d2c-org/d2c-core/unpackaged-configurations"
         },
-        {
-          "package": "ILH Sales Base Objects",
-          "versionNumber": "1.0.0.LATEST"
-        },
-        {
-          "package": "D2C Core Base Code",
-          "versionNumber": "1.0.0.LATEST"
-        },
-        {
-          "package": "D2C Core Error Handling Framework",
-          "versionNumber": "1.0.0.LATEST"
-        },
-        {
-          "package": "ILH Sales Base Code",
-          "versionNumber": "1.0.0.LATEST"
-        }
-      ]
+        "dependencies": [
+            {
+                "package": "D2C Core Base Objects",
+                "versionNumber": "1.0.0.LATEST"
+            },
+            {
+                "package": "ILH Sales Base Objects",
+                "versionNumber": "1.0.0.LATEST"
+            },
+            {
+                "package": "D2C Core Base Code",
+                "versionNumber": "1.0.0.LATEST"
+            },
+            {
+                "package": "D2C Core Error Handling Framework",
+                "versionNumber": "1.0.0.LATEST"
+            },
+            {
+                "package": "ILH Sales Base Code",
+                "versionNumber": "1.0.0.LATEST"
+            }
+        ]
     },
     {
       "path": "d2c-org/ilh-sales/marketing-history",
@@ -208,7 +211,7 @@
     },
     {
       "path": "d2c-org/ilh-sales/consumer-opportunity-automation",
-      "default": true,
+      "default": false,
       "package": "ILH Sales Consumer and Opportunity Automation",
       "versionName": "ver 1.0",
       "versionNumber": "1.0.0.NEXT",
@@ -271,6 +274,37 @@
           "versionNumber": "1.0.0.LATEST"
         }
       ]
+    },
+    {
+        "path": "d2c-org/ilh-sales/rate-page",
+        "default": true,
+        "package": "ILH Sales Rate Page",
+        "versionName": "ver 1.0",
+        "versionNumber": "1.0.0.NEXT",
+        "versionDescription": "Components for rate page",
+        "scopeProfiles": true,
+        "dependencies": [
+          {
+            "package": "D2C Core Base Objects",
+            "versionNumber": "1.0.0.LATEST"
+          },
+          {
+            "package": "ILH Sales Base Objects",
+            "versionNumber": "1.0.0.LATEST"
+          },
+          {
+            "package": "D2C Core Base Code",
+            "versionNumber": "1.0.0.LATEST"
+          },
+          {
+            "package": "D2C Core Error Handling Framework",
+            "versionNumber": "1.0.0.LATEST"
+          },
+          {
+            "package": "ILH Sales Base Code",
+            "versionNumber": "1.0.0.LATEST"
+          }
+        ]
     },
     {
       "path": "d2c-org/ilh-sales/applications",
