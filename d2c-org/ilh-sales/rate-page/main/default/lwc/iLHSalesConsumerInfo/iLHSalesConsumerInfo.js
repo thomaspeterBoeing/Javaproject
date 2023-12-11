@@ -3,7 +3,7 @@ import getOpportunityFieldsData from '@salesforce/apex/ConsumerInfoController.ge
 import { reduceErrors } from 'c/ldsUtils';
 
 export default class ILHSalesConsumerInfo extends LightningElement {
-    @api opportunityId = '006DS00000LZR0VYAX';
+    @api opportunityId;
 
     errorMessage;
     opportunity;
