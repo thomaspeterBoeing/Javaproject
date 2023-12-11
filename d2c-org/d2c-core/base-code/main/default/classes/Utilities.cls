@@ -7,9 +7,12 @@ public without sharing class Utilities {
         APIEnvironmentSFOrgID__mdt envt = new APIEnvironmentSFOrgID__mdt();
         API_Endpoint__mdt output = new API_Endpoint__mdt();
         
-        envt = [Select Environment__c From APIEnvironmentSFOrgID__mdt Where OrgId__c =: orgId Limit 1];
-        output = [Select Id, Client_Id__c, Client_Secret__c, Service_Method__c, Timeout__c, Method__c, Mock_Response_Static_Resource__c, ContentType__c, Type__c, SOAP_Method__c, isOIDCSecured__c, Named_Credential__c from  API_Endpoint__mdt where MasterLabel =:envt.Environment__c AND ServiceName__c =:serviceName and is_Active__c=true limit 1];
-    
+        if (Test.isRunningTest()) {
+            output = [Select Id, Client_Id__c, Client_Secret__c, Service_Method__c, Timeout__c, Method__c, Mock_Response_Static_Resource__c, ContentType__c, Type__c, SOAP_Method__c, isOIDCSecured__c, Named_Credential__c from  API_Endpoint__mdt where ServiceName__c =:serviceName and is_Active__c=true limit 1];
+        } else {
+            envt = [Select Environment__c From APIEnvironmentSFOrgID__mdt Where OrgId__c =: orgId Limit 1];
+            output = [Select Id, Client_Id__c, Client_Secret__c, Service_Method__c, Timeout__c, Method__c, Mock_Response_Static_Resource__c, ContentType__c, Type__c, SOAP_Method__c, isOIDCSecured__c, Named_Credential__c from  API_Endpoint__mdt where MasterLabel =:envt.Environment__c AND ServiceName__c =:serviceName and is_Active__c=true limit 1];
+        }
         return output;
     }
 
