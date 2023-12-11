@@ -276,6 +276,37 @@
       ]
     },
     {
+        "path": "d2c-org/ilh-sales/rate-page",
+        "default": true,
+        "package": "ILH Sales Rate Page",
+        "versionName": "ver 1.0",
+        "versionNumber": "1.0.0.NEXT",
+        "versionDescription": "Components for rate page",
+        "scopeProfiles": true,
+        "dependencies": [
+          {
+            "package": "D2C Core Base Objects",
+            "versionNumber": "1.0.0.LATEST"
+          },
+          {
+            "package": "ILH Sales Base Objects",
+            "versionNumber": "1.0.0.LATEST"
+          },
+          {
+            "package": "D2C Core Base Code",
+            "versionNumber": "1.0.0.LATEST"
+          },
+          {
+            "package": "D2C Core Error Handling Framework",
+            "versionNumber": "1.0.0.LATEST"
+          },
+          {
+            "package": "ILH Sales Base Code",
+            "versionNumber": "1.0.0.LATEST"
+          }
+        ]
+    },
+    {
       "path": "d2c-org/ilh-sales/applications",
       "default": false,
       "package": "ILH Sales Applications",
