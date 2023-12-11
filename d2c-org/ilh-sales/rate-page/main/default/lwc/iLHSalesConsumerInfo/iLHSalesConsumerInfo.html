@@ -3,25 +3,26 @@
         <lightning-card title="Consumer Info">
             <div class="slds-grid slds-gutters slds-p-horizontal_medium">
                 <template if:true={errorMessage}>
-                    <div data-id="errorDisplay" style="color:red">{errorMessage}</div>
+                    <div data-id="errorDisplay" class="slds-p-left_medium" style="color:red">{errorMessage}</div>
                 </template>
                 <template if:true={opportunity}>
+                    <div data-id="dummyDiv"></div>
                     <div class="slds-col">
                         <span>
-                            <p class="slds-p-vertical_x-small"><strong>Proposed Insured: {fullName}</strong></p>
-                            <p class="slds-p-vertical_x-small">Insurance Purpose: {insurancePurpose}</p>
-                            <p class="slds-p-vertical_x-small">Health Assessment: {healthAssessment}</p>
-                            <p class="slds-p-vertical_x-small">Tobacco Use: {tobaccoUse}</p>
-                            <p class="slds-p-vertical_x-small">Affiliation: {affiliation}</p>
-                            <p class="slds-p-vertical_x-small">Proposed Amount: <lightning-formatted-number format-style="currency" 
+                            <p><strong>Proposed Insured:</strong> {fullName}</p>
+                            <p><strong>Insurance Purpose:</strong> {insurancePurpose}</p>
+                            <p><strong>Health Assessment:</strong> {healthAssessment}</p>
+                            <p><strong>Tobacco Use:</strong> {tobaccoUse}</p>
+                            <p><strong>Affiliation:</strong> {affiliation}</p>
+                            <p><strong>Proposed Amount: </strong><lightning-formatted-number format-style="currency" 
                                 currency-code="USD" value={proposedAmount} maximum-fraction-digits="0"></lightning-formatted-number></p>
                         </span>
                     </div>
                     <div class="slds-col">
                         <span>
-                            <p class="slds-p-vertical_x-small">Gender: {accountGender}</p>
-                            <p class="slds-p-vertical_x-small">Age: {accountAge}</p>
-                            <p class="slds-p-vertical_x-small">State: {accountState}</p>
+                            <p><strong>Gender:</strong> {accountGender}</p>
+                            <p><strong>Age:</strong> {accountAge}</p>
+                            <p><strong>State:</strong> {accountState}</p>
                         </span>
                     </div>
                 </template>
