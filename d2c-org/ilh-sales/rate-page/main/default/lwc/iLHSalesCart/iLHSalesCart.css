@@ -1,0 +1,7 @@
+.webCart {
+    --slds-c-icon-color-background: rgb(88, 118, 163);
+}
+
+.removeBtn {
+    --lwc-brandAccessible: rgb(88, 118, 163);
+}

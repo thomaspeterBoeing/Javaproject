@@ -1,0 +1,66 @@
+<template>
+    <lightning-card  title="Cart" icon-name="standard:webcart" class="webCart">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered" role="grid">
+            <thead class="slds-line-height_reset">
+                <tr>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Product Name">Product Name</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Coverage">Coverage</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Premium">Premium</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Decision">Decision</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate"></div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={cartData} for:item='ci'>
+                    <tr class="slds-hint-parent" key={ci.id}>
+                        <td>{ci.productName}</td>
+                        <td>
+                            <lightning-formatted-number value={ci.coverage} currency-code="USD" format-style="currency"></lightning-formatted-number>
+                        </td>
+                        <td>
+                            <lightning-formatted-number value={ci.premium} currency-code="USD" format-style="currency"></lightning-formatted-number>
+                        </td>
+                        <td>
+                            <div style="max-width: 150px;">
+                                <lightning-select
+                                    required
+                                    variant="label-hidden"
+                                    name="decision"
+                                    value={decision}
+                                    options={decisionOptions}>
+                                </lightning-select>
+                            </div>
+                        </td>
+                        <td>
+                            <lightning-button-icon class="removeBtn" data-id={ci.id} onclick={handleRemoveItem} icon-name="action:remove" variant="brand"></lightning-button-icon>
+                        </td>
+                    </tr>
+                </template>
+                <tr>
+                    <td style="color: gray;">Total</td>
+                    <td>
+                        <strong><lightning-formatted-number value={totalCoverage} currency-code="USD" format-style="currency"></lightning-formatted-number></strong>
+                    </td>
+                    <td>
+                        <strong><lightning-formatted-number value={totalPremium} currency-code="USD" format-style="currency"></lightning-formatted-number></strong>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="text-align: right;" class="slds-m-around_medium">
+            <lightning-button variant="brand" label="Checkout" title="Checkout" onclick={handleClick}></lightning-button>
+        </div>
+    </lightning-card>
+</template>
