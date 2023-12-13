@@ -84,7 +84,7 @@
     },
     {
       "path": "d2c-org/ilh-sales/consumer-search",
-      "default": false,
+      "default": true,
       "package": "ILH Sales Consumer Search",
       "versionName": "ver 1.0",
       "versionNumber": "1.0.0.NEXT",
@@ -211,7 +211,7 @@
     },
     {
       "path": "d2c-org/ilh-sales/consumer-opportunity-automation",
-      "default": true,
+      "default": false,
       "package": "ILH Sales Consumer and Opportunity Automation",
       "versionName": "ver 1.0",
       "versionNumber": "1.0.0.NEXT",
@@ -277,7 +277,7 @@
     },
     {
         "path": "d2c-org/ilh-sales/rate-page",
-        "default": true,
+        "default": false,
         "package": "ILH Sales Rate Page",
         "versionName": "ver 1.0",
         "versionNumber": "1.0.0.NEXT",
