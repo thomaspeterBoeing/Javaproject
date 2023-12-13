@@ -529,7 +529,7 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 	 */
 	createSearchCriteriaMap() {
 		return {
-			"ssn" 			: this.ssn,
+			"ssn" 			: this.ssn?.replaceAll("-", ""),
 			"policyNumber" 	: this.policyNumber,
 			"firstName" 	: this.firstName,
 			"lastName" 		: this.lastName,
