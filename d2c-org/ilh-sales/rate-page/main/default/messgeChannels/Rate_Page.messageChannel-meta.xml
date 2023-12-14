@@ -12,7 +12,7 @@
         <fieldName>coverage</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <description>Premium</description>
-        <fieldName>premium</fieldName>
+        <description>Cost</description>
+        <fieldName>cost</fieldName>
     </lightningMessageFields>
 </LightningMessageChannel>

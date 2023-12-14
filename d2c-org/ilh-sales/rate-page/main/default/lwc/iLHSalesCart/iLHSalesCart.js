@@ -1,39 +1,22 @@
-import { LightningElement, wire, track } from 'lwc';
+import { LightningElement, wire, track, api } from 'lwc';
 import { subscribe, MessageContext, unsubscribe } from 'lightning/messageService';
 import RATE_PAGE_CHANNEL from '@salesforce/messageChannel/Rate_Page__c';
+import getQuotes from '@salesforce/apex/ILHCartController.getQuotes';
+import deleteQuote from '@salesforce/apex/ILHCartController.deleteQuote';
+import insertQuote from '@salesforce/apex/ILHCartController.insertQuote';
+import { reduceErrors } from 'c/ldsUtils';//LWC Reduces one or more LDS errors into a string[] of error messages
 
-const columns = [      
-    {label: 'Product Name', fieldName: 'productName', type: 'text', sortable: true},
-    {label: 'Coverage', fieldName: 'coverage', type: 'currency', sortable: true},
-    {label: 'Premium', fieldName: 'premium', type: 'currency', sortable: true},
-    {
-        type:"button",
-        fixedWidth: 150,
-        typeAttributes: {
-            label: 'Remove',
-            name: 'remove',
-            variant: 'brand'
-        }
-    }
-];
-
-const cartData = [
-    {
-        id: '1234',
-        productName: 'AD&D Basic',
-        coverage: 2000,
-        premium: 0
-    }
-]
 export default class ILHSalesCart extends LightningElement {
+    @api recordId;
     decision = '';
-    columns = columns;
     @track cartData = [];
+    showSpinner = false;
     totalCoverage = 0;
-    totalPremium = 0;
+    totalCost = 0;
 
     connectedCallback() {
-        this.subscribeToMessageChannel();       
+        this.subscribeToMessageChannel(); 
+        this.findQuotes();     
     }
     
     disconnectedCallback() {
@@ -56,24 +39,55 @@ export default class ILHSalesCart extends LightningElement {
             id: "ci" + this.cartData.length + 1,
             productName: message.productName,
             coverage: message.coverage,
-            premium: message.premium
+            cost: message.cost
         };
-        this.cartData.push(newCartItem);
-        this.calculateTotals();
+        this.insertQuote();
+    }
+
+    findQuotes() {
+        this.showSpinner = true;
+        getQuotes({ oppId: this.recordId})
+        .then(response => {
+            this.cartData = response;
+            this.calculateTotals();
+            this.showSpinner = false;
+        }).catch(error => {
+            console.log(reduceErrors(error));
+            this.showSpinner = false;
+        });
+    }
+
+    deleteQuote(event) {
+        this.showSpinner = true;
+        deleteQuote({ quoteId: event.target.dataset.id})
+        .then(response => {
+            this.findQuotes();
+            this.showSpinner = false;
+        }).catch(error => {
+            console.log(reduceErrors(error));
+            this.showSpinner = false;
+        });
+    }
+
+    insertQuote() {
+        this.showSpinner = true;
+        insertQuote({ oppId: this.recordId})
+        .then(response => {
+            this.findQuotes();
+            this.showSpinner = false;
+        }).catch(error => {
+            console.log(reduceErrors(error));
+            this.showSpinner = false;
+        });
     }
 
     calculateTotals() {
         this.totalCoverage = 0;
-        this.totalPremium = 0;
+        this.totalCost = 0;
         for(let i = 0; i < this.cartData.length; i++) {
             this.totalCoverage += parseInt(this.cartData[i].coverage);
-            this.totalPremium += parseInt(this.cartData[i].premium);
+            this.totalCost += parseInt(this.cartData[i].cost);
         }
-    }
-
-    handleRemoveItem(event) {
-        this.cartData = this.cartData.filter(row => row.id !== event.target.dataset.id);
-        this.calculateTotals();
     }
 
     get decisionOptions() {

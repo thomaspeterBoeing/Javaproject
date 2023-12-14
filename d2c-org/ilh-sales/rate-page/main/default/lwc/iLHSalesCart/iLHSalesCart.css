@@ -1,7 +1,9 @@
 .webCart {
-    --slds-c-icon-color-background: rgb(88, 118, 163);
+    --slds-c-icon-color-background: rgb(27, 150, 255);
 }
 
 .removeBtn {
-    --lwc-brandAccessible: rgb(88, 118, 163);
+    border-radius: 50%;
+    --lwc-brandAccessible: rgb(16, 124, 173);
+    --slds-c-button-radius-border: 50%;
 }

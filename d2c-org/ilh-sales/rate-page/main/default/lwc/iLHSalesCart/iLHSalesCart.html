@@ -1,5 +1,8 @@
 <template>
     <lightning-card  title="Cart" icon-name="standard:webcart" class="webCart">
+        <div if:true={showSpinner}>
+            <lightning-spinner alternative-text="Loading..." size="large"></lightning-spinner>
+        </div>
         <table class="slds-table slds-table_cell-buffer slds-table_bordered" role="grid">
             <thead class="slds-line-height_reset">
                 <tr>
@@ -10,7 +13,7 @@
                         <div class="slds-truncate" title="Coverage">Coverage</div>
                     </th>
                     <th scope="col">
-                        <div class="slds-truncate" title="Premium">Premium</div>
+                        <div class="slds-truncate" title="Cost">Cost</div>
                     </th>
                     <th scope="col">
                         <div class="slds-truncate" title="Decision">Decision</div>
@@ -28,12 +31,11 @@
                             <lightning-formatted-number value={ci.coverage} currency-code="USD" format-style="currency"></lightning-formatted-number>
                         </td>
                         <td>
-                            <lightning-formatted-number value={ci.premium} currency-code="USD" format-style="currency"></lightning-formatted-number>
+                            <lightning-formatted-number value={ci.cost} currency-code="USD" format-style="currency"></lightning-formatted-number>
                         </td>
                         <td>
                             <div style="max-width: 150px;">
                                 <lightning-select
-                                    required
                                     variant="label-hidden"
                                     name="decision"
                                     value={decision}
@@ -42,7 +44,9 @@
                             </div>
                         </td>
                         <td>
-                            <lightning-button-icon class="removeBtn" data-id={ci.id} onclick={handleRemoveItem} icon-name="action:remove" variant="brand"></lightning-button-icon>
+                            <div class="removeBtn">
+                                <lightning-button-icon data-id={ci.id} onclick={deleteQuote} icon-name="action:remove" variant="brand"></lightning-button-icon>
+                            </div>
                         </td>
                     </tr>
                 </template>
@@ -52,7 +56,7 @@
                         <strong><lightning-formatted-number value={totalCoverage} currency-code="USD" format-style="currency"></lightning-formatted-number></strong>
                     </td>
                     <td>
-                        <strong><lightning-formatted-number value={totalPremium} currency-code="USD" format-style="currency"></lightning-formatted-number></strong>
+                        <strong><lightning-formatted-number value={totalCost} currency-code="USD" format-style="currency"></lightning-formatted-number></strong>
                     </td>
                     <td></td>
                     <td></td>
