@@ -1,11 +1,17 @@
 <template>
     <div>
-        <lightning-card title="Consumer Info">
-            <div class="slds-grid slds-gutters slds-p-horizontal_medium">
-                <template if:true={errorMessage}>
-                    <div data-id="errorDisplay" class="slds-p-left_medium" style="color:red">{errorMessage}</div>
-                </template>
-                <template if:true={opportunity}>
+        <lightning-card title={cardTitle} class={cardClass}>
+            <div slot="actions">
+                <lightning-button-icon icon-name={expandCollapseIcon} alternative-text={expandCollapseAltText}
+                    onclick={toggleCardVisibility} variant="bare" class="slds-button_icon">
+                </lightning-button-icon>
+            </div>
+            <!-- Use the opportunity variable in the conditional rendering -->
+            <template if:true={opportunity}>
+                <div class="slds-grid slds-gutters slds-p-horizontal_medium">
+                    <template if:true={errorMessage}>
+                        <div data-id="errorDisplay" class="slds-p-left_medium" style="color:red">{errorMessage}</div>
+                    </template>
                     <div data-id="dummyDiv"></div>
                     <div class="slds-col">
                         <span>
@@ -25,8 +31,9 @@
                             <p><strong>State:</strong> {accountState}</p>
                         </span>
                     </div>
-                </template>
-		    </div>
-		</lightning-card>
+                
+                </div>
+            </template>
+        </lightning-card>
     </div>
 </template>

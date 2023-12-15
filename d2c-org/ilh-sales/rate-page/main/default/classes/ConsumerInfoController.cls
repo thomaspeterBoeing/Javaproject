@@ -17,7 +17,7 @@ public with sharing class ConsumerInfoController {
                 InsurancePurpose__c, HealthAssessment__c, TobaccoUse__c, Affiliation__r.Name, ProposedCoverage__c, Account.DomicileState__c FROM Opportunity WHERE Id = : opportunityId LIMIT 1];
         } catch (Exception ex) {
             new ErrorLogger(ex, 'An error occurred while getting consumer info.', 'ConsumerInfoController.cls', opportunityId, 'getOpportunityFieldsData', 
-                            null, 'MarketingHistory', null);
+                            null, null, null);
         }
         return opp;
     }
