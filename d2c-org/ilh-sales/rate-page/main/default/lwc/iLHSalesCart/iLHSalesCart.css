@@ -2,8 +2,24 @@
     --slds-c-icon-color-background: rgb(27, 150, 255);
 }
 
-.removeBtn {
+.remove-btn {
     border-radius: 50%;
     --lwc-brandAccessible: rgb(16, 124, 173);
     --slds-c-button-radius-border: 50%;
+}
+
+.text-align__right {
+    text-align: right;
+}
+
+.font-color__gray {
+    color: gray;
+}
+
+.max-width__medium {
+    max-width: 150px;
+}
+
+.display__inline-block {
+    display: inline-block;
 }
