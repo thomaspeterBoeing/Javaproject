@@ -13,14 +13,14 @@ public with sharing class ILHCartController {
         List<ResultsWrapper> results = new List<ResultsWrapper>();
 
         try {
-            quotes = [SELECT id FROM Quote WHERE OpportunityId =: oppId];
+            quotes = [SELECT id, Product__r.Name, CoverageAmount__c, Premium__c FROM Quote WHERE OpportunityId =: oppId];
 
-            for (Integer i = 0; i < quotes.size(); i++) {
+            for (Quote q : quotes) {
                 ResultsWrapper newWrap = new ResultsWrapper();
-                newWrap.id = quotes[i].id;
-                newWrap.coverage = i;
-                newWrap.cost = i;
-                newWrap.productName = 'Test' + i;
+                newWrap.id = q.id;
+                newWrap.coverage = q?.CoverageAmount__c;
+                newWrap.cost = q?.Premium__c;
+                newWrap.productName = q?.Product__r?.Name;
                 results.add(newWrap);
             }
         } catch (Exception ex) {
@@ -35,11 +35,27 @@ public with sharing class ILHCartController {
      * @param oppId : Id of opportunity that a quote will be inserted on
      */
     @AuraEnabled
-    public static void insertQuote(String oppId) {
+    public static void insertQuote(String oppId, Map<String, Object> payload) {
         try {
             Quote newQuote = new Quote();
-            newQuote.Name = 'Test';
+            Id productId;
+            String costStr = (String)payload.get('cost');
+            String coverageStr = (String)payload.get('coverage');
+            String productName = (String)payload.get('productName');
+            Decimal cost = costStr != null ? Decimal.valueOf(costStr) : 0;
+            Integer coverage = coverageStr != null ? Integer.valueOf(coverageStr) : 0;
+
+            if (String.isNotEmpty(productName)) {
+                List<Product2> product = new List<Product2>();
+                product = [SELECT id FROM Product2 WHERE Name =: productName];
+                productId = product[0].id;
+            }
+
+            newQuote.Name = 'Test';//TODO: What should we set name to?
             newQuote.OpportunityId = oppId;
+            newQuote.CoverageAmount__c = coverage;
+            newQuote.Premium__c = cost;
+            newQuote.Product__c = productId;
             insert newQuote;
         } catch (Exception ex) {
             new ErrorLogger(ex, 'An error occured while adding quote to cart', 'ILHCartController.cls', oppId, 'insertQuote', null, null, null);
@@ -82,8 +98,8 @@ public with sharing class ILHCartController {
         @AuraEnabled
         public String productName;
         @AuraEnabled
-        public Integer coverage;
+        public Decimal coverage;
         @AuraEnabled
-        public Integer cost;
+        public Decimal cost;
     }
 }

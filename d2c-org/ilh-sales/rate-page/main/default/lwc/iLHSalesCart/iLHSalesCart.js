@@ -22,6 +22,7 @@ export default class ILHSalesCart extends LightningElement {
     @wire(getQuotes, {oppId: '$opportunityId'})
     getQuotes(value) {
         this.wiredResult = value;
+        this.errorMessage = '';
         const { data, error } = this.wiredResult;
         if (data) { 
             this.cartData = data;
@@ -41,9 +42,9 @@ export default class ILHSalesCart extends LightningElement {
     @api
     createquote(payload) {
         let newCartItem = {
-            productName: payload.productName,
-            coverage: payload.coverage,
-            cost: payload.cost
+            "productName": payload.productName,
+            "coverage": payload.coverage,
+            "cost": payload.cost
         };
         this.insertQuote(newCartItem);
     }
@@ -70,7 +71,7 @@ export default class ILHSalesCart extends LightningElement {
      */
     insertQuote(newCartItem) {
         this.showSpinner = true;
-        insertQuote({ oppId: this.opportunityId})
+        insertQuote({ oppId: this.opportunityId, payload: newCartItem})
         .then(response => {
             refreshApex(this.wiredResult);
             this.showSpinner = false;

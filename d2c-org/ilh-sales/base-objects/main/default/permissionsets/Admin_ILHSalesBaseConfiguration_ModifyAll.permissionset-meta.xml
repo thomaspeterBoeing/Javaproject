@@ -40,6 +40,15 @@
         <object>Opportunity</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Quote</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
     <recordTypeVisibilities>
         <recordType>Campaign.ILHSalesMarketing</recordType>
         <visible>true</visible>
@@ -50,6 +59,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>PersonAccount.Consumer</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Quote.ILHSalesQuote</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabSettings>
@@ -66,6 +79,10 @@
     </tabSettings>
     <tabSettings>
         <tab>standard-Opportunity</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>standard-Quote</tab>
         <visibility>Available</visibility>
     </tabSettings>
 </PermissionSet>
