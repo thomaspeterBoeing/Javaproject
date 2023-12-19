@@ -1,7 +1,5 @@
 import { LightningElement, wire, track, api } from 'lwc';
-import { subscribe, MessageContext, unsubscribe } from 'lightning/messageService';
 import { refreshApex } from '@salesforce/apex';
-import RATE_PAGE_CHANNEL from '@salesforce/messageChannel/Rate_Page__c';
 import getQuotes from '@salesforce/apex/ILHCartController.getQuotes';
 import deleteQuote from '@salesforce/apex/ILHCartController.deleteQuote';
 import insertQuote from '@salesforce/apex/ILHCartController.insertQuote';
@@ -17,26 +15,6 @@ export default class ILHSalesCart extends LightningElement {
     showSpinner = true;//Spinner will turn off in getQuotes function
     totalCoverage = 0;
     totalCost = 0;
-
-    /**
-	 * Purpose: This function gets called when component is connected to page
-	 */
-    connectedCallback() {
-        this.subscribeToMessageChannel(); 
-    }
-    
-    /**
-	 * Purpose: This function gets called when component is disconnected from page
-	 */
-    disconnectedCallback() {
-        unsubscribe(this.subscription);      
-    }
-
-    /**
-	 * Purpose: Wiring message context
-	 */
-    @wire(MessageContext)
-    messageContext;
 
     /**
      * Purpose: Calls APEX to find quotes for related opportunity
@@ -57,27 +35,18 @@ export default class ILHSalesCart extends LightningElement {
     }
 
     /**
-     * Purpose: This function subscribes to rate page message channel
-     */
-    subscribeToMessageChannel() {        
-        this.subscription = subscribe(
-            this.messageContext,
-            RATE_PAGE_CHANNEL,
-            (message) => this.handleMessage(message)
-        );
-    }
-
-    /**
      * Purpose: This function creates a new quote object and calls insert quote function
-     * @param message : Message that was sent to rate page message channel
+     * @param payload : Message that was sent to rate page message channel
      */
-    handleMessage(message) {
+    @api
+    createquote(payload) {
         let newCartItem = {
-            productName: message.productName,
-            coverage: message.coverage,
-            cost: message.cost
+            productName: payload.productName,
+            coverage: payload.coverage,
+            cost: payload.cost
         };
-        this.insertQuote(newCartItem);
+        console.log(JSON.stringify(newCartItem, null, 4) );
+        //this.insertQuote(newCartItem);
     }
 
     /**

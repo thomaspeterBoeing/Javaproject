@@ -1,14 +1,9 @@
-import { LightningElement, wire } from 'lwc';
-import { publish, MessageContext } from 'lightning/messageService';
-import RATE_PAGE_CHANNEL from '@salesforce/messageChannel/Rate_Page__c';
+import { LightningElement } from 'lwc';
 
 export default class AddToCart extends LightningElement {
     productName = '';
     coverage = 0;
     cost = 0;
-
-    @wire(MessageContext)
-    MessageContext;
 
     handleProductNameChange(event) {
         this.productName = event.detail.value;
@@ -28,6 +23,6 @@ export default class AddToCart extends LightningElement {
             coverage: this.coverage,
             cost: this.cost
         };
-        publish(this.MessageContext, RATE_PAGE_CHANNEL, payload);
+        this.template.querySelector("c-ilh-sales-cart").createquote(payload);
     }
 }
