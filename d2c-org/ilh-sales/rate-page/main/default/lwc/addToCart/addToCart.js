@@ -4,6 +4,7 @@ export default class AddToCart extends LightningElement {
     productName = '';
     coverage = 0;
     cost = 0;
+    opportunityId = '006DR00000JKEbmYAH';
 
     handleProductNameChange(event) {
         this.productName = event.detail.value;

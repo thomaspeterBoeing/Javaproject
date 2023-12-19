@@ -7,7 +7,7 @@ import checkout from '@salesforce/apex/ILHCartController.checkout';
 import { reduceErrors } from 'c/ldsUtils';//LWC Reduces one or more LDS errors into a string[] of error messages
 
 export default class ILHSalesCart extends LightningElement {
-    @api opportunityId = '006DR00000JKEbmYAH';
+    @api opportunityId;
     @track cartData = [];
     wiredResult;
     errorMessage = '';
@@ -36,7 +36,7 @@ export default class ILHSalesCart extends LightningElement {
 
     /**
      * Purpose: This function creates a new quote object and calls insert quote function
-     * @param payload : Message that was sent to rate page message channel
+     * @param payload : Payload from a rate that was clicked in matrix
      */
     @api
     createquote(payload) {
@@ -45,8 +45,7 @@ export default class ILHSalesCart extends LightningElement {
             coverage: payload.coverage,
             cost: payload.cost
         };
-        console.log(JSON.stringify(newCartItem, null, 4) );
-        //this.insertQuote(newCartItem);
+        this.insertQuote(newCartItem);
     }
 
     /**
