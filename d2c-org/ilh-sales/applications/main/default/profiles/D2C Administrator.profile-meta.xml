@@ -47,4 +47,8 @@
         <enabled>true</enabled>
         <name>ViewHelpLink</name>
     </userPermissions>
+    <layoutAssignments>
+        <layout>Quote-ILH Sales Quote Layout</layout>
+        <recordType>Quote.ILHSalesQuote</recordType>
+    </layoutAssignments>
 </Profile>
