@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ConversionType__c</fullName>
+    <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
+    <businessStatus>Active</businessStatus>
+    <externalId>false</externalId>
+    <label>Conversion Type</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Term Insurance Policy</fullName>
+                <default>false</default>
+                <label>Term Insurance Policy</label>
+            </value>
+            <value>
+                <fullName>Other Insured Rider</fullName>
+                <default>false</default>
+                <label>Other Insured Rider</label>
+            </value>
+            <value>
+                <fullName>Term Insurance Rider</fullName>
+                <default>false</default>
+                <label>Term Insurance Rider</label>
+            </value>
+            <value>
+                <fullName>Child Insurance Rider</fullName>
+                <default>false</default>
+                <label>Child Insurance Rider</label>
+            </value>
+            <value>
+                <fullName>Spouse Insurance Rider</fullName>
+                <default>false</default>
+                <label>Spouse Insurance Rider</label>
+            </value>
+            <value>
+                <fullName>Guaranteed Insurability Rider</fullName>
+                <default>false</default>
+                <label>Guaranteed Insurability Rider</label>
+            </value>
+            <value>
+                <fullName>Employee Group</fullName>
+                <default>false</default>
+                <label>Employee Group</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -4,6 +4,52 @@
     <active>true</active>
     <label>ILH Sales Quote</label>
     <picklistValues>
+        <picklist>CancelContinueTerm__c</picklist>
+        <values>
+            <fullName>Cancel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Continue</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ConversionType__c</picklist>
+        <values>
+            <fullName>Child Insurance Rider</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Employee Group</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Guaranteed Insurability Rider</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Insured Rider</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Spouse Insurance Rider</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Term Insurance Policy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Term Insurance Rider</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Gender__c</picklist>
         <values>
             <fullName>Female</fullName>
