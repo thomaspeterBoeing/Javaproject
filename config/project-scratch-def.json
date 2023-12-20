@@ -1,7 +1,7 @@
 {
   "orgName": "TruStage D2C",
   "description": "Scratch org",
-  "edition": "Enterprise",    
+  "edition": "Enterprise",
   "country": "US",
   "language": "en_US",
   "features": ["PersonAccounts"],  
@@ -20,6 +20,9 @@
         "forceRelogin": false      
       },
       "enableAdminLoginAsAnyUser": true
+    },
+    "quoteSettings": {
+        "enableQuote" : true
     }
   },
   "objectSettings": {

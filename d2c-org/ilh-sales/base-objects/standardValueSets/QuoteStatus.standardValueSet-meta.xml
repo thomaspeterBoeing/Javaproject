@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Application</fullName>
+        <default>true</default>
+        <label>Application</label>
+        <allowEmail>true</allowEmail>
+    </standardValue>
+    <standardValue>
+        <fullName>Paper Kit</fullName>
+        <default>false</default>
+        <label>Paper Kit</label>
+        <allowEmail>false</allowEmail>
+    </standardValue>
+    <standardValue>
+        <fullName>Email Summary</fullName>
+        <default>false</default>
+        <label>Email Summary</label>
+        <allowEmail>false</allowEmail>
+    </standardValue>
+</StandardValueSet>
