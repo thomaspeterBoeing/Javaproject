@@ -1,6 +1,6 @@
 <template>
     <div>
-        <lightning-card title={cardTitle} class={cardClass}>
+        <lightning-card title={cardTitle} >
             <div slot="actions">
                 <lightning-button-icon icon-name={expandCollapseIcon} alternative-text={expandCollapseAltText}
                     onclick={toggleCardVisibility} variant="bare" class="slds-button_icon">
@@ -9,7 +9,7 @@
             <!-- Use the opportunity variable in the conditional rendering -->
             <template if:true={opportunity}>
                 <div class="slds-grid slds-gutters slds-p-horizontal_medium">
-                    <template if:true={errorMessage}>
+                    <template if:false={errorMessage}>
                         <div data-id="errorDisplay" class="slds-p-left_medium" style="color:red">{errorMessage}</div>
                     </template>
                     <div data-id="dummyDiv"></div>

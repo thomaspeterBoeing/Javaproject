@@ -140,7 +140,7 @@
             <assignToReference>recordPersonAccountToCreateUpdate.PersonID__pc</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>inputTxt_PersonID</elementReference>
+                <elementReference>inputTxt_PersonId</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -321,7 +321,8 @@ else create Person Account</description>
             <label>No Record Input Variable</label>
         </rules>
     </decisions>
-    <description>This flow takes in information about an individual (either record or individual fields) and creates or updates a Person Account based on whether the Account ID field is populated.  The Account ID is returned to the calling flow.   During an update the fields that are sent as input variables will be updated with those values.  If no value is sent the Person Account record will be updated to an empty string an empty string.</description>
+    <description>This flow takes in information about an individual (either record or individual fields) and creates or updates a Person Account based on whether the Account ID field is populated.  The Account ID is returned to the calling flow.   During an update the fields that are sent as input variables will be updated with those values.  If no value is sent the Person Account record will be updated to an empty string an empty string.
+01/4/2024 - Fixed variable name inputTxt_PersonId to match LWC iLHSalesConsumerCreationUpdate for bug 2688745</description>
     <environments>Default</environments>
     <interviewLabel>Create-Update Person Account ALF {!$Flow.CurrentDateTime}</interviewLabel>
     <label>ILH: Create-Update Person Account ALF</label>
@@ -509,7 +510,7 @@ else create Person Account</description>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <name>inputTxt_PersonID</name>
+        <name>inputTxt_PersonId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
