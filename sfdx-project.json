@@ -84,7 +84,7 @@
     },
     {
       "path": "d2c-org/ilh-sales/consumer-search",
-      "default": true,
+      "default": false,
       "package": "ILH Sales Consumer Search",
       "versionName": "ver 1.0",
       "versionNumber": "1.0.0.NEXT",
@@ -352,6 +352,10 @@
         }  
        
       ]
+    },
+    {
+        "path": "d2c-org/ilh-sales/consumer-quoteservice",
+        "default": true
     },
     {
       "path": "d2c-org/ilh-sales/post-install-unpackaged",        
