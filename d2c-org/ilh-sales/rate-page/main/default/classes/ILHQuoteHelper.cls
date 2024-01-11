@@ -76,7 +76,6 @@ public with sharing class ILHQuoteHelper {
     private Quote payloadToQuote(Map<String, Object> payload, Boolean isInsert) {
         Quote newQuote = new Quote();
         Opportunity opp = new Opportunity();
-        Id productId;
 
         //Get values from map
         String quoteId = (String)payload.get('quoteId');
@@ -95,8 +94,8 @@ public with sharing class ILHQuoteHelper {
         if (String.isNotEmpty(oppId)) {
             Date todaysDate = Date.today();
             opp = [SELECT Affiliation__c, Account.Age__pc, Account.PersonBirthdate, Account.Gender__pc, HealthAssessment__c, InsurancePurpose__c, 
-                                TobaccoUse__c, Account.PersonMailingState, Account.LastName, Account.PersonHomePhone, Account.PersonEmail, Account.ShippingCity,
-                                Account.ShippingCountry, Account.ShippingPostalCode, Account.ShippingState, Account.ShippingStreet FROM Opportunity WHERE id =: oppId];
+                    TobaccoUse__c, Account.PersonMailingState, Account.LastName, Account.PersonHomePhone, Account.PersonEmail, Account.ShippingCity,
+                    Account.ShippingCountry, Account.ShippingPostalCode, Account.ShippingState, Account.ShippingStreet FROM Opportunity WHERE id =: oppId];
         }
 
         //Only map opportunity/account fields on insert only
@@ -110,16 +109,17 @@ public with sharing class ILHQuoteHelper {
                 newQuote.Birthdate__c = opp.Account?.PersonBirthdate;
                 newQuote.Gender__c = opp.Account?.Gender__pc;
                 newQuote.HealthAssessment__c = opp.HealthAssessment__c;
+                newQuote.InsurancePurpose__c = opp.InsurancePurpose__c;
                 newQuote.TobaccoUse__c = opp.TobaccoUse__c;
                 newQuote.ResidentState__c = opp.Account?.PersonMailingState;
-                newQuote.Name = opp.Account?.LastName + '-' + todaysDate.year() + todaysDate.month() + todaysDate.day() + '-' + newQuote.QuoteNumber;//TODO: Quote number is null
+                newQuote.Name = opp.Account?.LastName + '-' + todaysDate.year() + todaysDate.month() + todaysDate.day() + '-';//TODO: Quote number is null
                 newQuote.Phone = opp.Account?.PersonHomePhone;
                 newQuote.ShippingCity = opp.Account?.ShippingCity;
                 newQuote.ShippingCountry = opp.Account?.ShippingCountry;
                 newQuote.ShippingPostalCode	= opp.Account?.ShippingPostalCode;
                 newQuote.ShippingState = opp.Account?.ShippingState;
                 newQuote.ShippingStreet = opp.Account?.ShippingStreet;
-                newQuote.RecordTypeId =  Schema.SObjectType.Quote.getRecordTypeInfosByName().get('ILHSalesQuote').getRecordTypeId();
+                newQuote.RecordTypeId = Schema.SObjectType.Quote.getRecordTypeInfosByName().get('ILH Sales Quote').getRecordTypeId();
                 //newQuote.GrandTotal = TBD;
                 //newQuote.ExpirationDate = TBD;
                 //newQuote.QuoteRider__c = TBD;
@@ -129,13 +129,15 @@ public with sharing class ILHQuoteHelper {
             if (String.isNotEmpty(productCode)) {
                 List<Product2> product = new List<Product2>();
                 product = [SELECT id FROM Product2 WHERE ProductCode =: productCode AND IsActive =: true];
-                productId = product[0].id;
+
+                if (product != null && !product.isEmpty()) {
+                    newQuote.Product__c = product[0].id;
+                }
             }
 
             //Map reamaining quote fields on insert
             newQuote.CoverageAmount__c = coverage;
             newQuote.Premium__c = cost;
-            newQuote.Product__c = productId;
         }
 
         if (String.isNotEmpty(decision)) {
@@ -143,7 +145,7 @@ public with sharing class ILHQuoteHelper {
 
             //Find if quote exists
             if (String.isNotEmpty(quoteId)) {
-                existingQuote = [SELECT Status FROM Quote WHERE id =: quoteId LIMIT 1];
+                existingQuote = [SELECT Status, Email FROM Quote WHERE id =: quoteId LIMIT 1];
             }
 
             //Only update request date if status is not paper kit or blank value
@@ -152,7 +154,8 @@ public with sharing class ILHQuoteHelper {
             }
 
             //Map email if decision is Email Summary and person account email is not blank
-            if (decision.equalsIgnoreCase('Email Summary') && String.isNotEmpty(opp.Account?.PersonEmail)) {
+            if (decision.equalsIgnoreCase('Email Summary') && String.isNotEmpty(opp.Account?.PersonEmail) && 
+                (existingQuote == null || existingQuote.isEmpty() || (existingQuote != null && !existingQuote.isEmpty() && String.isEmpty(existingQuote[0]?.Email)))) {
                 newQuote.Email = opp.Account?.PersonEmail;
             }
         }
