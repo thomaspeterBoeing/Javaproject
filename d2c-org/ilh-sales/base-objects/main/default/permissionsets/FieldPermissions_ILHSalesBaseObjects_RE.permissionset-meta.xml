@@ -233,11 +233,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Quote.InsuredAge__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Quote.PaperKitRequestDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
