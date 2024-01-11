@@ -312,6 +312,7 @@
       "package": "ILH Sales Applications",
       "versionName": "ver 1.0",
       "versionNumber": "1.0.0.NEXT",
+      "scopeProfiles": true,
       "versionDescription": "Lightning apps, lightning pages and other components for ILH Sales users",
       "dependencies": [
         {
