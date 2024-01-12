@@ -1,3 +1,8 @@
+/***
+Copyright: TruStage
+Purpose: Helper class for quote object
+1.0 - Adam Perschke-Ely   - 1/12/2024  - Created for new D2C Salesfore instance.
+***/
 public with sharing class ILHQuoteHelper {
      /**
      * Purpose: This method gets quotes related to the given opportunity id
@@ -76,6 +81,8 @@ public with sharing class ILHQuoteHelper {
     private Quote payloadToQuote(Map<String, Object> payload, Boolean isInsert) {
         Quote newQuote = new Quote();
         Opportunity opp = new Opportunity();
+        List<Product2> selectedProduct = new List<Product2>();
+        Boolean selectedProductFound = false;
 
         //Get values from map
         String quoteId = (String)payload.get('quoteId');
@@ -100,6 +107,16 @@ public with sharing class ILHQuoteHelper {
 
         //Only map opportunity/account fields on insert only
         if (isInsert) {
+            //Find product id based on product code from cart item
+            if (String.isNotEmpty(productCode)) {
+                selectedProduct = [SELECT id, Name FROM Product2 WHERE ProductCode =: productCode AND IsActive =: true];
+
+                if (selectedProduct != null && !selectedProduct.isEmpty()) {
+                    selectedProductFound = true;
+                    newQuote.Product__c = selectedProduct[0].id;
+                }
+            }
+
             //Don't map if don't have an opportunity id from rate page
             if (opp != null) {
                 Date todaysDate = Date.today();
@@ -112,7 +129,7 @@ public with sharing class ILHQuoteHelper {
                 newQuote.InsurancePurpose__c = opp.InsurancePurpose__c;
                 newQuote.TobaccoUse__c = opp.TobaccoUse__c;
                 newQuote.ResidentState__c = opp.Account?.PersonMailingState;
-                newQuote.Name = opp.Account?.LastName + '-' + todaysDate.year() + todaysDate.month() + todaysDate.day() + '-';//TODO: Quote number is null
+                newQuote.Name = opp.Account?.LastName + '-' + Datetime.now() + '-' + (selectedProductFound ? selectedProduct[0].Name : '');
                 newQuote.Phone = opp.Account?.PersonHomePhone;
                 newQuote.ShippingCity = opp.Account?.ShippingCity;
                 newQuote.ShippingCountry = opp.Account?.ShippingCountry;
@@ -123,16 +140,6 @@ public with sharing class ILHQuoteHelper {
                 //newQuote.GrandTotal = TBD;
                 //newQuote.ExpirationDate = TBD;
                 //newQuote.QuoteRider__c = TBD;
-            }
-
-            //Find product id based on product code from cart item
-            if (String.isNotEmpty(productCode)) {
-                List<Product2> product = new List<Product2>();
-                product = [SELECT id FROM Product2 WHERE ProductCode =: productCode AND IsActive =: true];
-
-                if (product != null && !product.isEmpty()) {
-                    newQuote.Product__c = product[0].id;
-                }
             }
 
             //Map reamaining quote fields on insert
