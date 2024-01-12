@@ -61,10 +61,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>InsuredAge__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>OpportunityId</field>
             </layoutItems>
             <layoutItems>
