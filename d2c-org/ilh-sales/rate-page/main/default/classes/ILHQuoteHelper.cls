@@ -149,7 +149,8 @@ public with sharing class ILHQuoteHelper {
             }
 
             //Only update request date if status is not paper kit or blank value
-            if (decision.equalsIgnoreCase('Paper Kit') && (existingQuote == null || existingQuote.isEmpty() || !existingQuote[0]?.Status.equalsIgnoreCase('Paper Kit'))) {
+            if (decision.equalsIgnoreCase('Paper Kit') && (existingQuote == null || existingQuote.isEmpty() || existingQuote[0]?.Status == null ||
+                !existingQuote[0]?.Status.equalsIgnoreCase('Paper Kit'))) {
                 newQuote.PaperKitRequestDate__c = Date.today();
             }
 
