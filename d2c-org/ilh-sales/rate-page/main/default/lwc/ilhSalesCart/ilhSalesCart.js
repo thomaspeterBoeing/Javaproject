@@ -142,6 +142,8 @@ export default class ILHSalesCart extends LightningElement {
         let newCartItem = {
             "productCode": payload?.productCode,
             "productName": payload?.productName,
+            "paymentFrequency": payload?.paymentFrequency,
+            "billingMethod": payload?.billingMethod,
             "coverage": payload?.coverage?.toString(),
             "cost": payload?.cost?.toString(),
             "decision": payload?.decision,
