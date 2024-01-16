@@ -77,9 +77,13 @@ private class ILHQuoteHelperTests {
         payload.put('coverage', '3000');
         payload.put('productCode', 'TestProd');
         payload.put('decision', 'Email Summary');
+        payload.put('paymentFrequency', 'Monthly');
+        payload.put('billingMethod', 'ACH');
+
         helper.insertQuote(payload);
         Quote q = [SELECT id, Affiliation__c, Age__c, Birthdate__c, Gender__c, HealthAssessment__c, InsurancePurpose__c, TobaccoUse__c, ResidentState__c, Phone, ShippingCity,
-                    ShippingCountry, ShippingPostalCode, ShippingState, ShippingStreet, Product__c, CoverageAmount__c, Premium__c, Status, Email FROM Quote WHERE OpportunityId =: opp.id];
+                    ShippingCountry, ShippingPostalCode, ShippingState, ShippingStreet, Product__c, CoverageAmount__c, Premium__c, Status, Email, BillingMethod__c,  PaymentFrequency__c
+                    FROM Quote WHERE OpportunityId =: opp.id];
 
         Assert.isNotNull(q);
         Assert.areEqual(opp.Affiliation__c, q.Affiliation__c);
@@ -95,10 +99,12 @@ private class ILHQuoteHelperTests {
         Assert.areEqual(opp.Account.ShippingPostalCode, q.ShippingPostalCode);
         Assert.areEqual(opp.Account.ShippingState, q.ShippingState);
         Assert.areEqual(opp.Account.ShippingStreet, q.ShippingStreet);
-        Assert.areEqual(3000, q.CoverageAmount__c);
-        Assert.areEqual(4.50, q.Premium__c);
+        Assert.areEqual(Integer.valueOf((String)payload.get('coverage')), q.CoverageAmount__c);
+        Assert.areEqual(Decimal.valueOf((String)payload.get('cost')), q.Premium__c);
         Assert.areEqual(product.id, q.Product__c);
         Assert.areEqual(opp.Account.PersonEmail, q.Email);
+        Assert.areEqual(payload.get('billingMethod'), q.BillingMethod__c);
+        Assert.areEqual(payload.get('paymentFrequency'), q.PaymentFrequency__c);
 
         payload.put('decision', 'Paper Kit');
         payload.put('coverage', '4000');
