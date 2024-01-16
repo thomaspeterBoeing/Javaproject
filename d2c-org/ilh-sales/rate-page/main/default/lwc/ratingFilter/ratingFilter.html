@@ -1,0 +1,59 @@
+<template>
+   
+    <lightning-card>
+          
+          <lightning-tabset>
+          
+              <lightning-tab label="Life and AD&D"> 
+                <div class="slds-grid slds-grid_align-center">
+                    <div class="slds-col slds-size_1-of-2">                 
+                           <c-horizontal-checkbox-group  
+                                name="Products" 
+                                label="Eligible Products"                                            
+                                options={productlist}
+                                value={values}
+                                variant="standard"
+                                onchange={handleProductSelection}>
+                        </c-horizontal-checkbox-group>              
+                        
+                    </div> 
+
+                      <div class="slds-col slds-size_1-of-4">
+                     
+                              <lightning-input type="text" label="Proposed Coverage"> </lightning-input>
+          
+                               
+                      </div>
+                      <div class="slds-col slds-size_1-of-4">
+                    
+                            <lightning-combobox
+                                name="frequency"
+                                label="Payment Frequency"
+                                placeholder="Monthly"
+                                value={freqValue}
+                                onchange={handleFrequencyChange}
+                                options={frequencyOptions}>
+                        </lightning-combobox>
+    
+
+                      </div>
+                  
+                  </div>
+                  <c-rating-matrix></c-rating-matrix>
+
+              </lightning-tab>
+              <lightning-tab label="Conversions">
+                  <div class="slds-grid slds-gutters slds-card__body slds-card__body_inner">
+                  Content for tab 2 
+                  </div>
+              </lightning-tab>
+                  
+              
+              
+              <p slot="footer">Card Footer</p>
+          </lightning-tabset> 
+      </lightning-card>
+    
+  
+              
+  </template>

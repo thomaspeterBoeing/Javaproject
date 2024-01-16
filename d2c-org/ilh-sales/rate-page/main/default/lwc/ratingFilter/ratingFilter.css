@@ -1,0 +1,4 @@
+.horizontal-checkbox-group {
+    display: flex;
+    flex-direction: row;
+}
