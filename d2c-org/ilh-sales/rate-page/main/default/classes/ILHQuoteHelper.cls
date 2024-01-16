@@ -92,6 +92,8 @@ public with sharing class ILHQuoteHelper {
         String productCode = (String)payload.get('productCode');
         String oppId = (String)payload.get('oppId');
         String decision = (String)payload.get('decision');
+        String paymentFrequency = (String)payload.get('paymentFrequency');
+        String billingMethod = (String)payload.get('billingMethod');
 
         //Convert map string values integer or decimal values
         Decimal cost = costStr != null ? Decimal.valueOf(costStr) : 0;
@@ -145,6 +147,8 @@ public with sharing class ILHQuoteHelper {
             //Map reamaining quote fields on insert
             newQuote.CoverageAmount__c = coverage;
             newQuote.Premium__c = cost;
+            newQuote.BillingMethod__c = billingMethod;
+            newQuote.PaymentFrequency__c = paymentFrequency;
         }
 
         if (String.isNotEmpty(decision)) {
