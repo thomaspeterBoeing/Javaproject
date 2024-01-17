@@ -78,7 +78,7 @@ export default class ratingFilter extends LightningElement {
     async fetchAllQuoteData() {
         //console.log("In Fetch All Quote Data");
         try{
-            let tempArray = await getRates({oppId: '0060400000BdEvYAAV'});
+            let tempArray = await getRates({oppId: '006DC00000RKlVCYA1'});
             this._products = tempArray.eligibleProducts.filter((product) => product.productCategory === 'Life');           
             this._rates = tempArray.eligibleRates;
 

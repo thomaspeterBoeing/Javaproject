@@ -1,5 +1,7 @@
 import { LightningElement, wire, track, api } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
+import { MessageContext, subscribe, unsubscribe } from 'lightning/messageService';
+import CART_CHANNEL from '@salesforce/messageChannel/Cart__c';
 import getQuotes from '@salesforce/apex/ILHCartController.getQuotes';
 import deleteQuote from '@salesforce/apex/ILHCartController.deleteQuote';
 import insertQuote from '@salesforce/apex/ILHCartController.insertQuote';
@@ -8,7 +10,7 @@ import checkout from '@salesforce/apex/ILHCartController.checkout';
 import { reduceErrors } from 'c/ldsUtils';//LWC Reduces one or more LDS errors into a string[] of error messages
 
 export default class ILHSalesCart extends LightningElement {
-    @api opportunityId;
+    @api opportunityId = '006DC00000RKlVCYA1';
     @track cartData = [];
     wiredResult;
     errorMessage = '';
@@ -16,6 +18,25 @@ export default class ILHSalesCart extends LightningElement {
     showSpinner = true;//Spinner will turn off in getQuotes function
     totalCoverage = 0;
     totalCost = 0;
+
+    connectedCallback() {
+        this.subscribeToMessageChannel();       
+    }
+    
+    disconnectedCallback() {
+        unsubscribe(this.subscription);      
+    }
+
+    @wire(MessageContext)
+    messageContext;
+    
+    subscribeToMessageChannel() {        
+        this.subscription = subscribe(
+            this.messageContext,
+            CART_CHANNEL,
+            (message) => this.createquote(message)
+        );
+    }
 
     /**
      * Purpose: Calls APEX to find quotes for related opportunity
@@ -141,7 +162,6 @@ export default class ILHSalesCart extends LightningElement {
     createQuoteObject(payload) {
         let newCartItem = {
             "productCode": payload?.productCode,
-            "productName": payload?.productName,
             "paymentFrequency": payload?.paymentFrequency,
             "billingMethod": payload?.billingMethod,
             "coverage": payload?.coverage?.toString(),

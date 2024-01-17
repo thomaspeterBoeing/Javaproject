@@ -119,7 +119,7 @@ export default class DataTypeTableCellSelector extends LightningElement {
   
        //toggle on click.  If lockwhenselected is set then
        //do not toggle after cell is selected.
-       if(this.label = '--'){
+       if(this.label == '--'){
         //do nothing.  
        }else{
         if (this.lockwhenselected){

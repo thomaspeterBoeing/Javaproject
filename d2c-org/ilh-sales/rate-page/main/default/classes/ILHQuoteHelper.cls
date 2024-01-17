@@ -88,7 +88,6 @@ public with sharing class ILHQuoteHelper {
         String quoteId = (String)payload.get('quoteId');
         String costStr = (String)payload.get('cost');
         String coverageStr = (String)payload.get('coverage');
-        String productName = (String)payload.get('productName');
         String productCode = (String)payload.get('productCode');
         String oppId = (String)payload.get('oppId');
         String decision = (String)payload.get('decision');
