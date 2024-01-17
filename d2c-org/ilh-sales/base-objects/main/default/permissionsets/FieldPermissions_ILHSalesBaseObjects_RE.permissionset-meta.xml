@@ -178,6 +178,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Quote.BillingMethod__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Quote.Birthdate__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -234,6 +239,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Quote.PaperKitRequestDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quote.PaymentFrequency__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
