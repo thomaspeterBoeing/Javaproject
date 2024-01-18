@@ -36,8 +36,9 @@ private class ILHQuoteHelperTests {
             Affiliation__c = affiliation.id,
             AccountId = personAccount.id,
             HealthAssessment__c = 'No Health Issues',
-            InsurancePurpose__c = 'Final Expenses',
-            TobaccoUse__c = 'No'
+            InsurancePurpose__c = 'Gift',
+            TobaccoUse__c = 'No',
+            ProposedCoverage__c = 20000
         );
         insert newOpp;
 
@@ -109,7 +110,7 @@ private class ILHQuoteHelperTests {
         payload.put('decision', 'Paper Kit');
         payload.put('coverage', '4000');
         payload.put('quoteId', q.id);
-        helper.updateQuote(payload);
+        helper.updateQuotes(new List<Map<String, Object>>{payload});
         q = [SELECT Status, CoverageAmount__c, PaperKitRequestDate__c FROM Quote WHERE OpportunityId =: opp.id];
         Assert.areEqual('Paper Kit', q.Status);
         Assert.areEqual(Date.today(), q.PaperKitRequestDate__c);
@@ -123,7 +124,7 @@ private class ILHQuoteHelperTests {
         update acc;
 
         payload.put('decision', 'Email Summary');
-        helper.updateQuote(payload);
+        helper.updateQuotes(new List<Map<String, Object>>{payload});
         q = [SELECT Email FROM Quote WHERE OpportunityId =: opp.id];
         Assert.areEqual(opp.Account.PersonEmail, q.Email, 'Email should be equal to original email, not the updated one');
 
@@ -137,7 +138,7 @@ private class ILHQuoteHelperTests {
         try {
             payload = new Map<String, Object>();
             payload.put('quoteId', '1');
-            helper.updateQuote(payload);
+            helper.updateQuotes(new List<Map<String, Object>>{payload});
             Assert.fail();
         } catch (Exception ex) {}
     }

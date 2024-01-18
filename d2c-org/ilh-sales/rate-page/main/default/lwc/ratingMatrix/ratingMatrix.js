@@ -66,7 +66,6 @@ export default class RatingMatrix extends LightningElement {
     }
        
     handleRateSelection(event) {
-        console.log('Inside ratingMatrix.handleRateSelection: ' + this.template.querySelector("c-ilh-sales-cart"));
         //const checked = {"checked": true};   
         const value = {...event.detail.value};
         let rates = this.rateData;
@@ -92,7 +91,7 @@ export default class RatingMatrix extends LightningElement {
             coverage: value?.coverage,
             cost: value?.monthly
         }
-        //publish(this.MessageContext, CART_CHANNEL, payload);
+        publish(this.MessageContext, CART_CHANNEL, payload);
     }
  
        

@@ -12,6 +12,7 @@
                     <th scope="col">Product Name</th>
                     <th scope="col">Coverage</th>
                     <th scope="col">Cost</th>
+                    <th scope="col">Frequency</th>
                     <th scope="col">Decision</th>
                 </tr>
             </thead>
@@ -25,9 +26,10 @@
                         <td>
                             <lightning-formatted-number value={ci.cost} currency-code="USD" format-style="currency"></lightning-formatted-number>
                         </td>
+                        <td>{ci.paymentFrequency}</td>
                         <td>
                             <div class="max-width__medium display__inline-block">
-                                <lightning-select variant="label-hidden" data-id={ci.quoteId} name="decision" value={ci.decision} options={decisionOptions} onchange={onDecisionChange}></lightning-select>
+                                <lightning-select variant="label-hidden" data-id={ci.quoteId} name="decision" value={ci.decision} options={ci.availableActions} onchange={onDecisionChange}></lightning-select>
                             </div>
                             <div class="remove-btn display__inline-block slds-p-left_x-small">
                                 <lightning-button-icon size="small" data-id={ci.quoteId} onclick={deleteQuote} icon-name="action:remove" variant="brand" disabled={ci.disableDelete}></lightning-button-icon>
@@ -44,11 +46,12 @@
                         <strong><lightning-formatted-number value={totalCost} currency-code="USD" format-style="currency"></lightning-formatted-number></strong>
                     </td>
                     <td></td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
         <div class="slds-m-around_medium text-align__right">
-            <lightning-button variant="brand" label="Checkout" title="Checkout" onclick={handleCheckout}></lightning-button>
+            <lightning-button variant="brand" label="Update & Continue" title="Update & Continue" onclick={handleCheckout}></lightning-button>
         </div>
     </lightning-card>
 </template>

@@ -5,9 +5,16 @@ import CART_CHANNEL from '@salesforce/messageChannel/Cart__c';
 import getQuotes from '@salesforce/apex/ILHCartController.getQuotes';
 import deleteQuote from '@salesforce/apex/ILHCartController.deleteQuote';
 import insertQuote from '@salesforce/apex/ILHCartController.insertQuote';
-import updateQuote from '@salesforce/apex/ILHCartController.updateQuote';
+import updateQuotes from '@salesforce/apex/ILHCartController.updateQuotes';
 import checkout from '@salesforce/apex/ILHCartController.checkout';
 import { reduceErrors } from 'c/ldsUtils';//LWC Reduces one or more LDS errors into a string[] of error messages
+
+const QUOTE_OPTIONS = [
+    { label: '', value: ''},
+    { label: 'Application', value: 'Application'},
+    { label: 'Paper Kit', value: 'Paper Kit' },
+    { label: 'Email Summary', value: 'Email Summary'},
+];
 
 export default class ILHSalesCart extends LightningElement {
     @api opportunityId = '006DC00000RKlVCYA1';
@@ -49,12 +56,16 @@ export default class ILHSalesCart extends LightningElement {
         if (data) {
             let localList = [...data];
             for (let index = 0; index < localList.length; index++) {
+                let itemDecision = localList[index]?.decision;
                 localList[index] = {
                     ...localList[index], 
-                    disableDelete: localList[index]?.decision == null ? false : true
+                    disableDelete: itemDecision == null ? false : true,
+                    savedDecision: itemDecision,
+                    availableActions: this.disableOptions(QUOTE_OPTIONS, itemDecision)
                 };
             }
             this.cartData = localList;
+            console.log(JSON.stringify(this.cartData, null, 4));
             this.calculateTotals();
             this.showSpinner = false;
         }
@@ -109,9 +120,9 @@ export default class ILHSalesCart extends LightningElement {
      * Purpose: This function calls APEX to update quote record
      * @param cartItem : Cart item to update
      */
-    updateQuote(cartItem) {
+    updateQuotes() {
         this.showSpinner = true;
-        updateQuote({ payload: cartItem })
+        updateQuotes({ quotes: this.findQuotesToUpdate() })
         .then(response => {
             refreshApex(this.wiredResult);
             this.showSpinner = false;
@@ -121,6 +132,39 @@ export default class ILHSalesCart extends LightningElement {
         });
     }
 
+    disableOptions(availableOptions, savedDecision) {
+        let updatedOptions = [];
+        for (let index = 0; index < availableOptions.length; index++) {
+            let option = availableOptions[index];
+            let disabled = false;
+            if(!this.errorsOnPage && ((option.value !== 'Application' && savedDecision === 'Application') || (!option.value && savedDecision))) {
+                disabled = true;
+            }
+            updatedOptions.push({...option, disabled: disabled});
+        }
+        return updatedOptions;
+    }
+
+    findQuotesToUpdate() {
+        let newCartItems = [];
+        for (let index = 0; index < this.cartData.length; index++) {
+            let cartItem = this.cartData[index];
+            if (this.shouldUpdateQuote(cartItem.decision, cartItem.savedDecision)) {
+                newCartItems.push(this.createQuoteObject(cartItem));
+            }
+        }
+        console.log(JSON.stringify(newCartItems, null, 4));
+        return newCartItems;
+    }
+
+    shouldUpdateQuote(newDecision, savedDecision) {
+        if (newDecision !== savedDecision) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Purpose: This method calculates grand total values
      */
@@ -128,8 +172,12 @@ export default class ILHSalesCart extends LightningElement {
         this.totalCoverage = 0;
         this.totalCost = 0;
         for(let i = 0; i < this.cartData.length; i++) {
-            this.totalCoverage += parseInt(this.cartData[i].coverage);
-            this.totalCost += parseInt(this.cartData[i].cost);
+            let currentCartItem = this.cartData[i];
+            this.totalCoverage += parseFloat(currentCartItem.coverage);
+
+            if (currentCartItem.decision === 'Application') {
+                this.totalCost += parseFloat(currentCartItem.cost);
+            }
         }
     }
 
@@ -139,6 +187,7 @@ export default class ILHSalesCart extends LightningElement {
     handleCheckout() {
         checkout()
         .then(response => {
+            this.updateQuotes();
         }).catch(error => {
             this.errorMessage = reduceErrors(error);
         });
@@ -151,7 +200,7 @@ export default class ILHSalesCart extends LightningElement {
     onDecisionChange(event) {
         let changedObj = this.cartData.find((element) => element.quoteId === event.target.dataset.id);
         changedObj.decision = event.target.value;
-        this.updateQuote(this.createQuoteObject(changedObj));
+        this.calculateTotals();
     }
 
     /**
@@ -173,16 +222,11 @@ export default class ILHSalesCart extends LightningElement {
         return newCartItem;
     }
 
-    /**
-     * Purpose: Getting decision options to display in picklists for each quote record in the cart
-     * TODO: This will be moved to an APEX class where it will return option based on product and state
-     */
-    get decisionOptions() {
-        return [
-            { label: '', value: '' },
-            { label: 'Application', value: 'Application' },
-            { label: 'Paper Kit', value: 'Paper Kit' },
-            { label: 'Email Summary', value: 'Email Summary' },
-        ];
+    get errorsOnPage() {
+        if (this.errorMessage) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

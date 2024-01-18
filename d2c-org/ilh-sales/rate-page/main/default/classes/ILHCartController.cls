@@ -22,12 +22,12 @@ public with sharing class ILHCartController {
     }
 
     /**
-     * Purpose: This method updates a quote record
-     * @param payload : Contains field information to be updated
+     * Purpose: This method updates quote record from cart
+     * @param quotes : Contains quote record from cart that need to be updated
      */
     @AuraEnabled
-    public static void updateQuote(Map<String, Object> payload) {
-        new ILHQuoteHelper().updateQuote(payload);
+    public static void updateQuotes(List<Map<String, Object>> quotes) {
+        new ILHQuoteHelper().updateQuotes(quotes);
     }
 
     /**

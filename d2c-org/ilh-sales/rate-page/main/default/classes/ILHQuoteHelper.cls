@@ -4,6 +4,7 @@ Purpose: Helper class for quote object
 1.0 - Adam Perschke-Ely   - 1/12/2024  - Created for new D2C Salesfore instance.
 ***/
 public with sharing class ILHQuoteHelper {
+    private String errorMessageToThrow = '';
      /**
      * Purpose: This method gets quotes related to the given opportunity id
      * @param oppId : Opportunity id to get related quotes
@@ -14,7 +15,8 @@ public with sharing class ILHQuoteHelper {
 
         try {
             //Query all quotes related to opportunity
-            quotes = [SELECT id, Product__r.Name, Product__r.ProductCode, CoverageAmount__c, Premium__c, Status FROM Quote WHERE OpportunityId =: oppId];
+            quotes = [SELECT id, Product__r.Name, Product__r.ProductCode, CoverageAmount__c, Premium__c, Status, PaymentFrequency__c
+                    FROM Quote WHERE OpportunityId =: oppId];
 
             //Assigning quote values to wrapper instances
             for (Quote q : quotes) {
@@ -25,6 +27,7 @@ public with sharing class ILHQuoteHelper {
                 newWrap.productName = q?.Product__r?.Name;
                 newWrap.productCode = q?.Product__r?.ProductCode;
                 newWrap.decision = q?.Status;
+                newWrap.paymentFrequency = q?.PaymentFrequency__c;
                 results.add(newWrap);
             }
         } catch (Exception ex) {
@@ -43,7 +46,11 @@ public with sharing class ILHQuoteHelper {
             newQuote = payloadToQuote(payload, true);//Create new quote object for insert
             insert newQuote;
         } catch (Exception ex) {
-            new ErrorLogger(ex, 'An error occured while adding quote to cart', 'ILHQuoteHelper.cls', null, 'insertQuote', null, null, null);
+            if (String.isEmpty(errorMessageToThrow)) {
+                new ErrorLogger(ex, 'An error occured while adding quote to cart', 'ILHQuoteHelper.cls', null, 'insertQuote', null, null, null);
+            } else {
+                throw new ErrorLogger.handleCaughtErrorException(errorMessageToThrow);
+            }
         }
     }
 
@@ -51,13 +58,21 @@ public with sharing class ILHQuoteHelper {
      * Purpose: This method updates a quote record
      * @param payload : Contains field information to be updated
      */
-    public void updateQuote(Map<String, Object> payload) {
+    public void updateQuotes(List<Map<String, Object>> quotes) {
         try {
-            Quote newQuote = new Quote();
-            newQuote = payloadToQuote(payload, false);//Create new quote object for update
-            update newQuote;
+            List<Quote> quotesToUpdate = new List<Quote>();
+            for (Map<String,Object> quote : quotes) {
+                quotesToUpdate.add(payloadToQuote(quote, false));
+            }
+            if (!quotesToUpdate.isEmpty()) {
+                update quotesToUpdate; 
+            }
         } catch (Exception ex) {
-            new ErrorLogger(ex, 'An error occured while updating quote', 'ILHQuoteHelper.cls', null, 'updateQuote', null, null, null);
+            if (String.isEmpty(errorMessageToThrow)) {
+                new ErrorLogger(ex, 'An error occured while updating quote', 'ILHQuoteHelper.cls', null, 'updateQuote', null, null, null);
+            } else {
+                throw new ErrorLogger.handleCaughtErrorException(errorMessageToThrow);
+            }
         }
     }
 
@@ -102,8 +117,9 @@ public with sharing class ILHQuoteHelper {
         if (String.isNotEmpty(oppId)) {
             Date todaysDate = Date.today();
             opp = [SELECT Affiliation__c, Account.Age__pc, Account.PersonBirthdate, Account.Gender__pc, HealthAssessment__c, InsurancePurpose__c, 
-                    TobaccoUse__c, Account.PersonMailingState, Account.LastName, Account.PersonHomePhone, Account.PersonEmail, Account.ShippingCity,
-                    Account.ShippingCountry, Account.ShippingPostalCode, Account.ShippingState, Account.ShippingStreet FROM Opportunity WHERE id =: oppId];
+                    TobaccoUse__c, Account.PersonMailingState, Account.PersonHomePhone, Account.PersonEmail, Account.ShippingCity,
+                    Account.ShippingCountry, Account.ShippingPostalCode, Account.ShippingState, Account.ShippingStreet, Account.FirstName, Account.LastName
+                    FROM Opportunity WHERE id =: oppId];
         }
 
         //Only map opportunity/account fields on insert only
@@ -164,6 +180,11 @@ public with sharing class ILHQuoteHelper {
                 newQuote.PaperKitRequestDate__c = Date.today();
             }
 
+            if (decision.equalsIgnoreCase('Email Summary') && String.isEmpty(opp.Account?.PersonEmail)) {
+                errorMessageToThrow = 'There is no email address for ' + opp?.Account?.FirstName + ' ' + opp?.Account?.LastName + '. Please update the consumers email.';
+                throw new ErrorLogger.handleCaughtErrorException();
+            }
+
             //Map email if decision is Email Summary and person account email is not blank
             if (decision.equalsIgnoreCase('Email Summary') && String.isNotEmpty(opp.Account?.PersonEmail) && 
                 (existingQuote == null || existingQuote.isEmpty() || (existingQuote != null && !existingQuote.isEmpty() && String.isEmpty(existingQuote[0]?.Email)))) {
@@ -200,5 +221,7 @@ public with sharing class ILHQuoteHelper {
         public Decimal cost;
         @AuraEnabled
         public String decision;
+        @AuraEnabled
+        public String paymentFrequency;
     }
 }
