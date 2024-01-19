@@ -6,27 +6,26 @@
         <div if:true={showSpinner}>
             <lightning-spinner alternative-text="Loading..." size="large"></lightning-spinner>
         </div>
-        <table class="slds-table slds-table_cell-buffer slds-table_bordered" role="grid">
-            <thead class="slds-line-height_reset">
+        <table class="slds-table slds-table_bordered" role="grid">
+            <thead>
                 <tr>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Coverage</th>
-                    <th scope="col">Cost</th>
-                    <th scope="col">Frequency</th>
-                    <th scope="col">Decision</th>
+                    <th style="width: 25%;">Product Name</th>
+                    <th style="width: 25%;">Coverage</th>
+                    <th style="width: 25%;">Cost</th>
+                    <th style="width: 25%;">Decision</th>
                 </tr>
             </thead>
             <tbody>
                 <template for:each={cartData} for:item='ci'>
-                    <tr class="slds-hint-parent" key={ci.quoteId}>
+                    <tr key={ci.quoteId}>
                         <td>{ci.productName}</td>
                         <td>
                             <lightning-formatted-number value={ci.coverage} currency-code="USD" format-style="currency"></lightning-formatted-number>
                         </td>
                         <td>
-                            <lightning-formatted-number value={ci.cost} currency-code="USD" format-style="currency"></lightning-formatted-number>
+                            <lightning-formatted-number value={ci.cost} currency-code="USD" format-style="currency"></lightning-formatted-number><br />
+                            <span>{ci.paymentFrequency}</span>
                         </td>
-                        <td>{ci.paymentFrequency}</td>
                         <td>
                             <div class="max-width__medium display__inline-block">
                                 <lightning-select variant="label-hidden" data-id={ci.quoteId} name="decision" value={ci.decision} options={ci.availableActions} onchange={onDecisionChange}></lightning-select>
@@ -38,14 +37,15 @@
                     </tr>
                 </template>
                 <tr>
-                    <td class="color__gray">Total</td>
+                    <td></td>
                     <td>
+                        <span class="color__gray">Total Coverage</span><br />
                         <strong><lightning-formatted-number value={totalCoverage} currency-code="USD" format-style="currency"></lightning-formatted-number></strong>
                     </td>
                     <td>
+                        <span class="color__gray">Total Cost</span><br />
                         <strong><lightning-formatted-number value={totalCost} currency-code="USD" format-style="currency"></lightning-formatted-number></strong>
                     </td>
-                    <td></td>
                     <td></td>
                 </tr>
             </tbody>

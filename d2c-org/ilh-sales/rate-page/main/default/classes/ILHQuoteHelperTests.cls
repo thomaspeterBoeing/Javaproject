@@ -141,6 +141,14 @@ private class ILHQuoteHelperTests {
             helper.updateQuotes(new List<Map<String, Object>>{payload});
             Assert.fail();
         } catch (Exception ex) {}
+
+        try {
+            payload = new Map<String, Object>();
+            opp.Account.PersonEmail = '';
+            payload.put('decision', 'Email Summary');
+            helper.updateQuotes(new List<Map<String, Object>>{payload});
+            Assert.fail();
+        } catch (Exception ex) {}
     }
 
     @isTest

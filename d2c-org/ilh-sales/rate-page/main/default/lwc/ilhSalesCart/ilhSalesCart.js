@@ -1,6 +1,7 @@
 import { LightningElement, wire, track, api } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
 import { MessageContext, subscribe, unsubscribe } from 'lightning/messageService';
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import CART_CHANNEL from '@salesforce/messageChannel/Cart__c';
 import getQuotes from '@salesforce/apex/ILHCartController.getQuotes';
 import deleteQuote from '@salesforce/apex/ILHCartController.deleteQuote';
@@ -17,8 +18,10 @@ const QUOTE_OPTIONS = [
 ];
 
 export default class ILHSalesCart extends LightningElement {
-    @api opportunityId = '006DC00000RKlVCYA1';
+    _successMessage = '';
+
     @track cartData = [];
+    @api opptyId;
     wiredResult;
     errorMessage = '';
     decision = '';
@@ -48,7 +51,7 @@ export default class ILHSalesCart extends LightningElement {
     /**
      * Purpose: Calls APEX to find quotes for related opportunity
      */
-    @wire(getQuotes, {oppId: '$opportunityId'})
+    @wire(getQuotes, {oppId: '$opptyId'})
     getQuotes(value) {
         this.wiredResult = value;
         this.errorMessage = '';
@@ -65,7 +68,6 @@ export default class ILHSalesCart extends LightningElement {
                 };
             }
             this.cartData = localList;
-            console.log(JSON.stringify(this.cartData, null, 4));
             this.calculateTotals();
             this.showSpinner = false;
         }
@@ -124,6 +126,14 @@ export default class ILHSalesCart extends LightningElement {
         this.showSpinner = true;
         updateQuotes({ quotes: this.findQuotesToUpdate() })
         .then(response => {
+            const evt = new ShowToastEvent({
+                title: 'Success!',
+                message: this._successMessage,
+                variant: 'success',
+                mode: 'dismissible'
+            });
+            this.dispatchEvent(evt);
+
             refreshApex(this.wiredResult);
             this.showSpinner = false;
         }).catch(error => {
@@ -147,14 +157,32 @@ export default class ILHSalesCart extends LightningElement {
 
     findQuotesToUpdate() {
         let newCartItems = [];
+        let successDecisions = [];
+
         for (let index = 0; index < this.cartData.length; index++) {
             let cartItem = this.cartData[index];
             if (this.shouldUpdateQuote(cartItem.decision, cartItem.savedDecision)) {
                 newCartItems.push(this.createQuoteObject(cartItem));
+                if (cartItem.decision !== 'Application' && !successDecisions.includes(cartItem.decision)) {
+                    successDecisions.push(cartItem.decision);
+                }
             }
         }
-        console.log(JSON.stringify(newCartItems, null, 4));
+        this.createSuccessMessage(successDecisions)
         return newCartItems;
+    }
+
+    createSuccessMessage(successDecisions) {
+        this._successMessage = '';
+        for (let index = 0; index < successDecisions.length; index++) {
+            if (this._successMessage || this._successMessage !== '') {
+                this._successMessage += ' and ';
+            } 
+            this._successMessage += successDecisions[index];
+        }
+        if (this._successMessage || this._successMessage !== '') {
+            this._successMessage += ' requested'
+        }
     }
 
     shouldUpdateQuote(newDecision, savedDecision) {
@@ -217,7 +245,7 @@ export default class ILHSalesCart extends LightningElement {
             "cost": payload?.cost?.toString(),
             "decision": payload?.decision,
             "quoteId": payload?.quoteId,
-            "oppId": this?.opportunityId
+            "oppId": this?.opptyId
         };
         return newCartItem;
     }

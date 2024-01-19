@@ -4,7 +4,6 @@ Purpose: Helper class for quote object
 1.0 - Adam Perschke-Ely   - 1/12/2024  - Created for new D2C Salesfore instance.
 ***/
 public with sharing class ILHQuoteHelper {
-    private String errorMessageToThrow = '';
      /**
      * Purpose: This method gets quotes related to the given opportunity id
      * @param oppId : Opportunity id to get related quotes
@@ -16,7 +15,7 @@ public with sharing class ILHQuoteHelper {
         try {
             //Query all quotes related to opportunity
             quotes = [SELECT id, Product__r.Name, Product__r.ProductCode, CoverageAmount__c, Premium__c, Status, PaymentFrequency__c
-                    FROM Quote WHERE OpportunityId =: oppId];
+                    FROM Quote WHERE OpportunityId =: oppId ORDER BY CreatedDate ASC];
 
             //Assigning quote values to wrapper instances
             for (Quote q : quotes) {
@@ -41,16 +40,12 @@ public with sharing class ILHQuoteHelper {
      * @param payload : Contains field information to be inserted
      */
     public void insertQuote(Map<String, Object> payload) {
+        Quote newQuote = new Quote();
+        newQuote = payloadToQuote(payload, true);//Create new quote object for insert
         try {
-            Quote newQuote = new Quote();
-            newQuote = payloadToQuote(payload, true);//Create new quote object for insert
             insert newQuote;
         } catch (Exception ex) {
-            if (String.isEmpty(errorMessageToThrow)) {
-                new ErrorLogger(ex, 'An error occured while adding quote to cart', 'ILHQuoteHelper.cls', null, 'insertQuote', null, null, null);
-            } else {
-                throw new ErrorLogger.handleCaughtErrorException(errorMessageToThrow);
-            }
+            new ErrorLogger(ex, 'An error occured while adding quote to cart', 'ILHQuoteHelper.cls', null, 'insertQuote', null, null, null);
         }
     }
 
@@ -59,20 +54,14 @@ public with sharing class ILHQuoteHelper {
      * @param payload : Contains field information to be updated
      */
     public void updateQuotes(List<Map<String, Object>> quotes) {
+        List<Quote> quotesToUpdate = new List<Quote>();
+        for (Map<String,Object> quote : quotes) {
+            quotesToUpdate.add(payloadToQuote(quote, false));
+        }
         try {
-            List<Quote> quotesToUpdate = new List<Quote>();
-            for (Map<String,Object> quote : quotes) {
-                quotesToUpdate.add(payloadToQuote(quote, false));
-            }
-            if (!quotesToUpdate.isEmpty()) {
-                update quotesToUpdate; 
-            }
+            update quotesToUpdate;
         } catch (Exception ex) {
-            if (String.isEmpty(errorMessageToThrow)) {
-                new ErrorLogger(ex, 'An error occured while updating quote', 'ILHQuoteHelper.cls', null, 'updateQuote', null, null, null);
-            } else {
-                throw new ErrorLogger.handleCaughtErrorException(errorMessageToThrow);
-            }
+            new ErrorLogger(ex, 'An error occured while updating quotes in cart', 'ILHQuoteHelper.cls', null, 'updateQuote', null, null, null);
         }
     }
 
@@ -98,6 +87,7 @@ public with sharing class ILHQuoteHelper {
         Opportunity opp = new Opportunity();
         List<Product2> selectedProduct = new List<Product2>();
         Boolean selectedProductFound = false;
+        String errorText = isInsert ? 'adding quote to cart' : 'updating quotes in cart';
 
         //Get values from map
         String quoteId = (String)payload.get('quoteId');
@@ -115,19 +105,27 @@ public with sharing class ILHQuoteHelper {
 
         //Don't map if don't have an opportunity id from rate page
         if (String.isNotEmpty(oppId)) {
-            Date todaysDate = Date.today();
-            opp = [SELECT Affiliation__c, Account.Age__pc, Account.PersonBirthdate, Account.Gender__pc, HealthAssessment__c, InsurancePurpose__c, 
+            try {
+                opp = [SELECT Affiliation__c, Account.Age__pc, Account.PersonBirthdate, Account.Gender__pc, HealthAssessment__c, InsurancePurpose__c, 
                     TobaccoUse__c, Account.PersonMailingState, Account.PersonHomePhone, Account.PersonEmail, Account.ShippingCity,
                     Account.ShippingCountry, Account.ShippingPostalCode, Account.ShippingState, Account.ShippingStreet, Account.FirstName, Account.LastName
                     FROM Opportunity WHERE id =: oppId];
+            } catch (Exception ex) {
+                new ErrorLogger(ex, 'An error occured while ' + errorText, 'ILHQuoteHelper.cls', oppId, 'payloadToQuote', null, null, null);
+            }
         }
 
         //Only map opportunity/account fields on insert only
         if (isInsert) {
             //Find product id based on product code from cart item
             if (String.isNotEmpty(productCode)) {
-                selectedProduct = [SELECT id, Name FROM Product2 WHERE ProductCode =: productCode AND IsActive =: true];
+                try {
+                    selectedProduct = [SELECT id, Name FROM Product2 WHERE ProductCode =: productCode AND IsActive =: true];
+                } catch (Exception ex) {
+                    new ErrorLogger(ex, 'An error occured while ' + errorText, 'ILHQuoteHelper.cls', null, 'payloadToQuote', null, null, null);
+                }
 
+                //Product found
                 if (selectedProduct != null && !selectedProduct.isEmpty()) {
                     selectedProductFound = true;
                     newQuote.Product__c = selectedProduct[0].id;
@@ -136,7 +134,6 @@ public with sharing class ILHQuoteHelper {
 
             //Don't map if don't have an opportunity id from rate page
             if (opp != null) {
-                Date todaysDate = Date.today();
                 newQuote.OpportunityId = oppId;
                 newQuote.Affiliation__c = opp.Affiliation__c;
                 newQuote.Age__c = opp.Account?.Age__pc;
@@ -171,7 +168,11 @@ public with sharing class ILHQuoteHelper {
 
             //Find if quote exists
             if (String.isNotEmpty(quoteId)) {
-                existingQuote = [SELECT Status, Email FROM Quote WHERE id =: quoteId LIMIT 1];
+                try {
+                    existingQuote = [SELECT Status, Email FROM Quote WHERE id =: quoteId LIMIT 1];
+                } catch (Exception ex) {
+                    new ErrorLogger(ex, 'An error occured while ' + errorText, 'ILHQuoteHelper.cls', quoteId, 'payloadToQuote', null, null, null);
+                }
             }
 
             //Only update request date if status is not paper kit or blank value
@@ -180,9 +181,10 @@ public with sharing class ILHQuoteHelper {
                 newQuote.PaperKitRequestDate__c = Date.today();
             }
 
+            //Throw error message if there's no email listed on person account and "Email Summary" is selected
             if (decision.equalsIgnoreCase('Email Summary') && String.isEmpty(opp.Account?.PersonEmail)) {
-                errorMessageToThrow = 'There is no email address for ' + opp?.Account?.FirstName + ' ' + opp?.Account?.LastName + '. Please update the consumers email.';
-                throw new ErrorLogger.handleCaughtErrorException();
+                String errorMessageToThrow = 'There is no email address for ' + opp?.Account?.FirstName + ' ' + opp?.Account?.LastName + '. Please update the consumers email.';
+                new ErrorLogger(null, errorMessageToThrow, null, null, null, null, null, null);
             }
 
             //Map email if decision is Email Summary and person account email is not blank
