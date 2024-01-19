@@ -1,15 +1,27 @@
 import { LightningElement, wire, track, api } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
+import { MessageContext, subscribe, unsubscribe } from 'lightning/messageService';
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import CART_CHANNEL from '@salesforce/messageChannel/Cart__c';
 import getQuotes from '@salesforce/apex/ILHCartController.getQuotes';
 import deleteQuote from '@salesforce/apex/ILHCartController.deleteQuote';
 import insertQuote from '@salesforce/apex/ILHCartController.insertQuote';
-import updateQuote from '@salesforce/apex/ILHCartController.updateQuote';
+import updateQuotes from '@salesforce/apex/ILHCartController.updateQuotes';
 import checkout from '@salesforce/apex/ILHCartController.checkout';
 import { reduceErrors } from 'c/ldsUtils';//LWC Reduces one or more LDS errors into a string[] of error messages
 
+const QUOTE_OPTIONS = [
+    { label: '', value: ''},
+    { label: 'Application', value: 'Application'},
+    { label: 'Paper Kit', value: 'Paper Kit' },
+    { label: 'Email Summary', value: 'Email Summary'},
+];
+
 export default class ILHSalesCart extends LightningElement {
-    @api opportunityId;
+    _successMessage = '';
+
     @track cartData = [];
+    @api opptyId;
     wiredResult;
     errorMessage = '';
     decision = '';
@@ -17,10 +29,29 @@ export default class ILHSalesCart extends LightningElement {
     totalCoverage = 0;
     totalCost = 0;
 
+    connectedCallback() {
+        this.subscribeToMessageChannel();       
+    }
+    
+    disconnectedCallback() {
+        unsubscribe(this.subscription);      
+    }
+
+    @wire(MessageContext)
+    messageContext;
+    
+    subscribeToMessageChannel() {        
+        this.subscription = subscribe(
+            this.messageContext,
+            CART_CHANNEL,
+            (message) => this.createquote(message)
+        );
+    }
+
     /**
      * Purpose: Calls APEX to find quotes for related opportunity
      */
-    @wire(getQuotes, {oppId: '$opportunityId'})
+    @wire(getQuotes, {oppId: '$opptyId'})
     getQuotes(value) {
         this.wiredResult = value;
         this.errorMessage = '';
@@ -28,9 +59,12 @@ export default class ILHSalesCart extends LightningElement {
         if (data) {
             let localList = [...data];
             for (let index = 0; index < localList.length; index++) {
+                let itemDecision = localList[index]?.decision;
                 localList[index] = {
                     ...localList[index], 
-                    disableDelete: localList[index]?.decision == null ? false : true
+                    disableDelete: itemDecision == null ? false : true,
+                    savedDecision: itemDecision,
+                    availableActions: this.disableOptions(QUOTE_OPTIONS, itemDecision)
                 };
             }
             this.cartData = localList;
@@ -88,16 +122,75 @@ export default class ILHSalesCart extends LightningElement {
      * Purpose: This function calls APEX to update quote record
      * @param cartItem : Cart item to update
      */
-    updateQuote(cartItem) {
+    updateQuotes() {
         this.showSpinner = true;
-        updateQuote({ payload: cartItem })
+        updateQuotes({ quotes: this.findQuotesToUpdate() })
         .then(response => {
+            const evt = new ShowToastEvent({
+                title: 'Success!',
+                message: this._successMessage,
+                variant: 'success',
+                mode: 'dismissible'
+            });
+            this.dispatchEvent(evt);
+
             refreshApex(this.wiredResult);
             this.showSpinner = false;
         }).catch(error => {
             this.errorMessage = reduceErrors(error);
             this.showSpinner = false;
         });
+    }
+
+    disableOptions(availableOptions, savedDecision) {
+        let updatedOptions = [];
+        for (let index = 0; index < availableOptions.length; index++) {
+            let option = availableOptions[index];
+            let disabled = false;
+            if(!this.errorsOnPage && ((option.value !== 'Application' && savedDecision === 'Application') || (!option.value && savedDecision))) {
+                disabled = true;
+            }
+            updatedOptions.push({...option, disabled: disabled});
+        }
+        return updatedOptions;
+    }
+
+    findQuotesToUpdate() {
+        let newCartItems = [];
+        let successDecisions = [];
+
+        for (let index = 0; index < this.cartData.length; index++) {
+            let cartItem = this.cartData[index];
+            if (this.shouldUpdateQuote(cartItem.decision, cartItem.savedDecision)) {
+                newCartItems.push(this.createQuoteObject(cartItem));
+                if (cartItem.decision !== 'Application' && !successDecisions.includes(cartItem.decision)) {
+                    successDecisions.push(cartItem.decision);
+                }
+            }
+        }
+        this.createSuccessMessage(successDecisions)
+        return newCartItems;
+    }
+
+    createSuccessMessage(successDecisions) {
+        this._successMessage = '';
+        for (let index = 0; index < successDecisions.length; index++) {
+            if (this._successMessage || this._successMessage !== '') {
+                this._successMessage += ' and ';
+            } 
+            this._successMessage += successDecisions[index];
+        }
+        if (this._successMessage || this._successMessage !== '') {
+            this._successMessage += ' requested'
+        }
+    }
+
+    shouldUpdateQuote(newDecision, savedDecision) {
+        if (newDecision !== savedDecision) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -107,8 +200,12 @@ export default class ILHSalesCart extends LightningElement {
         this.totalCoverage = 0;
         this.totalCost = 0;
         for(let i = 0; i < this.cartData.length; i++) {
-            this.totalCoverage += parseInt(this.cartData[i].coverage);
-            this.totalCost += parseInt(this.cartData[i].cost);
+            let currentCartItem = this.cartData[i];
+            this.totalCoverage += parseFloat(currentCartItem.coverage);
+
+            if (currentCartItem.decision === 'Application') {
+                this.totalCost += parseFloat(currentCartItem.cost);
+            }
         }
     }
 
@@ -118,6 +215,7 @@ export default class ILHSalesCart extends LightningElement {
     handleCheckout() {
         checkout()
         .then(response => {
+            this.updateQuotes();
         }).catch(error => {
             this.errorMessage = reduceErrors(error);
         });
@@ -130,7 +228,7 @@ export default class ILHSalesCart extends LightningElement {
     onDecisionChange(event) {
         let changedObj = this.cartData.find((element) => element.quoteId === event.target.dataset.id);
         changedObj.decision = event.target.value;
-        this.updateQuote(this.createQuoteObject(changedObj));
+        this.calculateTotals();
     }
 
     /**
@@ -141,28 +239,22 @@ export default class ILHSalesCart extends LightningElement {
     createQuoteObject(payload) {
         let newCartItem = {
             "productCode": payload?.productCode,
-            "productName": payload?.productName,
             "paymentFrequency": payload?.paymentFrequency,
             "billingMethod": payload?.billingMethod,
             "coverage": payload?.coverage?.toString(),
             "cost": payload?.cost?.toString(),
             "decision": payload?.decision,
             "quoteId": payload?.quoteId,
-            "oppId": this?.opportunityId
+            "oppId": this?.opptyId
         };
         return newCartItem;
     }
 
-    /**
-     * Purpose: Getting decision options to display in picklists for each quote record in the cart
-     * TODO: This will be moved to an APEX class where it will return option based on product and state
-     */
-    get decisionOptions() {
-        return [
-            { label: '', value: '' },
-            { label: 'Application', value: 'Application' },
-            { label: 'Paper Kit', value: 'Paper Kit' },
-            { label: 'Email Summary', value: 'Email Summary' },
-        ];
+    get errorsOnPage() {
+        if (this.errorMessage) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

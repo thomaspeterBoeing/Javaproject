@@ -1,9 +1,9 @@
-import { LightningElement,wire,track } from 'lwc';
+import { LightningElement,wire,track, api } from 'lwc';
 //import getProducts from '@salesforce/apex/QuoteServiceController.getEligibleProducts';
 import getRates from '@salesforce/apex/QuoteServiceController.getRates';
 
 export default class ratingFilter extends LightningElement {
-
+    @api opptyId;
     _products = [];
     _rates;
     _value = [];
@@ -78,7 +78,7 @@ export default class ratingFilter extends LightningElement {
     async fetchAllQuoteData() {
         //console.log("In Fetch All Quote Data");
         try{
-            let tempArray = await getRates({oppId: '0060400000BdEvYAAV'});
+            let tempArray = await getRates({oppId: this.opptyId});
             this._products = tempArray.eligibleProducts.filter((product) => product.productCategory === 'Life');           
             this._rates = tempArray.eligibleRates;
 

@@ -9,6 +9,10 @@ private class ILHCartControllerTests {
         Opportunity newOpp = new Opportunity(
             Name = 'TestOpp',
             StageName = 'Quote',
+            HealthAssessment__c = 'No Health Issues',
+            InsurancePurpose__c = 'Gift',
+            TobaccoUse__c = 'No',
+            ProposedCoverage__c = 20000,
             CloseDate = Date.today()
         );
         insert newOpp;
@@ -53,7 +57,8 @@ private class ILHCartControllerTests {
         payload.put('quoteId', q.id);
         payload.put('oppId', q.OpportunityId);
         payload.put('decision', 'Application');
-        ILHCartController.updateQuote(payload);
+        List<Map<String, Object>> quotes = new List<Map<String, Object>>{payload};
+        ILHCartController.updateQuotes(quotes);
     }
 
     @isTest

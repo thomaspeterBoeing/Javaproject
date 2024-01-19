@@ -2,7 +2,9 @@
 Comments go here
 */
 
-import { LightningElement,api,track } from 'lwc';
+import { LightningElement,api,track, wire } from 'lwc';
+import { publish, MessageContext } from 'lightning/messageService';
+import CART_CHANNEL from '@salesforce/messageChannel/Cart__c';
 
 export default class RatingMatrix extends LightningElement {
     @track rateData = [];
@@ -10,7 +12,12 @@ export default class RatingMatrix extends LightningElement {
     subscription = null;
     payload;
 
-  
+    /**
+	    * Purpose: Wiring message context
+    */
+    @wire(MessageContext)
+    MessageContext;
+
     @api buildTable(rates,products,frequency){
         this.rateColumns = []; 
         let columns = [];       
@@ -59,7 +66,6 @@ export default class RatingMatrix extends LightningElement {
     }
        
     handleRateSelection(event) {
-    
         //const checked = {"checked": true};   
         const value = {...event.detail.value};
         let rates = this.rateData;
@@ -77,7 +83,15 @@ export default class RatingMatrix extends LightningElement {
             
             }
         } 
-    
+
+        let payload = {
+            productCode: value?.productcode,
+            paymentFrequency: 'Monthly',
+            billingMethod: 'ACH',
+            coverage: value?.coverage,
+            cost: value?.monthly
+        }
+        publish(this.MessageContext, CART_CHANNEL, payload);
     }
  
        
