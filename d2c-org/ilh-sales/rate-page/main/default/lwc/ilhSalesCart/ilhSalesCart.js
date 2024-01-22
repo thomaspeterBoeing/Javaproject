@@ -19,20 +19,26 @@ const QUOTE_OPTIONS = [
 
 export default class ILHSalesCart extends LightningElement {
     _successMessage = '';
+    _wiredResult;
+    _cartDataCopy = [];
 
     @track cartData = [];
     @api opptyId;
-    wiredResult;
     errorMessage = '';
-    decision = '';
     showSpinner = true;//Spinner will turn off in getQuotes function
     totalCoverage = 0;
     totalCost = 0;
 
+    /**
+     * Purpose: Gets called when component is connected to page
+     */
     connectedCallback() {
         this.subscribeToMessageChannel();       
     }
     
+    /**
+     * Purpose: Gets called when component is disconnected from page
+     */
     disconnectedCallback() {
         unsubscribe(this.subscription);      
     }
@@ -40,6 +46,9 @@ export default class ILHSalesCart extends LightningElement {
     @wire(MessageContext)
     messageContext;
     
+    /**
+     * Purpose: Subscribes to cart channel message channel
+     */
     subscribeToMessageChannel() {        
         this.subscription = subscribe(
             this.messageContext,
@@ -53,18 +62,20 @@ export default class ILHSalesCart extends LightningElement {
      */
     @wire(getQuotes, {oppId: '$opptyId'})
     getQuotes(value) {
-        this.wiredResult = value;
+        this._wiredResult = value;
         this.errorMessage = '';
-        const { data, error } = this.wiredResult;
+        const { data, error } = this._wiredResult;
         if (data) {
             let localList = [...data];
             for (let index = 0; index < localList.length; index++) {
-                let itemDecision = localList[index]?.decision;
+                let itemAction = localList[index]?.action;
+                let copiedObj = this._cartDataCopy.find((element) => element?.quoteId === localList[index]?.quoteId);
                 localList[index] = {
-                    ...localList[index], 
-                    disableDelete: itemDecision == null ? false : true,
-                    savedDecision: itemDecision,
-                    availableActions: this.disableOptions(QUOTE_OPTIONS, itemDecision)
+                    ...localList[index],
+                    action:  !itemAction || itemAction === '' ? copiedObj?.action : itemAction,//If action from SF is blank, then take action from copied object
+                    disableDelete: itemAction == null ? false : true,//If true, the delete button will be disabled for this cart item
+                    savedAction: itemAction,//Saved action indicates the action saved in SF
+                    availableActions: this.disableOptions(QUOTE_OPTIONS, itemAction)//Actions available in the UI for this cart item
                 };
             }
             this.cartData = localList;
@@ -81,8 +92,7 @@ export default class ILHSalesCart extends LightningElement {
      * Purpose: This function creates a new quote object and calls insert quote function
      * @param payload : Payload from a rate that was clicked in matrix
      */
-    @api
-    createquote(payload) {
+    @api createquote(payload) {
         this.insertQuote(this.createQuoteObject(payload));
     }
 
@@ -94,7 +104,8 @@ export default class ILHSalesCart extends LightningElement {
         this.showSpinner = true;
         deleteQuote({ quoteId: event.target.dataset.id})
         .then(response => {
-            refreshApex(this.wiredResult);
+            this._cartDataCopy = this.cartData;//Create copy before delete
+            refreshApex(this._wiredResult);//Refresh cart data
             this.showSpinner = false;
         }).catch(error => {
             this.errorMessage = reduceErrors(error);
@@ -110,7 +121,8 @@ export default class ILHSalesCart extends LightningElement {
         this.showSpinner = true;
         insertQuote({ payload: newCartItem})
         .then(response => {
-            refreshApex(this.wiredResult);
+            this._cartDataCopy = this.cartData;//Create copy before insert
+            refreshApex(this._wiredResult);//Refresh cart data
             this.showSpinner = false;
         }).catch(error => {
             this.errorMessage = reduceErrors(error);
@@ -123,31 +135,42 @@ export default class ILHSalesCart extends LightningElement {
      * @param cartItem : Cart item to update
      */
     updateQuotes() {
-        this.showSpinner = true;
-        updateQuotes({ quotes: this.findQuotesToUpdate() })
-        .then(response => {
-            const evt = new ShowToastEvent({
-                title: 'Success!',
-                message: this._successMessage,
-                variant: 'success',
-                mode: 'dismissible'
+        let quotesToUpdate = this.findQuotesToUpdate();
+        if (quotesToUpdate && quotesToUpdate.length > 0) {
+            this.showSpinner = true;
+            updateQuotes({ quotes: this.findQuotesToUpdate() })
+            .then(response => {
+                //If success, then show message
+                const evt = new ShowToastEvent({
+                    title: 'Success!',
+                    message: this._successMessage,
+                    variant: 'success',
+                    mode: 'dismissible'
+                });
+                this.dispatchEvent(evt);
+                this._cartDataCopy = this.cartData;//Create copy before update
+                refreshApex(this._wiredResult);//Refresh cart data
+                this.showSpinner = false;
+            }).catch(error => {
+                this.errorMessage = reduceErrors(error);
+                this.showSpinner = false;
             });
-            this.dispatchEvent(evt);
-
-            refreshApex(this.wiredResult);
-            this.showSpinner = false;
-        }).catch(error => {
-            this.errorMessage = reduceErrors(error);
-            this.showSpinner = false;
-        });
+        }
     }
 
-    disableOptions(availableOptions, savedDecision) {
+    /**
+     * Purpose: This function dis
+     * @param {*} availableActions : Actions that are available for current quote
+     * @param {*} savedAction : Quote action saved in SF
+     * @returns : Quote actions after determining if there were any to be disabled
+     */
+    disableOptions(availableActions, savedAction) {
         let updatedOptions = [];
-        for (let index = 0; index < availableOptions.length; index++) {
-            let option = availableOptions[index];
+        for (let index = 0; index < availableActions.length; index++) {
+            let option = availableActions[index];
             let disabled = false;
-            if(!this.errorsOnPage && ((option.value !== 'Application' && savedDecision === 'Application') || (!option.value && savedDecision))) {
+            //Disable other actions if saved action is Application.  If action is Paper Kit or Email Summary, then disable blank option
+            if(!this.errorsOnPage && ((option.value !== 'Application' && savedAction === 'Application') || (!option.value && savedAction))) {
                 disabled = true;
             }
             updatedOptions.push({...option, disabled: disabled});
@@ -155,42 +178,58 @@ export default class ILHSalesCart extends LightningElement {
         return updatedOptions;
     }
 
+    /**
+     * Purpose: Dertimes quotes to update in SF
+     * @returns : Cart items to update
+     */
     findQuotesToUpdate() {
         let newCartItems = [];
-        let successDecisions = [];
+        let successActions = [];
 
         for (let index = 0; index < this.cartData.length; index++) {
             let cartItem = this.cartData[index];
-            if (this.shouldUpdateQuote(cartItem.decision, cartItem.savedDecision)) {
+            if (this.shouldUpdateQuote(cartItem.action, cartItem.savedAction)) {
                 newCartItems.push(this.createQuoteObject(cartItem));
-                if (cartItem.decision !== 'Application' && !successDecisions.includes(cartItem.decision)) {
-                    successDecisions.push(cartItem.decision);
+                //We don't show succes message for Application action
+                if (cartItem.action !== 'Application' && !successActions.includes(cartItem.action)) {
+                    successActions.push(cartItem.action);
                 }
             }
         }
-        this.createSuccessMessage(successDecisions)
+        this.createSuccessMessage(successActions)
         return newCartItems;
     }
 
-    createSuccessMessage(successDecisions) {
+    /**
+     * Purpose: Creates a success message for actions selected
+     * @param {*} successActions : Actions the display in success message
+     */
+    createSuccessMessage(successActions) {
         this._successMessage = '';
-        for (let index = 0; index < successDecisions.length; index++) {
+        let successActionLength = successActions.length;
+        for (let index = 0; index < successActionLength; index++) {
             if (this._successMessage || this._successMessage !== '') {
-                this._successMessage += ' and ';
+                //If action list is greater than 2 and the current element is not the second to last element, then append a comma.  Otherwise append "and"
+                this._successMessage += successActionLength > 2 && index !== successActionLength - 2 ? ', ' : ' and ';
             } 
-            this._successMessage += successDecisions[index];
+            //Append action name to message
+            this._successMessage += successActions[index];
         }
+
+        //Add "Requested" at the end of message
         if (this._successMessage || this._successMessage !== '') {
             this._successMessage += ' requested'
         }
     }
 
-    shouldUpdateQuote(newDecision, savedDecision) {
-        if (newDecision !== savedDecision) {
-            return true;
-        } else {
-            return false;
-        }
+    /**
+     * Purpose: Determines if a quote record should update or not based on action
+     * @param {*} newAction : Action selected from cart UI
+     * @param {*} savedAction : Action saved on quote record in SF
+     * @returns : True if new action is different from the one saved within SF
+     */
+    shouldUpdateQuote(newAction, savedAction) {
+        return newAction !== savedAction ? true : false;
     }
 
     /**
@@ -203,7 +242,8 @@ export default class ILHSalesCart extends LightningElement {
             let currentCartItem = this.cartData[i];
             this.totalCoverage += parseFloat(currentCartItem.coverage);
 
-            if (currentCartItem.decision === 'Application') {
+            //Only add cost to total if action is Application
+            if (currentCartItem.action === 'Application') {
                 this.totalCost += parseFloat(currentCartItem.cost);
             }
         }
@@ -222,18 +262,18 @@ export default class ILHSalesCart extends LightningElement {
     }
 
     /**
-     * Purpose: This function finds the quote record where the decision was updated, and call updateQutote function
-     * @param event : Event from decision picklist
+     * Purpose: This function finds the quote record where the action was updated, and call updateQutotes function
+     * @param {*} event : Event from action picklist
      */
-    onDecisionChange(event) {
+    onActionChange(event) {
         let changedObj = this.cartData.find((element) => element.quoteId === event.target.dataset.id);
-        changedObj.decision = event.target.value;
+        changedObj.action = event.target.value;
         this.calculateTotals();
     }
 
     /**
      * Purpose: This function transforms payload into a cart item object
-     * @param payload : Payload to convert to cart item object
+     * @param {*} payload : Payload to convert to cart item object
      * @returns : Cart item object
      */
     createQuoteObject(payload) {
@@ -243,18 +283,17 @@ export default class ILHSalesCart extends LightningElement {
             "billingMethod": payload?.billingMethod,
             "coverage": payload?.coverage?.toString(),
             "cost": payload?.cost?.toString(),
-            "decision": payload?.decision,
+            "action": payload?.action,
             "quoteId": payload?.quoteId,
             "oppId": this?.opptyId
         };
         return newCartItem;
     }
 
+    /**
+     * Purpose: Returns true if there's any errors on the page
+     */
     get errorsOnPage() {
-        if (this.errorMessage) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.errorMessage ? true : false;
     }
 }

@@ -56,7 +56,7 @@ private class ILHCartControllerTests {
         Map<String, Object> payload = new Map<String, Object>();
         payload.put('quoteId', q.id);
         payload.put('oppId', q.OpportunityId);
-        payload.put('decision', 'Application');
+        payload.put('action', 'Application');
         List<Map<String, Object>> quotes = new List<Map<String, Object>>{payload};
         ILHCartController.updateQuotes(quotes);
     }

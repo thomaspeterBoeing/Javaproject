@@ -77,7 +77,7 @@ private class ILHQuoteHelperTests {
         payload.put('cost', '4.50');
         payload.put('coverage', '3000');
         payload.put('productCode', 'TestProd');
-        payload.put('decision', 'Email Summary');
+        payload.put('action', 'Email Summary');
         payload.put('paymentFrequency', 'Monthly');
         payload.put('billingMethod', 'ACH');
 
@@ -107,7 +107,7 @@ private class ILHQuoteHelperTests {
         Assert.areEqual(payload.get('billingMethod'), q.BillingMethod__c);
         Assert.areEqual(payload.get('paymentFrequency'), q.PaymentFrequency__c);
 
-        payload.put('decision', 'Paper Kit');
+        payload.put('action', 'Paper Kit');
         payload.put('coverage', '4000');
         payload.put('quoteId', q.id);
         helper.updateQuotes(new List<Map<String, Object>>{payload});
@@ -123,7 +123,7 @@ private class ILHQuoteHelperTests {
         );
         update acc;
 
-        payload.put('decision', 'Email Summary');
+        payload.put('action', 'Email Summary');
         helper.updateQuotes(new List<Map<String, Object>>{payload});
         q = [SELECT Email FROM Quote WHERE OpportunityId =: opp.id];
         Assert.areEqual(opp.Account.PersonEmail, q.Email, 'Email should be equal to original email, not the updated one');
@@ -145,7 +145,7 @@ private class ILHQuoteHelperTests {
         try {
             payload = new Map<String, Object>();
             opp.Account.PersonEmail = '';
-            payload.put('decision', 'Email Summary');
+            payload.put('action', 'Email Summary');
             helper.updateQuotes(new List<Map<String, Object>>{payload});
             Assert.fail();
         } catch (Exception ex) {}
