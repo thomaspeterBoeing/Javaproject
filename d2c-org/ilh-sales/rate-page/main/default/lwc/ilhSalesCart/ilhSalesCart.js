@@ -1,4 +1,5 @@
 import { LightningElement, wire, track, api } from 'lwc';
+import { NavigationMixin } from 'lightning/navigation';
 import { refreshApex } from '@salesforce/apex';
 import { MessageContext, subscribe, unsubscribe } from 'lightning/messageService';
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
@@ -17,7 +18,7 @@ const QUOTE_OPTIONS = [
     { label: 'Email Summary', value: 'Email Summary'},
 ];
 
-export default class ILHSalesCart extends LightningElement {
+export default class ILHSalesCart extends NavigationMixin(LightningElement) {
     _successMessage = '';
     _wiredResult;
     _cartDataCopy = [];
@@ -256,9 +257,26 @@ export default class ILHSalesCart extends LightningElement {
         checkout()
         .then(response => {
             this.updateQuotes();
+            this.launchCartActions();
         }).catch(error => {
             this.errorMessage = reduceErrors(error);
         });
+    }
+
+    launchCartActions() {
+        for (let index = 0; index < this.cartData.length; index++) {
+            let currentCart = this.cartData[index];
+            if (currentCart.action === 'Application') {
+                //Launch Eapp
+                /*this[NavigationMixin.Navigate]({
+                    type: 'standard__objectPage',
+                    attributes: {
+                        objectApiName: 'Account',
+                        actionName: 'home',
+                    },
+                });*/
+            }
+        }
     }
 
     /**
