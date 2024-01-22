@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Product List">
+        <template if:true={errorMessage}>
+            <div data-id="errorDisplay" class="slds-p-left_medium" style="color:red">{errorMessage}</div>
+        </template>
+        <div if:true={showSpinner}>
+            <lightning-spinner alternative-text="Loading..." size="large"></lightning-spinner>
+        </div>
+        <!-- Do not display table if nothing in the table -->
+        <template if:true={results.length}>
+            <lightning-datatable
+                hide-checkbox-column	
+                key-field="productId"
+                data={results}
+                columns={columns}>
+            </lightning-datatable>
+        </template>
+    </lightning-card>
+</template>

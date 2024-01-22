@@ -355,8 +355,12 @@
     },
     {
         "path": "d2c-org/ilh-sales/consumer-quoteservice",
-        "default": true
+        "default": false
     },
+    {
+        "path": "d2c-org/ilh-sales/product-list",        
+        "default": true
+      },  
     {
       "path": "d2c-org/ilh-sales/post-install-unpackaged",        
       "default": false     
