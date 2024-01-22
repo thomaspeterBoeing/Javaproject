@@ -135,11 +135,10 @@ export default class ILHSalesCart extends NavigationMixin(LightningElement) {
      * Purpose: This function calls APEX to update quote record
      * @param cartItem : Cart item to update
      */
-    updateQuotes() {
-        let quotesToUpdate = this.findQuotesToUpdate();
+    updateQuotes(quotesToUpdate) {
         if (quotesToUpdate && quotesToUpdate.length > 0) {
             this.showSpinner = true;
-            updateQuotes({ quotes: this.findQuotesToUpdate() })
+            updateQuotes({ quotes: quotesToUpdate })
             .then(response => {
                 //If success, then show message
                 const evt = new ShowToastEvent({
@@ -256,16 +255,21 @@ export default class ILHSalesCart extends NavigationMixin(LightningElement) {
     handleCheckout() {
         checkout()
         .then(response => {
-            this.updateQuotes();
-            this.launchCartActions();
+            let quotesToUpdate = this.findQuotesToUpdate();
+            this.updateQuotes(quotesToUpdate);
+            this.launchCartActions(quotesToUpdate);
         }).catch(error => {
             this.errorMessage = reduceErrors(error);
         });
     }
 
-    launchCartActions() {
-        for (let index = 0; index < this.cartData.length; index++) {
-            let currentCart = this.cartData[index];
+    /**
+     * Purpose: Launches cart actions
+     * @param {*} quotesToLaunch : Quotes to launch in new screen
+     */
+    launchCartActions(quotesToLaunch) {
+        for (let index = 0; index < quotesToLaunch.length; index++) {
+            let currentCart = quotesToLaunch[index];
             if (currentCart.action === 'Application') {
                 //Launch Eapp
                 /*this[NavigationMixin.Navigate]({
