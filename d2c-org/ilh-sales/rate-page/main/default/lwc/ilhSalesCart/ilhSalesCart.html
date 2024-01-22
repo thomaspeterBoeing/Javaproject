@@ -12,7 +12,7 @@
                     <th style="width: 25%;">Product Name</th>
                     <th style="width: 25%;">Coverage</th>
                     <th style="width: 25%;">Cost</th>
-                    <th style="width: 25%;">Decision</th>
+                    <th style="width: 25%;">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +28,7 @@
                         </td>
                         <td>
                             <div class="max-width__medium display__inline-block">
-                                <lightning-select variant="label-hidden" data-id={ci.quoteId} name="decision" value={ci.decision} options={ci.availableActions} onchange={onDecisionChange}></lightning-select>
+                                <lightning-select variant="label-hidden" data-id={ci.quoteId} name="action" value={ci.action} options={ci.availableActions} onchange={onActionChange}></lightning-select>
                             </div>
                             <div class="remove-btn display__inline-block slds-p-left_x-small">
                                 <lightning-button-icon size="small" data-id={ci.quoteId} onclick={deleteQuote} icon-name="action:remove" variant="brand" disabled={ci.disableDelete}></lightning-button-icon>

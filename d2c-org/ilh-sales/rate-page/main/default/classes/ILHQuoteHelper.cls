@@ -25,7 +25,7 @@ public with sharing class ILHQuoteHelper {
                 newWrap.cost = q?.Premium__c;
                 newWrap.productName = q?.Product__r?.Name;
                 newWrap.productCode = q?.Product__r?.ProductCode;
-                newWrap.decision = q?.Status;
+                newWrap.action = q?.Status;
                 newWrap.paymentFrequency = q?.PaymentFrequency__c;
                 results.add(newWrap);
             }
@@ -95,7 +95,7 @@ public with sharing class ILHQuoteHelper {
         String coverageStr = (String)payload.get('coverage');
         String productCode = (String)payload.get('productCode');
         String oppId = (String)payload.get('oppId');
-        String decision = (String)payload.get('decision');
+        String action = (String)payload.get('action');
         String paymentFrequency = (String)payload.get('paymentFrequency');
         String billingMethod = (String)payload.get('billingMethod');
 
@@ -163,7 +163,7 @@ public with sharing class ILHQuoteHelper {
             newQuote.PaymentFrequency__c = paymentFrequency;
         }
 
-        if (String.isNotEmpty(decision)) {
+        if (String.isNotEmpty(action)) {
             List<Quote> existingQuote = new List<Quote>();
 
             //Find if quote exists
@@ -176,19 +176,19 @@ public with sharing class ILHQuoteHelper {
             }
 
             //Only update request date if status is not paper kit or blank value
-            if (decision.equalsIgnoreCase('Paper Kit') && (existingQuote == null || existingQuote.isEmpty() || existingQuote[0]?.Status == null ||
+            if (action.equalsIgnoreCase('Paper Kit') && (existingQuote == null || existingQuote.isEmpty() || existingQuote[0]?.Status == null ||
                 !existingQuote[0]?.Status.equalsIgnoreCase('Paper Kit'))) {
                 newQuote.PaperKitRequestDate__c = Date.today();
             }
 
             //Throw error message if there's no email listed on person account and "Email Summary" is selected
-            if (decision.equalsIgnoreCase('Email Summary') && String.isEmpty(opp.Account?.PersonEmail)) {
+            if (action.equalsIgnoreCase('Email Summary') && String.isEmpty(opp.Account?.PersonEmail)) {
                 String errorMessageToThrow = 'There is no email address for ' + opp?.Account?.FirstName + ' ' + opp?.Account?.LastName + '. Please update the consumers email.';
                 new ErrorLogger(null, errorMessageToThrow, null, null, null, null, null, null);
             }
 
-            //Map email if decision is Email Summary and person account email is not blank
-            if (decision.equalsIgnoreCase('Email Summary') && String.isNotEmpty(opp.Account?.PersonEmail) && 
+            //Map email if action is Email Summary and person account email is not blank
+            if (action.equalsIgnoreCase('Email Summary') && String.isNotEmpty(opp.Account?.PersonEmail) && 
                 (existingQuote == null || existingQuote.isEmpty() || (existingQuote != null && !existingQuote.isEmpty() && String.isEmpty(existingQuote[0]?.Email)))) {
                 newQuote.Email = opp.Account?.PersonEmail;
             }
@@ -199,8 +199,8 @@ public with sharing class ILHQuoteHelper {
             newQuote.id = quoteId;
         }
 
-        //Decision gets mapped on update and insert
-        newQuote.Status = decision;
+        //Action gets mapped on update and insert
+        newQuote.Status = action;
         return newQuote;
     }
 
@@ -222,7 +222,7 @@ public with sharing class ILHQuoteHelper {
         @AuraEnabled
         public Decimal cost;
         @AuraEnabled
-        public String decision;
+        public String action;
         @AuraEnabled
         public String paymentFrequency;
     }
