@@ -278,6 +278,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Quote.Agent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Quote.BillingMethod__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -334,6 +339,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Quote.InsurancePurpose__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quote.InsuredAge__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -399,6 +409,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Quote.UnderwritingClass__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quote.UnderwritingClassCode__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
