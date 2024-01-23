@@ -358,6 +358,10 @@
         "default": true
     },
     {
+      "path": "d2c-org/ilh-sales/product-list",        
+      "default": false
+    }, 
+    {
       "path": "d2c-org/ilh-sales/post-install-unpackaged",        
       "default": false     
     }  

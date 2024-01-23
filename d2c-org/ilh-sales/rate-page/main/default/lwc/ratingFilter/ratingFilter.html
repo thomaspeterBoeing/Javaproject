@@ -1,15 +1,17 @@
 <template>
-   
-    <lightning-card>
-          
-          <lightning-tabset>
-          
-              <lightning-tab label="Life and AD&D"> 
+    
+    
+        <div if:true={spinnerActive}>
+            <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+        </div>
+
+        <div if:false={errorLoadingRates}>
+ 
                 <div class="slds-grid slds-grid_align-center">
-                    <div class="slds-col slds-size_1-of-2">                 
+                    <div class="slds-col slds-size_3-of-5">                 
                            <c-horizontal-checkbox-group  
                                 name="Products" 
-                                label="Eligible Products"                                            
+                                label={hcbLabel}                                            
                                 options={productlist}
                                 value={values}
                                 variant="standard"
@@ -18,13 +20,20 @@
                         
                     </div> 
 
-                      <div class="slds-col slds-size_1-of-4">
+                      <div class="slds-col slds-size_1-of-5">
                      
-                              <lightning-input type="text" label="Proposed Coverage"> </lightning-input>
+                              <lightning-input 
+                                    type="text" 
+                                    label="Proposed Coverage" 
+                                    onblur={handleProposedCoverageChange} 
+                                    onkeydown={handleProposedCoverageKeyPress} 
+                                    value={proposedCoverage}>
+                              </lightning-input>
+                              <div class="error">{coverageError}</div>
           
                                
                       </div>
-                      <div class="slds-col slds-size_1-of-4">
+                      <div class="slds-col slds-size_1-of-5">
                     
                             <lightning-combobox
                                 name="frequency"
@@ -40,20 +49,18 @@
                   
                   </div>
                   <c-rating-matrix></c-rating-matrix>
+  
+        </div>
 
-              </lightning-tab>
-              <lightning-tab label="Conversions">
-                  <div class="slds-grid slds-gutters slds-card__body slds-card__body_inner">
-                  Content for tab 2 
-                  </div>
-              </lightning-tab>
-                  
-              
-              
-              <p slot="footer">Card Footer</p>
-          </lightning-tabset> 
-      </lightning-card>
-    
+        <div if:true={errorLoadingRates}>
+            <lightning-card title={errorTitle}>
+                Error occurred and rates could not be loaded.  Please try again by refreshing this page.  If the error occur again do something.
+                <br>
+                <br>
+                Error Message = {errorMessage}
+            </lightning-card>
+
+        </div>
   
               
   </template>

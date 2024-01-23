@@ -61,8 +61,8 @@ export default class DataTypeTableCellSelector extends LightningElement {
    renderedCallback(){
     
     let button = this.template.querySelector('lightning-button');
-    if(this?.value?.checked){//UPDATED
-      
+   // console.log('renderedCallback value ' + JSON.stringify(this.value));
+ if(this?.value?.checked){//UPDATED
       button.iconName = this.checkedicon;
       button.variant = this.checkedvariant;
     } else  {
@@ -74,12 +74,12 @@ export default class DataTypeTableCellSelector extends LightningElement {
   get label(){
     let labelValue; 
     let returnValue = "";
-   
+    //console.log('get label value ' + JSON.stringify(this.value));
     if (this.value){
       
       labelValue = this.value[this.labelkey];  //TODO  Handle if value can not be found.
-      //console.log('Label Value in Cell Selector ' + labelValue);
-      
+   
+      //console.log('Get Label');
       //Format label for the Label Type that was indicated.
       //**Currency is only value currently required.
       if (this.labeltype.toLowerCase() === 'currency'){
@@ -89,6 +89,7 @@ export default class DataTypeTableCellSelector extends LightningElement {
       }
   
     }else{
+      //Enter dashes to represent no value.
       returnValue = "--";
     }
     return returnValue;
@@ -113,15 +114,18 @@ export default class DataTypeTableCellSelector extends LightningElement {
   }
 
   onClick(event) {
-       //To change values in object it must be cloned.
-       let _value = {...this.value};
-       this.selected = _value.checked;
+     if(this.label === '--'){    
+       //this indicates that there is no value for cell
+       //do nothing.  
+
+    }else{
+        
+        //To change values in object it must be cloned.
+        let _value = {...this.value};
+        this.selected = _value.checked;
   
        //toggle on click.  If lockwhenselected is set then
        //do not toggle after cell is selected.
-       if(this.label == '--'){
-        //do nothing.  
-       }else{
         if (this.lockwhenselected){
             this.selected = true; 
 
@@ -138,7 +142,7 @@ export default class DataTypeTableCellSelector extends LightningElement {
             event.target.iconName = this.uncheckedicon;    
             
           }
-      }
+     
        
         _value.checked = this.selected;
         //Assign from clone.  
@@ -152,4 +156,6 @@ export default class DataTypeTableCellSelector extends LightningElement {
                value: this.value
             }
         }));
-}}
+    }
+  }
+}
