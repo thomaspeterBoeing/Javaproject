@@ -23,4 +23,16 @@
         <description>Cost for selected premium</description>
         <fieldName>cost</fieldName>
     </lightningMessageFields>
+    <lightningMessageFields>
+        <description>TBD</description>
+        <fieldName>underwritingClassCode</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>TBD</description>
+        <fieldName>underwritingClass</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Age for insured person</description>
+        <fieldName>insuredAge</fieldName>
+    </lightningMessageFields>
 </LightningMessageChannel>

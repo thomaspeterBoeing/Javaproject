@@ -98,10 +98,14 @@ public with sharing class ILHQuoteHelper {
         String action = (String)payload.get('action');
         String paymentFrequency = (String)payload.get('paymentFrequency');
         String billingMethod = (String)payload.get('billingMethod');
+        String underwritingClassCode = (String)payload.get('underwritingClassCode');
+        String underwritingClass = (String)payload.get('underwritingClass');
+        String insuredAgeStr = (String)payload.get('insuredAge');
 
         //Convert map string values integer or decimal values
         Decimal cost = costStr != null ? Decimal.valueOf(costStr) : 0;
         Integer coverage = coverageStr != null ? Integer.valueOf(coverageStr) : 0;
+        Integer insuredAge = insuredAgeStr != null ? Integer.valueOf(insuredAgeStr) : 0;
 
         //Don't map if don't have an opportunity id from rate page
         if (String.isNotEmpty(oppId)) {
@@ -161,6 +165,9 @@ public with sharing class ILHQuoteHelper {
             newQuote.Premium__c = cost;
             newQuote.BillingMethod__c = billingMethod;
             newQuote.PaymentFrequency__c = paymentFrequency;
+            newQuote.InsuredAge__c = insuredAge;
+            newQuote.UnderwritingClass__c = underwritingClass;
+            newQuote.UnderwritingClassCode__c = underwritingClassCode;
         }
 
         if (String.isNotEmpty(action)) {
@@ -206,7 +213,6 @@ public with sharing class ILHQuoteHelper {
 
     /**
      * Purpose: Inner wrapper class for results
-     * TODO: This will need to be to a different class
      */
     public class ResultsWrapper {
         @AuraEnabled
