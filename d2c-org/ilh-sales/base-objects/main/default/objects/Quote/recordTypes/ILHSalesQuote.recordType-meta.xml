@@ -4,6 +4,29 @@
     <active>true</active>
     <label>ILH Sales Quote</label>
     <picklistValues>
+        <picklist>BillingMethod__c</picklist>
+        <values>
+            <fullName>ACH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ACH/PAC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direct Bill</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PAC</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>CancelContinueTerm__c</picklist>
         <values>
             <fullName>Cancel</fullName>
