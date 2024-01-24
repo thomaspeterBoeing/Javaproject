@@ -34,7 +34,8 @@ export default class ILHSalesCart extends NavigationMixin(LightningElement) {
      * Purpose: Gets called when component is connected to page
      */
     connectedCallback() {
-        this.subscribeToMessageChannel();       
+        this.subscribeToMessageChannel();  
+         
     }
     
     /**
@@ -312,6 +313,8 @@ export default class ILHSalesCart extends NavigationMixin(LightningElement) {
             "quoteId": payload?.quoteId,
             "oppId": this?.opptyId
         };
+
+        console.log('New Cart Item in CreateQuoteObject = ' + JSON.stringify(newCartItem));
         return newCartItem;
     }
 
