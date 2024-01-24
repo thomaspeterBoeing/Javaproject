@@ -1,6 +1,15 @@
-/*
-Comments go here
-*/
+/**********************************************************************************
+ * Title:  Rating Matrix LWC
+ * Date:   Jan 2024
+ * 
+ * Description:  LWC is for displaying a matrix of coverages and product rates. 
+ * 
+ * Details:      This component creates a grid from rates and products that are passed
+ *               to from the parent Rate Filter calling the buildTable method.  
+ * 
+ * 
+ * Modifications:
+ *************************************************************************************/
 
 import { LightningElement,api,wire } from 'lwc';
 import { publish, MessageContext } from 'lightning/messageService';
@@ -25,8 +34,7 @@ export default class RatingMatrix extends LightningElement {
         this.rateColumns = []; 
         let columns = [];       
         const len = products.length;
-
-         
+     
         columns.push(
             {label: 'Coverage', fieldName: 'coverage', type :'currency', cellAttributes: { alignment: 'left' } }
         )
@@ -46,14 +54,12 @@ export default class RatingMatrix extends LightningElement {
                             lockwhenselected: true,
                             cellallignment: "left"
                         }})
-
-                  
+ 
         }
 
         this.rateColumns = [...this.rateColumns,...columns];
 
     }
-
   
     @api filterTable(product){           
             this.rateColumns = [...this.rateColumns].filter(col => col.fieldName == product);
@@ -80,6 +86,9 @@ export default class RatingMatrix extends LightningElement {
             
             }
         } 
+
+        //Creates a message that is published to the Cart Channel.  This channel is listed to by the Rate iLHSaleCart LWC and creates
+        //a quote from this message.
         let payload = {
             productCode: value?.productcode,
             paymentFrequency: 'Monthly',
@@ -88,7 +97,6 @@ export default class RatingMatrix extends LightningElement {
             cost: value?.monthly
         }
 
-        console.log('Payload = ' + JSON.stringify(payload));
         publish(this.MessageContext, CART_CHANNEL, payload);
     
     }

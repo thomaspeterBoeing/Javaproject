@@ -18,6 +18,7 @@
  *                  - checkedicon - icon that will display when item is selected
  *                  - uncheckedicon - icon that will display if not selected   
  *                  - lockedwhenselected - boolean  when true the selected cell can not be unselected.
+ *                  - cellallignment - Alligns cell label (left, center, right)
  *                 
  *              Values returned
  *                  - value that was passed in.
@@ -78,8 +79,7 @@ export default class DataTypeTableCellSelector extends LightningElement {
     if (this.value){
       
       labelValue = this.value[this.labelkey];  //TODO  Handle if value can not be found.
-   
-      //console.log('Get Label');
+
       //Format label for the Label Type that was indicated.
       //**Currency is only value currently required.
       if (this.labeltype.toLowerCase() === 'currency'){

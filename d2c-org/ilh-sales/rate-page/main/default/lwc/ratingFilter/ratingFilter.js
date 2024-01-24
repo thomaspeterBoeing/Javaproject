@@ -1,26 +1,48 @@
-/*
-Comments go here
-*/
+/**********************************************************************************
+ * Title:  Rating Filter LWC
+ * Date:   Jan 2024
+ * 
+ * Description:  LWC is for calling and allowing for filtering of elligible product rates
+ *               by coverage, product, frequency. 
+ * 
+ * Details:      This component is the parent to the Rating Matrix LWC  Filtered rates
+ *               are loaded into the Rating Matrix.  
+ * 
+ * Parameters:    coverage = Proposed coverage amount which will be used to filter the rates
+ *                by a low and high range for the proposed coverage.c/consumerDetails
+ *                
+ *                productType = Used to determine what type of product category this will be used
+ *                for.  Life, ADD
+ * 
+ *                opptyId = Id for the opportunity record.  This is passed to the elligible quote service to 
+ *                get product and rate info.
+ * 
+ * Modifications:
+ *************************************************************************************/
 import { LightningElement,api} from 'lwc';
 import getRates from '@salesforce/apex/QuoteServiceController.getRates';
 
 export default class ratingFilter extends LightningElement {
-
-    @api coverage;
-    @api productType;
+    //Parameters passed into this LWC
+    @api coverage;      
+    @api productType;  
     @api opptyId
   
+    //Error message variables that displayed on page if 
+    //service is not working.
     errorLoadingRates = false;
     errorMessage;
     errorTitle; 
 
-    _products = [];
-    _rates;  
-    _filteredRates;
-    _value = [];
-    coverageError = '';
-     value;
-    _frequencyChoice = "monthly"; 
+    products = [];          //Elligible products section returned in JSON response from getRates
+    productList = [];       //Products that are available to be selected in Product Checkbox.
+    productChoices = [];    //Products that are selected in Product Checkbox.    
+    rates = [];             //Rates from coverage and product info section returned in JSON response from getRates
+    filteredRates = [];     //Rates filtered by upper and lower coverage range based on Proposed Coverage field.
+    
+    coverageError = '';  //Field validation message for Proposed Coverage field.
+   
+    frequencyChoice = "monthly";   //Frequency option selected on Frequency field.
     spinnerActive = false; 
 
     frequencyOptions = [
@@ -42,35 +64,76 @@ export default class ratingFilter extends LightningElement {
         },
     ];
  
-    async connectedCallback(){  
-        console.log('Connected CallBack ratingFilter coverage ' + JSON.stringify(this.coverage));
-        console.log('Connected CallBack ratingFilter + productType ' + JSON.stringify(this.productType));
-        console.log('Connected CallBack ratingFilter + opptyId ' + JSON.stringify(this.opptyId));
-
+    async connectedCallback(){        
         this.spinnerActive = true;
-       
-        await this.fetchAllQuoteData();
-
-        console.log('Connected CallBack ratingFilter Products ' + JSON.stringify(this._products));
-        console.log('Connected CallBack ratingFilter coverage ' + JSON.stringify(this._rates));
-        
-        console.log()
-              
-        let newRates = [];
-        for (let index = 0; index < this._rates.length; index++) {//UPDATED
-            let rateObj = {coverage : this._rates[index].coverage, ...this._rates[index].productinfo};          
-            newRates.push(rateObj);            
-        }
-        this._rates = [...newRates];
-        this._filteredRates = this.filterProposedCoverage(newRates,this.coverage);
+        let rateData = await this.fetchAllQuoteData();
+      
+        //Set Products
+        this.products = rateData.eligibleProducts.filter((product) => product.productCategory === this.productType);
                 
-       this.template.querySelector("c-rating-matrix").buildTable(this._filteredRates,this.productLabels,this._frequencyChoice);
-  
+        //Set Rates  
+        this.rates = this.getEligibleRates(rateData);
+        
+        //set products options.
+        this.productList = this.getProductValues(this.products);
+               
+        //Set product choices for checkbox column names 
+        this.productChoices = this.getProductChoiceNames(this.products);
+     
+        //Filter rates by proposed coverage amount.
+        this.filteredRates = this.filterProposedCoverage(this.rates,this.coverage);  
+        
+        console.log('Fitered Rates ' + JSON.stringify(this.fiteredRates));
        
-       this._value = this.productLabels;
-       this.spinnerActive = false;
+        //Call to Rating Matrix to setup matrix table
+        this.template.querySelector("c-rating-matrix").buildTable(this.filteredRates,this.productChoices,this.frequencyChoice);
+                
+        this.spinnerActive = false;
    }
+
+   get productCheckboxLabel(){
+    let label = 'Eligible Products';
+    if(this.productType === 'Life'){
+        label = 'Life Eligible Products';
+    }
+    if(this.productType === 'ADD'){
+        label = 'AD&D Eligible Products';
+    }
+
+    return label;
+}
+ 
+   getEligibleRates(rateData){
+        let newRates = [];
+        for (let index = 0; index < rateData.eligibleRates.length; index++) {
+            let rateObj = {coverage : rateData.eligibleRates[index].coverage, ...rateData.eligibleRates[index].productinfo};          
+            newRates.push(rateObj)           
+        }
+        return newRates;        
+    }
    
+    //gets value field found in the products returned    
+    getProductValues(products) {        
+        let prods = [];
+        for (let index = 0;  index < products.length; ++index){            
+            prods.push({
+                label: this.products[index].value,
+                value: this.products[index].value
+           })    
+        }
+  
+        return prods;
+    } 
+
+    getProductChoiceNames(products) {
+        let prods = [];
+        for (let index = 0;  index < products.length; ++index){
+            prods.push(products[index].value)               
+        }
+  
+        return prods;
+    }   
+    
     filterProposedCoverage(data,coverage){
         let returndata = [];
         coverage = Number(coverage);
@@ -83,14 +146,11 @@ export default class ratingFilter extends LightningElement {
     }
     //Call to Apex class to retreive all Eligible products.
     //This will also retrieve all of the possible coverages and premiums
-    //for the products
-    
+    //for the products    
     async fetchAllQuoteData() {
   
         try{
-           let tempArray = await getRates({oppId: this.opptyId});
-           this._products = tempArray.eligibleProducts.filter((product) => product.productCategory === this.productType);   
-           this._rates = tempArray.eligibleRates;
+            return await getRates({oppId: this.opptyId});          
         }
         catch (error){
             this.spinnerActive = false;
@@ -100,90 +160,28 @@ export default class ratingFilter extends LightningElement {
             console.log('error: ' + JSON.stringify(error)); //TODO
         };
     }
-    
 
-    get values() {
-       let valueArray = []; 
-        if(this._products){
-            const len = this._products.length;
-            
-            for (let index = 0;  index < len; ++index){
-                valueArray.push(this._products[index].value);                
-                
-            }
-        }
-        return valueArray;
-    }
-
-    //Label for the Product checkboxes
-    get hcbLabel(){
-        let label = 'Eligible Products';
-        if(this.productType === 'Life'){
-            label = 'Life Eligible Products';
-        }
-        if(this.productType === 'ADD'){
-            label = 'AD&D Eligible Products';
-        }
-
-        return label;
-    }
-
-    get productlist() {
-        const len = this._products.length;
-        
-        let prods = [];
-    
-
-
-        for (let index = 0;  index < len; ++index){
-           prods.push({
-                label: this._products[index].value,
-                value: this._products[index].value
-           })
-        
-        }
-              
-        return prods
-
-    }
-    get productLabels() {
-        const len = this._products.length;
-
-        let prods = [];
-        for (let index = 0;  index < len; ++index){
-            prods.push(this._products[index].value);                
-        }
-  
-        return prods;
-    }
-
-    get proposedCoverage() {
-        return this.coverage;
-    }
     handleFrequencyChange(event){
-        this._frequencyChoice = event.detail.value.toLowerCase(); 
-        
-        this.template.querySelector("c-rating-matrix").buildTable(this._filteredRates,this._value,this._frequencyChoice);
-
+        this.frequencyChoice = event.detail.value.toLowerCase();         
+        this.template.querySelector("c-rating-matrix").buildTable(this.filteredRates,this.productChoices,this.frequencyChoice);
     }
 
-   handleProductSelection(event) {
-        this._value = [...event.detail.selected]; 
-
-        this.template.querySelector("c-rating-matrix").buildTable(this._filteredRates,this._value,this._frequencyChoice);
-
+    handleProductSelection(event) {
+        this.productChoices = [...event.detail.selected]; 
+        this.template.querySelector("c-rating-matrix").buildTable(this.filteredRates,this.productChoices,this.frequencyChoice);
     }
+
     handleProposedCoverageChange(event) {
         if (isNaN(event.target.value)){
             this.coverageError = 'Coverage must be a number';
         }else{
             this.coverageError = '';
         }
-
-        this._filteredRates = this.filterProposedCoverage(this._rates,event.target.value);
-        this.template.querySelector("c-rating-matrix").buildTable(this._filteredRates,this._value,this._frequencyChoice);
+        this.filteredRates = this.filterProposedCoverage(this.rates,event.target.value);
+        this.template.querySelector("c-rating-matrix").buildTable(this.filteredRates,this.productChoices,this.frequencyChoice);
     }
-
+    
+    //If enter key is pressed in Proposed Coverage field then 
     handleProposedCoverageKeyPress(event){
         if(event.key === "Enter"){
            this.handleProposedCoverageChange(event);

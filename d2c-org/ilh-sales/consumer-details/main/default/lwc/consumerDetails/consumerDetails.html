@@ -1,5 +1,6 @@
 <template>
     <lightning-card title="Consumer Details" icon-name="standard:contact">
+        <lightning-button label="Edit" onclick={callScrflow} slot="actions"></lightning-button>
         <div if:false={isLoaded} class="slds-is-relative">
             <lightning-spinner
                 alternative-text="Loading..." variant="brand">
@@ -13,10 +14,7 @@
                 >
                 <div class="slds-grid slds-wrap" >
                     <div class="slds-col slds-size_1-of-2,slds-form-element_1-col">
-                        <lightning-output-field field-name="FirstName" > </lightning-output-field>
-                        <lightning-output-field field-name="LastName" > </lightning-output-field>
-                        <lightning-output-field field-name="MiddleName"> </lightning-output-field>
-                        <lightning-output-field field-name="Suffix"> </lightning-output-field>
+                        <lightning-output-field field-name="Name"> </lightning-output-field>                        
                         <lightning-output-field field-name="Gender__pc"> </lightning-output-field>
                         <lightning-output-field field-name="Age__pc"> </lightning-output-field>                       
                         <lightning-output-field field-name="PersonMailingAddress"> </lightning-output-field>
@@ -29,9 +27,9 @@
                         <lightning-output-field field-name="PersonEmail"> </lightning-output-field>
                     </div>
                 </div>
-                <div if:true={isLoaded} class="slds-align_absolute-center">
+              <!--  <div if:true={isLoaded} class="slds-align_absolute-center">
                     <lightning-button class="slds-m-top_small,slds-var-m-top_medium" variant="brand"     label="Edit"   onclick={callScrflow} >       </lightning-button>   
-                </div>
+                </div> -->
             </lightning-record-view-form>
             <c-person-id-provider-l-w-c record-id={recordId} object-api-name="Opportunity" onpersonidloaded={handlePersonIdLoaded}></c-person-id-provider-l-w-c>
     </lightning-card>
