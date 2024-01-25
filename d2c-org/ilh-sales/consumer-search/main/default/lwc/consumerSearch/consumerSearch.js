@@ -35,7 +35,9 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
     ssn = null;
 	policyNumber = null;
 	firstName = null;
+	middleName = null;
 	lastName = null;
+	dob=null; //added for bug 2664349
 	state = null;
 	stateOptions;
 	city = null;
@@ -141,12 +143,13 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 			personID: currentItem.personId,
 			accountId: currentItem.accountId,
 			firstName: currentItem.firstName,
+			middleName: currentItem.middleName,
 			lastName: currentItem.lastName,
 			homePhone: currentItem.homePhone,
 			workPhone: currentItem.workPhone,
 			mobile: currentItem.mobilePhone,
 			gender: currentItem.gender,
-			birthDate: currentItem.dateOfBirth,
+			birthDate: currentItem.dob,  //non formated date of birth for use in message channel added for bug 2664349
 			mailingStreet: currentItem.street,
 			mailingCity: currentItem.city,
 			mailingState: currentItem.stateProvince,
@@ -503,13 +506,15 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 		for(let result of results) {		
 			let newResult = [];
 			newResult.personId = result.personId;
-			newResult.accountId = result?.sourceSystemKeys != null ? result.sourceSystemKeys[0] : null; 								
-			newResult.fullName = result.firstName +' '+result.lastName+(result.nameSuffix? ' '+result.nameSuffix:'');
+			newResult.accountId = result?.sourceSystemKeys != null ? result.sourceSystemKeys[0] : null; 
+			newResult.middleName = result.middleName;								
+			newResult.fullName = result.firstName +' '+(result.middleName? result.middleName :'')+' '+result.lastName+(result.nameSuffix? ' '+result.nameSuffix:'');
 			newResult.firstName = result.firstName;
 			newResult.lastName = result.lastName;
 			newResult.nameSuffix = result.nameSuffix;
 			newResult.ssnLast4 = result.SSNLast4;
-			newResult.dateOfBirth = result.dateOfBirth;
+			newResult.dob =result.dateOfBirth; // non formatted date for use in message channel for bug 2664349
+	        newResult.dateOfBirth = this.formatDate(result.dateOfBirth); // format date for bug 2664349
 			newResult.stateProvince = result.stateProvince;
 			newResult.street=result?.addressLines != null ? result?.addressLines[0] : null;
 			newResult.city = result.city;
@@ -519,9 +524,17 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 			newResult.workPhone = this.formatPhone(result.workPhone);
 			newResult.mobilePhone = this.formatPhone(result.mobilePhone);
 			newResults.push(newResult);
+			
 		}
 		return newResults;
 	}
+
+	//added for bug 2664349
+	formatDate(dateString) {
+		const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+		return new Intl.DateTimeFormat('en-US', options).format(new Date(dateString));
+	}
+
 
 	/**
 	 * Purpose: Constructs and return a PrivacyRequestHelper.search object using the search input fields
