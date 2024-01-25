@@ -182,6 +182,11 @@ public with sharing class ILHQuoteHelper {
                 }
             }
 
+            //Populate agent field if Application is selected, so that we can map to eApp
+            if (action.equalsIgnoreCase('Application')) {
+                newQuote.Agent__c = UserInfo.getUserId();
+            }
+
             //Only update request date if status is not paper kit or blank value
             if (action.equalsIgnoreCase('Paper Kit') && (existingQuote == null || existingQuote.isEmpty() || existingQuote[0]?.Status == null ||
                 !existingQuote[0]?.Status.equalsIgnoreCase('Paper Kit'))) {
