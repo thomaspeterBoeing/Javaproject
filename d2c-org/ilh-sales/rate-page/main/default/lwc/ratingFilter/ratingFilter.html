@@ -1,59 +1,50 @@
 <template>
    
-    <lightning-card>
-          
-          <lightning-tabset>
-          
-              <lightning-tab label="Life and AD&D"> 
-                <div class="slds-grid slds-grid_align-center">
-                    <div class="slds-col slds-size_1-of-2">                 
-                           <c-horizontal-checkbox-group  
-                                name="Products" 
-                                label="Eligible Products"                                            
-                                options={productlist}
-                                value={values}
-                                variant="standard"
-                                onchange={handleProductSelection}>
-                        </c-horizontal-checkbox-group>              
-                        
-                    </div> 
-
-                      <div class="slds-col slds-size_1-of-4">
-                     
-                              <lightning-input type="text" label="Proposed Coverage"> </lightning-input>
-          
-                               
-                      </div>
-                      <div class="slds-col slds-size_1-of-4">
-                    
-                            <lightning-combobox
-                                name="frequency"
-                                label="Payment Frequency"
-                                placeholder="Monthly"
-                                value={freqValue}
-                                onchange={handleFrequencyChange}
-                                options={frequencyOptions}>
-                        </lightning-combobox>
-    
-
-                      </div>
-                  
-                  </div>
-                  <c-rating-matrix></c-rating-matrix>
-
-              </lightning-tab>
-              <lightning-tab label="Conversions">
-                  <div class="slds-grid slds-gutters slds-card__body slds-card__body_inner">
-                  Content for tab 2 
-                  </div>
-              </lightning-tab>
-                  
-              
-              
-              <p slot="footer">Card Footer</p>
-          </lightning-tabset> 
-      </lightning-card>
-    
+    <div if:true={spinnerActive}>
+        <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+    </div>
+    <div if:false={errorLoadingRates}>
+        <div class="slds-grid slds-grid_align-center">
+            <div class="slds-col slds-size_3-of-5">                 
+                <c-horizontal-checkbox-group  
+                    name="Products" 
+                    label={productCheckboxLabel}                                            
+                    options={productList}
+                    value={productChoices}
+                    variant="standard"
+                    onchange={handleProductSelection}>
+                </c-horizontal-checkbox-group>              
+            </div> 
+            <div class="slds-col slds-size_1-of-5">                     
+                <lightning-input 
+                    type="text" 
+                    label="Proposed Coverage" 
+                    onblur={handleProposedCoverageChange} 
+                    onkeydown={handleProposedCoverageKeyPress} 
+                    value={coverage}>
+                </lightning-input>
+            <div class="error">{coverageError}</div>      
+        </div>
+        <div class="slds-col slds-size_1-of-5">
+            <lightning-combobox
+                name="frequency"
+                label="Payment Frequency"
+                placeholder="Monthly"
+                value={freqValue}
+                onchange={handleFrequencyChange}
+                options={frequencyOptions}>
+            </lightning-combobox>
+        </div>
+    </div>
+        <c-rating-matrix></c-rating-matrix>
+    </div>
+    <div if:true={errorLoadingRates}>
+        <lightning-card title={errorTitle}>
+            Error occurred and rates could not be loaded.  Please try again by refreshing this page.  If the error occur again do something.
+            <br>
+            <br>
+            Error Message = {errorMessage}
+        </lightning-card>
+    </div>
   
-              
-  </template>
+</template>
