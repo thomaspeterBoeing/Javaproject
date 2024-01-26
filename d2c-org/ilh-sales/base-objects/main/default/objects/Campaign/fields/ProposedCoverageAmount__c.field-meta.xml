@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProposedCoverageAmount__c</fullName>
+    <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
+    <businessStatus>Active</businessStatus>
+    <externalId>false</externalId>
+    <label>Proposed Coverage Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <securityClassification>Internal</securityClassification>
+    <type>Currency</type>
+</CustomField>
