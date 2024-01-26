@@ -1,30 +1,42 @@
-/*
-Comments go here
-*/
+/**********************************************************************************
+ * Title:  Rating Matrix LWC
+ * Date:   Jan 2024
+ * 
+ * Description:  LWC is for displaying a matrix of coverages and product rates. 
+ * 
+ * Details:      This component creates a grid from rates and products that are passed
+ *               to from the parent Rate Filter calling the buildTable method.  
+ * 
+ * 
+ * Modifications:
+ *************************************************************************************/
 
-import { LightningElement,api,track, wire } from 'lwc';
+import { LightningElement,api,wire } from 'lwc';
 import { publish, MessageContext } from 'lightning/messageService';
 import CART_CHANNEL from '@salesforce/messageChannel/Cart__c';
 
 export default class RatingMatrix extends LightningElement {
-    @track rateData = [];
+        
+    rateData = [];
     rateColumns =[];
     subscription = null;
     payload;
-
+      
     /**
 	    * Purpose: Wiring message context
     */
     @wire(MessageContext)
     MessageContext;
 
-    @api buildTable(rates,products,frequency){
+
+   @api buildTable(rates,products,frequency){
+        this.rateData = [...rates];
         this.rateColumns = []; 
         let columns = [];       
         const len = products.length;
      
         columns.push(
-            {label: 'Coverage', fieldName: 'coverage', type :'currency' }
+            {label: 'Coverage', fieldName: 'coverage', type :'currency', cellAttributes: { alignment: 'left' } }
         )
         for (let index = 0;  index < len; ++index){                
 
@@ -39,26 +51,15 @@ export default class RatingMatrix extends LightningElement {
                             uncheckedvariant: "base",
                             checkedicon: "action:approval",
                             uncheckedicon: "",
-                            lockwhenselected: false,
+                            lockwhenselected: true,
                             cellallignment: "left"
                         }})
-
-                  
+ 
         }
 
         this.rateColumns = [...this.rateColumns,...columns];
-        console.log('Rate Columns = ' + JSON.stringify(this.rateColumns));
 
-        let newRates = [];
-        for (let index = 0; index < rates.length; index++) {//UPDATED
-            let rateObj = {coverage : rates[index].coverage, ...rates[index].productinfo};
-            newRates.push(rateObj);
-        }
-        this.rateData = [...newRates];//UPDATED
-
-        return "Complete";
     }
-
   
     @api filterTable(product){           
             this.rateColumns = [...this.rateColumns].filter(col => col.fieldName == product);
@@ -66,17 +67,19 @@ export default class RatingMatrix extends LightningElement {
     }
        
     handleRateSelection(event) {
-        //const checked = {"checked": true};   
+         
         const value = {...event.detail.value};
         let rates = this.rateData;
         const len = rates.length;
+    
 
         for (let i = 0; i < len; i++) {
 
-            //strict equality operator (===) does not work
-            //for comparison .  
+  
+            //Updating the rateDate with the checked indicator.  Required when 
+            //filtering products so checks display correctly in the grid.
             if (rates[i].coverage == value.coverage){           
-                rates[i][value.productcode] = {...value};
+                rates[i][value.productlabel] = {...value};
                     
                 this.rateData = rates;
                 break;
@@ -84,6 +87,8 @@ export default class RatingMatrix extends LightningElement {
             }
         } 
 
+        //Creates a message that is published to the Cart Channel.  This channel is listed to by the Rate iLHSaleCart LWC and creates
+        //a quote from this message.
         let payload = {
             productCode: value?.productcode,
             paymentFrequency: 'Monthly',
@@ -91,35 +96,12 @@ export default class RatingMatrix extends LightningElement {
             coverage: value?.coverage,
             cost: value?.monthly
         }
+
         publish(this.MessageContext, CART_CHANNEL, payload);
+    
     }
  
        
-    
-
-      // console.log('In Rate Selection Handler: ' + JSON.stringify(event.detail.value));
-      // console.log('In Rate Selection Handler Product: ' + event.detail.value.productcode);
-       
-
-
-
-
-
-
-       //console.log("value: " + event.detail.value);
-       //console.log('In Rate Selection Handler: ' + JSON.stringify(event.detail.value));
-       //console.log(JSON.parse((event.detail.value).premium));
-       //const jsonValue = event.detail.value;
-            
-       /*this.payload.premium = jsonValue.premium;
-       this.payload.coverage = jsonValue.coverage;
-       this.payload.productcode = jsonValue.productcode;
-       this.payload.frequency = jsonValue.frequency;
-       console.log('Payload set in parent: ' + this.payload);*/
-       //this.payload = jsonValue;
-       //this.template.querySelector("c-cart-test").createquote();
-       
-
     
 
 }

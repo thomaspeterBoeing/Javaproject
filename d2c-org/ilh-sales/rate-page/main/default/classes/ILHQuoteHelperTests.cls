@@ -80,11 +80,14 @@ private class ILHQuoteHelperTests {
         payload.put('action', 'Email Summary');
         payload.put('paymentFrequency', 'Monthly');
         payload.put('billingMethod', 'ACH');
+        payload.put('underwritingClassCode', 'TT');
+        payload.put('underwritingClass', 'Test');
+        payload.put('insuredAge', '30');
 
         helper.insertQuote(payload);
         Quote q = [SELECT id, Affiliation__c, Age__c, Birthdate__c, Gender__c, HealthAssessment__c, InsurancePurpose__c, TobaccoUse__c, ResidentState__c, Phone, ShippingCity,
-                    ShippingCountry, ShippingPostalCode, ShippingState, ShippingStreet, Product__c, CoverageAmount__c, Premium__c, Status, Email, BillingMethod__c,  PaymentFrequency__c
-                    FROM Quote WHERE OpportunityId =: opp.id];
+                    ShippingCountry, ShippingPostalCode, ShippingState, ShippingStreet, Product__c, CoverageAmount__c, Premium__c, Status, Email, BillingMethod__c,  
+                    PaymentFrequency__c, UnderwritingClassCode__c, UnderwritingClass__c, InsuredAge__c FROM Quote WHERE OpportunityId =: opp.id];
 
         Assert.isNotNull(q);
         Assert.areEqual(opp.Affiliation__c, q.Affiliation__c);
@@ -106,6 +109,9 @@ private class ILHQuoteHelperTests {
         Assert.areEqual(opp.Account.PersonEmail, q.Email);
         Assert.areEqual(payload.get('billingMethod'), q.BillingMethod__c);
         Assert.areEqual(payload.get('paymentFrequency'), q.PaymentFrequency__c);
+        Assert.areEqual(payload.get('underwritingClassCode'), q.UnderwritingClassCode__c);
+        Assert.areEqual(payload.get('underwritingClass'), q.UnderwritingClass__c);
+        Assert.areEqual(Integer.valueOf((String)payload.get('insuredAge')), q.InsuredAge__c);
 
         payload.put('action', 'Paper Kit');
         payload.put('coverage', '4000');

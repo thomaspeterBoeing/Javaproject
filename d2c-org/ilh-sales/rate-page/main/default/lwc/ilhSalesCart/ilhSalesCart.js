@@ -34,7 +34,8 @@ export default class ILHSalesCart extends NavigationMixin(LightningElement) {
      * Purpose: Gets called when component is connected to page
      */
     connectedCallback() {
-        this.subscribeToMessageChannel();       
+        this.subscribeToMessageChannel();  
+         
     }
     
     /**
@@ -303,12 +304,17 @@ export default class ILHSalesCart extends NavigationMixin(LightningElement) {
             "productCode": payload?.productCode,
             "paymentFrequency": payload?.paymentFrequency,
             "billingMethod": payload?.billingMethod,
+            "underwritingClassCode": payload?.underwritingClassCode,
+            "underwritingClass": payload?.underwritingClass,
+            "insuredAge": payload?.insuredAge?.toString(),
             "coverage": payload?.coverage?.toString(),
             "cost": payload?.cost?.toString(),
             "action": payload?.action,
             "quoteId": payload?.quoteId,
             "oppId": this?.opptyId
         };
+
+        console.log('New Cart Item in CreateQuoteObject = ' + JSON.stringify(newCartItem));
         return newCartItem;
     }
 

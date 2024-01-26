@@ -5,6 +5,7 @@
   "country": "US",
   "language": "en_US",
   "features": ["PersonAccounts"],  
+  "release": "preview",
   "settings": {
     "userManagementSettings": {
       "enableEnhancedPermsetMgmt": true,
