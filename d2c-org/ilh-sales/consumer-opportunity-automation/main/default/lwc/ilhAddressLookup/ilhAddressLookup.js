@@ -78,38 +78,7 @@ export default class IlhAddressLookup extends LightningElement {
         this.txt_Street = event.detail.street;
         this.txt_City = event.detail.city;
         this.txt_State = event.detail.province;
-        this.txt_Zip = this.formatPostalCode(event.target.postalCode);
-        this.address.postalCode = this.txt_Zip;
+        this.txt_Zip = event.detail.postalCode;
         this.txt_Country = event.detail.country;
     }
-
-    /**
-	 * Purpose: This function formats a postal code
-	 * @param strPostalCode : Postal code to format
-	 * @returns : Formatted postal code
-	 */
-	formatPostalCode(strPostalCode) {
-		let pcout = "";
-
-		if (strPostalCode != null) {
-			strPostalCode = strPostalCode.replace(this.specialCharacters, "");
-			for (let i = 0; i < strPostalCode.length; i++) {				
-				if (i === 5 && strPostalCode.length !== 5) {
-					pcout += "-";
-				}
-                if (pcout.length <= 9) {
-                    pcout += strPostalCode[i];
-                }
-			}
-		}
-		return pcout;
-	}
-
-    /**
-	 * Purpose: This function returns a string of special characters
-	 * @return : String of special characters
-	 */
-	get specialCharacters() {
-		return /[-\(\)\s\*A-Z]/g; // removes extra characters user might type in field
-	}
 }
