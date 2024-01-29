@@ -28,7 +28,7 @@ for /f "tokens=1,2 delims=:{} " %%A in (c:\temp\packageVerID.json) do (
 echo Found Package Version ID %packageversionid%  Installing package 
 call sf package install --package %packageversionid% --installation-key %installationkey% --wait 5 --security-type AllUsers 
 echo "*** Assign Permission Sets ...."
-call sf org assign permset --name Admin_D2CBaseObjects_ModifyAll
+call sf org assign permset --name AccountAffiliation_D2CBaseObjects_CRED
 
 echo "*** Load data ... " 
 call sf data import tree  --plan scripts\scratch-org-setup\data\d2c-core-base-objects-data-plan.json

@@ -5,5 +5,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Retention Agent</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Retention_Manager</parentRole>
+    <parentRole>RetentionManager</parentRole>
 </Role>

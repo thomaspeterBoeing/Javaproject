@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>ILHSalesShare_R</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Read Access to all ILH Sales Opportunities Shared with public group View All ILH Sales Opportunities (R)</description>
+        <label>ILH Sales Share (R)</label>
+        <sharedTo>
+            <group>ViewAllILHSalesOpportunities_R</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ILH Sales</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>RetentionOpportunityShare_RE</fullName>
         <accessLevel>Edit</accessLevel>

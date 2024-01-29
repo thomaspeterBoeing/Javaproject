@@ -5,7 +5,7 @@
     <label>ILH Sales Agent Tab Visibility: ILHSaleConsoleApplication</label>
     <license>Salesforce</license>
     <tabSettings>
-        <tab>ILH_Sales_Consumer_Search</tab>
+        <tab>ILHSalesConsumerSearch</tab>
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>

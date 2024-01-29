@@ -15,4 +15,19 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ILHMarketingShare_FullAc</fullName>
+        <accessLevel>All</accessLevel>
+        <description>Full Access to Campaigns with record type ILH Marketing.  Shared with public group View All ILH Marketing Campaigns(Full)</description>
+        <label>ILH Marketing Share (Full Access)</label>
+        <sharedTo>
+            <group>ViewAllILHMarketingCampaigns_Full</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ILH Marketing</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

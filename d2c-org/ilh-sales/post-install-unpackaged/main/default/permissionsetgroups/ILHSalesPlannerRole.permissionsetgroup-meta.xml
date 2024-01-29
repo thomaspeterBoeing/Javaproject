@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Admins that require access to ILH Sales Applications</description>
+    <description>Permissions for the Sales Planner Role</description>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>ILH Sales Admin Role</label>
+    <label>ILH Sales Planner Role</label>
     <permissionSets>API_Connect_Principal_Access</permissionSets>
-    <permissionSets>AccountAffiliation_D2CBaseObjects_CRED</permissionSets>
-    <permissionSets>Error_Log_ILHSalesBaseObjects_CRED</permissionSets>
+    <permissionSets>CampaignILHMarketing_ILHSalesBaseObject_Object_CRED_Access</permissionSets>
     <permissionSets>FieldPermissions_ILHSalesBaseObjects_RE</permissionSets>
-    <permissionSets>ILHSalesConsole_ILHSalesApplications_AppAccess</permissionSets>
+    <permissionSets>ILHSalesPlannerObjects_ILHSaleApplications</permissionSets>
+    <permissionSets>ILHSalesPlannerPermissions_ILHSalesApplications</permissionSets>
     <permissionSets>ILHSalesPlanner_SalesPlannerApplication_AppAccess</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
