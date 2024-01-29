@@ -18,4 +18,13 @@ public with sharing class ILHUtilities {
         }
         return nonServiceIds;
     }
+
+    /**
+     * Purpose: This method get DI Consumer containers by persona
+     * @param persona Name of persona to search on
+     * @return List of containers
+     */
+    public static List<DIConsumerContainer__mdt> getDIConsumerContainerByPersona(String persona) {
+        return [SELECT MasterLabel, DeveloperName, Dependencies__c, Persona__c FROM DIConsumerContainer__mdt WHERE Persona__c =: persona];
+    }
 }

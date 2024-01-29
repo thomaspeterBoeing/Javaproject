@@ -24,4 +24,10 @@ public class ILHUtilitiesTests {
         Assert.areEqual(1, userIds.size());
         Assert.areEqual(standardUser.id, userIds.iterator().next(), 'Standard user id is the only id in the list');
     }
+
+    @isTest
+    public static void getDIConsumerContainerByPersonaTest() {
+        List<DIConsumerContainer__mdt> containers = ILHUtilities.getDIConsumerContainerByPersona('ILHSalesSystemAdmin');
+        Assert.areEqual(1, containers.size());
+    }
 }

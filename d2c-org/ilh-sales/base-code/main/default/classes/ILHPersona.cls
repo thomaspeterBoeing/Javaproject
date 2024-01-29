@@ -12,6 +12,10 @@ public class ILHPersona {
         return new ILHPersona().determinePersona(factory);
     }
 
+    /***
+     * Gets the persona to use in retrieving all relevent concrete service classes to dispatch.
+     * @return The calculated persona.
+     */
     public static String getPersona() {
         return new ILHPersona().determinePersona();
     }
@@ -43,11 +47,18 @@ public class ILHPersona {
         return thePersona;
     }
 
+    /***
+     * Determines the persona to use in retrieving all relevent concrete service classes to dispatch.
+     * @return The calculated persona.
+     */
     private String determinePersona() {
         String thePersona = '';
         Id userId = UserInfo.getUserId();
 
-        User u = [SELECT PartnerCode__c FROM User WHERE id =: userId];
+        //Find current user information
+        User currentUser = [SELECT PartnerCode__c FROM User WHERE id =: userId];
+
+        //Get permission set group assignments based on current user id
         List<PermissionSetAssignment> psas = [SELECT PermissionSetGroup.DeveloperName FROM PermissionSetAssignment WHERE AssigneeId =: userId AND IsActive =: true AND PermissionSetGroupId != null];
 
         if (psas != null && !psas.isEmpty()) {
@@ -55,9 +66,11 @@ public class ILHPersona {
             for (PermissionSetAssignment psa : psas) {
                 psasStrings.add(psa.PermissionSetGroup.DeveloperName);
             }
-            List<PersonaAssignment__mdt> pas = [SELECT DeveloperName FROM PersonaAssignment__mdt WHERE PartnerCode__c =: u.PartnerCode__c AND PermissionSetGroup__c	IN: psasStrings];
-            if (pas != null && !pas.isEmpty()) {
-                thePersona = pas[0].DeveloperName;
+
+            //Find personas based on user partner code and which permission set groups they're assigned to
+            List<PersonaAssignment__mdt> personas = [SELECT DeveloperName FROM PersonaAssignment__mdt WHERE PartnerCode__c =: currentUser.PartnerCode__c AND PermissionSetGroup__c IN: psasStrings];
+            if (personas != null && !personas.isEmpty()) {
+                thePersona = personas[0].DeveloperName;//Persona is equal to first developer name
             }
         }
         return thePersona;
