@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PermissionSetGroup__c</fullName>
+    <description>Permission set group that is assigned to user</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Permission set group that is assigned to user</inlineHelpText>
+    <label>Permission Set Group</label>
+    <required>false</required>
+    <type>TextArea</type>
+</CustomField>

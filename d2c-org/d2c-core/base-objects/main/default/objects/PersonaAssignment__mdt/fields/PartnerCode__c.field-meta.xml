@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerCode__c</fullName>
+    <description>Partner code assigned to user</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Partner code assigned to user</inlineHelpText>
+    <label>Partner Code</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CSR</fullName>
+                <default>true</default>
+                <label>CSR</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

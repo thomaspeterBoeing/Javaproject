@@ -40,7 +40,6 @@
 									onchange={changeFirstName} 
 									pattern="(\s?\*?[\w\s\-]{2,}\*?\s?)"
 									minlength="2"
-									maxlength="40"
 									message-when-bad-input="First Name required to be at least two characters." 
 									message-when-pattern-mismatch="First Name required to be at least two characters." 
 									field-level-help="WildCard * can be placed before and after entered characters. Minimum 2 characters should be entered. EX: *Sm*">
@@ -54,7 +53,6 @@
 									onchange={changeLastName} 
 									pattern="(\s?\*?[\w\s\-]{2,}\*?\s?)" 
 									minlength="2"
-									maxlength="80"
 									message-when-bad-input="Last Name required to be at least two characters." 
 									message-when-pattern-mismatch="Last Name required to be at least two characters." 
 									field-level-help="WildCard * can be placed before and after entered characters. Minimum 2 characters should be entered. EX: *Sm*">
@@ -213,7 +211,7 @@
 								<td>{cs.city}</td>
 								<td>{cs.stateProvince}</td>
 								<td>{cs.postalCode}</td>
-								<td>{cs.homePhone}</td>
+								<td>{cs.phoneDisplay}</td>
 							</tr>
 						</template>
 					</tbody>
