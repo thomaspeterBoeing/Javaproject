@@ -14,7 +14,7 @@ public with sharing class ILHQuoteHelper {
 
         try {
             //Query all quotes related to opportunity
-            quotes = [SELECT id, Product__r.Name, Product__r.ProductCode, CoverageAmount__c, Premium__c, Status, PaymentFrequency__c
+            quotes = [SELECT id, Product__r.Name, Product__r.ProductCode, CoverageAmount__c, Premium__c, Status, PaymentFrequency__c, Account.PersonMailingState
                     FROM Quote WHERE OpportunityId =: oppId ORDER BY CreatedDate ASC];
 
             //Assigning quote values to wrapper instances
@@ -27,6 +27,7 @@ public with sharing class ILHQuoteHelper {
                 newWrap.productCode = q?.Product__r?.ProductCode;
                 newWrap.action = q?.Status;
                 newWrap.paymentFrequency = q?.PaymentFrequency__c;
+                newWrap.availableActions = ILHRatePageRules.loadQuoteDecision(q.Account?.PersonMailingState, q?.Product__r?.ProductCode);//Load in available actions
                 results.add(newWrap);
             }
         } catch (Exception ex) {
@@ -236,5 +237,7 @@ public with sharing class ILHQuoteHelper {
         public String action;
         @AuraEnabled
         public String paymentFrequency;
+        @AuraEnabled
+        public List<String> availableActions;
     }
 }
