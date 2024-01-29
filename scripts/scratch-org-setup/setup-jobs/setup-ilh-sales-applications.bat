@@ -37,5 +37,8 @@ call sf package install --package %packageversionid% --installation-key %install
 echo "*** Assign Permission Sets ...."
 call sf org assign permset --name ILHSalesAdminRole
 
+echo "*** Assign Public Groups "
+call sf apex run -f scripts/scratch-org-setup/apex/ILHSalesApplications-UpdatePublicGroups.apex
+
 echo **********  Installed package ILH Sales Applications  **********
 

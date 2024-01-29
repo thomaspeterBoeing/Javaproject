@@ -15,5 +15,6 @@
     <label>All Consumer Accounts</label>
     <sharedTo>
         <group>ViewILHSalesListViews</group>
+        <group>ViewSalesPlannerListViews</group>
     </sharedTo>
 </ListView>

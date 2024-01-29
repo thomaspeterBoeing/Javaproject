@@ -11,4 +11,7 @@
         <value>Credit Union</value>
     </filters>
     <label>All Credit Union Accounts</label>
+    <sharedTo>
+        <group>ViewSalesPlannerListViews</group>
+    </sharedTo>
 </ListView>

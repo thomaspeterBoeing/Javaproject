@@ -10,5 +10,6 @@
     <label>Active ILH Marketing Campaigns</label>
     <sharedTo>
         <group>ViewILHSalesListViews</group>
+        <group>ViewSalesPlannerListViews</group>
     </sharedTo>
 </ListView>

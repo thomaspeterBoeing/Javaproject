@@ -2,12 +2,12 @@
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Object access, record type assignments and tab visibility for Sales Agents</description>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>ILH Sales Agent Objects: ILHSaleApplications</label>
+    <label>ILH SalesPlanner Objects: ILHSaleApplications</label>
     <license>Salesforce</license>
     <objectPermissions>
-        <allowCreate>true</allowCreate>
+        <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
-        <allowEdit>true</allowEdit>
+        <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Account</object>
@@ -60,10 +60,6 @@
     </objectPermissions>
     <recordTypeVisibilities>
         <recordType>Opportunity.ILHSales</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>PersonAccount.Consumer</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabSettings>

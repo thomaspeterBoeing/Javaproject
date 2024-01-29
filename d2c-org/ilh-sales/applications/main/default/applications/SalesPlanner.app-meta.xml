@@ -3,11 +3,11 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>ILHConsumerSalesOpportunity</content>
-        <formFactor>Large</formFactor>
+        <content>ILHSalesCampaign</content>
+        <formFactor>Small</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
-        <pageOrSobjectType>Opportunity</pageOrSobjectType>
+        <pageOrSobjectType>Campaign</pageOrSobjectType>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
@@ -18,28 +18,29 @@
         <type>Flexipage</type>
         <pageOrSobjectType>Campaign</pageOrSobjectType>
     </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>ILHSalesConsumerPage</content>
-        <formFactor>Large</formFactor>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
-        <pageOrSobjectType>Account</pageOrSobjectType>
-    </actionOverrides>
     <brand>
         <headerColor>#0070D2</headerColor>
-        <logo>TruStage_Standard_Logo_RGB</logo>
+        <logo>TruStage_knockout_Logo_RGB</logo>
         <logoVersion>1</logoVersion>
         <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
     </brand>
-    <description>Sales application used by all ILH Sales Agents</description>
+    <description>Application for ILH Sales Planners.</description>
+    <formFactors>Small</formFactors>
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
-    <isNavPersonalizationDisabled>true</isNavPersonalizationDisabled>
-    <isNavTabPersistenceDisabled>true</isNavTabPersistenceDisabled>
-    <label>ILH Sales Console</label>
-    <navType>Console</navType>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>Sales Planner</label>
+    <navType>Standard</navType>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>ILHConsumerSalesOpportunity</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Opportunity</pageOrSobjectType>
+        <recordType>Opportunity.ILHSales</recordType>
+        <type>Flexipage</type>
+        <profile>ILH Sales Planner</profile>
+    </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>ILHConsumerSalesOpportunity</content>
@@ -48,6 +49,15 @@
         <recordType>Opportunity.ILHSales</recordType>
         <type>Flexipage</type>
         <profile>ILH Sales Planner</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>ILHConsumerSalesOpportunity</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Opportunity</pageOrSobjectType>
+        <recordType>Opportunity.ILHSales</recordType>
+        <type>Flexipage</type>
+        <profile>ILH Sales Agent</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -61,6 +71,15 @@
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>ILHConsumerSalesOpportunity</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Opportunity</pageOrSobjectType>
+        <recordType>Opportunity.ILHSales</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>ILHConsumerSalesOpportunity</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Opportunity</pageOrSobjectType>
         <recordType>Opportunity.ILHSales</recordType>
@@ -70,11 +89,29 @@
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>ILHSalesConsumerPage</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>PersonAccount.Consumer</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>ILHSalesConsumerPage</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>PersonAccount.Consumer</recordType>
         <type>Flexipage</type>
         <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>ILHSalesConsumerPage</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>PersonAccount.Consumer</recordType>
+        <type>Flexipage</type>
+        <profile>ILH Sales Planner</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -88,11 +125,29 @@
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>ILHSalesConsumerPage</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>PersonAccount.Consumer</recordType>
+        <type>Flexipage</type>
+        <profile>ILH Sales Agent</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>ILHSalesConsumerPage</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>PersonAccount.Consumer</recordType>
         <type>Flexipage</type>
         <profile>ILH Sales Agent</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>AffiliationAccountPage</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>Account.Affiliation</recordType>
+        <type>Flexipage</type>
+        <profile>ILH Sales Planner</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -106,7 +161,7 @@
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>AffiliationAccountPage</content>
-        <formFactor>Large</formFactor>
+        <formFactor>Small</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>Account.Affiliation</recordType>
         <type>Flexipage</type>
@@ -119,31 +174,31 @@
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>Account.Affiliation</recordType>
         <type>Flexipage</type>
+        <profile>ILH Sales Agent</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>AffiliationAccountPage</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>Account.Affiliation</recordType>
+        <type>Flexipage</type>
         <profile>Admin</profile>
     </profileActionOverrides>
-    <setupExperience>all</setupExperience>
-    <tabs>standard-Opportunity</tabs>
-    <tabs>standard-Contact</tabs>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>AffiliationAccountPage</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>Account.Affiliation</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
     <tabs>standard-Account</tabs>
     <tabs>standard-Campaign</tabs>
-    <tabs>ILHSales_ConsumerSearch</tabs>
+    <tabs>standard-Opportunity</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>standard-Dashboard</tabs>
     <uiType>Lightning</uiType>
-    <utilityBar>ILHSalesConsoleUtilityBar</utilityBar>
-    <workspaceConfig>
-        <mappings>
-            <tab>ILHSalesConsumerSearch</tab>
-        </mappings>
-        <mappings>
-            <tab>standard-Account</tab>
-        </mappings>
-        <mappings>
-            <tab>standard-Campaign</tab>
-        </mappings>
-        <mappings>
-            <tab>standard-Contact</tab>
-        </mappings>
-        <mappings>
-            <tab>standard-Opportunity</tab>
-        </mappings>
-    </workspaceConfig>
+    <utilityBar>SalesPlannerUtilityBar</utilityBar>
 </CustomApplication>
