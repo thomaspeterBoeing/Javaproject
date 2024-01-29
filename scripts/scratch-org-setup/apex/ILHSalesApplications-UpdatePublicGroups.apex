@@ -1,7 +1,7 @@
 List <Group> gr  = [SELECT Id, DeveloperName, Type FROM Group];
 
 for(Group g1: gr){
-  If (g1.DeveloperName == 'ILHSales' && g1.Type == 'Role and Internal Subordinates')
+  If (g1.DeveloperName == 'ILHSales' && g1.Type == 'RoleAndSubordinates')
   {
      for(Group g2: gr){
       If(g2.DeveloperName == 'ViewAllAffiliationAccounts_R' ||
@@ -29,7 +29,7 @@ for(Group g1: gr){
       }  
     }       
   }
-  If (g1.DeveloperName == 'RetentionManager' && g1.Type == 'Role and Internal Subordinates'){
+  If (g1.DeveloperName == 'RetentionManager' && g1.Type == 'RoleAndSubordinates'){
     for(Group g2: gr){
       If(g2.DeveloperName == 'ViewILHSalesListViews' ||
         g2.DeveloperName == 'ViewILHSalesListViews' ||

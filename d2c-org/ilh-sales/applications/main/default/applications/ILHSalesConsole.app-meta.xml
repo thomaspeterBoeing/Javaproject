@@ -126,7 +126,7 @@
     <tabs>standard-Contact</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Campaign</tabs>
-    <tabs>ILHSales_ConsumerSearch</tabs>
+    <tabs>ILHSalesConsumerSearch</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>ILHSalesConsoleUtilityBar</utilityBar>
     <workspaceConfig>
