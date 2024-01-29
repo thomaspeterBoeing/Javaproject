@@ -239,42 +239,7 @@
           "versionNumber": "1.0.0.LATEST"
         }
       ]
-    },
-    {
-      "path": "d2c-org/ilh-sales/consumer-details",
-      "default": false,
-      "package": "ILH Sales Consumer Details",
-      "versionName": "ver 1.0",
-      "versionNumber": "1.0.0.NEXT",
-      "versionDescription": "Consumer details for ILH sales app",
-      "scopeProfiles": true,
-      "dependencies": [
-        {
-          "package": "D2C Core Base Objects",
-          "versionNumber": "1.0.0.LATEST"
-        },
-        {
-          "package": "ILH Sales Base Objects",
-          "versionNumber": "1.0.0.LATEST"
-        },
-        {
-          "package": "D2C Core Base Code",
-          "versionNumber": "1.0.0.LATEST"
-        },
-        {
-          "package": "D2C Core Error Handling Framework",
-          "versionNumber": "1.0.0.LATEST"
-        },
-        {
-          "package": "ILH Sales Base Code",
-          "versionNumber": "1.0.0.LATEST"
-        },
-        {
-          "package": "ILH Sales Consumer and Opportunity Automation",
-          "versionNumber": "1.0.0.LATEST"
-        }
-      ]
-    },
+    },    
     {
         "path": "d2c-org/ilh-sales/rate-page",
         "default": false,
