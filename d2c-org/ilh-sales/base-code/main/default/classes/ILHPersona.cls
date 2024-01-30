@@ -4,6 +4,22 @@ Purpose: Determines the persona to use for dispatching services.
 1.0 - Rick Baker   - 822/2023  - Created for new D2C Salesfore instance.
 ***/
 public class ILHPersona {
+    private Id currentUserId;//Id of user running current operation
+
+    /**
+     * Purpose: Constructor that sets currentUserId to id from argument
+     */
+    public ILHPersona(Id userId) {
+        currentUserId = userId;
+    }
+
+    /**
+     * Purpose: Default constructor.  Set user id to current user id.
+     */
+    public ILHPersona() {
+        currentUserId = UserInfo.getUserId();
+    }
+
     /***
      * Gets the persona to use in retrieving all relevent concrete service classes to dispatch.
      * @return The calculated persona.
@@ -16,8 +32,8 @@ public class ILHPersona {
      * Gets the persona to use in retrieving all relevent concrete service classes to dispatch.
      * @return The calculated persona.
      */
-    public static String getPersona() {
-        return new ILHPersona().determinePersona();
+    public String getPersona() {
+        return determinePersona();
     }
 
     /***
@@ -53,13 +69,12 @@ public class ILHPersona {
      */
     private String determinePersona() {
         String thePersona = '';
-        Id userId = UserInfo.getUserId();
 
         //Find current user information
-        User currentUser = [SELECT PartnerCode__c FROM User WHERE id =: userId];
+        User currentUser = [SELECT PartnerCode__c FROM User WHERE id =: currentUserId];
 
         //Get permission set group assignments based on current user id
-        List<PermissionSetAssignment> psas = [SELECT PermissionSetGroup.DeveloperName FROM PermissionSetAssignment WHERE AssigneeId =: userId AND IsActive =: true AND PermissionSetGroupId != null];
+        List<PermissionSetAssignment> psas = [SELECT PermissionSetGroup.DeveloperName FROM PermissionSetAssignment WHERE AssigneeId =: currentUserId AND IsActive =: true AND PermissionSetGroupId != null];
 
         if (psas != null && !psas.isEmpty()) {
             Set<String> psasStrings = new Set<String>();

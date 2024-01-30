@@ -18,7 +18,7 @@ public class ILHSearchFactory {
      * @return All instances of concrete class, each of which implements the interface designated in the "Interface Implementations" custom metadata.
      */
     private List<ISearchService> constructInstances() {
-        String persona = ILHPersona.getPersona();//Get persona
+        String persona = new ILHPersona().getPersona();//Get persona
         List<ISearchService> classInstances = new List<ISearchService>();
 
         //Get containers by persona
