@@ -35,7 +35,7 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
     ssn = null;
 	policyNumber = null;
 	firstName = null;
-	middleName = null;
+	middleName = null; //added for bug 2682890
 	lastName = null;
 	dob=null; //added for bug 2664349
 	state = null;
@@ -508,7 +508,7 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 			newResult.personId = result.personId;
 			newResult.accountId = result?.sourceSystemKeys != null ? result.sourceSystemKeys[0] : null; 
 			newResult.middleName = result.middleName;								
-			newResult.fullName = result.firstName +' '+(result.middleName? result.middleName :'')+' '+result.lastName+(result.nameSuffix? ' '+result.nameSuffix:'');
+			newResult.fullName = result.firstName +' '+(result.middleName? result.middleName :'')+' '+result.lastName+(result.nameSuffix? ' '+result.nameSuffix:''); // updated for bug 2682890
 			newResult.firstName = result.firstName;
 			newResult.lastName = result.lastName;
 			newResult.nameSuffix = result.nameSuffix;
@@ -523,6 +523,7 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 			newResult.homePhone = this.formatPhone(result.homePhone);
 			newResult.workPhone = this.formatPhone(result.workPhone);
 			newResult.mobilePhone = this.formatPhone(result.mobilePhone);
+			newResult.phoneDisplay = this.determinePhoneToDisplay(newResult.homePhone, newResult.mobilePhone, newResult.workPhone);
 			newResults.push(newResult);
 			
 		}
@@ -534,6 +535,19 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 		const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
 		return new Intl.DateTimeFormat('en-US', options).format(new Date(dateString));
 	}
+
+	
+    /**
+     * Purpose: Mobile phone value should get populated when Home phone is not entered for the member.  Other phone value should get populated when Home phone and 
+     * Mobile phone is not entered for the member
+     * @param {*} homePhone Home phone value from results wrapper
+     * @param {*} mobilePhone Mobile phone value from results wrapper
+     * @param {*} workPhone Work phone value from results wrapper
+     * @returns Phone to display in search results
+     */
+    determinePhoneToDisplay(homePhone, mobilePhone, workPhone) {
+        return homePhone && homePhone !== '' ? homePhone : (mobilePhone && mobilePhone !== '' ? mobilePhone : workPhone);
+    }
 
 
 	/**
