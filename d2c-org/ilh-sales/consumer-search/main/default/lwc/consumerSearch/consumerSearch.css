@@ -52,3 +52,13 @@ ul {
     –slds-c-button-spacing-inline-end: 1rem;
     –slds-c-button-spacing-inline-start: 1rem;    
 }
+
+.street-column {
+    white-space: normal; 
+    word-wrap: break-word; 
+}
+
+.slds-scrollable_x {
+    overflow-x: auto;
+}
+

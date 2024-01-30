@@ -132,8 +132,10 @@ public class ILHSearchMergeImpl {
     @TestVisible
     private ILHConsumerResultsWrapper.SearchResult mergeContact(ILHConsumerResultsWrapper.SearchResult sfWrapper, ILHConsumerResultsWrapper.SearchResult cpsWrapper) {
         String sfId = sfWrapper.sourceSystemKeys[0];
+        String mobile = sfWrapper.mobilePhone;
         sfWrapper = cpsWrapper;
         sfWrapper.sourceSystemKeys = new List<String>{sfId};//Do not overwrite SF id
+        sfWrapper.mobilePhone = mobile; // Retain Salesforce mobile number
         sfWrapper.mySource = ILHConsumerResultsWrapper.Source.SALESFORCE;
         return sfWrapper;
     }

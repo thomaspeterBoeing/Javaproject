@@ -124,7 +124,7 @@ public with sharing class ILHSearchHelper {
         }
 
         //Starting SOQL statement
-        string soql = 'SELECT Id, FirstName, LastName, PersonMailingCity, PersonMailingStreet, PersonMailingState, PersonMailingPostalCode,' +
+        string soql = 'SELECT Id, FirstName, MiddleName, LastName, PersonMailingCity, PersonMailingStreet, PersonMailingState, PersonMailingPostalCode,' +
         'SSNLast4__pc, Gender__pc, PersonMobilePhone, PersonHomePhone, Suffix, PersonID__pc, PersonBirthdate, PersonOtherPhone' +
         ' FROM Account WHERE ';
 

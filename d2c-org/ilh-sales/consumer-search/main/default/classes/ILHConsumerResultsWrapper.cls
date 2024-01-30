@@ -126,6 +126,7 @@ public class ILHConsumerResultsWrapper {
          */
         public SearchResult(Account accnt) {
             firstName = accnt?.FirstName;
+            middleName =accnt?.middleName;  // added for Bug 2682890
             lastName = accnt?.LastName;
             nameSuffix = accnt?.Suffix;
             city = accnt?.PersonMailingCity;

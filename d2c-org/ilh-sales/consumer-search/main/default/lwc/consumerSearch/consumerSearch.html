@@ -162,7 +162,7 @@
 			</lightning-card>
 		</div>
 		<div class="slds-col  slds-size_4-of-6">
-			<lightning-card title="Search Results">
+			<lightning-card title="Search Results" class="slds-scrollable_x">
 				<div class="newBtnDiv" >
 				<template if:true={showNew}>
 					<lightning-button  variant="Neutral" label="New" value="22" title="New" onclick={createNew} class="slds-m-left_x-small"></lightning-button>
@@ -181,9 +181,10 @@
 							<th>
 								<a role="button" tabindex="0" onclick={sortRecs} name="gender">Gender</a> 								
 							</th>
-							<th>
-								<a name="street" role="button" tabindex="0" onclick={sortRecs}>Street</a> 								
+							<th style="width: 150px;"> <!-- Adjust the width as needed -->
+								<a name="street" role="button" tabindex="0" onclick={sortRecs}>Street</a> 
 							</th>
+						
 							<th>
 								<a name="city" role="button" tabindex="0"  onclick={sortRecs}>City</a> 								
 							</th>
@@ -209,11 +210,11 @@
 									<div if:true={cs.ssnLast4}>XXX-XX-{cs.ssnLast4}</div>
 								</td>
 								<td>{cs.gender}</td>
-								<td>{cs.street}</td>
+								<td class="street-column">{cs.street}</td>
 								<td>{cs.city}</td>
 								<td>{cs.stateProvince}</td>
 								<td>{cs.postalCode}</td>
-								<td>{cs.homePhone}</td>
+								<td>{cs.phoneDisplay}</td>
 							</tr>
 						</template>
 					</tbody>
