@@ -11,7 +11,7 @@ private static Map<string,Map<string,list<string>>> productDecisionSkipstmap;
 public static list<string> loadQuoteDecision(string state,string product){
     List<String> eligibleDecisions=new list<string>();
     if (mapQDSkipstlst==null || productDecisionSkipstmap==null){
-        Quote_Decision_Option__mdt[] QuoteDecisions = [SELECT MasterLabel, Products__c, SkipStates__c FROM Quote_Decision_Option__mdt order by MasterLabel];
+        Quote_Decision_Option__mdt[] QuoteDecisions = [SELECT MasterLabel, Products__c, SkipStates__c FROM Quote_Decision_Option__mdt WHERE IsActive__c =: true ORDER BY MasterLabel];
         mapQDSkipstlst=new Map<string,list<string>>();
         productDecisionSkipstmap=new  Map<string,Map<string,list<string>>>();
         for (Quote_Decision_Option__mdt qd : QuoteDecisions) {
