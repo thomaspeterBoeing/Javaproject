@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Rate_Tool_Order__c</fullName>
+    <fullName>ProductGroup__c</fullName>
+    <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
-    <description>Column position for this product when displaying rates</description>
+    <deprecated>false</deprecated>
+    <description>Refers to the family to which this product belongs</description>
     <externalId>false</externalId>
-    <label>Rate Tool Order</label>
-    <precision>18</precision>
+    <label>Product Group</label>
+    <length>50</length>
     <required>false</required>
-    <scale>0</scale>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
-    <type>Number</type>
-    <unique>true</unique>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

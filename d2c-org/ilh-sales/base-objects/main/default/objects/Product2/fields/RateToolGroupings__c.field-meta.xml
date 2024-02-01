@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Rate_Tool_Groupings__c</fullName>
+    <fullName>RateToolGroupings__c</fullName>
+    <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
+    <deprecated>false</deprecated>
     <description>This is used to group the products in the rate tool/quote screen</description>
     <externalId>false</externalId>
     <label>Rate Tool Groupings</label>

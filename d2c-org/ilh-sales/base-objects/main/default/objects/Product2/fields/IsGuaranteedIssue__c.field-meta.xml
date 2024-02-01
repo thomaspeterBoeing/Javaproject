@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Is_Life_Policy__c</fullName>
+    <fullName>IsGuaranteedIssue__c</fullName>
+    <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
     <defaultValue>false</defaultValue>
-    <description>Is this product a life policy product?</description>
+    <deprecated>false</deprecated>
+    <description>Is this product a guaranteed issue product?</description>
     <externalId>false</externalId>
-    <label>Is Life Policy</label>
+    <label>Is Guaranteed Issue</label>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

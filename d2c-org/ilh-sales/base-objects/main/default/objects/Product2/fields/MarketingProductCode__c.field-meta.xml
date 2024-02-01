@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Marketing_Product_Code__c</fullName>
+    <fullName>MarketingProductCode__c</fullName>
+    <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
+    <deprecated>false</deprecated>
     <description>This value is used by Marketing Cloud to refer to this product</description>
     <externalId>false</externalId>
     <label>Marketing Product Code</label>

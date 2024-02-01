@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Ignore_Rate_Comparison_Intervals__c</fullName>
+    <fullName>ConversionProduct__c</fullName>
+    <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
     <defaultValue>false</defaultValue>
-    <description>Should rate comparison intervals be ignored for this product?</description>
+    <deprecated>false</deprecated>
+    <description>Is this product a conversion product?</description>
     <externalId>false</externalId>
-    <label>Ignore Rate Comparison Intervals</label>
+    <label>Conversion Product</label>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

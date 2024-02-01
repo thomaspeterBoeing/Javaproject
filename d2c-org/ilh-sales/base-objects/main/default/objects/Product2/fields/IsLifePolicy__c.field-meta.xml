@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Enabled_for_Rate_Tool__c</fullName>
+    <fullName>IsLifePolicy__c</fullName>
+    <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
     <defaultValue>false</defaultValue>
-    <description>Is this product enabled for the rate tool?</description>
+    <deprecated>false</deprecated>
+    <description>Is this product a life policy product?</description>
     <externalId>false</externalId>
-    <label>Enabled for Rate Tool</label>
+    <label>Is Life Policy</label>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
