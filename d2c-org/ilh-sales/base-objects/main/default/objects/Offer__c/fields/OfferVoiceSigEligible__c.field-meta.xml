@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OfferVoiceSigEligible__c</fullName>
+    <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
+    <businessStatus>Active</businessStatus>
+    <defaultValue>false</defaultValue>
+    <description>Field added for reporting needs, saved with offer when offer is deemed to be voice signature eligible</description>
+    <externalId>false</externalId>
+    <label>Offer Voice Sig Eligible</label>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
