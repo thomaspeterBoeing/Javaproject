@@ -4,6 +4,8 @@
     <externalId>false</externalId>
     <label>Persona</label>
     <required>false</required>
+    <description>This field is used in Persona Mapping object to determine user persona.</description>
+    <inlineHelpText>This field is used in Persona Mapping object to determine user persona.</inlineHelpText>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Picklist</type>
     <valueSet>
