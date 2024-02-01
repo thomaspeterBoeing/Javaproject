@@ -28,7 +28,7 @@ public with sharing class ILHUtilities {
         List<DIConsumerContainer__mdt> containers = new List<DIConsumerContainer__mdt>();
 
         try {
-            containers = [SELECT MasterLabel, DeveloperName, Dependencies__c, Persona__c FROM DIConsumerContainer__mdt WHERE Persona__c =: persona AND Factory__c =: factory];
+            containers = [SELECT MasterLabel, DeveloperName, Dependencies__c, Persona__c FROM DIConsumerContainer__mdt WHERE Persona__c =: persona AND MasterLabel =: factory];
         } catch (Exception ex) {
             new ErrorLogger(ex, null, 'ILHUtilities.cls', null, 'getDIConsumerContainer', null, null, null);
         }

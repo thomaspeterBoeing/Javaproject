@@ -22,7 +22,7 @@ public class ILHSearchFactory {
         List<ISearchService> classInstances = new List<ISearchService>();
 
         //Get containers by persona
-        List<DIConsumerContainer__mdt> instanceContainer = ILHUtilities.getDIConsumerContainer(persona, 'ILHSearchFactory');
+        List<DIConsumerContainer__mdt> instanceContainer = ILHUtilities.getDIConsumerContainer(persona, 'ConsumerSearch');
         
         //Check if there's containers found and there's dependencies
         if (instanceContainer != null && !instanceContainer.isEmpty() && instanceContainer[0]?.Dependencies__c != null) {
