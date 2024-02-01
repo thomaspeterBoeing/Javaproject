@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OfferAgentOfRecord__c</fullName>
+    <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
+    <businessStatus>Active</businessStatus>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Offer Agent Of Record</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Offers</relationshipName>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VoiceSigSubmitted__c</fullName>
+    <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
+    <businessStatus>Active</businessStatus>
+    <defaultValue>false</defaultValue>
+    <description>This field is used to track the agent has clicked on the Voice Signature button.</description>
+    <externalId>false</externalId>
+    <label>VoiceSig Submitted</label>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
