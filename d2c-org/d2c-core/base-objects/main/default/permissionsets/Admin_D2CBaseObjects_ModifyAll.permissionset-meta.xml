@@ -3,6 +3,11 @@
     <description>Modify All Access to objects in package. Includes Tab visibility and record type assignment</description>
     <fieldPermissions>
         <editable>true</editable>
+        <field>User.Persona__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>User.PartnerCode__c</field>
         <readable>true</readable>
     </fieldPermissions>

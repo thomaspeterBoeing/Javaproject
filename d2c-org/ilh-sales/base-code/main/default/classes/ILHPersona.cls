@@ -69,24 +69,22 @@ public class ILHPersona {
      */
     private String determinePersona() {
         String thePersona = '';
+        List<PersonaAssignment__mdt> persona = new List<PersonaAssignment__mdt>();
+        User currentUser = new User();
 
         //Find current user information
-        User currentUser = [SELECT PartnerCode__c FROM User WHERE id =: currentUserId];
-
-        //Get permission set group assignments based on current user id
-        List<PermissionSetAssignment> psas = [SELECT PermissionSetGroup.DeveloperName FROM PermissionSetAssignment WHERE AssigneeId =: currentUserId AND IsActive =: true AND PermissionSetGroupId != null];
-
-        if (psas != null && !psas.isEmpty()) {
-            Set<String> psasStrings = new Set<String>();
-            for (PermissionSetAssignment psa : psas) {
-                psasStrings.add(psa.PermissionSetGroup.DeveloperName);
-            }
-
-            //Find personas based on user partner code and which permission set groups they're assigned to
-            List<PersonaAssignment__mdt> personas = [SELECT DeveloperName FROM PersonaAssignment__mdt WHERE PartnerCode__c =: currentUser.PartnerCode__c AND PermissionSetGroup__c IN: psasStrings];
-            if (personas != null && !personas.isEmpty()) {
-                thePersona = personas[0].DeveloperName;//Persona is equal to first developer name
-            }
+        try {
+            currentUser = [SELECT Name, PartnerCode__c, Persona__c FROM User WHERE id =: currentUserId];
+            persona = [SELECT DeveloperName FROM PersonaAssignment__mdt WHERE PartnerCode__c =: currentUser.PartnerCode__c AND UserPersona__c =: currentUser.Persona__c];
+        } catch (Exception ex) {
+            new ErrorLogger(ex, null, 'ILHPersona.cls', currentUserId, 'determinePersona', null, null, null);
+        }
+        
+        if (persona != null && !persona.isEmpty()) {
+            thePersona = persona[0].DeveloperName;
+        } else {//Log an error if no persona was found
+            String errorMessage = 'No persona found for User: ' + currentUser.Name;
+            new ErrorLogger(new ErrorLogger.handleCaughtErrorException(errorMessage), null, 'ILHPersona.cls', currentUserId, 'Persona Assignment', null, null, null);
         }
         return thePersona;
     }

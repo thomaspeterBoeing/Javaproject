@@ -26,8 +26,8 @@ public class ILHUtilitiesTests {
     }
 
     @isTest
-    public static void getDIConsumerContainerByPersonaTest() {
-        List<DIConsumerContainer__mdt> containers = ILHUtilities.getDIConsumerContainerByPersona('ILHSalesSystemAdmin');
+    public static void getDIConsumerContainerTest() {
+        List<DIConsumerContainer__mdt> containers = ILHUtilities.getDIConsumerContainer('ILHSalesSystemAdmin', 'ILHSearchFactory');
         Assert.areEqual(1, containers.size());
     }
 }

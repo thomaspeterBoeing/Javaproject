@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartnerCode__c</fullName>
+    <description>Partner code assigned to user</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Partner code assigned to user</inlineHelpText>
+    <label>Partner Code</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CC Retention</fullName>
+                <default>false</default>
+                <label>CC Retention</label>
+            </value>
+            <value>
+                <fullName>Sutherland</fullName>
+                <default>false</default>
+                <label>Sutherland</label>
+            </value>
+            <value>
+                <fullName>Liveops</fullName>
+                <default>false</default>
+                <label>Liveops</label>
+            </value>
+            <value>
+                <fullName>Liberty Mutual</fullName>
+                <default>false</default>
+                <label>Liberty Mutual</label>
+            </value>
+            <value>
+                <fullName>SelectQuote</fullName>
+                <default>false</default>
+                <label>SelectQuote</label>
+            </value>
+            <value>
+                <fullName>Aflac</fullName>
+                <default>false</default>
+                <label>Aflac</label>
+            </value>
+            <value>
+                <fullName>eFinancial</fullName>
+                <default>false</default>
+                <label>eFinancial</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

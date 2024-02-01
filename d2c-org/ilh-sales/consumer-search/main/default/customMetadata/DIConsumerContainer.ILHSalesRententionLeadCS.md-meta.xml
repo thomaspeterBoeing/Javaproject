@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <label>ILHSalesRententionAgentConsumerSearch</label>
+    <label>ILHSalesRetentionLeadCS</label>
     <protected>false</protected>
     <values>
         <field>Dependencies__c</field>
         <value xsi:type="xsd:string">SearchCPSAndSF</value>
     </values>
     <values>
+        <field>Factory__c</field>
+        <value xsi:type="xsd:string">ILHSearchFactory</value>
+    </values>
+    <values>
         <field>Persona__c</field>
-        <value xsi:type="xsd:string">ILHSalesRetentionAgent</value>
+        <value xsi:type="xsd:string">ILHSalesRetentionLead</value>
     </values>
 </CustomMetadata>

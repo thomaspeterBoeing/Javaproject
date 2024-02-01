@@ -24,7 +24,14 @@ public with sharing class ILHUtilities {
      * @param persona Name of persona to search on
      * @return List of containers
      */
-    public static List<DIConsumerContainer__mdt> getDIConsumerContainerByPersona(String persona) {
-        return [SELECT MasterLabel, DeveloperName, Dependencies__c, Persona__c FROM DIConsumerContainer__mdt WHERE Persona__c =: persona];
+    public static List<DIConsumerContainer__mdt> getDIConsumerContainer(String persona, String factory) {
+        List<DIConsumerContainer__mdt> containers = new List<DIConsumerContainer__mdt>();
+
+        try {
+            containers = [SELECT MasterLabel, DeveloperName, Dependencies__c, Persona__c FROM DIConsumerContainer__mdt WHERE Persona__c =: persona AND Factory__c =: factory];
+        } catch (Exception ex) {
+            new ErrorLogger(ex, null, 'ILHUtilities.cls', null, 'getDIConsumerContainer', null, null, null);
+        }
+        return containers;
     }
 }
