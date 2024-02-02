@@ -30,7 +30,7 @@ for /f "tokens=1,2 delims=:{} " %%A in (c:\temp\packageVerID.json) do (
 echo Found Package Version ID %packageversionid%  Installing package 
 call sf package install --package %packageversionid% --installation-key %installationkey% --wait 5 --security-type AllUsers  
 
-call sf org assign permset --name Admin_ILHSalesBaseConfiguration_ModifyAll
+call sf org assign permset --name ILHSalesObjs_ILHSalesBaseObjects_ModifyAll
 
 echo "*** Load data ... " 
 call sf data import tree  --plan scripts\scratch-org-setup\data\ilh-sales-base-objects-data-plan.json

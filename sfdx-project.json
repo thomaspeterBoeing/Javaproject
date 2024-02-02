@@ -273,7 +273,7 @@
     },
     {
       "path": "d2c-org/ilh-sales/applications",
-      "default": false,
+      "default": true,
       "package": "ILH Sales Applications",
       "versionName": "ver 1.0",
       "versionNumber": "1.0.0.NEXT",
@@ -317,7 +317,7 @@
     },
     {
         "path": "d2c-org/ilh-sales/consumer-quoteservice",
-        "default": true
+        "default": false
     },
     {
       "path": "d2c-org/ilh-sales/post-install-unpackaged",        
