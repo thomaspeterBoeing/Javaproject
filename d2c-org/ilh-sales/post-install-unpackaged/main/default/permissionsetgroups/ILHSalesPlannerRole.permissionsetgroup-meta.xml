@@ -4,10 +4,9 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>ILH Sales Planner Role</label>
     <permissionSets>API_Connect_Principal_Access</permissionSets>
-    <permissionSets>CampaignILHMarketing_ILHSalesBaseObject_Object_CRED_Access</permissionSets>
-    <permissionSets>FieldPermissions_ILHSalesBaseObjects_RE</permissionSets>
-    <permissionSets>ILHSalesPlannerObjects_ILHSaleApplications</permissionSets>
+    <permissionSets>Campaign_ILHSalesBaseObject_CRED</permissionSets>
+    <permissionSets>ILHSalesObjs_ILHSalesBaseObjects_R</permissionSets>
+    <permissionSets>ILHSalesPlannerApp_ILHSalesApplications_AppAccess</permissionSets>
     <permissionSets>ILHSalesPlannerPermissions_ILHSalesApplications</permissionSets>
-    <permissionSets>ILHSalesPlanner_SalesPlannerApplication_AppAccess</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
