@@ -463,7 +463,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Product2.Conversion_Product__c</field>
+        <field>Product2.ConversionProduct__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -473,7 +473,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Product2.Enabled_for_Rate_Tool__c</field>
+        <field>Product2.EnabledforRateTool__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -483,32 +483,32 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Product2.Ignore_Rate_Comparison_Intervals__c</field>
+        <field>Product2.IgnoreRateComparisonIntervals__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Product2.Is_Guaranteed_Issue__c</field>
+        <field>Product2.IsGuaranteedIssue__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Product2.Is_Life_Policy__c</field>
+        <field>Product2.IsLifePolicy__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Product2.Marketing_Key__c</field>
+        <field>Product2.MarketingKey__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Product2.Marketing_Product_Code__c</field>
+        <field>Product2.MarketingProductCode__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Product2.Marketing_Product_Name__c</field>
+        <field>Product2.MarketingProductName__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -518,22 +518,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Product2.Product_Group__c</field>
+        <field>Product2.ProductGroup__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Product2.Rate_Tool_Groupings__c</field>
+        <field>Product2.RateToolGroupings__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Product2.Rate_Tool_Order__c</field>
+        <field>Product2.RateToolOrder__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Product2.Underwriting_Type__c</field>
+        <field>Product2.UnderwritingType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

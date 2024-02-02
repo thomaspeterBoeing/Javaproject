@@ -5,9 +5,8 @@
     <label>ILH Sales Agent Role</label>
     <permissionSets>API_Connect_Principal_Access</permissionSets>
     <permissionSets>AccountAffiliation_D2CBaseObjects_R</permissionSets>
-    <permissionSets>FieldPermissions_ILHSalesBaseObjects_RE</permissionSets>
-    <permissionSets>ILHSalesAgentObjects_ILHSaleApplications</permissionSets>
     <permissionSets>ILHSalesAgentPermissions_ILHSalesApplications</permissionSets>
     <permissionSets>ILHSalesConsole_ILHSalesApplications_AppAccess</permissionSets>
+    <permissionSets>ILHSalesObjs_ILHSalesBaseObjects_Agent</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

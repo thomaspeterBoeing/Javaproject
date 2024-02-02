@@ -5,10 +5,9 @@
     <label>ILH Sales Admin Role</label>
     <permissionSets>API_Connect_Principal_Access</permissionSets>
     <permissionSets>AccountAffiliation_D2CBaseObjects_CRED</permissionSets>
-    <permissionSets>Admin_ILHSalesBaseConfiguration_ModifyAll</permissionSets>
-    <permissionSets>Error_Log_ILHSalesBaseObjects_CRED</permissionSets>
-    <permissionSets>FieldPermissions_ILHSalesBaseObjects_RE</permissionSets>
+    <permissionSets>ErrorLog_ErrorHandlingFramework_CRED</permissionSets>
     <permissionSets>ILHSalesConsole_ILHSalesApplications_AppAccess</permissionSets>
-    <permissionSets>ILHSalesPlanner_SalesPlannerApplication_AppAccess</permissionSets>
+    <permissionSets>ILHSalesObjs_ILHSalesBaseObjects_ModifyAll</permissionSets>
+    <permissionSets>ILHSalesPlannerApp_ILHSalesApplications_AppAccess</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
