@@ -27,6 +27,7 @@ public with sharing class ILHQuoteHelper {
                 newWrap.productCode = q?.Product__r?.ProductCode;
                 newWrap.action = q?.Status;
                 newWrap.paymentFrequency = q?.PaymentFrequency__c;
+                newWrap.quoteDecisions =ILHRatePageRules.loadQuoteDecision('WI', q?.Product__r?.ProductCode);
                 results.add(newWrap);
             }
         } catch (Exception ex) {
@@ -236,5 +237,8 @@ public with sharing class ILHQuoteHelper {
         public String action;
         @AuraEnabled
         public String paymentFrequency;
+        
+        @AuraEnabled
+        public list<string> quoteDecisions;
     }
 }

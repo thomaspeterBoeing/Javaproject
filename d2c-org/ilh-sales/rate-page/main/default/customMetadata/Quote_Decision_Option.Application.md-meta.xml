@@ -10,4 +10,8 @@
         <field>SkipStates__c</field>
         <value xsi:nil="true"/>
     </values>
+    <values>
+        <field>enabledForPartners__c</field>
+        <value xsi:type="xsd:string">All Partners</value>
+    </values>
 </CustomMetadata>
