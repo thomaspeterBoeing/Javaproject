@@ -11,13 +11,6 @@ import updateQuotes from '@salesforce/apex/ILHCartController.updateQuotes';
 import checkout from '@salesforce/apex/ILHCartController.checkout';
 import { reduceErrors } from 'c/ldsUtils';//LWC Reduces one or more LDS errors into a string[] of error messages
 
-const QUOTE_OPTIONS = [
-    { label: '', value: ''},
-    { label: 'Application', value: 'Application'},
-    { label: 'Paper Kit', value: 'Paper Kit' },
-    { label: 'Email Summary', value: 'Email Summary'},
-];
-
 export default class ILHSalesCart extends NavigationMixin(LightningElement) {
     _successMessage = '';
     _wiredResult;
@@ -70,14 +63,15 @@ export default class ILHSalesCart extends NavigationMixin(LightningElement) {
         if (data) {
             let localList = [...data];
             for (let index = 0; index < localList.length; index++) {
-                let itemAction = localList[index]?.action;
-                let copiedObj = this._cartDataCopy.find((element) => element?.quoteId === localList[index]?.quoteId);
+                let itemAction = localList[index]?.action;//Action saved in SF
+                let availableActions = [''];//Load in blank option
+                let copiedObj = this._cartDataCopy.find((element) => element?.quoteId === localList[index]?.quoteId);//Find object that was saved before saving
                 localList[index] = {
                     ...localList[index],
                     action:  !itemAction || itemAction === '' ? copiedObj?.action : itemAction,//If action from SF is blank, then take action from copied object
                     disableDelete: itemAction == null ? false : true,//If true, the delete button will be disabled for this cart item
                     savedAction: itemAction,//Saved action indicates the action saved in SF
-                    availableActions: this.disableOptions(QUOTE_OPTIONS, itemAction)//Actions available in the UI for this cart item
+                    availableActions: this.loadOptions(availableActions.concat(localList[index].availableActions), itemAction)//Actions available in the UI for this cart item
                 };
             }
             this.cartData = localList;
@@ -160,21 +154,21 @@ export default class ILHSalesCart extends NavigationMixin(LightningElement) {
     }
 
     /**
-     * Purpose: This function dis
+     * Purpose: Load options for selection in Action picklist
      * @param {*} availableActions : Actions that are available for current quote
      * @param {*} savedAction : Quote action saved in SF
-     * @returns : Quote actions after determining if there were any to be disabled
+     * @returns : Options to display in action picklist
      */
-    disableOptions(availableActions, savedAction) {
+    loadOptions(availableActions, savedAction) {
         let updatedOptions = [];
         for (let index = 0; index < availableActions.length; index++) {
             let option = availableActions[index];
             let disabled = false;
             //Disable other actions if saved action is Application.  If action is Paper Kit or Email Summary, then disable blank option
-            if(!this.errorsOnPage && ((option.value !== 'Application' && savedAction === 'Application') || (!option.value && savedAction))) {
+            if(!this.errorsOnPage && ((option !== 'Application' && savedAction === 'Application') || (!option && savedAction))) {
                 disabled = true;
             }
-            updatedOptions.push({...option, disabled: disabled});
+            updatedOptions.push({label: option, value: option, disabled: disabled});
         }
         return updatedOptions;
     }
@@ -313,8 +307,6 @@ export default class ILHSalesCart extends NavigationMixin(LightningElement) {
             "quoteId": payload?.quoteId,
             "oppId": this?.opptyId
         };
-
-        console.log('New Cart Item in CreateQuoteObject = ' + JSON.stringify(newCartItem));
         return newCartItem;
     }
 
