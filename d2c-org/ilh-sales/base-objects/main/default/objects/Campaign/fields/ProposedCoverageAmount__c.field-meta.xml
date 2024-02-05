@@ -3,6 +3,8 @@
     <fullName>ProposedCoverageAmount__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
+    <deprecated>false</deprecated>
+    <description>ILH: Proposed Coverage Amount for the product in the campaign.  This value is copied to the opportunity.</description>
     <externalId>false</externalId>
     <label>Proposed Coverage Amount</label>
     <precision>18</precision>
