@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Amount</fullName>
+    <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
-    <description>ILH: Estimated total coverage amount of products with a completed voice or email signature.</description>
+    <description>ILH: Total coverage amount of products associated with the opportunity, that have a completed voice or email signature application.</description>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>

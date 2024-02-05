@@ -4,6 +4,7 @@
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
     <description>Product, product family, or type of insurance based on primary campaign source.</description>
     <externalId>false</externalId>
     <label>Product</label>
