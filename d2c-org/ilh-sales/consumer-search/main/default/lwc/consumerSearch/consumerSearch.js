@@ -530,10 +530,22 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 		return newResults;
 	}
 
-	//added for bug 2664349
+	//added for bug 2712260
 	formatDate(dateString) {
-		const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-		return new Intl.DateTimeFormat('en-US', options).format(new Date(dateString));
+		// Convert dateString to a Date object in UTC timezone
+		const date = new Date(dateString);
+	
+		// Extract year, month, and day components from the UTC date
+		const year = date.getUTCFullYear();
+		const month = date.getUTCMonth() + 1; // Months are zero-based, so add 1
+		const day = date.getUTCDate();
+	
+		// Ensure month and day are formatted with leading zeros if necessary
+		const formattedMonth = String(month).padStart(2, '0');
+		const formattedDay = String(day).padStart(2, '0');
+	
+		// Return the formatted date string in MM/DD/YYYY format
+		return `${formattedMonth}/${formattedDay}/${year}`;
 	}
 
 	
