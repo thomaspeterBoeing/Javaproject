@@ -3,6 +3,8 @@
     <fullName>InsurancePurpose__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
+    <deprecated>false</deprecated>
+    <description>ILH: Need or purpose for the insurance coverage, such as funeral expenses or income replacement. This is a requirement for the needs assessment.</description>
     <externalId>false</externalId>
     <label>Insurance Purpose</label>
     <required>false</required>

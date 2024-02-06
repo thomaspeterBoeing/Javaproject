@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Affiliation__c</fullName>
+    <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
+    <businessStatus>Active</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
     <description>ILH: The credit union or other association the consumer is associated to for the opportunity.</description>
     <externalId>false</externalId>
     <label>Affiliation</label>
@@ -18,6 +21,7 @@
     <relationshipLabel>Affiliation Opportunities</relationshipLabel>
     <relationshipName>AffiliationOpportunities</relationshipName>
     <required>false</required>
+    <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

@@ -3,7 +3,8 @@
     <fullName>ProposedCoverage__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
-    <description>if applicable, the amount of coverage targeted in the primary campaign source</description>
+    <deprecated>false</deprecated>
+    <description>ILH: The amount of coverage desired or recommended based on needs assessment. Default value from primary campaign source.</description>
     <externalId>false</externalId>
     <label>Proposed Coverage</label>
     <precision>18</precision>

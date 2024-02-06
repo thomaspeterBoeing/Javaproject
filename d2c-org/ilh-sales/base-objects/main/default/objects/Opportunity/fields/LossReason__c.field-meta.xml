@@ -3,7 +3,8 @@
     <fullName>LossReason__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
-    <description>Reason the opportunity did not end with a sale.</description>
+    <deprecated>false</deprecated>
+    <description>ILH: Reason the opportunity did not result a sale before closing. It may still result in a sale after closing.</description>
     <externalId>false</externalId>
     <label>Loss Reason</label>
     <required>false</required>

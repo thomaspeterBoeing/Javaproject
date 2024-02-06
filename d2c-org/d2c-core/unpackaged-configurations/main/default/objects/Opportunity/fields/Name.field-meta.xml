@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Name</fullName>
     <businessStatus>Active</businessStatus>
-    <description>ILH: Name of the opportunity, usually contains... (to complete)</description>
+    <description>ILH: Name of the opportunity. Generated to contain the consumer last name, product, and date/timestamp.</description>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>

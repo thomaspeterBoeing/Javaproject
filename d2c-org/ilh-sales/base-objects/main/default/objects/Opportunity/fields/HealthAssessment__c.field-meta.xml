@@ -3,7 +3,8 @@
     <fullName>HealthAssessment__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
-    <description>Health concerns that may prevent customer from qualifying for a traditional, underwritten life insurance policy.</description>
+    <deprecated>false</deprecated>
+    <description>ILH: Health concerns that may prevent customer from qualifying for a traditional, underwritten life insurance policy. This is a requirement for the needs assessment.</description>
     <externalId>false</externalId>
     <inlineHelpText>Are you aware of any medical issues or health concerns that you think would keep you from qualifying for a traditional, underwritten life insurance policy?</inlineHelpText>
     <label>Health Assessment</label>
