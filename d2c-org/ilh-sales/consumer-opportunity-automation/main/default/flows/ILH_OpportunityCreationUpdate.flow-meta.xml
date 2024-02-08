@@ -4,7 +4,7 @@
         <name>Create_Opportunity_Errors</name>
         <label>Create Opportunity Errors</label>
         <locationX>440</locationX>
-        <locationY>566</locationY>
+        <locationY>782</locationY>
         <actionName>ErrorLogger</actionName>
         <actionType>apex</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -150,14 +150,14 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Create_Opportunity</targetReference>
+            <targetReference>GetContact</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Assign_Output_Variable</name>
         <label>Assign Output Variable</label>
         <locationX>176</locationX>
-        <locationY>566</locationY>
+        <locationY>782</locationY>
         <assignmentItems>
             <assignToReference>outputTxt_OpportunityId</assignToReference>
             <operator>Assign</operator>
@@ -204,7 +204,7 @@
         <name>Create_Opportunity</name>
         <label>Create Opportunity</label>
         <locationX>176</locationX>
-        <locationY>458</locationY>
+        <locationY>674</locationY>
         <connector>
             <targetReference>Assign_Output_Variable</targetReference>
         </connector>
@@ -212,6 +212,35 @@
             <targetReference>Create_Opportunity_Errors</targetReference>
         </faultConnector>
         <inputReference>opportunityRecord</inputReference>
+    </recordCreates>
+    <recordCreates>
+        <name>CreateCampaignMember</name>
+        <label>Create Campaign Member</label>
+        <locationX>176</locationX>
+        <locationY>566</locationY>
+        <connector>
+            <targetReference>Create_Opportunity</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>CampaignId</field>
+            <value>
+                <elementReference>opportunityRecord.CampaignId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ContactId</field>
+            <value>
+                <elementReference>GetContact.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Sent</stringValue>
+            </value>
+        </inputAssignments>
+        <object>CampaignMember</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordLookups>
         <name>Campaign_Record</name>
@@ -242,6 +271,27 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Campaign</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>GetContact</name>
+        <label>Get Contact</label>
+        <locationX>176</locationX>
+        <locationY>458</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>CreateCampaignMember</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>inputTxt_AccountId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
@@ -276,6 +326,13 @@
         </connector>
     </start>
     <status>Active</status>
+    <variables>
+        <name>contactIdavailable</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
     <variables>
         <name>inputTxt_AccountId</name>
         <dataType>String</dataType>
