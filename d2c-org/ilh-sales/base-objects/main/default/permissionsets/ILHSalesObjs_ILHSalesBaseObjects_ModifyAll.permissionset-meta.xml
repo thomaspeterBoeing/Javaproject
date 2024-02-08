@@ -473,7 +473,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Product2.EnabledforRateTool__c</field>
+        <field>Product2.EnabledForRateTool__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -674,6 +674,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.WhoId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>User.AgentID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

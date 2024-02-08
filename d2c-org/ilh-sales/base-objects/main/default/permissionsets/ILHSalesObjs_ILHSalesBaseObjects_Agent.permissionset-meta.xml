@@ -591,6 +591,11 @@
         <field>Task.WhoId</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.AgentID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>ILH Sales Objs: ILHSalesBaseObjects (Agent)</label>
     <license>Salesforce</license>

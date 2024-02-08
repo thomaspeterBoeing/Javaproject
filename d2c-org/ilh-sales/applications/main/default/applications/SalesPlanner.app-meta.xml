@@ -3,6 +3,15 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>ILHConsumerSalesOpportunity</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Opportunity</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>ILHSalesCampaign</content>
         <formFactor>Small</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
@@ -34,84 +43,12 @@
     <navType>Standard</navType>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>ILHConsumerSalesOpportunity</content>
-        <formFactor>Small</formFactor>
-        <pageOrSobjectType>Opportunity</pageOrSobjectType>
-        <recordType>Opportunity.ILHSales</recordType>
-        <type>Flexipage</type>
-        <profile>ILH Sales Planner</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>ILHConsumerSalesOpportunity</content>
+        <content>ILHSalesConsumerPage</content>
         <formFactor>Large</formFactor>
-        <pageOrSobjectType>Opportunity</pageOrSobjectType>
-        <recordType>Opportunity.ILHSales</recordType>
-        <type>Flexipage</type>
-        <profile>ILH Sales Planner</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>ILHConsumerSalesOpportunity</content>
-        <formFactor>Small</formFactor>
-        <pageOrSobjectType>Opportunity</pageOrSobjectType>
-        <recordType>Opportunity.ILHSales</recordType>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>PersonAccount.Consumer</recordType>
         <type>Flexipage</type>
         <profile>ILH Sales Agent</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>ILHConsumerSalesOpportunity</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Opportunity</pageOrSobjectType>
-        <recordType>Opportunity.ILHSales</recordType>
-        <type>Flexipage</type>
-        <profile>ILH Sales Agent</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>ILHConsumerSalesOpportunity</content>
-        <formFactor>Small</formFactor>
-        <pageOrSobjectType>Opportunity</pageOrSobjectType>
-        <recordType>Opportunity.ILHSales</recordType>
-        <type>Flexipage</type>
-        <profile>Admin</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>ILHConsumerSalesOpportunity</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Opportunity</pageOrSobjectType>
-        <recordType>Opportunity.ILHSales</recordType>
-        <type>Flexipage</type>
-        <profile>Admin</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>ILHSalesConsumerPage</content>
-        <formFactor>Small</formFactor>
-        <pageOrSobjectType>Account</pageOrSobjectType>
-        <recordType>PersonAccount.Consumer</recordType>
-        <type>Flexipage</type>
-        <profile>Admin</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>ILHSalesConsumerPage</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Account</pageOrSobjectType>
-        <recordType>PersonAccount.Consumer</recordType>
-        <type>Flexipage</type>
-        <profile>Admin</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>ILHSalesConsumerPage</content>
-        <formFactor>Small</formFactor>
-        <pageOrSobjectType>Account</pageOrSobjectType>
-        <recordType>PersonAccount.Consumer</recordType>
-        <type>Flexipage</type>
-        <profile>ILH Sales Planner</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -125,11 +62,11 @@
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>ILHSalesConsumerPage</content>
-        <formFactor>Small</formFactor>
+        <formFactor>Large</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>PersonAccount.Consumer</recordType>
         <type>Flexipage</type>
-        <profile>ILH Sales Agent</profile>
+        <profile>Admin</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -138,16 +75,16 @@
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>PersonAccount.Consumer</recordType>
         <type>Flexipage</type>
-        <profile>ILH Sales Agent</profile>
+        <profile>D2C System Administrator</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>AffiliationAccountPage</content>
-        <formFactor>Small</formFactor>
+        <formFactor>Large</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>Account.Affiliation</recordType>
         <type>Flexipage</type>
-        <profile>ILH Sales Planner</profile>
+        <profile>ILH Sales Agent</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -161,25 +98,7 @@
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>AffiliationAccountPage</content>
-        <formFactor>Small</formFactor>
-        <pageOrSobjectType>Account</pageOrSobjectType>
-        <recordType>Account.Affiliation</recordType>
-        <type>Flexipage</type>
-        <profile>ILH Sales Agent</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>AffiliationAccountPage</content>
         <formFactor>Large</formFactor>
-        <pageOrSobjectType>Account</pageOrSobjectType>
-        <recordType>Account.Affiliation</recordType>
-        <type>Flexipage</type>
-        <profile>ILH Sales Agent</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>AffiliationAccountPage</content>
-        <formFactor>Small</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>Account.Affiliation</recordType>
         <type>Flexipage</type>
@@ -192,7 +111,7 @@
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>Account.Affiliation</recordType>
         <type>Flexipage</type>
-        <profile>Admin</profile>
+        <profile>D2C System Administrator</profile>
     </profileActionOverrides>
     <tabs>standard-Account</tabs>
     <tabs>standard-Campaign</tabs>
