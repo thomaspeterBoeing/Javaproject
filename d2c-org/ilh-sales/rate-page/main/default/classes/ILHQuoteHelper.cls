@@ -122,6 +122,7 @@ public with sharing class ILHQuoteHelper {
 
         //Only map opportunity/account fields on insert only
         if (isInsert) {
+            Integer expDays=30;
             //Find product id based on product code from cart item
             if (String.isNotEmpty(productCode)) {
                 try {
@@ -134,6 +135,7 @@ public with sharing class ILHQuoteHelper {
                 if (selectedProduct != null && !selectedProduct.isEmpty()) {
                     selectedProductFound = true;
                     newQuote.Product__c = selectedProduct[0].id;
+                   
                 }
             }
 
@@ -157,7 +159,11 @@ public with sharing class ILHQuoteHelper {
                 newQuote.ShippingStreet = opp.Account?.ShippingStreet;
                 newQuote.RecordTypeId = Schema.SObjectType.Quote.getRecordTypeInfosByName().get('ILH Sales Quote').getRecordTypeId();
                 //newQuote.GrandTotal = TBD;
-                //newQuote.ExpirationDate = TBD;
+                if (productCode.containsIgnoreCase('2021 SIWLANB') || productCode.containsIgnoreCase('2021 SIWLALB')){
+                    expDays=ILHRatePageRules.getSIWLQuoteExpiration(insuredAge,coverage,opp.Account?.PersonBirthdate);
+                    
+                }    
+                newQuote.ExpirationDate = date.today().addDays(expDays);
                 //newQuote.QuoteRider__c = TBD;
             }
 
