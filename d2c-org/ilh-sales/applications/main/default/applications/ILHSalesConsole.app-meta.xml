@@ -122,8 +122,7 @@
         <profile>Admin</profile>
     </profileActionOverrides>
     <setupExperience>all</setupExperience>
-    <tabs>standard-Opportunity</tabs>
-    <tabs>standard-Contact</tabs>
+    <tabs>standard-Opportunity</tabs>    
     <tabs>standard-Account</tabs>
     <tabs>standard-Campaign</tabs>
     <tabs>ILHSalesConsumerSearch</tabs>
@@ -138,10 +137,7 @@
         </mappings>
         <mappings>
             <tab>standard-Campaign</tab>
-        </mappings>
-        <mappings>
-            <tab>standard-Contact</tab>
-        </mappings>
+        </mappings>        
         <mappings>
             <tab>standard-Opportunity</tab>
         </mappings>
