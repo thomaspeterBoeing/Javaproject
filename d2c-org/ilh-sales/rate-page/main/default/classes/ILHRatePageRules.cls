@@ -52,4 +52,44 @@ public static list<string> loadQuoteDecision(string state,string product){
     return eligibleDecisions;
 }
 
+/**
+     * Purpose: Calculate the expiration date based on specified rules
+     * @param birthdate : Birthdate of the insured
+     * @param coverageAmount : Coverage amount of the quote
+     * @return : Number of days until expiration
+     */
+    public static Integer getSIWLQuoteExpiration(Integer age,Integer coverage,Date dob) {
+
+        Integer expirationDays = calculateExpirationDays(dob);
+    
+        if (expirationDays < 30 && (age == 70 || age == 75 || age == 85)) {
+            if ((age == 70 && coverage > 50000) ||
+                (age == 75 && coverage > 50000) ||
+                (age == 85 && coverage > 25000)) {
+                //quote.ExpirationDate = Date.today().addDays(expirationDays - 1);
+                expirationDays=expirationDays-1;
+                //quote.Expiration_Message__c = 'SIWL quote expires in ' + expirationDays + ' days.';
+            } else if ((expirationDays - 182) > 0 && (expirationDays - 182) < 30) {
+                expirationDays=expirationDays-183;
+                //quote.Expiration_Message__c = 'SIWL quote expires in ' + (expirationDays - 182) + ' days.';
+            }
+        } else {
+            expirationDays=30;
+        }
+    
+        return expirationDays;
+    }
+    
+    private static Integer calculateExpirationDays(Date birthdate) {
+        Date birthdateThisYear = Date.newInstance(Date.today().year(), birthdate.month(), birthdate.day());
+        Date rightNow=Date.today();
+        if (rightNow.daysBetween(birthdateThisYear)< 0) {
+            birthdateThisYear = birthdateThisYear.addYears(1);
+        }
+        return rightNow.daysBetween(birthdateThisYear);
+    }
+    
+    
+
+
 }
