@@ -74,6 +74,11 @@ export default class OpportunityWatcher extends LightningElement {
         });
     }
 
+    handleLaunch(){
+        this.publishOpportunityStageChanged(this.recordId,'Quote');
+
+    }
+
     publishOpportunityStageChanged(recordId, stage) {
         const newMessage = {
             recordId,

@@ -1,0 +1,77 @@
+<template>
+   
+    <div if:true={spinnerActive}>
+        <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+    </div>
+    <div if:false={errorLoadingRates}>
+        <div class="slds-grid slds-grid_align-center">
+            <div class="slds-col slds-size_1-of-3">                 
+                <c-horizontal-checkbox-group  
+                    name="Products" 
+                    label={productCheckboxLabel}                                            
+                    options={productList}
+                    value={productChoices}
+                    variant="standard"
+                    onchange={handleProductSelection}>
+                </c-horizontal-checkbox-group>              
+            </div> 
+           
+           
+            <div class="slds-col slds-size_1-of-6">                     
+                <lightning-input 
+                    type="text" 
+                    label="Proposed Coverage" 
+                    onblur={handleProposedCoverageChange} 
+                    onkeydown={handleProposedCoverageKeyPress} 
+                    value={coverage}>
+                </lightning-input>
+            <div class="error">{coverageError}</div>      
+        </div>
+        <div class="slds-col slds-size_1-of-6">
+            <lightning-combobox
+                name="frequency"
+                label="Payment Frequency"                
+                value="Monthly"
+                onchange={handleFrequencyChange}
+                options={frequencyOptions}>
+            </lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-6">
+            <div if:true={disableBillMethod}>
+                <lightning-combobox
+                    name="billingmethod"
+                    label="Billing Method"
+                    value="ACH"
+                    onchange={handleBillMethodChange}
+                    options={billMethodOptions}
+                    disabled>
+                </lightning-combobox>
+            </div>
+            <div if:false={disableBillMethod}>
+                <lightning-combobox
+                    name="billingmethod"
+                    label="Billing Method"
+                    value="ACH"
+                    onchange={handleBillMethodChange}
+                    options={billMethodOptions}>
+                </lightning-combobox>
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-6">  
+            
+           Effective Date:
+           Coming Soon!
+        </div>
+    </div>
+        <c-rating-matrix></c-rating-matrix>
+    </div>
+    <div if:true={errorLoadingRates}>
+        <lightning-card title={errorTitle}>
+            Error occurred and rates could not be loaded.  Please try again by refreshing this page.  If the error occur again do something.
+            <br>
+            <br>
+            Error Message = {errorMessage}
+        </lightning-card>
+    </div>
+  
+</template>

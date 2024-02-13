@@ -415,6 +415,18 @@
                 <identifier>flexipage_richText3</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>ilhOpportunityWatcher</componentName>
+                <identifier>c_ilhOpportunityWatcher2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>ilhOpportunityNavigator</componentName>
+                <identifier>c_ilhOpportunityNavigator</identifier>
+            </componentInstance>
+        </itemInstances>
         <name>rightcol</name>
         <type>Region</type>
     </flexiPageRegions>

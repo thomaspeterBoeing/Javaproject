@@ -9,9 +9,9 @@ public class EligibleRateService {
      * @param rateRequest : Request to send to ILHProductQuoteService
      * @return : Instance or EligibleProductRateWrapper class
      */
-    public EligibleProductRateWrapper getRates(Id oppId) {
+    public EligibleProductRateWrapper getRates(Id oppId,String productCategory, String frequency, String billingMethod) {
         try {
-            Map<String, Object> rateRequest = getRequestMap(oppId);
+            Map<String, Object> rateRequest = getRequestMap(oppId,productCategory,frequency,billingMethod);
 
             List<EligibleProductQuoteResult> rates = EligibleProductQuoteResult.parse(new ILHProductQuoteService().getAvailableProducts(rateRequest));
             EligibleProductRateWrapper wrapper = new EligibleProductRateWrapper(rates);
@@ -22,13 +22,30 @@ public class EligibleRateService {
         return null;
     }
 
-    private Map<String, Object> getRequestMap(Id oppId) {
+    private Map<String, Object> getRequestMap(Id oppId,String productCategory, String frequency,String billingMethodCode) {
+        integer maxCov;
+        integer minCov;
+        integer covInterval;
+        string billMethod;
+
+        if(productCategory == 'Life'){
+            maxCov = 300000;
+            minCov = 1000;
+            covInterval = 1000;           
+            billMethod = 'ACH';
+        } else if (productCategory == 'ADD'){
+            maxCov = 500000;
+            minCov = 5000;
+            covInterval = 5000;
+            billMethod = billingMethodCode;
+        }
+
         Map<String, Object> requestMap = new Map<String, Object> {
             'channel' => 'Telem',
-            'maxCoverage' => 500000,
-            'minCoverage' => 1000,
+            'maxCoverage' => maxCov,
+            'minCoverage' => minCov,
             'asOfDate' => '2023-11-21',
-            'coverageInterval' => 1000,
+            'coverageInterval' => covInterval,
             'organizationId' => '',
             'requestingSystemName' => 'sforcecs'
         };
@@ -40,6 +57,10 @@ public class EligibleRateService {
         requestMap.put('issueAge', opp?.Account?.Age__pc != null ? String.valueOf(opp.Account.Age__pc) : '');
         requestMap.put('contractNumber', opp?.Affiliation__r?.ContractNumberUnformatted__c != null ? opp.Affiliation__r.ContractNumberUnformatted__c : '');
         requestMap.put('birthDate', opp?.Account?.PersonBirthdate != null ? String.valueOf(opp.Account.PersonBirthdate) : '');
+        requestMap.put('frequency',frequency);  
+        requestMap.put('billingMethod',billMethod);
+
+        system.debug('Request Map = ' + requestMap);
         return requestMap;
     }
 }
