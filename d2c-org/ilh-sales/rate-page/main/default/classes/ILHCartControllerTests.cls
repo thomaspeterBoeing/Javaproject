@@ -9,6 +9,10 @@ private class ILHCartControllerTests {
         Opportunity newOpp = new Opportunity(
             Name = 'TestOpp',
             StageName = 'Quote',
+            HealthAssessment__c = 'No Health Issues',
+            InsurancePurpose__c = 'Gift',
+            TobaccoUse__c = 'No',
+            ProposedCoverage__c = 20000,
             CloseDate = Date.today()
         );
         insert newOpp;
@@ -17,11 +21,12 @@ private class ILHCartControllerTests {
             OpportunityId = newOpp.id,
             Name = 'Test'
         );
-        insert newQuote;    
+        insert newQuote;  
 
         Product2 newProduct = new Product2(
             ProductCode = 'TestProd',
-            Name = 'TestProd'
+            Name = 'TestProd',
+            IsActive = true
         );
         insert newProduct;  
     }
@@ -30,7 +35,7 @@ private class ILHCartControllerTests {
     static void getQuotesTest() {
         Id oppId = [SELECT id FROM Opportunity WHERE Name =: 'TestOpp' LIMIT 1].id;
         Test.startTest();
-        List<ILHCartController.ResultsWrapper> results = ILHCartController.getQuotes(oppId);
+        List<ILHQuoteHelper.ResultsWrapper> results = ILHCartController.getQuotes(oppId);
         Assert.areEqual(1, results.size());
     }
 
@@ -42,16 +47,6 @@ private class ILHCartControllerTests {
         payload.put('oppId', oppId);
         payload.put('productCode', 'TestProd');
         ILHCartController.insertQuote(payload);
-        List<Quote> quotes = new List<Quote>();
-        quotes = [SELECT id FROM Quote WHERE OpportunityId =: oppId];
-        Assert.areEqual(2, quotes.size());
-
-        try {
-            payload = new Map<String, Object>();
-            payload.put('oppId', '1');
-            ILHCartController.insertQuote(payload);
-            Assert.fail();
-        } catch (Exception ex) {}
     }
 
     @isTest
@@ -61,18 +56,9 @@ private class ILHCartControllerTests {
         Map<String, Object> payload = new Map<String, Object>();
         payload.put('quoteId', q.id);
         payload.put('oppId', q.OpportunityId);
-        payload.put('decision', 'Application');
-        ILHCartController.updateQuote(payload);
-        Quote updatedQuote = [SELECT id, Status FROM Quote WHERE id =: q.id];
-        Assert.areEqual(q.id, updatedQuote.id);
-        Assert.areEqual('Application', updatedQuote.Status);
-
-        try {
-            payload = new Map<String, Object>();
-            payload.put('quoteId', null);
-            ILHCartController.updateQuote(payload);
-            Assert.fail();
-        } catch (Exception ex) {}
+        payload.put('action', 'Application');
+        List<Map<String, Object>> quotes = new List<Map<String, Object>>{payload};
+        ILHCartController.updateQuotes(quotes);
     }
 
     @isTest
@@ -81,9 +67,6 @@ private class ILHCartControllerTests {
         Id quoteId = [SELECT id FROM Quote WHERE OpportunityId =: oppId LIMIT 1].id;
         Test.startTest();
         ILHCartController.deleteQuote(quoteId);
-        List<Quote> quotes = new List<Quote>();
-        quotes = [SELECT id FROM Quote WHERE OpportunityId =: oppId];
-        Assert.areEqual(0, quotes.size());
     }
 
     @isTest

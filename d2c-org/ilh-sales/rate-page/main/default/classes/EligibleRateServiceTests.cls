@@ -45,7 +45,7 @@ private class EligibleRateServiceTests {
 
         Id oppId = [SELECT id FROM Opportunity WHERE Name =: 'Test Opp'].id;
         Test.startTest();
-        EligibleProductRateWrapper result = new EligibleRateService().getRates(oppId);
+        EligibleProductRateWrapper result = new EligibleRateService().getRates(oppId,'Life','monthly','ACH');
         Assert.isNotNull(result, 'Result is not null');
     }
 }

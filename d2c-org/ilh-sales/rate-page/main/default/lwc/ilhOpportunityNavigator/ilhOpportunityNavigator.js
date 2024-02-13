@@ -76,7 +76,7 @@ export default class OpportunityNavigator extends NavigationMixin(LightningEleme
             type: 'standard__navItemPage',
             attributes: {
                 //recordId:this.recordId,
-                apiName: 'Rate', // Replace with Rate/Quote or whatever gets decided
+                apiName: 'ILHSalesRatePage', // Replace with Rate/Quote or whatever gets decided
             },
             state:{
                 c__recordId :this.recordId,
