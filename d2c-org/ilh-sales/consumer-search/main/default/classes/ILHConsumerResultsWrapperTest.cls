@@ -18,7 +18,7 @@ public class ILHConsumerResultsWrapperTest {
         a.Phone = '704-777-8888';
         insert a;
     
-        Account aa = [SELECT Id, Name, Firstname, LastName, Suffix, PersonHomePhone, PersonOtherPhone, PersonMobilePhone, PersonMailingStreet, PersonMailingPostalCode, PersonMailingCity, PersonMailingState, SSNLast4__pc, Gender__pc, PersonID__pc, PersonBirthdate FROM Account WHERE Id = :a.Id LIMIT 1];
+        Account aa = [SELECT Id, Name, Firstname, MiddleName, LastName, Suffix, PersonHomePhone, PersonOtherPhone, PersonMobilePhone, PersonMailingStreet, PersonMailingPostalCode, PersonMailingCity, PersonMailingState, SSNLast4__pc, Gender__pc, PersonID__pc, PersonBirthdate FROM Account WHERE Id = :a.Id LIMIT 1];
 
         ILHConsumerResultsWrapper.SearchResult ilhResult = new ILHConsumerResultsWrapper.SearchResult(aa);
         Assert.isNotNull(ilhResult, 'is not null');
