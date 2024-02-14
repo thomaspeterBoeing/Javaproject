@@ -74,8 +74,8 @@ export default class MarketingHistory extends LightningElement {
      * @param event : Event from table column
      */
     handleSortDataTable(event) {
-        this.sortBy        = event.detail.fieldName;
-        this.sortDirection = event.detail.sortDirection;
+        this.sortBy        = event?.detail?.fieldName;
+        this.sortDirection = event?.detail?.sortDirection;
 
         this.sortData();
     }

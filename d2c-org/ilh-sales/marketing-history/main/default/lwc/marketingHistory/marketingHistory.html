@@ -16,7 +16,6 @@ Purpose: Lightning Web Component controller.
             <!-- The Table component -->
             <div class={wrapperStyles}>
                 <lightning-datatable
-                    id="dummyTable"
                     key-field            = "Id"
                     hide-checkbox-column = "true"
                     data                 = {tableData}
@@ -28,7 +27,7 @@ Purpose: Lightning Web Component controller.
            </div>
         </template>
         <template if:true={showNoResultsMessage}>
-            <div class="slds-p-horizontal_medium">
+            <div class="slds-p-horizontal_medium" data-id="noResults">
                 No results found
             </div>
         </template>
