@@ -1,0 +1,22 @@
+{
+    "results": [
+        {        
+            "personId": "11111111",
+            "homePhone": "1111111111",
+            "mobilePhone": "2222222222",
+            "workPhone": "3333333333"
+        },
+        {        
+            "personId": "222222222",
+            "homePhone": null,
+            "mobilePhone": "2222222222",
+            "workPhone": "3333333333"
+        },
+        {        
+            "personId": "333333333",
+            "homePhone": null,
+            "mobilePhone": null,
+            "workPhone": "3333333333"
+        }
+    ]
+}

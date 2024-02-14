@@ -508,7 +508,7 @@ export default class ConsumerSearch extends NavigationMixin(LightningElement) {
 			newResult.personId = result.personId;
 			newResult.accountId = result?.sourceSystemKeys != null ? result.sourceSystemKeys[0] : null; 
 			newResult.middleName = result.middleName;								
-			newResult.fullName = result.firstName +' '+(result.middleName? result.middleName :'')+' '+result.lastName+(result.nameSuffix? ' '+result.nameSuffix:''); // updated for bug 2682890
+			newResult.fullName = result.firstName +(result.middleName? ' ' + result.middleName :'')+' '+result.lastName+(result.nameSuffix? ' '+result.nameSuffix:''); // updated for bug 2682890
 			newResult.firstName = result.firstName;
 			newResult.lastName = result.lastName;
 			newResult.nameSuffix = result.nameSuffix;

@@ -33,10 +33,11 @@
 					<div class="slds-col slds-size_12-of-12">
 						<lightning-layout multiple-rows="true">
 							<lightning-layout-item size="12"> 
-								<lightning-input 
+								<lightning-input
 									name="firstName" 
 									label="First Name" 
 									value={firstName} 
+                                    data-id="firstName"
 									onchange={changeFirstName} 
 									pattern="(\s?\*?[\w\s\-]{2,}\*?\s?)"
 									minlength="2"
@@ -51,6 +52,7 @@
 									name="lastName" 
 									label="Last Name" 
 									value={lastName} 
+                                    data-id="lastName"
 									onchange={changeLastName} 
 									pattern="(\s?\*?[\w\s\-]{2,}\*?\s?)" 
 									minlength="2"
@@ -64,7 +66,8 @@
 								<lightning-input 
 									name="ssn" 
 									label="SSN" 
-									value={ssn} 
+									value={ssn}
+                                    data-id="ssn"
 									onchange={changeSSN} 
 									pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" 
 									minlength="11"
@@ -76,7 +79,8 @@
 							</lightning-layout-item>
 							<lightning-layout-item size="12">
 								<lightning-input 
-									name="dateOfBirth" 
+									name="dateOfBirth"
+                                    data-id="dateOfBirth"
 									date-style="short" 
 									type="date" 
 									label="Date of Birth" 
@@ -91,6 +95,7 @@
 								<lightning-input 
 									name="phone" 
 									label="Phone" 
+                                    data-id="phone"
 									minlength="14"
 									maxlength="14" 
 									pattern="(\(|\s*|\(\d{3}\)\s\d{3}-\d{4})" 
@@ -105,6 +110,7 @@
 								<lightning-combobox 
 									name="state" 
 									label="State" 
+                                    data-id="state"
 									value={state} 
 									placeholder="Select State" 
 									options={stateOptions} 
@@ -117,6 +123,7 @@
 									name="postalCode" 
 									label="Zip Code" 
 									value={postalCode} 
+                                    data-id="postalCode"
 									onchange={changePostalCode} 
 									minlength="5" 
 									maxlength="10" 
@@ -129,7 +136,7 @@
 							<lightning-layout-item size="12">									
 								<lightning-input 
 									name="policyNumber" 
-									label="Policy Number" 
+									label="Policy Number"
 									minlength="5" 
 									maxlength="16" 
 									value={policyNumber} 
@@ -157,7 +164,7 @@
 				</div>
 				<div class="slds-col slds-form-element slds-m-top--small slds-align_absolute-center">
 					<lightning-button data-id="btnSearch" variant="brand" label="Search" title="Search action" onclick={clickSearch} class="slds-m-left_x-small"></lightning-button>
-					<lightning-button variant="brand" label="Clear" title="Clear action" onclick={clickClear} class="slds-m-left_x-small"></lightning-button>
+					<lightning-button data-id="btnClear" variant="brand" label="Clear" title="Clear action" onclick={clickClear} class="slds-m-left_x-small"></lightning-button>
 				</div>
 			</lightning-card>
 		</div>
@@ -165,7 +172,7 @@
 			<lightning-card title="Search Results" class="slds-scrollable_x">
 				<div class="newBtnDiv" >
 				<template if:true={showNew}>
-					<lightning-button  variant="Neutral" label="New" value="22" title="New" onclick={createNew} class="slds-m-left_x-small"></lightning-button>
+					<lightning-button data-id="btnNew" variant="Neutral" label="New" value="22" title="New" onclick={createNew} class="slds-m-left_x-small"></lightning-button>
 				</template>
 				</div>
 				<table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_striped">
@@ -202,19 +209,19 @@
 					<tbody>
 						<template for:each={searchResults} for:item='cs'>
 							<tr key={cs.personId} class="dummy">
-								<td>
+								<td data-id="fullName">
 									<lightning-button variant="base" label={cs.fullName} title="View Request" onclick={clickRequest} data-name={cs.personId}></lightning-button>
 								</td>								
-								<td>{cs.dateOfBirth}</td>								
-								<td>
+								<td data-id="dateOfBirth">{cs.dateOfBirth}</td>								
+								<td data-id="ssn">
 									<div if:true={cs.ssnLast4}>XXX-XX-{cs.ssnLast4}</div>
 								</td>
-								<td>{cs.gender}</td>
-								<td class="street-column">{cs.street}</td>
-								<td>{cs.city}</td>
-								<td>{cs.stateProvince}</td>
-								<td>{cs.postalCode}</td>
-								<td>{cs.phoneDisplay}</td>
+								<td data-id="gender">{cs.gender}</td>
+								<td class="street-column" data-id="street">{cs.street}</td>
+								<td data-id="city">{cs.city}</td>
+								<td data-id="stateProvince">{cs.stateProvince}</td>
+								<td data-id="postalCode">{cs.postalCode}</td>
+								<td data-id="phoneDisplay">{cs.phoneDisplay}</td>
 							</tr>
 						</template>
 					</tbody>

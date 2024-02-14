@@ -1,0 +1,26 @@
+{
+    "results": [
+        {        
+            "firstName": "Amy",
+            "lastName": "Test",
+            "dateOfBirth": "2024-01-03T00:00:00.000Z",
+            "street": "123 Main St",
+            "city": "Charlotte",
+            "state":"NC",
+            "postalCode":"NC",
+            "phone":"123-123-1234",
+            "personId": "11111111"
+        },
+        {
+            "firstName": "Jimy",
+            "lastName": "Test",
+            "dateOfBirth": "2024-01-04T00:00:00.000Z",
+            "street": "123 Main St",
+            "city": "Colombia",
+            "state":"SC",
+            "postalCode":"SC",
+            "phone":"123-123-1234",
+            "personId": "22222222"
+        }
+    ]
+}
