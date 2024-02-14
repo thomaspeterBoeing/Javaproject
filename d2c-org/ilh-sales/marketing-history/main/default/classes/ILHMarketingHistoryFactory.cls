@@ -20,7 +20,7 @@ public class ILHMarketingHistoryFactory {
      */
     private List<IMarketingHistoryService> constructInstances() {
         List<IMarketingHistoryService> classInstances = new List<IMarketingHistoryService>();
-        String persona = ILHPersona.getPersona(this);
+        String persona = ILHPersona.getPersona('ILHMarketingHistoryFactory');
 
         //Get an instance of the persona from the consumer container
         DIConsumerContainer__mdt instanceContainer = DIConsumerContainer__mdt.getInstance(persona);
