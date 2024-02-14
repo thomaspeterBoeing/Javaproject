@@ -1,0 +1,46 @@
+[
+  {
+    "quoteId": "1234",
+    "oppId": "1234",
+    "productName": "TEST Product 1",
+    "productCode": "TESTProduct1",
+    "coverage": 5000,
+    "cost": 5.5,
+    "action": "Application",
+    "paymentFrequency": "Monthly",
+    "availableActions": ["Application", "Paper Kit", "Email Summary"]
+  },
+  {
+    "quoteId": "5678",
+    "oppId": "5678",
+    "productName": "TEST Product 2",
+    "productCode": "TESTProduct2",
+    "coverage": 6000,
+    "cost": 6.5,
+    "action": "",
+    "paymentFrequency": "Monthly",
+    "availableActions": ["Application", "Paper Kit", "Email Summary"]
+  },
+  {
+    "quoteId": "9101",
+    "oppId": "9101",
+    "productName": "TEST Product 3",
+    "productCode": "TESTProduct3",
+    "coverage": 7000,
+    "cost": 7.5,
+    "action": "Paper Kit",
+    "paymentFrequency": "Monthly",
+    "availableActions": ["Application", "Paper Kit", "Email Summary"]
+  },
+  {
+    "quoteId": "1112",
+    "oppId": "1112",
+    "productName": "TEST Product 4",
+    "productCode": "TESTProduct4",
+    "coverage": 8000,
+    "cost": 8.5,
+    "action": "Email Summary",
+    "paymentFrequency": "Monthly",
+    "availableActions": ["Application", "Paper Kit", "Email Summary"]
+  }
+]

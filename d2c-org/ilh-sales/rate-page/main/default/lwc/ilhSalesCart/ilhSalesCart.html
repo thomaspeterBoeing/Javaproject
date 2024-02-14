@@ -1,7 +1,9 @@
 <template>
     <lightning-card title="Cart" icon-name="standard:webcart" class="webCart">
         <template if:true={errorMessage}>
-            <div data-id="errorDisplay" class="slds-p-left_medium" style="color:red">{errorMessage}</div>
+            <div data-id="errorDisplay" class="slds-p-left_medium" style="color: red">
+                {errorMessage}
+            </div>
         </template>
         <div if:true={showSpinner}>
             <lightning-spinner alternative-text="Loading..." size="large"></lightning-spinner>
@@ -9,15 +11,15 @@
         <table class="slds-table slds-table_bordered" role="grid">
             <thead>
                 <tr>
-                    <th style="width: 25%;">Product Name</th>
-                    <th style="width: 25%;">Coverage</th>
-                    <th style="width: 25%;">Cost</th>
-                    <th style="width: 25%;">Action</th>
+                    <th style="width: 25%">Product Name</th>
+                    <th style="width: 25%">Coverage</th>
+                    <th style="width: 25%">Cost</th>
+                    <th style="width: 25%">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <template for:each={cartData} for:item='ci'>
-                    <tr key={ci.quoteId}>
+                <template for:each={cartData} for:item="ci">
+                    <tr key={ci.quoteId} class="cartItem">
                         <td>{ci.productName}</td>
                         <td>
                             <lightning-formatted-number value={ci.coverage} currency-code="USD" format-style="currency"></lightning-formatted-number>
@@ -26,7 +28,7 @@
                             <lightning-formatted-number value={ci.cost} currency-code="USD" format-style="currency"></lightning-formatted-number><br />
                             <span>{ci.paymentFrequency}</span>
                         </td>
-                        <td>
+                        <td data-id="actionCell">
                             <div class="max-width__medium display__inline-block">
                                 <lightning-select variant="label-hidden" data-id={ci.quoteId} name="action" value={ci.action} options={ci.availableActions} onchange={onActionChange}></lightning-select>
                             </div>
@@ -51,7 +53,7 @@
             </tbody>
         </table>
         <div class="slds-m-around_medium text-align__right">
-            <lightning-button variant="brand" label="Update & Continue" title="Update & Continue" onclick={handleCheckout}></lightning-button>
+            <lightning-button data-id="updateContinueBtn" variant="brand" label="Update & Continue" title="Update & Continue" onclick={handleCheckout}></lightning-button>
         </div>
     </lightning-card>
 </template>
