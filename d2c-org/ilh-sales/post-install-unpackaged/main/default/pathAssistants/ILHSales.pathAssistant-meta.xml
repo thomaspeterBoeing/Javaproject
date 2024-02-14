@@ -30,7 +30,7 @@
         <fieldNames>CampaignId</fieldNames>
         <fieldNames>Affiliation__c</fieldNames>
         <info
-    >&lt;p&gt;&lt;strong style=&quot;font-size: 14px;&quot;&gt;Authenticate Consumer&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Consumer must verify their full name and provide 2 additional pieces of information:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Address&lt;/li&gt;&lt;li&gt;Date of Birth&lt;/li&gt;&lt;li&gt;Phone Number&lt;/li&gt;&lt;li&gt;Last 4 of SSN&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 14px;&quot;&gt;Anchoring Opportunities&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt; Anchor on Credit Union (or TruStage, if appropriate) and thank them for being a member&lt;/li&gt;&lt;li&gt;Anchor on what initiated the call (primary campaign source)&lt;/li&gt;&lt;/ul&gt;</info>
+    >&lt;p&gt;&lt;strong style=&quot;font-size: 14px;&quot;&gt;Authenticate Consumer&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Consumer must verify their full name and provide 2 additional pieces of information:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Address&lt;/li&gt;&lt;li&gt;Date of Birth&lt;/li&gt;&lt;li&gt;Phone Number&lt;/li&gt;&lt;li&gt;Last 4 of SSN&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 14px;&quot;&gt;Anchoring Opportunities&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Anchor on Credit Union (or TruStage, if appropriate) and thank them for being a member&lt;/li&gt;&lt;li&gt;Anchor on what initiated the call (primary campaign source)&lt;/li&gt;&lt;/ul&gt;</info>
         <picklistValueName>Qualification</picklistValueName>
     </pathAssistantSteps>
     <recordTypeName>ILHSales</recordTypeName>
