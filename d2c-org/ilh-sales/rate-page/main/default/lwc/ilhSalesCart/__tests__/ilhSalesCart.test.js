@@ -150,7 +150,7 @@ describe('c-ilh-sales-cart', () => {
     it('Toast message is displayed when Paper Kit or Email Summary is selected', async () => {
         //Setting resolved values for APEX mehtods
         checkout.mockResolvedValue({});
-        updateQuotes.mockResolvedValue({});//Test
+        updateQuotes.mockResolvedValue({});
 
         //Create cart component
         const element = createElement('c-ilh-sales-cart', {
