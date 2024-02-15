@@ -3,8 +3,8 @@
     <actionCalls>
         <name>Create_Opportunity_Errors</name>
         <label>Create Opportunity Errors</label>
-        <locationX>440</locationX>
-        <locationY>782</locationY>
+        <locationX>528</locationX>
+        <locationY>1082</locationY>
         <actionName>ErrorLogger</actionName>
         <actionType>apex</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -32,7 +32,7 @@
     <actionCalls>
         <name>Handle_Get_Record_Type_ID_Errors</name>
         <label>Handle Get Record Type ID Errors</label>
-        <locationX>968</locationX>
+        <locationX>1056</locationX>
         <locationY>242</locationY>
         <actionName>ErrorLogger</actionName>
         <actionType>apex</actionType>
@@ -61,7 +61,7 @@
     <actionCalls>
         <name>HandleGetCampaignError</name>
         <label>Handle Get Campaign Error</label>
-        <locationX>704</locationX>
+        <locationX>792</locationX>
         <locationY>350</locationY>
         <actionName>ErrorLogger</actionName>
         <actionType>apex</actionType>
@@ -157,7 +157,7 @@
         <name>Assign_Output_Variable</name>
         <label>Assign Output Variable</label>
         <locationX>176</locationX>
-        <locationY>782</locationY>
+        <locationY>1082</locationY>
         <assignmentItems>
             <assignToReference>outputTxt_OpportunityId</assignToReference>
             <operator>Assign</operator>
@@ -166,6 +166,31 @@
             </value>
         </assignmentItems>
     </assignments>
+    <decisions>
+        <name>member_already_exists</name>
+        <label>Campaign member already exists</label>
+        <locationX>176</locationX>
+        <locationY>674</locationY>
+        <defaultConnector>
+            <targetReference>CreateCampaignMember</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_campaign_Member</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Opportunity</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
     <description>Flow is launched from LWC to Apex  that passes in the Account ID which will be associated to the Opportunity.  The flow then passes back the Opportunity ID to the calling Apex class.</description>
     <environments>Default</environments>
     <formulas>
@@ -204,7 +229,7 @@
         <name>Create_Opportunity</name>
         <label>Create Opportunity</label>
         <locationX>176</locationX>
-        <locationY>674</locationY>
+        <locationY>974</locationY>
         <connector>
             <targetReference>Assign_Output_Variable</targetReference>
         </connector>
@@ -216,8 +241,8 @@
     <recordCreates>
         <name>CreateCampaignMember</name>
         <label>Create Campaign Member</label>
-        <locationX>176</locationX>
-        <locationY>566</locationY>
+        <locationX>264</locationX>
+        <locationY>782</locationY>
         <connector>
             <targetReference>Create_Opportunity</targetReference>
         </connector>
@@ -274,13 +299,41 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>Get_campaign_Member</name>
+        <label>Get campaign Member</label>
+        <locationX>176</locationX>
+        <locationY>566</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>member_already_exists</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ContactId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>GetContact.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CampaignId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Campaign_Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>CampaignMember</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>GetContact</name>
         <label>Get Contact</label>
         <locationX>176</locationX>
         <locationY>458</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>CreateCampaignMember</targetReference>
+            <targetReference>Get_campaign_Member</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
