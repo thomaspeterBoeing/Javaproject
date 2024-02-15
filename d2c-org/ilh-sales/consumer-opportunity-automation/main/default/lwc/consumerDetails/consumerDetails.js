@@ -1,9 +1,15 @@
 import { LightningElement, api,wire,track} from 'lwc';
-import { getRecord } from 'lightning/uiRecordApi';
+import { getFieldValue, getRecord } from 'lightning/uiRecordApi';
 import { getObjectInfo  } from 'lightning/uiObjectInfoApi';
 import ModalLWC from 'c/modalScreenFlow';
 
 import ACCOUNT_OBJECT from '@salesforce/schema/Account';
+import CONSUMER_OPTY_CHANGES_CHANNEL from '@salesforce/messageChannel/ConsumerOpportunityUpdatesData__c';
+import TOBACCO_USE from '@salesforce/schema/Opportunity.TobaccoUse__c';
+import STATE from '@salesforce/schema/Opportunity.Account.PersonMailingState';
+import DOB from '@salesforce/schema/Opportunity.Account.PersonBirthdate';
+import AFFILIATION from '@salesforce/schema/opportunity.Affiliation__c';
+import { publish, MessageContext } from 'lightning/messageService';
 import { refreshApex } from '@salesforce/apex';
 import { reduceErrors } from 'c/ldsUtils';
  
@@ -12,12 +18,21 @@ const FIELDS = ["Account.FirstName","Account.LastName","Account.MiddleName","Acc
                 "Account.PersonMailingStreet","Account.PersonMailingCity","Account.PersonMailingState","Account.PersonMailingPostalCode","Account.PersonOtherPhone",
                 "Account.PersonMailingCountry","Account.PersonID__pc"];
 
+
 export default class consumerDetails extends LightningElement {
    
     @api recordId;
     @track paccountID;
     objectApiName = ACCOUNT_OBJECT;
     isLoaded=false;
+    datachanged =false;
+    tobaccoUse =null;
+    dob;
+    state;
+    priorTobaccoUse =null;
+    priordob;
+    priorstate;
+    prioraffiliation;
    
    @track fname;
    @track lname;
@@ -36,6 +51,49 @@ export default class consumerDetails extends LightningElement {
    @track workph;
    @track prefphtype;
    @track personid;
+   @track tobaccoUse;
+   @track state;
+   @track dob;
+   @track affiliation;
+
+   
+   @wire(MessageContext)
+   messageContext;
+
+   @wire(getRecord,{recordId : '$recordId', fields: [TOBACCO_USE, STATE , DOB, AFFILIATION]})
+   wiredOpportunity({error, data}){
+   
+        if(data){
+            this.tobaccoUse =getFieldValue(data, TOBACCO_USE );
+            this.dob        =getFieldValue(data, DOB);
+            this.state      =getFieldValue(data,STATE);
+            this.affiliation=getFieldValue(data, AFFILIATION);
+            
+            if ((this.tobaccoUse !==null && this.tobaccoUse !== this.priorTobaccoUse) || this.state !== this.priorState || this.dob !== this.priorDob || this.affiliation !== this.prioraffiliation) {
+                this.priorTobaccoUse = this.tobaccoUse;
+                this.priorState = this.state;
+                this.priorDob = this.dob;
+                this.prioraffiliation =this.affiliation;
+                this.datachanged =true;
+                
+                this.publishConsOptychanged(this.recordId, this.datachanged)
+            }
+            
+        }
+        else if (error) {
+            // Handle error
+        }
+
+   }
+
+   publishConsOptychanged(recordId, datachanged){
+        const newMessage ={
+            recordId,
+            datachanged,
+        };
+        publish(this.messageContext, CONSUMER_OPTY_CHANGES_CHANNEL, newMessage);
+
+   }
 
    @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
    objectInfo;
@@ -89,6 +147,8 @@ export default class consumerDetails extends LightningElement {
     }
     handleonload(){
         this.isLoaded=true;
+        this.priordob =this.dob;
+        this.priorstate =this.state;
 
     }
     setFlowVariables(){

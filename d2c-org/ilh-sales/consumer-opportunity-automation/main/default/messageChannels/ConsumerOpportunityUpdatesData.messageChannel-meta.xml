@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This message channel is used to communicate  tobacco use, date of birth, state and credit union updates. This update calls
+         eligible product list LWC to be re-triggered</description>
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>This is the record Id that changed</description>
+        <fieldName>recordId</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Indicator that one of field values changed</description>
+        <fieldName>dataChanged</fieldName>
+    </lightningMessageFields>
+    <masterLabel>ConsumerOptyUpdatesDataChannel</masterLabel>
+</LightningMessageChannel>
