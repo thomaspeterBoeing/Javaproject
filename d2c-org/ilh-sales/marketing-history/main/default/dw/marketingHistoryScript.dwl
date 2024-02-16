@@ -7,7 +7,7 @@ output application/apex
 payload map(x)-> {
     sourceId: toString(x.SequenceNumber default ''),
     offerDescription: x.Offer[0].OfferCodeDescription default '',
-    campaignProduct: x.InitiatingProduct.CampaignProductCode default '',
+    campaignProduct: x.InitiatingProduct.OfsProductCode default '',
     channelCode: x.ContactType default '',
     contractNumber: x.Organization.ContractNumber default '',
     mailingDate: x.ContactDate as Date default null
