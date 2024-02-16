@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>MarketingHistory</label>
+    <protected>false</protected>
+    <values>
+        <field>Dependencies__c</field>
+        <value xsi:type="xsd:string">MarketingHistory</value>
+    </values>
+    <values>
+        <field>Persona__c</field>
+        <value xsi:type="xsd:string">ILHSalesSystemAdmin</value>
+    </values>
+</CustomMetadata>
