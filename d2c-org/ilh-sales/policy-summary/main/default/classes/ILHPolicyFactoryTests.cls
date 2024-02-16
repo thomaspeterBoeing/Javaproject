@@ -1,9 +1,9 @@
 /**
- * @description       : Test class for ILHConsumerUpdateFactory
+ * @description       : Test class for ILHPolicyFactory
  * @last modified on  : 02-16-2024
  **/
 @isTest
-private class ILHConsumerUpdateFactoryTests {
+private class ILHPolicyFactoryTests {
 
     @testSetup
     public static void setupUsers() {
@@ -16,9 +16,9 @@ private class ILHConsumerUpdateFactoryTests {
         insert standardUser;
 
         User adminUser = new User(Alias = 'adminu', Email='testadminuser@test.com', Persona__c = 'System Admin',
-        EmailEncodingKey='UTF-8', FirstName='Admin', LastName='User', LanguageLocaleKey='en_US', 
-        LocaleSidKey='en_US', ProfileId = adminUserProfile.Id, TimeZoneSidKey='America/Los_Angeles', UserName='testadminuser@testadminuser.com');
-    insert adminUser;
+            EmailEncodingKey='UTF-8', FirstName='Admin', LastName='User', LanguageLocaleKey='en_US',
+            LocaleSidKey='en_US', ProfileId = adminUserProfile.Id, TimeZoneSidKey='America/Los_Angeles', UserName='testadminuser@testadminuser.com');
+        insert adminUser;
 
         User noPersonaUser = new User(Alias = 'noperson', Email='testnopersona@test.com', EmailEncodingKey='UTF-8', FirstName='No', LastName='Persona',
             LanguageLocaleKey='en_US', LocaleSidKey='en_US', ProfileId = adminUserProfile.Id, TimeZoneSidKey='America/Los_Angeles', UserName='nopersona@testadminuser.com');
@@ -29,8 +29,10 @@ private class ILHConsumerUpdateFactoryTests {
     static void testNoPersonaDefined() {
         Test.startTest();
         User nopersonUser = [SELECT Id FROM User WHERE Alias = 'noperson' LIMIT 1];
-        List<IConsumerUpdateService> consumerUpdateServices = ILHConsumerUpdateFactory.getInstances(nopersonUser.Id);
-        System.assertEquals(0, consumerUpdateServices.size());
+        System.runAs(nopersonUser) {
+            List<IPolicySearch> policySearches = ILHPolicyFactory.getInstances();
+            System.assertEquals(0, policySearches.size());
+        }
         Test.stopTest();
     }
 
@@ -38,8 +40,10 @@ private class ILHConsumerUpdateFactoryTests {
     static void testILHSalesRetentionAgentPersona() {
         Test.startTest();
         User standardUser = [SELECT Id FROM User WHERE Alias = 'standu' LIMIT 1];
-        List<IConsumerUpdateService> consumerUpdateServices = ILHConsumerUpdateFactory.getInstances(standardUser.Id);
-        System.assertNotEquals(0, consumerUpdateServices.size());
+        System.runAs(standardUser) {
+            List<IPolicySearch> policySearches = ILHPolicyFactory.getInstances();
+            System.assertNotEquals(0, policySearches.size());
+        }
         Test.stopTest();
     }
 
@@ -47,8 +51,10 @@ private class ILHConsumerUpdateFactoryTests {
     static void testILHSalesSystemAdminPersona() {
         Test.startTest();
         User adminUser = [SELECT Id FROM User WHERE Alias = 'adminu' LIMIT 1];
-        List<IConsumerUpdateService> consumerUpdateServices = ILHConsumerUpdateFactory.getInstances(adminUser.Id);
-        System.assertNotEquals(0, consumerUpdateServices.size());
+        System.runAs(adminUser) {
+            List<IPolicySearch> policySearches = ILHPolicyFactory.getInstances();
+            System.assertNotEquals(0, policySearches.size());
+        }
         Test.stopTest();
     }
 }

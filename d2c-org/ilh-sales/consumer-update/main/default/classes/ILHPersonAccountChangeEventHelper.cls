@@ -45,45 +45,16 @@ public class ILHPersonAccountChangeEventHelper {
                     }
                 }
             }
-            Set<String> accIds = getAccountsToUpdate(accountUserIdMap);
+            Set<String> accIds = accountUserIdMap.keySet();
             List<Account> accountsToUpdate = changedEventToAccount(accIds);//Get Person Account record to update
             if (accountsToUpdate != null && !accountsToUpdate.isEmpty()) {
                 for (Account acc : accountsToUpdate) {
                     Map<String, Object> kvp = new Map<String, Object>{'account' => acc};
+                    kvp.put('commituser', accountUserIdMap.get(acc.id));
                     new ILHConsumerUpdateService().sendUpdate(kvp);
                 }
             }
         }
-    }
-
-    /**
-     * Purpose: This method checks if the user that updated an account is restricted user.  If user is not restricted then we add account id in list to return
-     * @param accountUserIdMap : Account that got updated, User that updated account
-     * @return -- Set of account ids send to MDM
-     */
-    @TestVisible 
-    private static Set<String> getAccountsToUpdate(Map<String, String> accountUserIdMap) {
-        Set<Id> userIds = new Set<Id>();
-        Set<String> accountIds = new Set<String>();
-
-        if (accountUserIdMap != null && !accountUserIdMap.isEmpty()) {
-            try {
-                userIds = ILHUtilities.removeServiceUsersFromList(accountUserIdMap.values());//Query any service users
-            } catch (Exception ex) {
-                new ErrorLogger(ex, null, 'ILHPersonAccountChangeEventHelper.cls', null, 'getAccountsToUpdate', null, 'CPS_Update', null);
-            }
-            if (userIds != null && !userIds.isEmpty()) {
-                //Loop through all account ids
-                for (String accId : accountUserIdMap.keySet()) {
-                    String userId = accountUserIdMap.get(accId);
-                    //If the user that updated the current account is not in restricted list, then add account id to list of ids to return
-                    if (userIds.contains(userId)) {
-                        accountIds.add(accId);
-                    }
-                }
-            }
-        }
-        return accountIds;
     }
     
     /**
