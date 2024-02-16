@@ -21,19 +21,21 @@ public with sharing class ILHPolicyFactory {
     private List<IPolicySearch> constructInstances() {
 
         List<IPolicySearch> classInstances = new List<IPolicySearch>();
-        String persona = ILHPersona.getPersona('ILHPolicyFactory');
+        String persona = new ILHPersona().getPersona();//Get persona
 
         //Get an instance of the persona from the consumer container
-        DIConsumerContainer__mdt instanceContainer = DIConsumerContainer__mdt.getInstance(persona);
+        List<DIConsumerContainer__mdt> instanceContainer = ILHUtilities.getDIConsumerContainer(persona, 'PolicySummary');
+        
+        //Check if there's containers found and there's dependencies
+        if (instanceContainer != null && !instanceContainer.isEmpty() && instanceContainer[0]?.Dependencies__c != null) {
+            //Loop through each dependency in the consumer container
+            for (String dep : instanceContainer[0].Dependencies__c.split(',')) {
+                //Get the instance of the dependency from interface implementations
+                InterfaceImplementations__mdt implementation = InterfaceImplementations__mdt.getInstance(dep);
 
-        //Loop through each dependency in the consumer container
-        for(String dep : instanceContainer.Dependencies__c.split(',')) {
-            //Get the instance of the dependency from interface implementations//
-            InterfaceImplementations__mdt implementation = InterfaceImplementations__mdt.getInstance(dep);
-            
-            //Add a new instance of the implementations to the list
-            classInstances.add((IPolicySearch)Type.forName(implementation.Implementation__c).newInstance());
-            system.debug('class instances returned' +classInstances);
+                //Add a new instance of the implementations to the list
+                classInstances.add((IPolicySearch)Type.forName(implementation.Implementation__c).newInstance());
+            }
         }
         return classInstances;
     }
