@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <label>ConversionEligibleQuote</label>
+    <label>ConsumerSearch</label>
     <protected>false</protected>
     <values>
-        <field>Implementation__c</field>
-        <value xsi:type="xsd:string">ILHConversionEligibleQuotes</value>
+        <field>Dependencies__c</field>
+        <value xsi:type="xsd:string">SearchCPSAndSF</value>
     </values>
     <values>
-        <field>Type__c</field>
-        <value xsi:type="xsd:string">IConversionEligible</value>
+        <field>Persona__c</field>
+        <value xsi:type="xsd:string">ILHSalesRetentionAgent</value>
     </values>
 </CustomMetadata>

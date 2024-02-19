@@ -1,9 +1,9 @@
 /**
- * @description       : Test class for ILHMarketingHistoryFactory
- * @last modified on  : 02-16-2024
- **/
+ * Copyright: TruStage
+ * Purpose: Unit tests for ILHPersona class
+ */
 @isTest
-private with sharing class ILHMarketingHistoryFactoryTests {
+private with sharing class ILHPersonaTests {
 
     @testSetup
     public static void setupUsers() {
@@ -26,35 +26,19 @@ private with sharing class ILHMarketingHistoryFactoryTests {
     }
 
     @isTest
-    static void testNoPersonaDefined() {
-        Test.startTest();
-        User nopersonUser = [SELECT Id FROM User WHERE Alias = 'noperson' LIMIT 1];
-        System.runAs(nopersonUser) {
-            List<IMarketingHistoryService> historyServices = ILHMarketingHistoryFactory.getInstances();
-            Assert.areEqual(0, historyServices.size(), 'No persona found for no persona user');
-        }
-        Test.stopTest();
-    }
+    static void getPersonaTest() {
+        User standardUser = [SELECT id FROM User WHERE FirstName =: 'Standard' AND LastName =: 'User'];
+        User adminUser = [SELECT id FROM User WHERE FirstName =: 'Admin' AND LastName =: 'User'];
+        User noPersonaUser = [SELECT id FROM User WHERE FirstName =: 'No' AND LastName =: 'Persona'];
 
-    @isTest
-    static void testILHSalesRetentionAgentPersona() {
-        Test.startTest();
-        User standardUser = [SELECT Id FROM User WHERE Alias = 'standu' LIMIT 1];
         System.runAs(standardUser) {
-            List<IMarketingHistoryService> historyServices = ILHMarketingHistoryFactory.getInstances();
-            Assert.areNotEqual(0, historyServices.size(), 'Persona found for standard user');
+            Assert.areEqual('ILHSalesRetentionAgent', new ILHPersona().getPersona(), 'Persona is retention agent');
         }
-        Test.stopTest();
-    }
 
-    @isTest
-    static void testILHSalesSystemAdminPersona() {
-        Test.startTest();
-        User adminUser = [SELECT Id FROM User WHERE Alias = 'adminu' LIMIT 1];
         System.runAs(adminUser) {
-            List<IMarketingHistoryService> historyServices = ILHMarketingHistoryFactory.getInstances();
-            Assert.areNotEqual(0, historyServices.size(), 'Persona found for standard user');
+            Assert.areEqual('ILHSalesSystemAdmin', new ILHPersona().getPersona(), 'Persona is system admin');
         }
-        Test.stopTest();
+
+        Assert.areEqual('', new ILHPersona(noPersonaUser.id).getPersona(), 'No Persona found');
     }
 }

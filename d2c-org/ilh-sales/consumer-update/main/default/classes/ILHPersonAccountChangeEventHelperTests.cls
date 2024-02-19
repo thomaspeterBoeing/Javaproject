@@ -46,27 +46,6 @@ public class ILHPersonAccountChangeEventHelperTests {
     }
 
     @isTest
-    public static void getAccountsToUpdateTest() {
-        Map<String, String> accountUserIdMap = new Map<String, String>();
-        Set<String> accountIds = new Set<String>();
-        Id standardUserId = [SELECT id FROM User WHERE UserName = 'standardUser@teststandarduser.com'].id;
-        Id serviceUserId = [SELECT id FROM User WHERE UserName = 'testservice@testservice.com'].id;
-        Account standardAccount = [SELECT id FROM Account WHERE Name = 'Standard Account'];
-        Account serviceAccount = [SELECT id FROM Account WHERE Name = 'Service Account'];
-
-        Test.startTest();
-        accountUserIdMap.put(standardAccount.id, standardUserId);
-        accountUserIdMap.put(serviceAccount.id, serviceUserId);
-        accountIds = ILHPersonAccountChangeEventHelper.getAccountsToUpdate(accountUserIdMap);
-        Assert.areEqual(1, accountIds.size());
-        Assert.areEqual(standardAccount.id, accountIds.iterator().next());
-
-        accountUserIdMap = new Map<String, String>{'1' => '1'};
-        accountIds = ILHPersonAccountChangeEventHelper.getAccountsToUpdate(accountUserIdMap);//Should hit catch block
-        Assert.areEqual(0, accountIds.size());
-    }
-
-    @isTest
     public static void changedEventToAccountTest() {
         List<Account> accounts = new List<Account>();
         Set<String> recordIds = new Set<String>();

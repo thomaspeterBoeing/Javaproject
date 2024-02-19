@@ -3,11 +3,11 @@
     <label>ConversionEligibleQuote</label>
     <protected>false</protected>
     <values>
-        <field>Implementation__c</field>
-        <value xsi:type="xsd:string">ILHConversionEligibleQuotes</value>
+        <field>Dependencies__c</field>
+        <value xsi:type="xsd:string">ConversionEligibleQuote</value>
     </values>
     <values>
-        <field>Type__c</field>
-        <value xsi:type="xsd:string">IConversionEligible</value>
+        <field>Persona__c</field>
+        <value xsi:type="xsd:string">ILHSalesRetentionAgent</value>
     </values>
 </CustomMetadata>

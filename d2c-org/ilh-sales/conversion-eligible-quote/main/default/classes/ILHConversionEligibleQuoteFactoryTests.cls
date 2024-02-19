@@ -1,9 +1,9 @@
 /**
- * @description       : Test class for ILHMarketingHistoryFactory
- * @last modified on  : 02-16-2024
+ * @description       : Test class for ILHConversionEligibleQuoteFactory
+ * @last modified on  : 02-18-2024
  **/
 @isTest
-private with sharing class ILHMarketingHistoryFactoryTests {
+private with sharing class ILHConversionEligibleQuoteFactoryTests {
 
     @testSetup
     public static void setupUsers() {
@@ -30,8 +30,8 @@ private with sharing class ILHMarketingHistoryFactoryTests {
         Test.startTest();
         User nopersonUser = [SELECT Id FROM User WHERE Alias = 'noperson' LIMIT 1];
         System.runAs(nopersonUser) {
-            List<IMarketingHistoryService> historyServices = ILHMarketingHistoryFactory.getInstances();
-            Assert.areEqual(0, historyServices.size(), 'No persona found for no persona user');
+            List<IConversionEligible> eligibilityServices = ILHConversionEligibleQuoteFactory.getInstances();
+            Assert.areEqual(0, eligibilityServices.size(), 'No persona found for no persona user');
         }
         Test.stopTest();
     }
@@ -41,8 +41,8 @@ private with sharing class ILHMarketingHistoryFactoryTests {
         Test.startTest();
         User standardUser = [SELECT Id FROM User WHERE Alias = 'standu' LIMIT 1];
         System.runAs(standardUser) {
-            List<IMarketingHistoryService> historyServices = ILHMarketingHistoryFactory.getInstances();
-            Assert.areNotEqual(0, historyServices.size(), 'Persona found for standard user');
+            List<IConversionEligible> eligibilityServices = ILHConversionEligibleQuoteFactory.getInstances();
+            Assert.areNotEqual(0, eligibilityServices.size(), 'Persona found for standard user');
         }
         Test.stopTest();
     }
@@ -52,8 +52,8 @@ private with sharing class ILHMarketingHistoryFactoryTests {
         Test.startTest();
         User adminUser = [SELECT Id FROM User WHERE Alias = 'adminu' LIMIT 1];
         System.runAs(adminUser) {
-            List<IMarketingHistoryService> historyServices = ILHMarketingHistoryFactory.getInstances();
-            Assert.areNotEqual(0, historyServices.size(), 'Persona found for standard user');
+            List<IConversionEligible> eligibilityServices = ILHConversionEligibleQuoteFactory.getInstances();
+            Assert.areNotEqual(0, eligibilityServices.size(), 'Persona found for standard user');
         }
         Test.stopTest();
     }

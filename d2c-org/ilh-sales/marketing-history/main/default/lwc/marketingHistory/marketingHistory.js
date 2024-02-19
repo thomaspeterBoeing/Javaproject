@@ -16,7 +16,7 @@ const constSortDirDesc = 'desc';
 
 // Define columns
 const columns = [
-    { label: "Mailing Date",      fieldName: "mailingDate",      sortable: true,  type: "date", editable: false, hideDefaultActions: true, 
+    { label: "Mailing Date",      fieldName: "mailingDate",      sortable: true,  type: "date-local", editable: false, hideDefaultActions: true, 
       typeAttributes: {day : "2-digit", month : "2-digit", year : "numeric"}
     },
     { label: "Offer Description", fieldName: "offerDescription", sortable: false, type: "text", editable: false, hideDefaultActions: true, initialWidth: 300},

@@ -20,18 +20,21 @@ public class ILHMarketingHistoryFactory {
      */
     private List<IMarketingHistoryService> constructInstances() {
         List<IMarketingHistoryService> classInstances = new List<IMarketingHistoryService>();
-        String persona = ILHPersona.getPersona('ILHMarketingHistoryFactory');
-
+        String persona = new ILHPersona().getPersona();//Get persona
+        
         //Get an instance of the persona from the consumer container
-        DIConsumerContainer__mdt instanceContainer = DIConsumerContainer__mdt.getInstance(persona);
+        List<DIConsumerContainer__mdt> instanceContainer = ILHUtilities.getDIConsumerContainer(persona, 'MarketingHistory');
 
-        //Loop through each dependency in the consumer container
-        for (String dep : instanceContainer.Dependencies__c.split(',')) {
-            //Get the instance of the dependency from interface implementations
-            InterfaceImplementations__mdt implementation = InterfaceImplementations__mdt.getInstance(dep);
+        //Check if there's containers found and there's dependencies
+        if (instanceContainer != null && !instanceContainer.isEmpty() && instanceContainer[0]?.Dependencies__c != null) {
+            //Loop through each dependency in the consumer container
+            for (String dep : instanceContainer[0].Dependencies__c.split(',')) {
+                //Get the instance of the dependency from interface implementations
+                InterfaceImplementations__mdt implementation = InterfaceImplementations__mdt.getInstance(dep);
 
-            //Add a new instance of the implementations to the list
-            classInstances.add((IMarketingHistoryService)Type.forName(implementation.Implementation__c).newInstance());
+                //Add a new instance of the implementations to the list
+                classInstances.add((IMarketingHistoryService)Type.forName(implementation.Implementation__c).newInstance());
+            }
         }
         return classInstances;
     }

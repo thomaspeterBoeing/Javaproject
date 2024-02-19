@@ -12,6 +12,7 @@ public class ILHConsumerUpdateServiceTests {
             LastName = 'Test'
         );
         kvp.put('account', acc);
+        kvp.put('commituser', UserInfo.getUserId());
         new ILHConsumerUpdateService().sendUpdate(kvp);
     }
 }

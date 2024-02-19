@@ -18,19 +18,22 @@ public class ILHSearchFactory {
      * @return All instances of concrete class, each of which implements the interface designated in the "Interface Implementations" custom metadata.
      */
     private List<ISearchService> constructInstances() {
-        String persona = ILHPersona.getPersona('ILHSearchFactory');
+        String persona = new ILHPersona().getPersona();//Get persona
         List<ISearchService> classInstances = new List<ISearchService>();
 
-        //Get an instance of the persona from the consumer container
-        DIConsumerContainer__mdt instanceContainer = DIConsumerContainer__mdt.getInstance(persona);
+        //Get containers by persona
+        List<DIConsumerContainer__mdt> instanceContainer = ILHUtilities.getDIConsumerContainer(persona, 'ConsumerSearch');
+        
+        //Check if there's containers found and there's dependencies
+        if (instanceContainer != null && !instanceContainer.isEmpty() && instanceContainer[0]?.Dependencies__c != null) {
+            //Loop through each dependency in the consumer container
+            for (String dep : instanceContainer[0].Dependencies__c.split(',')) {
+                //Get the instance of the dependency from interface implementations
+                InterfaceImplementations__mdt implementation = InterfaceImplementations__mdt.getInstance(dep);
 
-        //Loop through each dependency in the consumer container
-        for (String dep : instanceContainer.Dependencies__c.split(',')) {
-            //Get the instance of the dependency from interface implementations
-            InterfaceImplementations__mdt implementation = InterfaceImplementations__mdt.getInstance(dep);
-
-            //Add a new instance of the implementations to the list
-            classInstances.add((ISearchService)Type.forName(implementation.Implementation__c).newInstance());
+                //Add a new instance of the implementations to the list
+                classInstances.add((ISearchService)Type.forName(implementation.Implementation__c).newInstance());
+            }
         }
         return classInstances;
     }
