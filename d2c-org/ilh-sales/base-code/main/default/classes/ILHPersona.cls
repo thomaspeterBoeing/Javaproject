@@ -42,7 +42,9 @@ public with sharing class ILHPersona {
             if (Schema.sObjectType.User.isAccessible()) {
                 currentUser = [SELECT Name, PartnerCode__c, Persona__c FROM User WHERE id =: currentUserId]; 
             }
-            persona = [SELECT DeveloperName FROM PersonaAssignment__mdt WHERE PartnerCode__c =: currentUser.PartnerCode__c AND UserPersona__c =: currentUser.Persona__c];
+            if (currentUser != null) {
+                persona = [SELECT DeveloperName FROM PersonaAssignment__mdt WHERE PartnerCode__c =: currentUser.PartnerCode__c AND UserPersona__c =: currentUser.Persona__c];
+            }
         } catch (Exception ex) {
             new ErrorLogger(ex, null, 'ILHPersona.cls', currentUserId, 'determinePersona', null, null, null);
         }

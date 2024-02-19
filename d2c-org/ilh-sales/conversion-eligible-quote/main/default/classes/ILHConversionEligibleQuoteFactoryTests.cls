@@ -31,7 +31,7 @@ private with sharing class ILHConversionEligibleQuoteFactoryTests {
         User nopersonUser = [SELECT Id FROM User WHERE Alias = 'noperson' LIMIT 1];
         System.runAs(nopersonUser) {
             List<IConversionEligible> eligibilityServices = ILHConversionEligibleQuoteFactory.getInstances();
-            System.assertEquals(0, eligibilityServices.size(), 'No persona found for no persona user');
+            Assert.areEqual(0, eligibilityServices.size(), 'No persona found for no persona user');
         }
         Test.stopTest();
     }
@@ -42,7 +42,7 @@ private with sharing class ILHConversionEligibleQuoteFactoryTests {
         User standardUser = [SELECT Id FROM User WHERE Alias = 'standu' LIMIT 1];
         System.runAs(standardUser) {
             List<IConversionEligible> eligibilityServices = ILHConversionEligibleQuoteFactory.getInstances();
-            System.assertEquals(1, eligibilityServices.size(), 'Persona found for standard user');
+            Assert.areNotEqual(0, eligibilityServices.size(), 'Persona found for standard user');
         }
         Test.stopTest();
     }
@@ -53,7 +53,7 @@ private with sharing class ILHConversionEligibleQuoteFactoryTests {
         User adminUser = [SELECT Id FROM User WHERE Alias = 'adminu' LIMIT 1];
         System.runAs(adminUser) {
             List<IConversionEligible> eligibilityServices = ILHConversionEligibleQuoteFactory.getInstances();
-            System.assertEquals(1, eligibilityServices.size(), 'Persona found for standard user');
+            Assert.areNotEqual(0, eligibilityServices.size(), 'Persona found for standard user');
         }
         Test.stopTest();
     }

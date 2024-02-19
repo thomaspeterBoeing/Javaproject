@@ -18,7 +18,7 @@ private with sharing class ILHConsumerUpdateFactoryTests {
         User adminUser = new User(Alias = 'adminu', Email='testadminuser@test.com', Persona__c = 'System Admin',
         EmailEncodingKey='UTF-8', FirstName='Admin', LastName='User', LanguageLocaleKey='en_US', 
         LocaleSidKey='en_US', ProfileId = adminUserProfile.Id, TimeZoneSidKey='America/Los_Angeles', UserName='testadminuser@testadminuser.com');
-    insert adminUser;
+        insert adminUser;
 
         User noPersonaUser = new User(Alias = 'noperson', Email='testnopersona@test.com', EmailEncodingKey='UTF-8', FirstName='No', LastName='Persona',
             LanguageLocaleKey='en_US', LocaleSidKey='en_US', ProfileId = adminUserProfile.Id, TimeZoneSidKey='America/Los_Angeles', UserName='nopersona@testadminuser.com');
@@ -30,7 +30,7 @@ private with sharing class ILHConsumerUpdateFactoryTests {
         Test.startTest();
         User nopersonUser = [SELECT Id FROM User WHERE Alias = 'noperson' LIMIT 1];
         List<IConsumerUpdateService> consumerUpdateServices = ILHConsumerUpdateFactory.getInstances(nopersonUser.Id);
-        System.assertEquals(0, consumerUpdateServices.size(), 'No persona found for no persona user');
+        Assert.areEqual(0, consumerUpdateServices.size(), 'No persona found for no persona user');
         Test.stopTest();
     }
 
@@ -39,7 +39,7 @@ private with sharing class ILHConsumerUpdateFactoryTests {
         Test.startTest();
         User standardUser = [SELECT Id FROM User WHERE Alias = 'standu' LIMIT 1];
         List<IConsumerUpdateService> consumerUpdateServices = ILHConsumerUpdateFactory.getInstances(standardUser.Id);
-        System.assertNotEquals(0, consumerUpdateServices.size(), 'Persona found for standard user');
+        Assert.areNotEqual(0, consumerUpdateServices.size(), 'Persona found for standard user');
         Test.stopTest();
     }
 
@@ -48,7 +48,7 @@ private with sharing class ILHConsumerUpdateFactoryTests {
         Test.startTest();
         User adminUser = [SELECT Id FROM User WHERE Alias = 'adminu' LIMIT 1];
         List<IConsumerUpdateService> consumerUpdateServices = ILHConsumerUpdateFactory.getInstances(adminUser.Id);
-        System.assertNotEquals(0, consumerUpdateServices.size(), 'Persona found for standard user');
+        Assert.areNotEqual(0, consumerUpdateServices.size(), 'Persona found for standard user');
         Test.stopTest();
     }
 }

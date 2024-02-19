@@ -31,7 +31,7 @@ private with sharing class ILHPolicyFactoryTests {
         User nopersonUser = [SELECT Id FROM User WHERE Alias = 'noperson' LIMIT 1];
         System.runAs(nopersonUser) {
             List<IPolicySearch> policySearches = ILHPolicyFactory.getInstances();
-            System.assertEquals(0, policySearches.size(), 'No persona found for no persona user');
+            Assert.areEqual(0, policySearches.size(), 'No persona found for no persona user');
         }
         Test.stopTest();
     }
@@ -42,7 +42,7 @@ private with sharing class ILHPolicyFactoryTests {
         User standardUser = [SELECT Id FROM User WHERE Alias = 'standu' LIMIT 1];
         System.runAs(standardUser) {
             List<IPolicySearch> policySearches = ILHPolicyFactory.getInstances();
-            System.assertNotEquals(0, policySearches.size(), 'Persona found for standard user');
+            Assert.areNotEqual(0, policySearches.size(), 'Persona found for standard user');
         }
         Test.stopTest();
     }
@@ -53,7 +53,7 @@ private with sharing class ILHPolicyFactoryTests {
         User adminUser = [SELECT Id FROM User WHERE Alias = 'adminu' LIMIT 1];
         System.runAs(adminUser) {
             List<IPolicySearch> policySearches = ILHPolicyFactory.getInstances();
-            System.assertNotEquals(0, policySearches.size(), 'Persona found for standard user');
+            Assert.areNotEqual(0, policySearches.size(), 'Persona found for standard user');
         }
         Test.stopTest();
     }
