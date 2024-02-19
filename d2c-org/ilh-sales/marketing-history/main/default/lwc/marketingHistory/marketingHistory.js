@@ -58,7 +58,6 @@ export default class MarketingHistory extends LightningElement {
 
         getMarketHistory({ kvpSearchCriteria: {personId: personId}})
         .then(response => {
-            console.log(JSON.stringify(response, null, 4));
             this.tableData = response;
             this.showSpinner = false;
             this.showNoResultsMessage = this?.tableData?.length === 0 ? true : false;
@@ -75,8 +74,8 @@ export default class MarketingHistory extends LightningElement {
      * @param event : Event from table column
      */
     handleSortDataTable(event) {
-        this.sortBy        = event.detail.fieldName;
-        this.sortDirection = event.detail.sortDirection;
+        this.sortBy        = event?.detail?.fieldName;
+        this.sortDirection = event?.detail?.sortDirection;
 
         this.sortData();
     }
