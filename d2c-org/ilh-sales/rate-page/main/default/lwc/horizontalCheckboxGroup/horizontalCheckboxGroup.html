@@ -2,8 +2,8 @@
     <fieldset class="slds-form-element">
         <legend class="slds-form-element__legend slds-form-element__label">{label}</legend>
         <div class="slds-form-element__control">
-            <div class="slds-grid slds-wrap">
-                <div class="slds-checkbox slds-col slds-size_1-of-2" for:each={_options} for:item="option" key={option.value}>
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div  for:each={_options} for:item="option" key={option.value}>
                     <input type="checkbox"  id={option.value} value={option.value} checked={option.checked} onchange={selectHandler} />
                     <label class="slds-checkbox__label" for={option.value}>
                         <span class="slds-checkbox_faux"></span>

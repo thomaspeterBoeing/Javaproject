@@ -46,8 +46,6 @@ export default class ratingFilter extends LightningElement {
     spinnerActive = false; 
 
     billMethodChoice = 'ACH';  //Bill method default choice.  Set as value in Bill Method combo box.
-      
-    disableBillMethod = true;  //Flag to disable Bill Method combo box.
 
     frequencyOptions = [
         { 
@@ -86,12 +84,41 @@ export default class ratingFilter extends LightningElement {
  
     async connectedCallback(){     
 
+        this
+
         let rates = await this.getAllRates();
        
         //Call to Rating Matrix to setup matrix table
         this.template.querySelector("c-rating-matrix").buildTable(rates,this.productChoices,this.frequencyChoice);
 
    }
+   get productCheckboxLabel(){    
+        let label = 'Eligible Products';
+        if(this.productType === 'Life'){
+            label = 'Life Eligible Products';
+        }
+        if(this.productType === 'ADD'){
+            label = 'AD&D Eligible Products';
+        }
+        return label;
+    }
+
+    get aDDProductTypeFlag(){
+        let returnValue = false;
+        if(this.productType === 'ADD'){
+            returnValue = true;
+        }
+        return returnValue;
+    }
+
+    get lifeProductTypeFlag(){
+        let returnValue = false;
+        if(this.productType === 'Life'){
+            returnValue = true;
+        }
+        return returnValue;
+    }
+
 
    async getAllRates(){
         this.spinnerActive = true;
@@ -118,17 +145,17 @@ export default class ratingFilter extends LightningElement {
         return this.filteredRates;
 
    }
-   get productCheckboxLabel(){
-    this.disableBillMethod = true;
+   get productCheckboxLabel(){    
     let label = 'Eligible Products';
     if(this.productType === 'Life'){
+        this.lifeProduct = true;
         label = 'Life Eligible Products';
     }
     if(this.productType === 'ADD'){
-        this.disableBillMethod = false;
+        this.aDDProduct = true;
         label = 'AD&D Eligible Products';
     }
-
+    console.log('Product Type = ' + this.productType);
     return label;
 }
  
@@ -178,7 +205,7 @@ export default class ratingFilter extends LightningElement {
        } else if(productCategory === 'ADD'){
             minCovRange = coverage - 25000;
             maxCovRange = coverage + 25000; 
-            console.log('ADD DATA ' + JSON.stringify(data));           
+           // console.log('ADD DATA ' + JSON.stringify(data));           
        } 
 
         returndata = data.filter(rates => { 
@@ -213,7 +240,7 @@ export default class ratingFilter extends LightningElement {
     }
      //If payment frequency changes a new call to the quote service is required.
      async handleBillMethodChange(event){
-        console.log('In handle bill method change ' + event.detail.value);
+        //console.log('In handle bill method change ' + event.detail.value);
         
         this.billMethodChoice = event.detail.value;  
         let rates = await this.getAllRates();  
