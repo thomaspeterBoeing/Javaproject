@@ -239,37 +239,36 @@
           "versionNumber": "1.0.0.LATEST"
         }
       ]
-    },    
+    },
     {
-        "path": "d2c-org/ilh-sales/rate-page",
-        "default": false,
-        "package": "ILH Sales Rate Page",
-        "versionName": "ver 1.0",
-        "versionNumber": "1.0.0.NEXT",
-        "versionDescription": "Components for rate page",
-        "scopeProfiles": true,
-        "dependencies": [
-          {
-            "package": "D2C Core Base Objects",
-            "versionNumber": "1.0.0.LATEST"
-          },
-          {
-            "package": "ILH Sales Base Objects",
-            "versionNumber": "1.0.0.LATEST"
-          },
-          {
-            "package": "D2C Core Base Code",
-            "versionNumber": "1.0.0.LATEST"
-          },
-          {
-            "package": "D2C Core Error Handling Framework",
-            "versionNumber": "1.0.0.LATEST"
-          },
-          {
-            "package": "ILH Sales Base Code",
-            "versionNumber": "1.0.0.LATEST"
-          }
-        ]
+      "path": "d2c-org/ilh-sales/rate-page",
+      "package": "ILH Sales Rate Page",
+      "versionName": "ver 1.0",
+      "versionNumber": "1.0.0.NEXT",
+      "default": false,
+      "versionDescription": "Rate page and components for quoting.",
+      "dependencies": [
+        {
+          "package": "D2C Core Base Objects",
+          "versionNumber": "1.0.0.LATEST"
+        },
+        {
+          "package": "ILH Sales Base Objects",
+          "versionNumber": "1.0.0.LATEST"
+        },
+        {
+          "package": "D2C Core Base Code",
+          "versionNumber": "1.0.0.LATEST"
+        },
+        {
+          "package": "D2C Core Error Handling Framework",
+          "versionNumber": "1.0.0.LATEST"
+        },
+        {
+          "package": "ILH Sales Base Code",
+          "versionNumber": "1.0.0.LATEST"
+        }
+      ]
     },
     {
       "path": "d2c-org/ilh-sales/applications",
@@ -307,23 +306,21 @@
         {
           "package": "ILH Sales Consumer and Opportunity Automation",
           "versionNumber": "1.0.0.LATEST"
-        },  
+        },
         {
           "package": "ILH Sales Policy Summary",
           "versionNumber": "1.0.0.LATEST"
-        }  
-       
+        }
       ]
     },
     {
-        "path": "d2c-org/ilh-sales/consumer-quoteservice",
-        "default": false
+      "path": "d2c-org/ilh-sales/consumer-quoteservice",
+      "default": false
     },
     {
-      "path": "d2c-org/ilh-sales/post-install-unpackaged",        
-      "default": false     
-    }  
-   
+      "path": "d2c-org/ilh-sales/post-install-unpackaged",
+      "default": false
+    }
   ],
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
@@ -337,8 +334,9 @@
     "ILH Sales Consumer Search": "0HoDm0000004CEcKAM",
     "ILH Sales Applications": "0HoDm0000004CEhKAM",
     "ILH Sales Consumer and Opportunity Automation": "0HoDm0000004CErKAM",
-    "ILH Sales Market History": "0HoDm0000004CEwKAM", 
+    "ILH Sales Market History": "0HoDm0000004CEwKAM",
     "ILH Sales Policy Summary": "0HoDm0000004CF1KAM",
-    "ILH Sales Consumer Update": "0HoDm0000004CFGKA2"
+    "ILH Sales Consumer Update": "0HoDm0000004CFGKA2",
+    "ILH Sales Rate Page": "0HoDm0000004CFQKA2"
   }
 }
