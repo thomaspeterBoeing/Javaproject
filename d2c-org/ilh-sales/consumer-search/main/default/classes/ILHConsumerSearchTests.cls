@@ -25,21 +25,31 @@ public class ILHConsumerSearchTests {
             RecordTypeId = objectRecordTypeId
         );
         insert accnt;
+
+        Profile adminUserProfile = [SELECT Id FROM Profile WHERE Name='System Administrator'];
+
+        User adminUser = new User(Alias = 'adminu', Email='testadminuser@test.com', Persona__c = 'System Admin',
+            EmailEncodingKey='UTF-8', FirstName='Admin', LastName='User', LanguageLocaleKey='en_US',
+            LocaleSidKey='en_US', ProfileId = adminUserProfile.Id, TimeZoneSidKey='America/Los_Angeles', UserName='testadminuser@testadminuser.com');
+        insert adminUser;
     }
 
     @isTest
     private static void searchTest() {
-        Map<String, Object> kvpSearchCriteria = new Map<String, Object>{
-            'ssn' => '111111111'
-        };
-        StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
-        mock.setStaticResource('mock_ConsumerProfileSearchResponse');
-        mock.setStatusCode(200);
-        mock.setHeader('Content-Type', 'application/json');
-        Test.setMock(HttpCalloutMock.class, mock);
+        User adminUser = [SELECT Id FROM User WHERE Alias = 'adminu' LIMIT 1];
+        System.runAs(adminUser) {
+            Map<String, Object> kvpSearchCriteria = new Map<String, Object>{
+                'ssn' => '111111111'
+            };
+            StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
+            mock.setStaticResource('mock_ConsumerProfileSearchResponse');
+            mock.setStatusCode(200);
+            mock.setHeader('Content-Type', 'application/json');
+            Test.setMock(HttpCalloutMock.class, mock);
 
-        Test.startTest();
-        List<ILHConsumerResultsWrapper> resultsWrapper = (new ILHConsumerSearch()).search(kvpSearchCriteria);
-        Assert.areEqual(2, resultsWrapper.size(), '2 wrapper results: CPS and SF ');
+            Test.startTest();
+            List<ILHConsumerResultsWrapper> resultsWrapper = (new ILHConsumerSearch()).search(kvpSearchCriteria);
+            Assert.areEqual(2, resultsWrapper.size(), '2 wrapper results: CPS and SF ');
+        }
     }
 }
