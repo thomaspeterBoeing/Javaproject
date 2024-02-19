@@ -5,41 +5,54 @@ Purpose: Provides unit testing and code coverage for ILHMarketingHistory class.
 ***/
 @isTest
 public class ILHMarketingHistoryTests {
+    @testSetup 
+    public static void setupUsers() {
+        Profile adminUserProfile = [SELECT Id FROM Profile WHERE Name='System Administrator'];
+
+        User adminUser = new User(Alias = 'adminu', Email='testadminuser@test.com', Persona__c = 'System Admin',
+            EmailEncodingKey='UTF-8', FirstName='Admin', LastName='User', LanguageLocaleKey='en_US',
+            LocaleSidKey='en_US', ProfileId = adminUserProfile.Id, TimeZoneSidKey='America/Los_Angeles', UserName='testadminuser@testadminuser.com');
+        insert adminUser;
+    }
+
     @isTest
     private static void searchHistoryTest() {
-        //Creating a mock response
-        StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
-        mock.setStaticResource('MockMarketingHistoryResponse');
-        mock.setStatusCode(200);
-        mock.setHeader('Content-Type', 'application/xml');
-        Test.setMock(HttpCalloutMock.class, mock);
-        MockMetadataUtils.insert_custom_metadata_mock();
-        
-        Test.startTest();
-        Map<String, Object> kvpSearchCriteria = new Map<String, Object>();
-        kvpSearchCriteria.put('personId', '1234');
-        List<ILHMarketingHistoryResultsWrapper> results = (new ILHMarketingHistory()).getMarketHistory(kvpSearchCriteria);
+        User adminUser = [SELECT Id FROM User WHERE Alias = 'adminu' LIMIT 1];
+        System.runAs(adminUser) {
+            //Creating a mock response
+            StaticResourceCalloutMock mock = new StaticResourceCalloutMock();
+            mock.setStaticResource('MockMarketingHistoryResponse');
+            mock.setStatusCode(200);
+            mock.setHeader('Content-Type', 'application/xml');
+            Test.setMock(HttpCalloutMock.class, mock);
+            MockMetadataUtils.insert_custom_metadata_mock();
+            
+            Test.startTest();
+            Map<String, Object> kvpSearchCriteria = new Map<String, Object>();
+            kvpSearchCriteria.put('personId', '1234');
+            List<ILHMarketingHistoryResultsWrapper> results = (new ILHMarketingHistory()).getMarketHistory(kvpSearchCriteria);
 
-        //Verifying that there are 4 results.  
-        //There's 5 records in the mock response, but the 5th record is greater than 365 old and shouldn't be add to the list
-        //And the contact date on the 6th record is null and shouldn't be added to the list
-        Assert.areEqual(4, results.size());
-        Assert.areEqual('1009877134222', results[0].sourceId);
-        Assert.areEqual('0622 SIWL NB Letter New Creative Strategy', results[0].offerDescription);
-        Assert.areEqual('2QWP', results[0].campaignProduct);
-        Assert.areEqual('DirectMail', results[0].channelCode);
-        Assert.areEqual('11111111', results[0].contractNumber);
-        Assert.areEqual(Date.newInstance(3023, 07, 10), results[0].mailingDate);
+            //Verifying that there are 4 results.  
+            //There's 5 records in the mock response, but the 5th record is greater than 365 old and shouldn't be add to the list
+            //And the contact date on the 6th record is null and shouldn't be added to the list
+            Assert.areEqual(4, results.size());
+            Assert.areEqual('1009877134222', results[0].sourceId);
+            Assert.areEqual('0622 SIWL NB Letter New Creative Strategy', results[0].offerDescription);
+            Assert.areEqual('ISWLN21', results[0].campaignProduct);
+            Assert.areEqual('DirectMail', results[0].channelCode);
+            Assert.areEqual('11111111', results[0].contractNumber);
+            Assert.areEqual(Date.newInstance(3023, 07, 10), results[0].mailingDate);
 
-        //Causing an Exception
-        try {
-            results = (new ILHMarketingHistory()).getMarketHistory(null);
-        } catch(Exception ex) {}
+            //Causing an Exception
+            try {
+                results = (new ILHMarketingHistory()).getMarketHistory(null);
+            } catch(Exception ex) {}
 
-        //Testing with no person id with null value
-        kvpSearchCriteria = new Map<String, Object>();
-        kvpSearchCriteria.put('personId', null);
-        results = (new ILHMarketingHistory()).getMarketHistory(kvpSearchCriteria);
-        Assert.areEqual(0, results.size());
+            //Testing with no person id with null value
+            kvpSearchCriteria = new Map<String, Object>();
+            kvpSearchCriteria.put('personId', null);
+            results = (new ILHMarketingHistory()).getMarketHistory(kvpSearchCriteria);
+            Assert.areEqual(0, results.size());
+        }
     }
 }
