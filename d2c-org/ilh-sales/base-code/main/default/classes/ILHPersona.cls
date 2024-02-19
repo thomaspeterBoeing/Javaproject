@@ -39,7 +39,7 @@ public with sharing class ILHPersona {
 
         //Find current user information
         try {
-            if (Schema.sObjectType.User.isAccessible()) {
+            if (currentUserId != null && Schema.sObjectType.User.isAccessible()) {
                 currentUser = [SELECT Name, PartnerCode__c, Persona__c FROM User WHERE id =: currentUserId]; 
             }
             if (currentUser != null) {

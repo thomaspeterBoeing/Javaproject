@@ -2,7 +2,7 @@
  * Copyright: TruStage
  * Purpose: This class is called when an Account or Contact is created or updated.  Then we send the Person Account to the MDM to update.
  */
-public class ILHPersonAccountChangeEventHelper {
+public with sharing class ILHPersonAccountChangeEventHelper {
     private static final Boolean CONSUMER_UPDATE_ENABLED = Boolean.valueOf(System.Label.EnableConsumerUpdate);
     private static final List<String> ACCOUNT_TRIGGERED_FIELDS = new List<String>{
         'Name.FirstName', 'Name.LastName', 'Name.Suffix', 'Name.MiddleName', 'PersonBirthdate', 'PersonHomePhone', 'PersonOtherPhone', 
@@ -49,7 +49,8 @@ public class ILHPersonAccountChangeEventHelper {
             List<Account> accountsToUpdate = changedEventToAccount(accIds);//Get Person Account record to update
             if (accountsToUpdate != null && !accountsToUpdate.isEmpty()) {
                 for (Account acc : accountsToUpdate) {
-                    Map<String, Object> kvp = new Map<String, Object>{'account' => acc};
+                    Map<String, Object> kvp = new Map<String, Object>();
+                    kvp.put('account', acc);
                     kvp.put('commituser', accountUserIdMap.get(acc.id));
                     new ILHConsumerUpdateService().sendUpdate(kvp);
                 }

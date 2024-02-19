@@ -20,7 +20,7 @@ public class ILHConsumerUpdateService {
      */
     private void dispatchConsumerUpdateServices(Map<String, Object> kvp) {
         //Get all consumer update class instances
-        Id commitUser = (Id) kvp.get('commitUser');
+        Id commitUser = (Id) kvp.get('commituser');
         List<IConsumerUpdateService> classInstances = ILHConsumerUpdateFactory.getInstances(commitUser);
 
         for(IConsumerUpdateService classInstance : classInstances) {
