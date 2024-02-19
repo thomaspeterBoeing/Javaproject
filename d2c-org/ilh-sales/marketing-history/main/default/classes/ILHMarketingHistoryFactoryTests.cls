@@ -3,7 +3,7 @@
  * @last modified on  : 02-16-2024
  **/
 @isTest
-private class ILHMarketingHistoryFactoryTests {
+private with sharing class ILHMarketingHistoryFactoryTests {
 
     @testSetup
     public static void setupUsers() {
@@ -31,7 +31,7 @@ private class ILHMarketingHistoryFactoryTests {
         User nopersonUser = [SELECT Id FROM User WHERE Alias = 'noperson' LIMIT 1];
         System.runAs(nopersonUser) {
             List<IMarketingHistoryService> historyServices = ILHMarketingHistoryFactory.getInstances();
-            System.assertEquals(0, historyServices.size());
+            System.assertEquals(0, historyServices.size(), 'No persona found for no persona user');
         }
         Test.stopTest();
     }
@@ -42,7 +42,7 @@ private class ILHMarketingHistoryFactoryTests {
         User standardUser = [SELECT Id FROM User WHERE Alias = 'standu' LIMIT 1];
         System.runAs(standardUser) {
             List<IMarketingHistoryService> historyServices = ILHMarketingHistoryFactory.getInstances();
-            System.assertEquals(0, historyServices.size());
+            System.assertEquals(1, historyServices.size(), 'Persona found for standard user');
         }
         Test.stopTest();
     }
@@ -53,7 +53,7 @@ private class ILHMarketingHistoryFactoryTests {
         User adminUser = [SELECT Id FROM User WHERE Alias = 'adminu' LIMIT 1];
         System.runAs(adminUser) {
             List<IMarketingHistoryService> historyServices = ILHMarketingHistoryFactory.getInstances();
-            System.assertEquals(0, historyServices.size());
+            System.assertEquals(1, historyServices.size(), 'Persona found for standard user');
         }
         Test.stopTest();
     }
