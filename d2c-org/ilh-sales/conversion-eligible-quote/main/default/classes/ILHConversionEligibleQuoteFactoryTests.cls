@@ -1,14 +1,14 @@
 /**
- * @description       : Test class for ILHConsumerUpdateFactory
- * @last modified on  : 02-16-2024
+ * @description       : Test class for ILHConversionEligibleQuoteFactory
+ * @last modified on  : 02-18-2024
  **/
 @isTest
-private with sharing class ILHConsumerUpdateFactoryTests {
+private with sharing class ILHConversionEligibleQuoteFactoryTests {
 
     @testSetup
     public static void setupUsers() {
-        Profile standardUserProfile = [SELECT Id FROM Profile WHERE Name='Standard User'];
-        Profile adminUserProfile = [SELECT Id FROM Profile WHERE Name='System Administrator'];
+        Profile standardUserProfile = [SELECT Id FROM Profile WHERE Name='Standard User']; 
+        Profile adminUserProfile = [SELECT Id FROM Profile WHERE Name='System Administrator']; 
 
         User standardUser = new User(Alias = 'standu', Email='teststandarduser@test.com', PartnerCode__c = 'CC Retention',
             EmailEncodingKey='UTF-8', FirstName='Standard', LastName='User', LanguageLocaleKey='en_US', Persona__c = 'Agent',
@@ -16,9 +16,9 @@ private with sharing class ILHConsumerUpdateFactoryTests {
         insert standardUser;
 
         User adminUser = new User(Alias = 'adminu', Email='testadminuser@test.com', Persona__c = 'System Admin',
-        EmailEncodingKey='UTF-8', FirstName='Admin', LastName='User', LanguageLocaleKey='en_US', 
-        LocaleSidKey='en_US', ProfileId = adminUserProfile.Id, TimeZoneSidKey='America/Los_Angeles', UserName='testadminuser@testadminuser.com');
-    insert adminUser;
+            EmailEncodingKey='UTF-8', FirstName='Admin', LastName='User', LanguageLocaleKey='en_US', 
+            LocaleSidKey='en_US', ProfileId = adminUserProfile.Id, TimeZoneSidKey='America/Los_Angeles', UserName='testadminuser@testadminuser.com');
+        insert adminUser;
 
         User noPersonaUser = new User(Alias = 'noperson', Email='testnopersona@test.com', EmailEncodingKey='UTF-8', FirstName='No', LastName='Persona',
             LanguageLocaleKey='en_US', LocaleSidKey='en_US', ProfileId = adminUserProfile.Id, TimeZoneSidKey='America/Los_Angeles', UserName='nopersona@testadminuser.com');
@@ -29,8 +29,10 @@ private with sharing class ILHConsumerUpdateFactoryTests {
     static void testNoPersonaDefined() {
         Test.startTest();
         User nopersonUser = [SELECT Id FROM User WHERE Alias = 'noperson' LIMIT 1];
-        List<IConsumerUpdateService> consumerUpdateServices = ILHConsumerUpdateFactory.getInstances(nopersonUser.Id);
-        System.assertEquals(0, consumerUpdateServices.size(), 'No persona found for no persona user');
+        System.runAs(nopersonUser) {
+            List<IConversionEligible> eligibilityServices = ILHConversionEligibleQuoteFactory.getInstances();
+            System.assertEquals(0, eligibilityServices.size(), 'No persona found for no persona user');
+        }
         Test.stopTest();
     }
 
@@ -38,8 +40,10 @@ private with sharing class ILHConsumerUpdateFactoryTests {
     static void testILHSalesRetentionAgentPersona() {
         Test.startTest();
         User standardUser = [SELECT Id FROM User WHERE Alias = 'standu' LIMIT 1];
-        List<IConsumerUpdateService> consumerUpdateServices = ILHConsumerUpdateFactory.getInstances(standardUser.Id);
-        System.assertNotEquals(0, consumerUpdateServices.size(), 'Persona found for standard user');
+        System.runAs(standardUser) {
+            List<IConversionEligible> eligibilityServices = ILHConversionEligibleQuoteFactory.getInstances();
+            System.assertEquals(1, eligibilityServices.size(), 'Persona found for standard user');
+        }
         Test.stopTest();
     }
 
@@ -47,8 +51,10 @@ private with sharing class ILHConsumerUpdateFactoryTests {
     static void testILHSalesSystemAdminPersona() {
         Test.startTest();
         User adminUser = [SELECT Id FROM User WHERE Alias = 'adminu' LIMIT 1];
-        List<IConsumerUpdateService> consumerUpdateServices = ILHConsumerUpdateFactory.getInstances(adminUser.Id);
-        System.assertNotEquals(0, consumerUpdateServices.size(), 'Persona found for standard user');
+        System.runAs(adminUser) {
+            List<IConversionEligible> eligibilityServices = ILHConversionEligibleQuoteFactory.getInstances();
+            System.assertEquals(1, eligibilityServices.size(), 'Persona found for standard user');
+        }
         Test.stopTest();
     }
 }

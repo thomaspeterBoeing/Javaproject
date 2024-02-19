@@ -3,7 +3,7 @@
  * Purpose: Unit tests for ILHPersona class
  */
 @isTest
-private class ILHPersonaTests {
+private with sharing class ILHPersonaTests {
 
     @testSetup
     public static void setupUsers() {

@@ -3,7 +3,7 @@ Copyright: CUNA Mutual Group
 Purpose: Determines the persona to use for dispatching services.
 1.0 - Rick Baker   - 822/2023  - Created for new D2C Salesfore instance.
 ***/
-public class ILHPersona {
+public with sharing class ILHPersona {
     private Id currentUserId;//Id of user running current operation
 
     /**
@@ -39,7 +39,9 @@ public class ILHPersona {
 
         //Find current user information
         try {
-            currentUser = [SELECT Name, PartnerCode__c, Persona__c FROM User WHERE id =: currentUserId];
+            if (Schema.sObjectType.User.isAccessible()) {
+                currentUser = [SELECT Name, PartnerCode__c, Persona__c FROM User WHERE id =: currentUserId]; 
+            }
             persona = [SELECT DeveloperName FROM PersonaAssignment__mdt WHERE PartnerCode__c =: currentUser.PartnerCode__c AND UserPersona__c =: currentUser.Persona__c];
         } catch (Exception ex) {
             new ErrorLogger(ex, null, 'ILHPersona.cls', currentUserId, 'determinePersona', null, null, null);

@@ -1,5 +1,5 @@
 @isTest
-private class ILHSearchFactoryTests {
+private with sharing class ILHSearchFactoryTests {
 
     @testSetup
     public static void setupUsers() {
@@ -27,7 +27,7 @@ private class ILHSearchFactoryTests {
         User nopersonUser = [SELECT Id FROM User WHERE Alias = 'noperson' LIMIT 1];
         System.runAs(nopersonUser) {
             List<ISearchService> searchServices = ILHSearchFactory.getInstances();
-            System.assertNotEquals(0, searchServices.size());
+            System.assertEquals(0, searchServices.size(), 'No persona found for no persona user');
         }
         Test.stopTest();
     }
@@ -38,7 +38,7 @@ private class ILHSearchFactoryTests {
         User standardUser = [SELECT Id FROM User WHERE Alias = 'standu' LIMIT 1];
         System.runAs(standardUser) {
             List<ISearchService> searchServices = ILHSearchFactory.getInstances();
-            System.assertNotEquals(0, searchServices.size());
+            System.assertEquals(1, searchServices.size(), 'Persona found for standard user');
         }
         Test.stopTest();
     }
@@ -49,7 +49,7 @@ private class ILHSearchFactoryTests {
         User adminUser = [SELECT Id FROM User WHERE Alias = 'adminu' LIMIT 1];
         System.runAs(adminUser) {
             List<ISearchService> searchServices = ILHSearchFactory.getInstances();
-            System.assertNotEquals(0, searchServices.size());
+            System.assertEquals(1, searchServices.size(), 'Persona found for standard user');
         }
         Test.stopTest();
     }

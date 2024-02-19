@@ -1,5 +1,5 @@
 @isTest
-private class ILHProductQuoteFactoryTests {
+private with sharing class ILHProductQuoteFactoryTests {
 
     @testSetup
     public static void setupUsers() {
@@ -27,7 +27,7 @@ private class ILHProductQuoteFactoryTests {
         User nopersonUser = [SELECT Id FROM User WHERE Alias = 'noperson' LIMIT 1];
         System.runAs(nopersonUser) {
             List<IProductQuoteService> productQuoteServices = ILHProductQuoteFactory.getInstances();
-            System.assertEquals(0, productQuoteServices.size());
+            System.assertEquals(0, productQuoteServices.size(), 'No persona found for no persona user');
         }
         Test.stopTest();
     }
@@ -38,7 +38,7 @@ private class ILHProductQuoteFactoryTests {
         User standardUser = [SELECT Id FROM User WHERE Alias = 'standu' LIMIT 1];
         System.runAs(standardUser) {
             List<IProductQuoteService> productQuoteServices = ILHProductQuoteFactory.getInstances();
-            System.assertNotEquals(0, productQuoteServices.size());
+            System.assertNotEquals(0, productQuoteServices.size(), 'Persona found for standard user');
         }
         Test.stopTest();
     }
@@ -49,7 +49,7 @@ private class ILHProductQuoteFactoryTests {
         User adminUser = [SELECT Id FROM User WHERE Alias = 'adminu' LIMIT 1];
         System.runAs(adminUser) {
             List<IProductQuoteService> productQuoteServices = ILHProductQuoteFactory.getInstances();
-            System.assertNotEquals(0, productQuoteServices.size());
+            System.assertNotEquals(0, productQuoteServices.size(), 'Persona found for standard user');
         }
         Test.stopTest();
     }

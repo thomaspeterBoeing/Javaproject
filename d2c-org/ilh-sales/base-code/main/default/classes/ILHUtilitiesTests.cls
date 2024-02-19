@@ -3,10 +3,10 @@
  * Purpose: Unit tests for ILHUtilities class
  */
 @isTest
-public class ILHUtilitiesTests {
+public with sharing class ILHUtilitiesTests {
     @isTest
     public static void getDIConsumerContainerTest() {
-        List<DIConsumerContainer__mdt> containers = ILHUtilities.getDIConsumerContainer('ILHSalesSystemAdmin', 'ILHSearchFactory');
-        Assert.areEqual(1, containers.size());
+        List<DIConsumerContainer__mdt> containers = ILHUtilities.getDIConsumerContainer('ILHSalesSystemAdmin', 'ConsumerSearch');
+        Assert.areEqual(1, containers.size(), 'Record found in container');
     }
 }
