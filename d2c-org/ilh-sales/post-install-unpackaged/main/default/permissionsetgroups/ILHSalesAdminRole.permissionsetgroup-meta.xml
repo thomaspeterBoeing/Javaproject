@@ -9,6 +9,6 @@
     <permissionSets>ILHSalesConsole_ILHSalesApplications_AppAccess</permissionSets>
     <permissionSets>ILHSalesObjs_ILHSalesBaseObjects_ModifyAll</permissionSets>
     <permissionSets>ILHSalesPlannerApp_ILHSalesApplications_AppAccess</permissionSets>
-    <permissionSets>ILHSalesRatePage_ILHSalesRatePage</permissionSets>
+    <permissionSets>ILHSalesRatePageTab_ILHSalesRatePage</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
