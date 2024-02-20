@@ -70,7 +70,7 @@
         },
         {
           "package": "ILH Sales Base Objects",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.26"
         },
         {
           "package": "D2C Core Base Code",
@@ -241,11 +241,43 @@
       ]
     },
     {
+      "path": "d2c-org/ilh-sales/consumer-quoteservice",
+      "default": false,
+      "package": "ILH Sales Consumer Quoteservice",
+      "versionName": "ver 1.0",
+      "versionNumber": "1.0.0.NEXT",
+      "versionDescription": "",
+      "scopeProfiles": true,
+      "dependencies":[
+      {
+        "package": "D2C Core Base Objects",
+        "versionNumber": "1.0.0.LATEST"
+      },
+      {
+        "package": "ILH Sales Base Objects",
+        "versionNumber": "1.0.0.LATEST"
+      },
+      {
+        "package": "D2C Core Base Code",
+        "versionNumber": "1.0.0.LATEST"
+      },
+      {
+        "package": "D2C Core Error Handling Framework",
+        "versionNumber": "1.0.0.LATEST"
+      },
+      {
+        "package": "ILH Sales Base Code",
+        "versionNumber": "1.0.0.LATEST"
+      }
+    ]
+    },
+    {
       "path": "d2c-org/ilh-sales/rate-page",
       "package": "ILH Sales Rate Page",
       "versionName": "ver 1.0",
       "versionNumber": "1.0.0.NEXT",
       "default": false,
+      "scopeProfiles": true,
       "versionDescription": "Rate page and components for quoting.",
       "dependencies": [
         {
@@ -267,6 +299,10 @@
         {
           "package": "ILH Sales Base Code",
           "versionNumber": "1.0.0.LATEST"
+        }, 
+        {
+          "package": "ILH Sales Consumer Quoteservice",
+          "versionNumber": "1.0.0.LATEST"        
         }
       ]
     },
@@ -310,12 +346,17 @@
         {
           "package": "ILH Sales Policy Summary",
           "versionNumber": "1.0.0.LATEST"
+        },
+        {
+          "package": "ILH Sales Consumer Quoteservice",
+          "versionNumber": "1.0.0.LATEST"
+        },
+        {
+          "package": "ILH Sales Rate Page",
+          "versionNumber": "1.0.0.LATEST"
         }
+
       ]
-    },
-    {
-      "path": "d2c-org/ilh-sales/consumer-quoteservice",
-      "default": false
     },
     {
       "path": "d2c-org/ilh-sales/post-install-unpackaged",
@@ -337,6 +378,7 @@
     "ILH Sales Market History": "0HoDm0000004CEwKAM",
     "ILH Sales Policy Summary": "0HoDm0000004CF1KAM",
     "ILH Sales Consumer Update": "0HoDm0000004CFGKA2",
-    "ILH Sales Rate Page": "0HoDm0000004CFQKA2"
+    "ILH Sales Rate Page": "0HoDm0000004CFQKA2",
+    "ILH Sales Consumer Quoteservice": "0HoDm0000004CFVKA2"
   }
 }
