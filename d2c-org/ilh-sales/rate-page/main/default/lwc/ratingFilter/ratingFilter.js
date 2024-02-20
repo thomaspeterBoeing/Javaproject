@@ -200,16 +200,22 @@ export default class ratingFilter extends LightningElement {
 
         //Filters so there are 4 rows above and below the proposed coverage amount.
         if(productCategory === 'Life'){
-            minCovRange = coverage - 5000;
-            maxCovRange = coverage + 5000;
-       } else if(productCategory === 'ADD'){
-            minCovRange = coverage - 25000;
-            maxCovRange = coverage + 25000; 
+            minCovRange = coverage - 4000;
+            maxCovRange = coverage + 4000;
+       } else if(productCategory === 'ADD'){            
+            //Start at 5000 for min range.  Otherwise
+            //1000 shows with no values.
+            if(coverage - 20000 < 5000){
+                minCovRange = 5000
+            }else{
+                minCovRange = coverage - 20000;
+            }
+            maxCovRange = coverage + 20000; 
            // console.log('ADD DATA ' + JSON.stringify(data));           
        } 
 
         returndata = data.filter(rates => { 
-                                if(rates.coverage > minCovRange & rates.coverage < maxCovRange)
+                                if(rates.coverage >= minCovRange & rates.coverage <= maxCovRange)
                                     return rates;
                              }
                    );
