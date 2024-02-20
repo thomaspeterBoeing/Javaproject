@@ -34,6 +34,4 @@ echo "*** Load data ... "
 call sf data import tree  --plan scripts\scratch-org-setup\data\d2c-core-base-objects-data-plan.json
 echo "*** Updating Account record type ..."
 call sf apex run -f scripts\scratch-org-setup\apex\D2CBaseObjects_UpdateAccountRecordtype.apex
-echo "*** Updating your user record ..."
-call sf apex run -f scripts\scratch-org-setup\apex\D2CBaseObject_UpdateMyUserRecord.apex
 echo **********  Installled Package D2C Core Base Objects **********
