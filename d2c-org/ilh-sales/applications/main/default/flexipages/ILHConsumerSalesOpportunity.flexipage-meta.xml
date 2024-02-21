@@ -388,6 +388,12 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>eligibleProducts</componentName>
+                <identifier>c_eligibleProducts</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentName>consumerDetails</componentName>
                 <identifier>c_consumerDetails</identifier>
             </componentInstance>
