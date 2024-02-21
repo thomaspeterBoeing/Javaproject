@@ -8,6 +8,6 @@
     <permissionSets>ILHSalesAgentPermissions_ILHSalesApplications</permissionSets>
     <permissionSets>ILHSalesConsole_ILHSalesApplications_AppAccess</permissionSets>
     <permissionSets>ILHSalesObjs_ILHSalesBaseObjects_Agent</permissionSets>
-    <permissionSets>ILHSalesRatePageTab_ILHSalesRatePage</permissionSets>
+    <permissionSets>ILHSalesRatePage_ILHSalesRatePage</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
