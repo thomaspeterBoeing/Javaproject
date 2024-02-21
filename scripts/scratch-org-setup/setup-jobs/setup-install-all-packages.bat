@@ -33,6 +33,7 @@ call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-consumer-update.bat %D
 call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-marketing-history.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-consumer-quoteservice.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-rate-page.bat %DevHub% %InstallationKey%
+call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-product-list.bat %DevHub% %InstallationKey%
 call scripts\scratch-org-setup\setup-jobs\setup-ilh-sales-applications.bat %DevHub% %InstallationKey%
 call sf project deploy start --source-dir "d2c-org/ilh-sales/post-install-unpackaged"
 
