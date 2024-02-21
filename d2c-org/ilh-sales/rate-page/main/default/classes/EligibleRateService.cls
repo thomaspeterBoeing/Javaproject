@@ -3,15 +3,15 @@ Copyright: TruStage
 Purpose: Service class that get eligible product quotes
 1.0 - Adam Perschke-Ely   - 1/2/2024  - Created for new D2C Salesfore instance.
 ***/
-public class EligibleRateService {
+public with sharing class EligibleRateService {
     /**
      * Purpose: This method get eligible rates from ILHProductQuoteService
      * @param rateRequest : Request to send to ILHProductQuoteService
      * @return : Instance or EligibleProductRateWrapper class
      */
-    public EligibleProductRateWrapper getRates(Id oppId,String productCategory, String frequency, String billingMethod) {
+    public EligibleProductRateWrapper getRates(Map<String, Object> requestMap) {
         try {
-            Map<String, Object> rateRequest = getRequestMap(oppId,productCategory,frequency,billingMethod);
+            Map<String, Object> rateRequest = getQuoteRequestMap(requestMap);
 
             List<EligibleProductQuoteResult> rates = EligibleProductQuoteResult.parse(new ILHProductQuoteService().getAvailableProducts(rateRequest));
             EligibleProductRateWrapper wrapper = new EligibleProductRateWrapper(rates);
@@ -22,7 +22,11 @@ public class EligibleRateService {
         return null;
     }
 
-    private Map<String, Object> getRequestMap(Id oppId,String productCategory, String frequency,String billingMethodCode) {
+    private Map<String, Object> getQuoteRequestMap(Map<String, Object> requestMap) {
+        String frequency = (String)requestMap.get('frequency');
+        String billingMethodCode = (String)requestMap.get('billingMethodCode');
+        String productCategory = (String)requestMap.get('productCategory');
+        Id oppId = (Id)requestMap.get('oppId');
         integer maxCov;
         integer minCov;
         integer covInterval;
@@ -31,36 +35,35 @@ public class EligibleRateService {
         if(productCategory == 'Life'){
             maxCov = 300000;
             minCov = 1000;
-            covInterval = 1000;           
-            billMethod = 'ACH';
+            covInterval = 1000;
         } else if (productCategory == 'ADD'){
             maxCov = 500000;
             minCov = 5000;
             covInterval = 5000;
-            billMethod = billingMethodCode;
         }
 
-        Map<String, Object> requestMap = new Map<String, Object> {
+        Map<String, Object> quoteRequestMap = new Map<String, Object> {
             'channel' => 'Telem',
             'maxCoverage' => maxCov,
             'minCoverage' => minCov,
-            'asOfDate' => '2023-11-21',
             'coverageInterval' => covInterval,
             'organizationId' => '',
             'requestingSystemName' => 'sforcecs'
         };
 
-        Opportunity opp = [SELECT TobaccoUse__c, Affiliation__r.ContractNumberUnformatted__c, Account.PersonBirthdate, Account.Age__pc, Account.Gender__pc, Account.PersonMailingState FROM Opportunity WHERE id =: oppId];
-        requestMap.put('tobaccoUse',opp?.TobaccoUse__c != null ? (opp.TobaccoUse__c == 'No' ? 0 : 1) : null);
-        requestMap.put('gender', opp?.Account?.Gender__pc != null ? (opp.Account.Gender__pc == 'Male' ? 0 : 1) : null);
-        requestMap.put('residentState', opp?.Account?.PersonMailingState != null ? opp.Account.PersonMailingState : '');
-        requestMap.put('issueAge', opp?.Account?.Age__pc != null ? String.valueOf(opp.Account.Age__pc) : '');
-        requestMap.put('contractNumber', opp?.Affiliation__r?.ContractNumberUnformatted__c != null ? opp.Affiliation__r.ContractNumberUnformatted__c : '');
-        requestMap.put('birthDate', opp?.Account?.PersonBirthdate != null ? String.valueOf(opp.Account.PersonBirthdate) : '');
-        requestMap.put('frequency',frequency);  
-        requestMap.put('billingMethod',billMethod);
+        Opportunity opp = [SELECT TobaccoUse__c, Affiliation__r.ContractNumberUnformatted__c, Account.PersonBirthdate, Account.Age__pc, Account.Gender__pc, 
+                            Account.PersonMailingState FROM Opportunity WHERE id =: oppId WITH USER_MODE];
+        quoteRequestMap.put('tobaccoUse',opp?.TobaccoUse__c != null ? (opp.TobaccoUse__c == 'No' ? 0 : 1) : null);
+        quoteRequestMap.put('gender', opp?.Account?.Gender__pc != null ? (opp.Account.Gender__pc == 'Male' ? 1 : 0) : null);
+        quoteRequestMap.put('residentState', opp?.Account?.PersonMailingState != null ? opp.Account.PersonMailingState : '');
+        quoteRequestMap.put('issueAge', opp?.Account?.Age__pc != null ? String.valueOf(opp.Account.Age__pc) : '');
+        quoteRequestMap.put('contractNumber', opp?.Affiliation__r?.ContractNumberUnformatted__c != null ? opp.Affiliation__r.ContractNumberUnformatted__c : '');
+        quoteRequestMap.put('birthDate', opp?.Account?.PersonBirthdate != null ? String.valueOf(opp.Account.PersonBirthdate) : '');
+        quoteRequestMap.put('frequency',frequency);  
+        quoteRequestMap.put('billingMethod',billingMethodCode);
+        quoteRequestMap.put('asOfDate', Date.today());
 
-        system.debug('Request Map = ' + requestMap);
-        return requestMap;
+        system.debug('Request Map = ' + quoteRequestMap);
+        return quoteRequestMap;
     }
 }

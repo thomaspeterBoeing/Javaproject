@@ -8,10 +8,14 @@ public class EligibleProductRateWrapper {
     public List<EligibleProduct> eligibleProducts {get;set;}
     @AuraEnabled
     public List<EligibleRateRow> eligibleRates {get;set;}
+    @AuraEnabled
+    public Set<String> eligibleBillingMethods {get;set;}
+    @AuraEnabled
+    public Map<String, EligibleBillingOption> eligibleBillingOptions {get;set;}
 
-    public EligibleProductRateWrapper(){}
+    //public EligibleProductRateWrapper();
     public EligibleProductRateWrapper(List<EligibleProductQuoteResult> results) {
-        buildGrid(results);
+        wrapResults(results);
     }
 
     /**
@@ -44,6 +48,13 @@ public class EligibleProductRateWrapper {
         public String productlabel {get;set;}
     }
 
+    public class EligibleBillingOption {
+        @AuraEnabled
+        public String effectiveDate {get;set;}
+        @AuraEnabled
+        public List<String> billingFrequencies {get;set;}
+    }
+
     /**
      * Purpose: Inner class that contains eligible products to return
      */
@@ -74,80 +85,91 @@ public class EligibleProductRateWrapper {
     /**
      * Purpose: This method builds full grid.
      */
-    private void buildGrid(List<EligibleProductQuoteResult> results) {
+    private void wrapResults(List<EligibleProductQuoteResult> results) {
+        Map<Integer, List<EligibleRateCell>> coverageMap = new Map<Integer, List<EligibleRateCell>>();
+        List<Integer> sortedKeys = new List<Integer>();//Sorted results based on coverage
         eligibleRates = new List<EligibleRateRow>();
         eligibleProducts = new List<EligibleProduct>();
-        Map<Integer, List<EligibleRateCell>> coverageMap = new Map<Integer, List<EligibleRateCell>>();
 
         //Building cells
         for (EligibleProductQuoteResult result : results) {
             eligibleProducts.add(new EligibleProduct(result.productName, result.productCode, result.productCategory));
-            for (EligibleProductQuoteResult.CoverageOption co : result.coverages) {
-                List<EligibleRateCell> cells = coverageMap.get(co.coverage);//Get any existing cells based on coverage
-                EligibleRateCell cell = new EligibleRateCell();
-
-                if (cells == null) {
-                    cells = new List<EligibleRateCell>();
-                }
-
-                cell.productlabel = result?.productName;
-                cell.productcode = result?.productCode;
-                cell.coverage = co?.coverage;
-
-                if (co.frequency == 'Annual') {
-                    cell.annual = co.premium;
-                } else if (co.frequency == 'Monthly') {
-                    cell.monthly = co.premium;
-                } else if (co.frequency == 'Quarterly') {
-                    cell.quarterly = co.premium;
-                } else if (co.frequency == 'Semiannual') {
-                    cell.semiannual = co.premium;
-                }
-                    
-                cells.add(cell);//Adding new cell to list of cells
-                coverageMap.put(co.coverage, cells);//Add cells to map based on coverage
-            }
+            buildCoverageOptions(result, coverageMap);
         }
-        
-        //Sorted results based on coverage
-        List<Integer> sortedKeys = new List<Integer>();
 
         if (coverageMap != null && !coverageMap.isEmpty()) {
             sortedKeys.addAll(coverageMap.keySet());
             sortedKeys.sort();
         }
 
+        eligibleRates = buildRates(sortedKeys, coverageMap);
+    }
+
+    private void buildCoverageOptions(EligibleProductQuoteResult result, Map<Integer,List<EligibleProductRateWrapper.EligibleRateCell>> coverageMap) {
+        for (EligibleProductQuoteResult.CoverageOption co : result.coverages) {
+            List<EligibleRateCell> cells = coverageMap.get(co.coverage);//Get any existing cells based on coverage
+            EligibleRateCell cell = new EligibleRateCell();
+
+            if (cells == null) {
+                cells = new List<EligibleRateCell>();
+            }
+
+            cell.productlabel = result?.productName;
+            cell.productcode = result?.productCode;
+            cell.coverage = co?.coverage;
+
+            if (co.frequency == 'Annual') {
+                cell.annual = co.premium;
+            } else if (co.frequency == 'Monthly') {
+                cell.monthly = co.premium;
+            } else if (co.frequency == 'Quarterly') {
+                cell.quarterly = co.premium;
+            } else if (co.frequency == 'Semiannual') {
+                cell.semiannual = co.premium;
+            }
+                    
+            cells.add(cell);//Adding new cell to list of cells
+            coverageMap.put(co.coverage, cells);//Add cells to map based on coverage
+        }
+    }
+
+    private List<EligibleRateRow> buildRates(List<Integer> sortedKeys, Map<Integer,List<EligibleProductRateWrapper.EligibleRateCell>> coverageMap) {
+        List<EligibleRateRow> rates = new List<EligibleRateRow>();
         //Looping through each coveage and creating a new row
         for (Integer coverage : sortedKeys) {
             EligibleRateRow row = new EligibleRateRow();
             List<EligibleRateCell> cells = coverageMap.get(coverage);//Get all cells based on coverage
             row.coverage = String.valueOf(coverage);
+            buildRateInfo(cells, row);
+            rates.add(row);//Add the new row
+        }
+        return rates;
+    }
 
-            for (EligibleRateCell cell : cells) {
-                if (row.productinfo == null) {
-                    row.productinfo = new Map<String, EligibleRateCell>();
-                }
-
-                /**
-                 * Find an existing cell.  Assign the premium values to the existingCell values
-                 */
-                EligibleRateCell existingCell = row.productinfo.get(cell.productlabel);
-                if (existingCell != null) {
-                    if (cell.annual != null) {
-                        existingCell.annual = cell.annual;
-                    } else if (cell.monthly != null) {
-                        existingCell.monthly = cell.monthly;
-                    } else if (cell.quarterly != null) {
-                        existingCell.quarterly = cell.quarterly;
-                    } else if (cell.semiannual != null) {
-                        existingCell.semiannual = cell.semiannual;
-                    }
-                    row.productinfo.put(cell.productlabel, existingCell);//Updating the existing cell
-                } else {
-                    row.productinfo.put(cell.productlabel, cell);//We don't have an existing cell, so add the new cell
-                }
+    private void buildRateInfo(List<EligibleRateCell> cells, EligibleRateRow row) {
+        for (EligibleRateCell cell : cells) {
+            if (row.productinfo == null) {
+                row.productinfo = new Map<String, EligibleRateCell>();
             }
-            eligibleRates.add(row);//Add the new row
+
+            /**
+             * Find an existing cell.  Assign the premium values to the existingCell values
+             */
+            EligibleRateCell existingCell = row.productinfo.get(cell.productlabel);
+            if (existingCell != null) {
+                if (cell.annual != null) {
+                    existingCell.annual = cell.annual;
+                } else if (cell.monthly != null) {
+                    existingCell.monthly = cell.monthly;
+                } else if (cell.quarterly != null) {
+                    existingCell.quarterly = cell.quarterly;
+                } else if (cell.semiannual != null) {
+                    existingCell.semiannual = cell.semiannual;
+                }
+                row.productinfo.put(cell.productlabel, existingCell);//Updating the existing cell
+            } else {
+                row.productinfo.put(cell.productlabel, cell);//We don't have an existing cell, so add the new cell
+            }
         }
     }
 }

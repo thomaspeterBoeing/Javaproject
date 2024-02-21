@@ -46,6 +46,7 @@ export default class ratingFilter extends LightningElement {
     spinnerActive = false; 
 
     billMethodChoice = 'ACH';  //Bill method default choice.  Set as value in Bill Method combo box.
+    effectiveDate = '';//Effective date for ADD products
 
     frequencyOptions = [
         { 
@@ -124,6 +125,9 @@ export default class ratingFilter extends LightningElement {
         this.spinnerActive = true;
         let rateData = await this.fetchAllQuoteData();
    
+        //Reset Billing Method options and Payment frequency options
+        //this.resetOptions(rateData.eligibleBillingMethods, rateData.methodObj);
+
         //Set Products
         this.products = rateData.eligibleProducts.filter((product) => product.productCategory === this.productType);
         //this.products = rateData.EligibleBillingOptions.filter((product) => product.productCategory === this.productType);
@@ -226,7 +230,13 @@ export default class ratingFilter extends LightningElement {
     //for the products    
     async fetchAllQuoteData() {
          try{
-            return await getRates({oppId: this.opptyId, productCategory: this.productType, billingMethodCode: this.billMethodChoice,frequency: this.frequencyChoice});          
+            let requestMap = {
+                'oppId': this.opptyId,
+                'productCategory': this.productType,
+                'billingMethodCode': this.billMethodChoice,
+                'frequency': this.frequencyChoice
+            };
+            return await getRates({requestMap: requestMap});          
         }
         catch (error){
             this.spinnerActive = false;
@@ -276,5 +286,55 @@ export default class ratingFilter extends LightningElement {
         if(event.key === "Enter"){
            this.handleProposedCoverageChange(event);
         }
+    }
+
+    /**
+     * Resets billing methods and frequencies
+     * @param {*} availableMethods Available billing methods
+     * @param {*} methodObj Object of available methods with frequencies
+     */
+    resetOptions(availableMethods, methodObj) {
+        this.setBillingMethods(availableMethods);
+        this.setBillingFrequencies(methodObj);
+    }
+
+    /**
+     * Creates a list of options for billing methods
+     * @param {*} options Available billing methods
+     */
+    setBillingMethods(options) {
+        let tempOptions = [];
+        this.billMethodOptions = [];//Reset billing options
+        for (let index = 0; index < options.length; index++) {
+            let option = {
+                label: options[index],
+                value: options[index]
+            }
+            tempOptions.push(option);//Push new option to temp list
+        }
+        this.billMethodOptions = tempOptions;//Assign temp list to billingMethodOptions
+    }
+
+    /**
+     * Creates a list of options for billing frequencies
+     * @param {*} methodObj Object of available methods with frequencies
+     */
+    setBillingFrequencies(methodObj) {
+        let tempOptions = [];
+        this.frequencyOptions = [];//Reset billing options
+
+        let selectedObj = methodObj[this.billMethodChoice];//Get object basec on billing method
+        let options = selectedObj.billingFrequencies;//Available billing frequencies
+
+        this.effectiveDate = methodObj?.effectiveDate;//Set effective date
+
+        for (let index = 0; index < options.length; index++) {
+            let option = {
+                label: options[index],
+                value: options[index]
+            }
+            tempOptions.push(option);//Push new option to temp list
+        }
+        this.frequencyOptions = tempOptions;//Assign temp list to billingMethodOptions
     }
 }

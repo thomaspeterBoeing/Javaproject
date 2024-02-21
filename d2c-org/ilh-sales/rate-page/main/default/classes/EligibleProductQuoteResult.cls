@@ -8,6 +8,7 @@ public class EligibleProductQuoteResult {
     public String productName {get;set;}
     public String productCategory {get;set;}
     public List<CoverageOption> coverages {get;set;}
+    public List<BillingOption> billingOptions {get;set;}
 
     /**
      * Purpose: Inner class that contains coverage option for eligible products
@@ -16,6 +17,12 @@ public class EligibleProductQuoteResult {
         public Integer coverage {get;set;}
         public Decimal premium {get;set;}
         public String frequency {get;set;}
+    }
+
+    public class BillingOption {
+        public String billingMethod {get;set;}
+        public String effectiveDate {get;set;}
+        public List<String> billingFrequencies {get;set;}
     }
 
     /**
@@ -31,26 +38,69 @@ public class EligibleProductQuoteResult {
             if (qr?.insuranceProductDetails?.returnFlag != null && qr.insuranceProductDetails.returnFlag && qr?.coverageOptions != null && 
                 !qr.coverageOptions.isEmpty() && qr?.productCode != null && qr?.insuranceProductDetails?.insuranceProductDisplayName != null &&
                 qr?.insuranceProductDetails?.productCategory != null) {
-                EligibleProductQuoteResult result = new EligibleProductQuoteResult();
-                result.productCode = qr?.productCode;
-                result.productName = qr?.insuranceProductDetails?.insuranceProductDisplayName;
-                result.productCategory = qr?.insuranceProductDetails?.productCategory;
-                result.coverages = new List<CoverageOption>();
+                EligibleProductQuoteResult result = parseResultInfo(qr);
+                result.coverages = parseCoverageOptions(qr.coverageOptions);
 
-                List<ConsumerEligibleQuoteResponse.CoverageOptions> cos = qr.coverageOptions;
-                for (ConsumerEligibleQuoteResponse.CoverageOptions co : cos) {
-                    //Don't map this coverage option if it doesn't meet the criteria below
-                    if (co?.coverage != null && co?.frequency != null && co?.premium != null) {
-                        CoverageOption newCo = new CoverageOption();
-                        newCo.coverage = co.coverage;
-                        newCo.frequency = co.frequency;
-                        newCo.premium = co.premium;
-                        result.coverages.add(newCo);
-                    }
+                List<ConsumerEligibleQuoteResponse.EligibleBillingOptionsList> addBillingOptions = qr?.insuranceProductDetails?.aDnDInsuranceProductInfo?.eligibleBillingOptionsList;
+                List<ConsumerEligibleQuoteResponse.EligibleBillingOptionsList> lifeBillingOptions = qr?.insuranceProductDetails?.lifeInsuranceProductInfo?.eligibleBillingOptionsList;
+                if (addBillingOptions != null) {
+                    result.billingOptions = parseBillingOptions(addBillingOptions);//If ADD product, then pass ADD billing options
+                } else if (lifeBillingOptions != null) {
+                    result.billingOptions = parseBillingOptions(lifeBillingOptions);//If Life product, then pass life billing options
                 }
                 newResults.add(result);
             }
         }
         return newResults;
+    }
+
+    /**
+     * Purpose: Parses product quote response into EligibleProductQuoteResult object
+     * @param productQuoteResult : Result from product quote response
+     * @return Instance of EligibleProductQuoteResult
+     */
+    private static EligibleProductQuoteResult parseResultInfo(ConsumerEligibleQuoteResponse.ProductQuotes productQuoteResult) {
+        EligibleProductQuoteResult result = new EligibleProductQuoteResult();
+        result.productCode = productQuoteResult?.productCode;
+        result.productName = productQuoteResult?.insuranceProductDetails?.insuranceProductDisplayName;
+        result.productCategory = productQuoteResult?.insuranceProductDetails?.productCategory;
+        return result;
+    }
+
+    /**
+     * Purpose: Parses product quote coverage options into Result coverage options
+     * @param cos : Coverage options from product quote response
+     * @return List of coverage options
+     */
+    private static List<CoverageOption> parseCoverageOptions(List<ConsumerEligibleQuoteResponse.CoverageOptions> cos) {
+        List<CoverageOption> coverages = new List<CoverageOption>();
+        for (ConsumerEligibleQuoteResponse.CoverageOptions co : cos) {
+            //Don't map this coverage option if it doesn't meet the criteria below
+            if (co?.coverage != null && co?.frequency != null && co?.premium != null) {
+                CoverageOption newCo = new CoverageOption();
+                newCo.coverage = co.coverage;
+                newCo.frequency = co.frequency;
+                newCo.premium = co.premium;
+                coverages.add(newCo);
+            }
+        }
+        return coverages;
+    }
+
+    /**
+     * Purpose: Parses product quote billing options into Result billing options
+     * @param billingOptions : Billing options from product quote response
+     * @return List of billing options
+     */
+    private static List<BillingOption> parseBillingOptions(List<ConsumerEligibleQuoteResponse.EligibleBillingOptionsList> billingOptions) {
+        List<BillingOption> resultBillingOptions = new List<BillingOption>();
+        for (ConsumerEligibleQuoteResponse.EligibleBillingOptionsList bo : billingOptions) {
+            BillingOption billingOption = new BillingOption();
+            billingOption.billingFrequencies = bo?.billingFrequencyCodeList;
+            billingOption.billingMethod = bo?.billingMethodCode;
+            billingOption.effectiveDate = bo?.effectiveDate;
+            resultBillingOptions.add(billingOption);             
+        }
+        return resultBillingOptions;
     }
 }
