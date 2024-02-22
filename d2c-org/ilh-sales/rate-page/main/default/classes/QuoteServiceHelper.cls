@@ -31,9 +31,6 @@ public with sharing class QuoteServiceHelper {
      * @return New request map to send to quote service
      */
     private Map<String, Object> getQuoteRequestMap(Map<String, Object> requestMap) {
-        integer maxCov;
-        integer minCov;
-        integer covInterval;
         string billMethod;
 
         String frequency = (String)requestMap.get('frequency');
@@ -41,22 +38,13 @@ public with sharing class QuoteServiceHelper {
         String productCategory = (String)requestMap.get('productCategory');
         oppId = (Id)requestMap.get('oppId');
 
-        //TODO: Move to metadata object
-        if(productCategory == 'Life'){
-            maxCov = 300000;
-            minCov = 1000;
-            covInterval = 1000;
-        } else if (productCategory == 'ADD'){
-            maxCov = 500000;
-            minCov = 5000;
-            covInterval = 5000;
-        }
+        RateComparisonInterval__mdt rci = ILHUtilities.getRateComparisonInterval(productCategory);
 
         quoteRequestMap = new Map<String, Object> {
             'channel' => 'Telem',
-            'maxCoverage' => maxCov,
-            'minCoverage' => minCov,
-            'coverageInterval' => covInterval,
+            'maxCoverage' => rci.UpperBound__c,
+            'minCoverage' => rci.LowerBound__c,
+            'coverageInterval' => rci.Interval__c,
             'organizationId' => '',
             'requestingSystemName' => 'sforcecs',
             'asOfDate' => Date.today()
@@ -67,7 +55,6 @@ public with sharing class QuoteServiceHelper {
             quoteRequestMap.put('billingMethod',billingMethodCode);
         }
         mapOpportunityInformation();
-        System.debug(JSON.serialize(quoteRequestMap));
         return quoteRequestMap;
     }
 
