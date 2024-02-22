@@ -60,25 +60,14 @@ public class EligibleProductRateWrapper {
      */
     public class EligibleProduct {
         @AuraEnabled
-        public String productCategory;
-    
-        @AuraEnabled
         public String label;
     
         @AuraEnabled
         public String value;
     
-        public EligibleProduct(String value, String label, String productCategory) {
+        public EligibleProduct(String value, String label) {
             this.value = value;
             this.label = label;
-
-            if (String.isNotEmpty(productCategory)) {
-                if (productCategory.equalsIgnoreCase('ADD') || productCategory.equalsIgnoreCase('Conversion')) {
-                    this.productCategory = productCategory;
-                } else {
-                    this.productCategory = 'Life';
-                }
-            }
         }
     }
 
@@ -96,7 +85,7 @@ public class EligibleProductRateWrapper {
 
         //Building cells
         for (EligibleProductQuoteResult result : results) {
-            eligibleProducts.add(new EligibleProduct(result.productName, result.productCode, result.productCategory));
+            eligibleProducts.add(new EligibleProduct(result.productName, result.productCode));
             buildCoverageOptions(result, coverageMap);
             buildBillingOptions(result, eligibleBillingMethods, eligibleBillingOptions);
         }

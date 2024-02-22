@@ -74,7 +74,6 @@ public class EligibleProductQuoteResult {
         EligibleProductQuoteResult result = new EligibleProductQuoteResult();
         result.productCode = productQuoteResult?.productCode;
         result.productName = productQuoteResult?.insuranceProductDetails?.insuranceProductDisplayName;
-        result.productCategory = productQuoteResult?.insuranceProductDetails?.productCategory;
         return result;
     }
 
