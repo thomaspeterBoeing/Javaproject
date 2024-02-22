@@ -51,8 +51,6 @@ public class EligibleProductRateWrapper {
     public class EligibleBillingOption {
         @AuraEnabled
         public String effectiveDate {get;set;}
-        @AuraEnabled
-        public Set<String> billingFrequencies {get;set;}
     }
 
     /**

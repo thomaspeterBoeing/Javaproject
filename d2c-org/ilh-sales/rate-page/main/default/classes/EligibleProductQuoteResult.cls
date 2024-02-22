@@ -22,7 +22,6 @@ public class EligibleProductQuoteResult {
     public class BillingOption {
         public String billingMethod {get;set;}
         public String effectiveDate {get;set;}
-        public List<String> billingFrequencies {get;set;}
     }
 
     /**
@@ -106,7 +105,6 @@ public class EligibleProductQuoteResult {
         List<BillingOption> resultBillingOptions = new List<BillingOption>();
         for (ConsumerEligibleQuoteResponse.EligibleBillingOptionsList bo : billingOptions) {
             BillingOption billingOption = new BillingOption();
-            billingOption.billingFrequencies = bo?.billingFrequencyCodeList;
             billingOption.billingMethod = bo?.billingMethodCode;
             billingOption.effectiveDate = bo?.effectiveDate;
             resultBillingOptions.add(billingOption);             
