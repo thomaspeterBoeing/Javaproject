@@ -45,43 +45,29 @@ export default class ratingFilter extends LightningElement {
     frequencyChoice = "monthly";   //Frequency option selected on Frequency field.
     spinnerActive = false; 
 
-    billMethodChoice = 'ACH';  //Bill method default choice.  Set as value in Bill Method combo box.
+    billMethodChoice = '';  //Bill method default choice.  Set as value in Bill Method combo box.
     effectiveDate = '';//Effective date for ADD products
 
     frequencyOptions = [
         { 
-            value: 'Annual', 
+            value: 'annual', 
             label: 'Annual'
         },
         {
-            value: 'SemiAnnual',
+            value: 'semiannual',
             label: 'Semi-Annual'
         },
         {
-            value: 'Quarterly',
+            value: 'quarterly',
             label: 'Quarterly'
         },
         {
-            value: 'Monthly',
+            value: 'monthly',
             label: 'Monthly'
         },
     ];
-    billMethodOptions = [
-        { 
-            value: 'ACH', 
-            label: 'ACH'
-        },       
-        { 
-            value: 'CreditCard', 
-            label: 'Credit Card'
-        },       
-        {
-            value: 'PAC', 
-            label: 'PAC'
 
-        }
-
-    ];
+    billMethodOptions = [];
  
     async connectedCallback(){     
 
@@ -124,12 +110,12 @@ export default class ratingFilter extends LightningElement {
    async getAllRates(){
         this.spinnerActive = true;
         let rateData = await this.fetchAllQuoteData();
-   
+
         //Reset Billing Method options and Payment frequency options
-        //this.resetOptions(rateData.eligibleBillingMethods, rateData.methodObj);
+        this.resetOptions(rateData.eligibleBillingMethods, rateData.eligibleBillingOptions);
 
         //Set Products
-        this.products = rateData.eligibleProducts.filter((product) => product.productCategory === this.productType);
+        this.products = rateData.eligibleProducts;//.filter((product) => product.productCategory === this.productType);
         //this.products = rateData.EligibleBillingOptions.filter((product) => product.productCategory === this.productType);
                 
         //Set Rates  
@@ -304,11 +290,11 @@ export default class ratingFilter extends LightningElement {
      */
     setBillingMethods(options) {
         let tempOptions = [];
-        this.billMethodOptions = [];//Reset billing options
         for (let index = 0; index < options.length; index++) {
+            let billingMethod = options[index];
             let option = {
-                label: options[index],
-                value: options[index]
+                label: billingMethod,
+                value: billingMethod.replace(/\s/g, '')
             }
             tempOptions.push(option);//Push new option to temp list
         }
@@ -320,21 +306,23 @@ export default class ratingFilter extends LightningElement {
      * @param {*} methodObj Object of available methods with frequencies
      */
     setBillingFrequencies(methodObj) {
-        let tempOptions = [];
-        this.frequencyOptions = [];//Reset billing options
+        //let tempOptions = [];
+        let selectedObj = {};
 
-        let selectedObj = methodObj[this.billMethodChoice];//Get object basec on billing method
-        let options = selectedObj.billingFrequencies;//Available billing frequencies
-
-        this.effectiveDate = methodObj?.effectiveDate;//Set effective date
-
-        for (let index = 0; index < options.length; index++) {
-            let option = {
-                label: options[index],
-                value: options[index]
+        //console.log('this.billMethodChoice: ' + this.billMethodChoice);
+        //console.log('methodObj: ' + JSON.stringify(methodObj, null, 4));
+        if (this.billMethodChoice in methodObj) {
+            selectedObj = methodObj[this.billMethodChoice];//Get object based on billing method
+            //let options = selectedObj?.billingFrequencies;//Available billing frequencies
+            this.effectiveDate = selectedObj?.effectiveDate;//Set effective date
+            /*for (let index = 0; index < options.length; index++) {
+                let option = {
+                    label: options[index],
+                    value: options[index]
+                }
+                tempOptions.push(option);//Push new option to temp list
             }
-            tempOptions.push(option);//Push new option to temp list
+            this.frequencyOptions = tempOptions;//Assign temp list to billingMethodOptions*/
         }
-        this.frequencyOptions = tempOptions;//Assign temp list to billingMethodOptions
     }
 }
