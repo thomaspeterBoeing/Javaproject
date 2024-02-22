@@ -30,14 +30,12 @@ public class EligibleProductQuoteResult {
      * @param response : Response from ConsumerEligibleQuoteResponse.QuoteResponse object
      * @return List of EligibleProductQuoteResult
      */
-    public static List<EligibleProductQuoteResult> parse(ConsumerEligibleQuoteResponse.QuoteResponse response) {
+    public static List<EligibleProductQuoteResult> parse(ConsumerEligibleQuoteResponse.QuoteResponse response, String selectedProductCategory) {
         List<EligibleProductQuoteResult> newResults = new List<EligibleProductQuoteResult>();
-        List<ConsumerEligibleQuoteResponse.ProductQuotes> productQuotes = response.productQuotes;
+        List<ConsumerEligibleQuoteResponse.ProductQuotes> productQuotes = response?.productQuotes;
         for (ConsumerEligibleQuoteResponse.ProductQuotes qr : productQuotes) {
             //Don't map record if it doesn't meet the criteria below
-            if (qr?.insuranceProductDetails?.returnFlag != null && qr.insuranceProductDetails.returnFlag && qr?.coverageOptions != null && 
-                !qr.coverageOptions.isEmpty() && qr?.productCode != null && qr?.insuranceProductDetails?.insuranceProductDisplayName != null &&
-                qr?.insuranceProductDetails?.productCategory != null) {
+            if (shouldParseResult(qr, selectedProductCategory)) {
                 EligibleProductQuoteResult result = parseResultInfo(qr);
                 result.coverages = parseCoverageOptions(qr.coverageOptions);
 
@@ -52,6 +50,19 @@ public class EligibleProductQuoteResult {
             }
         }
         return newResults;
+    }
+
+    /**
+     * Purpose: Determines if a result should be updated
+     * @param quoteResult Quote result that will determine if we parse
+     * @param selectedProductCategory Product category that will determine if we parse
+     * @return If true, then we will parse result.  If false, then we skip this result
+     */
+    private static Boolean shouldParseResult(ConsumerEligibleQuoteResponse.ProductQuotes quoteResult, String selectedProductCategory) {
+        return (quoteResult?.insuranceProductDetails?.returnFlag != null && quoteResult.insuranceProductDetails.returnFlag && 
+        quoteResult?.coverageOptions != null && !quoteResult.coverageOptions.isEmpty() && quoteResult?.productCode != null && 
+        quoteResult?.insuranceProductDetails?.insuranceProductDisplayName != null && quoteResult?.insuranceProductDetails?.productCategory != null && 
+        getProductCategory(quoteResult?.insuranceProductDetails?.productCategory).equalsIgnoreCase(selectedProductCategory));
     }
 
     /**
@@ -102,5 +113,23 @@ public class EligibleProductQuoteResult {
             resultBillingOptions.add(billingOption);             
         }
         return resultBillingOptions;
+    }
+
+    /**
+     * Purpose: Determines a new product category based on the product category given
+     * @param productCategory Product category that will determine a new product category
+     * @return A new product category
+     */
+    private static String getProductCategory(String productCategory) {
+        String newProductCategory = '';
+
+        if (String.isNotEmpty(productCategory)) {
+            if (productCategory.equalsIgnoreCase('ADD') || productCategory.equalsIgnoreCase('Conversion')) {
+                newProductCategory = productCategory;
+            } else {
+                newProductCategory = 'Life';
+            }
+        }
+        return newProductCategory;
     }
 }
