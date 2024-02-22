@@ -52,7 +52,7 @@ public class EligibleProductRateWrapper {
         @AuraEnabled
         public String effectiveDate {get;set;}
         @AuraEnabled
-        public List<String> billingFrequencies {get;set;}
+        public Set<String> billingFrequencies {get;set;}
     }
 
     /**
@@ -83,28 +83,37 @@ public class EligibleProductRateWrapper {
     }
 
     /**
-     * Purpose: This method builds full grid.
+     * Purpose: Wraps quote results in a format that can be consumed by UI
+     * @param results Results from quote service
      */
     private void wrapResults(List<EligibleProductQuoteResult> results) {
         Map<Integer, List<EligibleRateCell>> coverageMap = new Map<Integer, List<EligibleRateCell>>();
-        List<Integer> sortedKeys = new List<Integer>();//Sorted results based on coverage
+        List<Integer> coverages = new List<Integer>();//Sorted results based on coverage
         eligibleRates = new List<EligibleRateRow>();
         eligibleProducts = new List<EligibleProduct>();
+        eligibleBillingMethods = new Set<String>();
+        eligibleBillingOptions = new Map<String, EligibleBillingOption>();
 
         //Building cells
         for (EligibleProductQuoteResult result : results) {
             eligibleProducts.add(new EligibleProduct(result.productName, result.productCode, result.productCategory));
             buildCoverageOptions(result, coverageMap);
+            buildBillingOptions(result, eligibleBillingMethods, eligibleBillingOptions);
         }
 
         if (coverageMap != null && !coverageMap.isEmpty()) {
-            sortedKeys.addAll(coverageMap.keySet());
-            sortedKeys.sort();
+            coverages.addAll(coverageMap.keySet());//Add all coverages
+            coverages.sort();//Sort coverages
         }
 
-        eligibleRates = buildRates(sortedKeys, coverageMap);
+        eligibleRates = buildRates(coverages, coverageMap);//Assign eligible rates
     }
 
+    /**
+     * Purpose: Builds coverage options for wrapper class
+     * @param result Result from quote service
+     * @param coverageMap Contains list of cells for each coverage
+     */
     private void buildCoverageOptions(EligibleProductQuoteResult result, Map<Integer,List<EligibleProductRateWrapper.EligibleRateCell>> coverageMap) {
         for (EligibleProductQuoteResult.CoverageOption co : result.coverages) {
             List<EligibleRateCell> cells = coverageMap.get(co.coverage);//Get any existing cells based on coverage
@@ -133,10 +142,15 @@ public class EligibleProductRateWrapper {
         }
     }
 
-    private List<EligibleRateRow> buildRates(List<Integer> sortedKeys, Map<Integer,List<EligibleProductRateWrapper.EligibleRateCell>> coverageMap) {
+    /**
+     * Purpose: Builds rates for wrapper class
+     * @param coverages Represents list of coverages
+     * @param coverageMap Contains list of cells for each coverage
+     */
+    private List<EligibleRateRow> buildRates(List<Integer> coverages, Map<Integer,List<EligibleProductRateWrapper.EligibleRateCell>> coverageMap) {
         List<EligibleRateRow> rates = new List<EligibleRateRow>();
         //Looping through each coveage and creating a new row
-        for (Integer coverage : sortedKeys) {
+        for (Integer coverage : coverages) {
             EligibleRateRow row = new EligibleRateRow();
             List<EligibleRateCell> cells = coverageMap.get(coverage);//Get all cells based on coverage
             row.coverage = String.valueOf(coverage);
@@ -146,16 +160,18 @@ public class EligibleProductRateWrapper {
         return rates;
     }
 
+    /**
+     * Purpose: Builds rate info for rate cells
+     * @param cells Cells that have been built.  We will additional information to these cells
+     * @param row Pass-by-value parameter
+     */
     private void buildRateInfo(List<EligibleRateCell> cells, EligibleRateRow row) {
         for (EligibleRateCell cell : cells) {
             if (row.productinfo == null) {
                 row.productinfo = new Map<String, EligibleRateCell>();
             }
 
-            /**
-             * Find an existing cell.  Assign the premium values to the existingCell values
-             */
-            EligibleRateCell existingCell = row.productinfo.get(cell.productlabel);
+            EligibleRateCell existingCell = row.productinfo.get(cell.productlabel);//Find an existing cell.  Assign the premium values to the existingCell values
             if (existingCell != null) {
                 if (cell.annual != null) {
                     existingCell.annual = cell.annual;
@@ -170,6 +186,26 @@ public class EligibleProductRateWrapper {
             } else {
                 row.productinfo.put(cell.productlabel, cell);//We don't have an existing cell, so add the new cell
             }
+        }
+    }
+
+    /**
+     * Purpose: Builds billing options for wrapper class
+     * @param result Result from quote service
+     * @param eligibleBillingMethods Pass-by-value parameter
+     * @param eligibleBillingOptions Pass-by-value parameter
+     */
+    private void buildBillingOptions(EligibleProductQuoteResult result, Set<String> eligibleBillingMethods, Map<String, EligibleBillingOption> eligibleBillingOptions) {
+        for (EligibleProductQuoteResult.BillingOption bo : result.billingOptions) {
+            EligibleBillingOption currentBo = eligibleBillingOptions.get(bo.billingMethod);//Get a billing option based on current billing method
+
+            if (currentBo == null) {
+                currentBo = new EligibleBillingOption();
+            }
+
+            currentBo.effectiveDate = bo?.effectiveDate;//Set effective date for current billing option
+            eligibleBillingOptions.put(bo.billingMethod, currentBo);//Add the current billing option and associate it to the current billing method
+            eligibleBillingMethods.add(bo.billingMethod);//Add the current billing method to list of eligible billing methods
         }
     }
 }

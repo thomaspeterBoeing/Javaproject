@@ -115,8 +115,7 @@ export default class ratingFilter extends LightningElement {
         this.resetOptions(rateData.eligibleBillingMethods, rateData.eligibleBillingOptions);
 
         //Set Products
-        this.products = rateData.eligibleProducts;//.filter((product) => product.productCategory === this.productType);
-        //this.products = rateData.EligibleBillingOptions.filter((product) => product.productCategory === this.productType);
+        this.products = rateData.eligibleProducts;
                 
         //Set Rates  
         this.rates = this.getEligibleRates(rateData);
@@ -281,7 +280,7 @@ export default class ratingFilter extends LightningElement {
      */
     resetOptions(availableMethods, methodObj) {
         this.setBillingMethods(availableMethods);
-        this.setBillingFrequencies(methodObj);
+        this.setEffectiveDate(methodObj);
     }
 
     /**
@@ -305,24 +304,12 @@ export default class ratingFilter extends LightningElement {
      * Creates a list of options for billing frequencies
      * @param {*} methodObj Object of available methods with frequencies
      */
-    setBillingFrequencies(methodObj) {
-        //let tempOptions = [];
+    setEffectiveDate(methodObj) {
         let selectedObj = {};
 
-        //console.log('this.billMethodChoice: ' + this.billMethodChoice);
-        //console.log('methodObj: ' + JSON.stringify(methodObj, null, 4));
-        if (this.billMethodChoice in methodObj) {
+        if (this.billMethodChoice in methodObj) {//Check if billing method choice is an attribut in method object
             selectedObj = methodObj[this.billMethodChoice];//Get object based on billing method
-            //let options = selectedObj?.billingFrequencies;//Available billing frequencies
             this.effectiveDate = selectedObj?.effectiveDate;//Set effective date
-            /*for (let index = 0; index < options.length; index++) {
-                let option = {
-                    label: options[index],
-                    value: options[index]
-                }
-                tempOptions.push(option);//Push new option to temp list
-            }
-            this.frequencyOptions = tempOptions;//Assign temp list to billingMethodOptions*/
         }
     }
 }
