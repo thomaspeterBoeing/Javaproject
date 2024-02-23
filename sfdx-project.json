@@ -272,6 +272,41 @@
     ]
     },
     {
+      "path": "d2c-org/ilh-sales/product-list",
+      "default": false,
+      "package": "ILH Sales Product List",
+      "versionName": "ver 1.0",
+      "versionNumber": "1.0.0.NEXT",
+      "versionDescription": "",
+      "scopeProfiles": true,
+      "dependencies":[
+      {
+        "package": "D2C Core Base Objects",
+        "versionNumber": "1.0.0.LATEST"
+      },
+      {
+        "package": "ILH Sales Base Objects",
+        "versionNumber": "1.0.0.LATEST"
+      },
+      {
+        "package": "D2C Core Base Code",
+        "versionNumber": "1.0.0.LATEST"
+      },
+      {
+        "package": "D2C Core Error Handling Framework",
+        "versionNumber": "1.0.0.LATEST"
+      },
+      {
+        "package": "ILH Sales Base Code",
+        "versionNumber": "1.0.0.LATEST"
+      },
+      {
+        "package": "ILH Sales Consumer Quoteservice",
+        "versionNumber": "1.0.0.LATEST"        
+      }
+    ]
+    },
+    {
       "path": "d2c-org/ilh-sales/rate-page",
       "package": "ILH Sales Rate Page",
       "versionName": "ver 1.0",
@@ -379,6 +414,7 @@
     "ILH Sales Policy Summary": "0HoDm0000004CF1KAM",
     "ILH Sales Consumer Update": "0HoDm0000004CFGKA2",
     "ILH Sales Rate Page": "0HoDm0000004CFQKA2",
-    "ILH Sales Consumer Quoteservice": "0HoDm0000004CFVKA2"
+    "ILH Sales Consumer Quoteservice": "0HoDm0000004CFVKA2",
+    "ILH Sales Product List": "0HoDm0000004CFaKAM"
   }
 }
