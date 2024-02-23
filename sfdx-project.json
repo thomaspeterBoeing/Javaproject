@@ -375,6 +375,10 @@
           "versionNumber": "1.0.0.LATEST"
         },
         {
+          "package": "ILH Sales Market History",
+          "versionNumber": "1.0.0.LATEST"
+        },
+        {
           "package": "ILH Sales Consumer and Opportunity Automation",
           "versionNumber": "1.0.0.LATEST"
         },
@@ -384,6 +388,10 @@
         },
         {
           "package": "ILH Sales Consumer Quoteservice",
+          "versionNumber": "1.0.0.LATEST"
+        },
+        {
+          "package": "ILH Sales Product List",
           "versionNumber": "1.0.0.LATEST"
         },
         {
