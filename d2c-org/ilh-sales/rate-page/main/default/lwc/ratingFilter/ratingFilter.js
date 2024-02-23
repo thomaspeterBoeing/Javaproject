@@ -112,7 +112,7 @@ export default class ratingFilter extends LightningElement {
         let rateData = await this.fetchAllQuoteData();
 
         //Reset Billing Method options and Payment frequency options
-        this.resetOptions(rateData.eligibleBillingMethods, rateData.eligibleBillingOptions);
+        this.setBillingMethods(rateData.eligibleBillingMethods);
 
         //Set Products
         this.products = rateData.eligibleProducts;
@@ -274,42 +274,22 @@ export default class ratingFilter extends LightningElement {
     }
 
     /**
-     * Resets billing methods and frequencies
-     * @param {*} availableMethods Available billing methods
-     * @param {*} methodObj Object of available methods with frequencies
-     */
-    resetOptions(availableMethods, methodObj) {
-        this.setBillingMethods(availableMethods);
-        this.setEffectiveDate(methodObj);
-    }
-
-    /**
      * Creates a list of options for billing methods
      * @param {*} options Available billing methods
      */
     setBillingMethods(options) {
         let tempOptions = [];
         for (let index = 0; index < options.length; index++) {
-            let billingMethod = options[index];
+            let currentRow = options[index];//Get current row
+            if (currentRow.billingMethod === this.billMethodChoice) {//If the billing method for this row is equal to the billing method in the ui, the set effective date
+                this.effectiveDate = currentRow.effectiveDate;
+            }
             let option = {
-                label: billingMethod,
-                value: billingMethod.replace(/\s/g, '')
+                label: currentRow.billingMethod,
+                value: currentRow.billingMethod.replace(/\s/g, '')//Remove spaces from billing method
             }
             tempOptions.push(option);//Push new option to temp list
         }
         this.billMethodOptions = tempOptions;//Assign temp list to billingMethodOptions
-    }
-
-    /**
-     * Creates a list of options for billing frequencies
-     * @param {*} methodObj Object of available methods with frequencies
-     */
-    setEffectiveDate(methodObj) {
-        let selectedObj = {};
-
-        if (this.billMethodChoice in methodObj) {//Check if billing method choice is an attribut in method object
-            selectedObj = methodObj[this.billMethodChoice];//Get object based on billing method
-            this.effectiveDate = selectedObj?.effectiveDate;//Set effective date
-        }
     }
 }
