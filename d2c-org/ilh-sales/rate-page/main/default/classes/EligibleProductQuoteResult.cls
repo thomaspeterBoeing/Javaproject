@@ -17,6 +17,7 @@ public class EligibleProductQuoteResult {
         public Integer coverage {get;set;}
         public Decimal premium {get;set;}
         public String frequency {get;set;}
+        public Boolean ridersAvailable {get;set;}
     }
 
     public class BillingOption {
@@ -35,11 +36,15 @@ public class EligibleProductQuoteResult {
         for (ConsumerEligibleQuoteResponse.ProductQuotes qr : productQuotes) {
             //Don't map record if it doesn't meet the criteria below
             if (shouldParseResult(qr, selectedProductCategory)) {
+                ConsumerEligibleQuoteResponse.ADnDInsuranceProductInfo addProductInfo  = qr?.insuranceProductDetails?.aDnDInsuranceProductInfo;
+                ConsumerEligibleQuoteResponse.LifeInsuranceProductInfo lifeProductInfo = qr?.insuranceProductDetails?.lifeInsuranceProductInfo;
+                List<ConsumerEligibleQuoteResponse.EligibleBillingOptionsList> addBillingOptions = addProductInfo?.eligibleBillingOptionsList;
+                List<ConsumerEligibleQuoteResponse.EligibleBillingOptionsList> lifeBillingOptions = lifeProductInfo?.eligibleBillingOptionsList;
+                Boolean ridersAvailable = addProductInfo?.eligibleRiderCoverage?.ridersAvailable;
+                
                 EligibleProductQuoteResult result = parseResultInfo(qr);
-                result.coverages = parseCoverageOptions(qr.coverageOptions);
+                result.coverages = parseCoverageOptions(qr.coverageOptions, addProductInfo?.eligibleRiderCoverage?.ridersAvailable);
 
-                List<ConsumerEligibleQuoteResponse.EligibleBillingOptionsList> addBillingOptions = qr?.insuranceProductDetails?.aDnDInsuranceProductInfo?.eligibleBillingOptionsList;
-                List<ConsumerEligibleQuoteResponse.EligibleBillingOptionsList> lifeBillingOptions = qr?.insuranceProductDetails?.lifeInsuranceProductInfo?.eligibleBillingOptionsList;
                 if (addBillingOptions != null) {
                     result.billingOptions = parseBillingOptions(addBillingOptions);//If ADD product, then pass ADD billing options
                 } else if (lifeBillingOptions != null) {
@@ -81,12 +86,13 @@ public class EligibleProductQuoteResult {
      * @param cos : Coverage options from product quote response
      * @return List of coverage options
      */
-    private static List<CoverageOption> parseCoverageOptions(List<ConsumerEligibleQuoteResponse.CoverageOptions> cos) {
+    private static List<CoverageOption> parseCoverageOptions(List<ConsumerEligibleQuoteResponse.CoverageOptions> cos, Boolean ridersAvailable) {
         List<CoverageOption> coverages = new List<CoverageOption>();
         for (ConsumerEligibleQuoteResponse.CoverageOptions co : cos) {
             //Don't map this coverage option if it doesn't meet the criteria below
             if (co?.coverage != null && co?.frequency != null && co?.premium != null) {
                 CoverageOption newCo = new CoverageOption();
+                newCo.ridersAvailable = ridersAvailable;
                 newCo.coverage = co.coverage;
                 newCo.frequency = co.frequency;
                 newCo.premium = co.premium;

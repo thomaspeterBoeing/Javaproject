@@ -9,9 +9,7 @@ public class EligibleProductRateWrapper {
     @AuraEnabled
     public List<EligibleRateRow> eligibleRates {get;set;}
     @AuraEnabled
-    public Set<String> eligibleBillingMethods {get;set;}
-    @AuraEnabled
-    public Map<String, EligibleBillingOption> eligibleBillingOptions {get;set;}
+    public Set<EligibleBillingMethod> eligibleBillingMethods {get;set;}
 
     //public EligibleProductRateWrapper();
     public EligibleProductRateWrapper(List<EligibleProductQuoteResult> results) {
@@ -46,11 +44,35 @@ public class EligibleProductRateWrapper {
         public String productcode {get;set;}
         @AuraEnabled
         public String productlabel {get;set;}
+        @AuraEnabled
+        public Boolean ridersAvailable {get;set;}
     }
 
-    public class EligibleBillingOption {
+    public class EligibleBillingMethod {
+        @AuraEnabled
+        public String billingMethod {get;set;}
         @AuraEnabled
         public String effectiveDate {get;set;}
+
+        /**
+         * Purpose: Returns the hashcode corresponding to this set and its contents.
+         */
+        public Integer hashCode() {
+            return ((String.isNotBlank(billingMethod)? billingMethod: '').toLowerCase() + (String.isNotBlank(effectiveDate)? effectiveDate: '')).hashCode();
+        }
+
+        /**
+         * Purpose: Compares this set with the specified set and returns true if both sets are equal; otherwise, returns false.
+         */
+        public Boolean equals(Object other) {
+            EligibleBillingMethod option = (EligibleBillingMethod) other;
+            if ((option.billingMethod.equalsIgnoreCase(billingMethod) && String.isEmpty(effectiveDate) && String.isNotEmpty(option.effectiveDate)) ||
+                !option.billingMethod.equalsIgnoreCase(billingMethod)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
     }
 
     /**
@@ -78,14 +100,13 @@ public class EligibleProductRateWrapper {
         List<Integer> coverages = new List<Integer>();//Sorted results based on coverage
         eligibleRates = new List<EligibleRateRow>();
         eligibleProducts = new List<EligibleProduct>();
-        eligibleBillingMethods = new Set<String>();
-        eligibleBillingOptions = new Map<String, EligibleBillingOption>();
+        eligibleBillingMethods = new Set<EligibleBillingMethod>();
 
         //Building cells
         for (EligibleProductQuoteResult result : results) {
             eligibleProducts.add(new EligibleProduct(result.productName, result.productCode));
             buildCoverageOptions(result, coverageMap);
-            buildBillingOptions(result, eligibleBillingMethods, eligibleBillingOptions);
+            buildBillingOptions(result, eligibleBillingMethods);
         }
 
         if (coverageMap != null && !coverageMap.isEmpty()) {
@@ -113,6 +134,7 @@ public class EligibleProductRateWrapper {
             cell.productlabel = result?.productName;
             cell.productcode = result?.productCode;
             cell.coverage = co?.coverage;
+            cell.ridersAvailable = co?.ridersAvailable;
 
             if (co.frequency == 'Annual') {
                 cell.annual = co.premium;
@@ -180,19 +202,13 @@ public class EligibleProductRateWrapper {
      * Purpose: Builds billing options for wrapper class
      * @param result Result from quote service
      * @param eligibleBillingMethods Pass-by-value parameter
-     * @param eligibleBillingOptions Pass-by-value parameter
      */
-    private void buildBillingOptions(EligibleProductQuoteResult result, Set<String> eligibleBillingMethods, Map<String, EligibleBillingOption> eligibleBillingOptions) {
-        for (EligibleProductQuoteResult.BillingOption bo : result.billingOptions) {
-            EligibleBillingOption currentBo = eligibleBillingOptions.get(bo.billingMethod);//Get a billing option based on current billing method
-
-            if (currentBo == null) {
-                currentBo = new EligibleBillingOption();
-            }
-
-            currentBo.effectiveDate = bo?.effectiveDate;//Set effective date for current billing option
-            eligibleBillingOptions.put(bo.billingMethod, currentBo);//Add the current billing option and associate it to the current billing method
-            eligibleBillingMethods.add(bo.billingMethod);//Add the current billing method to list of eligible billing methods
+    private void buildBillingOptions(EligibleProductQuoteResult result, Set<EligibleBillingMethod> eligibleBillingMethods) {
+        for (EligibleProductQuoteResult.BillingOption billOption : result.billingOptions) {
+            EligibleBillingMethod newBillOption = new EligibleBillingMethod();
+            newBillOption.effectiveDate = billOption?.effectiveDate;
+            newBillOption.billingMethod = billOption?.billingMethod;
+            eligibleBillingMethods.add(newBillOption);
         }
     }
 }
