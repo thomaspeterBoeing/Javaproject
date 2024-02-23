@@ -17,7 +17,6 @@ public class EligibleProductQuoteResult {
         public Integer coverage {get;set;}
         public Decimal premium {get;set;}
         public String frequency {get;set;}
-        public Boolean ridersAvailable {get;set;}
     }
 
     public class BillingOption {
@@ -40,10 +39,9 @@ public class EligibleProductQuoteResult {
                 ConsumerEligibleQuoteResponse.LifeInsuranceProductInfo lifeProductInfo = qr?.insuranceProductDetails?.lifeInsuranceProductInfo;
                 List<ConsumerEligibleQuoteResponse.EligibleBillingOptionsList> addBillingOptions = addProductInfo?.eligibleBillingOptionsList;
                 List<ConsumerEligibleQuoteResponse.EligibleBillingOptionsList> lifeBillingOptions = lifeProductInfo?.eligibleBillingOptionsList;
-                Boolean ridersAvailable = addProductInfo?.eligibleRiderCoverage?.ridersAvailable;
                 
                 EligibleProductQuoteResult result = parseResultInfo(qr);
-                result.coverages = parseCoverageOptions(qr.coverageOptions, addProductInfo?.eligibleRiderCoverage?.ridersAvailable);
+                result.coverages = parseCoverageOptions(qr.coverageOptions);
 
                 if (addBillingOptions != null) {
                     result.billingOptions = parseBillingOptions(addBillingOptions);//If ADD product, then pass ADD billing options
@@ -86,13 +84,12 @@ public class EligibleProductQuoteResult {
      * @param cos : Coverage options from product quote response
      * @return List of coverage options
      */
-    private static List<CoverageOption> parseCoverageOptions(List<ConsumerEligibleQuoteResponse.CoverageOptions> cos, Boolean ridersAvailable) {
+    private static List<CoverageOption> parseCoverageOptions(List<ConsumerEligibleQuoteResponse.CoverageOptions> cos) {
         List<CoverageOption> coverages = new List<CoverageOption>();
         for (ConsumerEligibleQuoteResponse.CoverageOptions co : cos) {
             //Don't map this coverage option if it doesn't meet the criteria below
             if (co?.coverage != null && co?.frequency != null && co?.premium != null) {
                 CoverageOption newCo = new CoverageOption();
-                newCo.ridersAvailable = ridersAvailable;
                 newCo.coverage = co.coverage;
                 newCo.frequency = co.frequency;
                 newCo.premium = co.premium;

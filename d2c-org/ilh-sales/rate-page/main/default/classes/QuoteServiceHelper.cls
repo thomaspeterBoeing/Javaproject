@@ -20,7 +20,7 @@ public with sharing class QuoteServiceHelper {
             EligibleProductRateWrapper wrapper = new EligibleProductRateWrapper(rates);
             return wrapper;
         } catch (Exception ex) {
-            new ErrorLogger(ex, 'An error occured while getting rates', 'QuoteServiceHelper.cls', null, 'getRates', null, null, null);
+            new ErrorLogger(ex, ex.getMessage(), 'QuoteServiceHelper.cls', null, 'getRates', null, null, null);
         }
         return null;
     }
@@ -30,6 +30,7 @@ public with sharing class QuoteServiceHelper {
      * @param requestMap Request from rate page
      * @return New request map to send to quote service
      */
+    @TestVisible 
     private Map<String, Object> getQuoteRequestMap(Map<String, Object> requestMap) {
         string billMethod;
 
@@ -52,6 +53,10 @@ public with sharing class QuoteServiceHelper {
 
         if (String.isNotBlank(frequency) && String.isNotBlank(billingMethodCode)) {//Billing Method and frequency need to have values in order to send in request
             quoteRequestMap.put('frequency',frequency);  
+
+            if (billingMethodCode.equalsIgnoreCase('ACH/PAC')) {//Consumer Eligible Quote service doesn't accept ACH/PAC
+                billingMethodCode = 'ACH';
+            }
             quoteRequestMap.put('billingMethod',billingMethodCode);
         }
         mapOpportunityInformation();

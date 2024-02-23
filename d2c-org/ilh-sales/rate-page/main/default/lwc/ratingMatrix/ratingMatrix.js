@@ -97,8 +97,7 @@ export default class RatingMatrix extends LightningElement {
             paymentFrequency: 'Monthly',
             billingMethod: 'ACH',
             coverage: value?.coverage,
-            cost: value?.monthly,
-            ridersAvailable: value?.ridersAvailable
+            cost: value?.monthly
         }
 
         publish(this.MessageContext, CART_CHANNEL, payload);

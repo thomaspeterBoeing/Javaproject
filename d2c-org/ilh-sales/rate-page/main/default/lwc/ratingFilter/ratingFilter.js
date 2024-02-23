@@ -112,7 +112,7 @@ export default class ratingFilter extends LightningElement {
         let rateData = await this.fetchAllQuoteData();
 
         //Reset Billing Method options and Payment frequency options
-        this.setBillingMethods(rateData.eligibleBillingMethods);
+        this.setBillingMethods(rateData.eligibleBillingOptions);
 
         //Set Products
         this.products = rateData.eligibleProducts;
@@ -279,6 +279,7 @@ export default class ratingFilter extends LightningElement {
      */
     setBillingMethods(options) {
         let tempOptions = [];
+        console.log(JSON.stringify(options, null, 4));
         for (let index = 0; index < options.length; index++) {
             let currentRow = options[index];//Get current row
             if (currentRow.billingMethod === this.billMethodChoice) {//If the billing method for this row is equal to the billing method in the ui, the set effective date
