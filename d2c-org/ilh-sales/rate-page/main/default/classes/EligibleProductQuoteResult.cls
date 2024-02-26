@@ -6,7 +6,6 @@ Purpose: This class contains results for eligible product quotes
 public class EligibleProductQuoteResult {
     public String productCode {get;set;}
     public String productName {get;set;}
-    public String productCategory {get;set;}
     public List<CoverageOption> coverages {get;set;}
     public List<BillingOption> billingOptions {get;set;}
 
@@ -60,6 +59,7 @@ public class EligibleProductQuoteResult {
      * @param selectedProductCategory Product category that will determine if we parse
      * @return If true, then we will parse result.  If false, then we skip this result
      */
+    @TestVisible
     private static Boolean shouldParseResult(ConsumerEligibleQuoteResponse.ProductQuotes quoteResult, String selectedProductCategory) {
         return (quoteResult?.insuranceProductDetails?.returnFlag != null && quoteResult.insuranceProductDetails.returnFlag && 
         quoteResult?.coverageOptions != null && !quoteResult.coverageOptions.isEmpty() && quoteResult?.productCode != null && 
@@ -72,6 +72,7 @@ public class EligibleProductQuoteResult {
      * @param productQuoteResult : Result from product quote response
      * @return Instance of EligibleProductQuoteResult
      */
+    @TestVisible
     private static EligibleProductQuoteResult parseResultInfo(ConsumerEligibleQuoteResponse.ProductQuotes productQuoteResult) {
         EligibleProductQuoteResult result = new EligibleProductQuoteResult();
         result.productCode = productQuoteResult?.productCode;
@@ -84,6 +85,7 @@ public class EligibleProductQuoteResult {
      * @param cos : Coverage options from product quote response
      * @return List of coverage options
      */
+    @TestVisible
     private static List<CoverageOption> parseCoverageOptions(List<ConsumerEligibleQuoteResponse.CoverageOptions> cos) {
         List<CoverageOption> coverages = new List<CoverageOption>();
         for (ConsumerEligibleQuoteResponse.CoverageOptions co : cos) {
@@ -104,6 +106,7 @@ public class EligibleProductQuoteResult {
      * @param billingOptions : Billing options from product quote response
      * @return List of billing options
      */
+    @TestVisible
     private static List<BillingOption> parseBillingOptions(List<ConsumerEligibleQuoteResponse.EligibleBillingOptionsList> billingOptions) {
         List<BillingOption> resultBillingOptions = new List<BillingOption>();
         for (ConsumerEligibleQuoteResponse.EligibleBillingOptionsList bo : billingOptions) {
@@ -120,6 +123,7 @@ public class EligibleProductQuoteResult {
      * @param productCategory Product category that will determine a new product category
      * @return A new product category
      */
+    @TestVisible
     private static String getProductCategory(String productCategory) {
         String newProductCategory = '';
 
