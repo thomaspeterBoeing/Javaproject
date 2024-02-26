@@ -17,11 +17,9 @@
             <div class="slds-grid slds-grid_align-center">
                 <div class="slds-col slds-size_3-of-6" >                 
                     <c-horizontal-checkbox-group  
-                        name="Products" 
                         label={productCheckboxLabel}                                            
                         options={productList}
                         value={productChoices}
-                        variant="standard"
                         onchange={handleProductSelection}>
                     </c-horizontal-checkbox-group>              
                 </div>    
@@ -61,14 +59,12 @@
         <!-- ADD Grid   -->
         <!-- HCB Products  Proposed Coverage  Payment Frequency Bill Method Effective Date -->
         <template lwc:elseif={aDDProductTypeFlag}>
-            <div class="slds-grid slds-grid_align-center">
+            <div class="slds-grid slds-grid_align-center" data-id="addSection">
                 <div class="slds-col slds-size_1-of-3" >                 
-                    <c-horizontal-checkbox-group  
-                        name="Products" 
+                    <c-horizontal-checkbox-group
                         label={productCheckboxLabel}                                            
                         options={productList}
                         value={productChoices}
-                        variant="standard"
                         onchange={handleProductSelection}>
                     </c-horizontal-checkbox-group>              
                 </div>    
