@@ -10,7 +10,6 @@ public class EligibleProductRateWrapperTests {
         EligibleProductQuoteResult ipd1 = new EligibleProductQuoteResult();
         ipd1.productName = 'Product1';
         ipd1.productCode = 'Product 1';
-        ipd1.productCategory = 'Simplified Issue WL';
 
         EligibleProductQuoteResult.CoverageOption co1 = new EligibleProductQuoteResult.CoverageOption();
         co1.coverage = 1000;
