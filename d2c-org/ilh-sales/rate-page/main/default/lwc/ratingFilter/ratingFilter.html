@@ -40,7 +40,7 @@
                     <lightning-combobox
                         name="frequency"
                         label="Payment Frequency"                
-                        value="Monthly"
+                        value={frequencyChoice}
                         onchange={handleFrequencyChange}
                         options={frequencyOptions}>
                     </lightning-combobox>
@@ -49,7 +49,7 @@
                     <lightning-combobox
                         name="billingmethod"
                         label="Billing Method"
-                        value="ACH"
+                        value={billMethodChoice}
                         onchange={handleBillMethodChange}
                         options={billMethodOptions}>
                     </lightning-combobox>
@@ -86,7 +86,7 @@
                     <lightning-combobox
                         name="frequency"
                         label="Payment Frequency"                
-                        value="Monthly"
+                        value={frequencyChoice}
                         onchange={handleFrequencyChange}
                         options={frequencyOptions}>
                     </lightning-combobox>
@@ -95,16 +95,14 @@
                     <lightning-combobox
                         name="billingmethod"
                         label="Billing Method"
-                        value="ACH"
+                        value={billMethodChoice}
                         onchange={handleBillMethodChange}
                         options={billMethodOptions}>
                     </lightning-combobox>
                 </div>
        
                 <div class="slds-col slds-size_1-of-6">
-            
-                    Effective Date:
-                    Coming Soon!
+                    Effective Date: {effectiveDate}
                 </div>                              
              </div>
         </template>

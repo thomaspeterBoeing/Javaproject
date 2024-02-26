@@ -45,42 +45,29 @@ export default class ratingFilter extends LightningElement {
     frequencyChoice = "monthly";   //Frequency option selected on Frequency field.
     spinnerActive = false; 
 
-    billMethodChoice = 'ACH';  //Bill method default choice.  Set as value in Bill Method combo box.
+    billMethodChoice = '';  //Bill method default choice.  Set as value in Bill Method combo box.
+    effectiveDate = '';//Effective date for ADD products
 
     frequencyOptions = [
         { 
-            value: 'Annual', 
+            value: 'annual', 
             label: 'Annual'
         },
         {
-            value: 'SemiAnnual',
+            value: 'semiannual',
             label: 'Semi-Annual'
         },
         {
-            value: 'Quarterly',
+            value: 'quarterly',
             label: 'Quarterly'
         },
         {
-            value: 'Monthly',
+            value: 'monthly',
             label: 'Monthly'
         },
     ];
-    billMethodOptions = [
-        { 
-            value: 'ACH', 
-            label: 'ACH'
-        },       
-        { 
-            value: 'CreditCard', 
-            label: 'Credit Card'
-        },       
-        {
-            value: 'PAC', 
-            label: 'PAC'
 
-        }
-
-    ];
+    billMethodOptions = [];
  
     async connectedCallback(){     
 
@@ -123,10 +110,12 @@ export default class ratingFilter extends LightningElement {
    async getAllRates(){
         this.spinnerActive = true;
         let rateData = await this.fetchAllQuoteData();
-   
+
+        //Reset Billing Method options and Payment frequency options
+        this.setBillingMethods(rateData.eligibleBillingOptions);
+
         //Set Products
-        this.products = rateData.eligibleProducts.filter((product) => product.productCategory === this.productType);
-        //this.products = rateData.EligibleBillingOptions.filter((product) => product.productCategory === this.productType);
+        this.products = rateData.eligibleProducts;
                 
         //Set Rates  
         this.rates = this.getEligibleRates(rateData);
@@ -226,7 +215,13 @@ export default class ratingFilter extends LightningElement {
     //for the products    
     async fetchAllQuoteData() {
          try{
-            return await getRates({oppId: this.opptyId, productCategory: this.productType, billingMethodCode: this.billMethodChoice,frequency: this.frequencyChoice});          
+            let requestMap = {
+                'oppId': this.opptyId,
+                'productCategory': this.productType,
+                'billingMethodCode': this.billMethodChoice,
+                'frequency': this.frequencyChoice
+            };
+            return await getRates({requestMap: requestMap});          
         }
         catch (error){
             this.spinnerActive = false;
@@ -276,5 +271,26 @@ export default class ratingFilter extends LightningElement {
         if(event.key === "Enter"){
            this.handleProposedCoverageChange(event);
         }
+    }
+
+    /**
+     * Creates a list of options for billing methods
+     * @param {*} options Available billing methods
+     */
+    setBillingMethods(options) {
+        let tempOptions = [];
+        console.log(JSON.stringify(options, null, 4));
+        for (let index = 0; index < options.length; index++) {
+            let currentRow = options[index];//Get current row
+            if (currentRow.billingMethod === this.billMethodChoice) {//If the billing method for this row is equal to the billing method in the ui, the set effective date
+                this.effectiveDate = currentRow.effectiveDate;
+            }
+            let option = {
+                label: currentRow.billingMethod,
+                value: currentRow.billingMethod.replace(/\s/g, '')//Remove spaces from billing method
+            }
+            tempOptions.push(option);//Push new option to temp list
+        }
+        this.billMethodOptions = tempOptions;//Assign temp list to billingMethodOptions
     }
 }
