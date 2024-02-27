@@ -79,7 +79,8 @@ export default class ratingFilter extends LightningElement {
         this.template.querySelector("c-rating-matrix").buildTable(rates,this.productChoices,this.frequencyChoice);
 
    }
-   get productCheckboxLabel(){    
+   //TODO: This method is duplicated so it's not getting called
+   /*get productCheckboxLabel(){    
         let label = 'Eligible Products';
         if(this.productType === 'Life'){
             label = 'Life Eligible Products';
@@ -88,7 +89,7 @@ export default class ratingFilter extends LightningElement {
             label = 'AD&D Eligible Products';
         }
         return label;
-    }
+    }*/
 
     get aDDProductTypeFlag(){
         let returnValue = false;
@@ -112,10 +113,10 @@ export default class ratingFilter extends LightningElement {
         let rateData = await this.fetchAllQuoteData();
 
         //Reset Billing Method options and Payment frequency options
-        this.setBillingMethods(rateData.eligibleBillingOptions);
+        this.setBillingMethods(rateData?.eligibleBillingOptions);
 
         //Set Products
-        this.products = rateData.eligibleProducts;
+        this.products = rateData?.eligibleProducts;
                 
         //Set Rates  
         this.rates = this.getEligibleRates(rateData);
@@ -144,13 +145,12 @@ export default class ratingFilter extends LightningElement {
         this.aDDProduct = true;
         label = 'AD&D Eligible Products';
     }
-    console.log('Product Type = ' + this.productType);
     return label;
 }
  
    getEligibleRates(rateData){
         let newRates = [];
-        for (let index = 0; index < rateData.eligibleRates.length; index++) {
+        for (let index = 0; index < rateData?.eligibleRates?.length; index++) {
             let rateObj = {coverage : rateData.eligibleRates[index].coverage, ...rateData.eligibleRates[index].productinfo};          
             newRates.push(rateObj)           
         }
@@ -160,7 +160,7 @@ export default class ratingFilter extends LightningElement {
     //gets value field found in the products returned    
     getProductValues(products) {        
         let prods = [];
-        for (let index = 0;  index < products.length; ++index){            
+        for (let index = 0;  index < products?.length; ++index){            
             prods.push({
                 label: this.products[index].value,
                 value: this.products[index].value
@@ -172,7 +172,7 @@ export default class ratingFilter extends LightningElement {
 
     getProductChoiceNames(products) {
         let prods = [];
-        for (let index = 0;  index < products.length; ++index){
+        for (let index = 0;  index < products?.length; ++index){
             prods.push(products[index].value)               
         }
   
@@ -228,7 +228,6 @@ export default class ratingFilter extends LightningElement {
             this.errorLoadingRates = true;
             this.errorMessage = 'error: ' + JSON.stringify(error);
             this.errorTitle = "Error Loading " + this.productType;
-            console.log('error: ' + JSON.stringify(error)); //TODO
         };
     }
 
@@ -279,8 +278,7 @@ export default class ratingFilter extends LightningElement {
      */
     setBillingMethods(options) {
         let tempOptions = [];
-        console.log(JSON.stringify(options, null, 4));
-        for (let index = 0; index < options.length; index++) {
+        for (let index = 0; index < options?.length; index++) {
             let currentRow = options[index];//Get current row
             if (currentRow.billingMethod === this.billMethodChoice) {//If the billing method for this row is equal to the billing method in the ui, the set effective date
                 this.effectiveDate = currentRow.effectiveDate;
