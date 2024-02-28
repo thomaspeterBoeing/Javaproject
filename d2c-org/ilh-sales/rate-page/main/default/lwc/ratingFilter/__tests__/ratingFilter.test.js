@@ -208,7 +208,42 @@ describe('c-rating-filter', () => {
             let coverageError = element.shadowRoot.querySelector('div[data-id=addSection] div[data-id=coverageError]');//Query coverage error element from ADD section
             expect(coverageError.textContent).toEqual('Coverage must be a number');//Coverage error element should get populated with text
         });
+
+        it('Correct products should display in matrix when product checkboxes are selected for ADD', async () => {
+            getRates.mockResolvedValue(ADD_RESULTS);//Mock ADD results from getRates APEX method
+            // Arrange
+            const element = createElement('c-rating-filter', {
+                is: RatingFilter
+            });
+
+            element.productType = 'ADD';//Set productType api property to ADD
+
+            document.body.appendChild(element);//Add rating filter to page
+
+            await flushPromises();// Wait for any asynchronous DOM updates
+
+            let checkboxGroup = element.shadowRoot.querySelector('c-horizontal-checkbox-group');//Query checkbox group component
+            let checkbox1 = checkboxGroup.shadowRoot.querySelector('input');//Query first checkbox, which is first ADD product in product list
+            
+            checkbox1.checked = false;//Uncheck first checkbox, which is ADD life product in product list
+            checkbox1.dispatchEvent(new CustomEvent('change'));//Checkbox onChange event
+
+            await flushPromises();// Wait for any asynchronous DOM updates
+
+            let matrix = element.shadowRoot.querySelector('c-rating-matrix');//Query matrix component
+            let dataTypes = matrix.shadowRoot.querySelector('c-ilh-sales-custom-data-types');//Query custom data types component
+
+            let columns = [];
+            let expectedColumns = ['ADD Product 2'];//We should only expect the second product, since the first product is unchecked
+            for (const column of dataTypes.columns) {//Iterate over columns in data types component
+                if (column.label !== 'Coverage') {//Don't include coverage column
+                    columns.push(column.label);//Add current column label to columns list
+                }
+            }
+            expect(columns).toEqual(expectedColumns);//Columns in data types component should be equal to expectedColumns
+        });
     });
+
     describe('Life', () => {
         it('Life Results section should render when life product category is selected', async () => {
             let expectedBillingMethods = [];
@@ -341,6 +376,40 @@ describe('c-rating-filter', () => {
             await flushPromises();// Wait for any asynchronous DOM updates
             let coverageError = element.shadowRoot.querySelector('div[data-id=lifeSection] div[data-id=coverageError]');//Query coverage error element from Life section
             expect(coverageError.textContent).toEqual('Coverage must be a number');//Coverage error element should get populated with text
+        });
+
+        it('Correct products should display in matrix when product checkboxes are selected for Life', async () => {
+            getRates.mockResolvedValue(LIFE_RESULTS);//Mock Life results from getRates APEX method
+            // Arrange
+            const element = createElement('c-rating-filter', {
+                is: RatingFilter
+            });
+
+            element.productType = 'Life';//Set productType api property to Life
+
+            document.body.appendChild(element);//Add rating filter to page
+
+            await flushPromises();// Wait for any asynchronous DOM updates
+
+            let checkboxGroup = element.shadowRoot.querySelector('c-horizontal-checkbox-group');//Query checkbox group component
+            let checkbox1 = checkboxGroup.shadowRoot.querySelector('input');//Query first checkbox, which is first life product in product list
+            
+            checkbox1.checked = false;//Uncheck first checkbox, which is first life product in product list
+            checkbox1.dispatchEvent(new CustomEvent('change'));//Checkbox onChange event
+
+            await flushPromises();// Wait for any asynchronous DOM updates
+
+            let matrix = element.shadowRoot.querySelector('c-rating-matrix');//Query matrix component
+            let dataTypes = matrix.shadowRoot.querySelector('c-ilh-sales-custom-data-types');//Query custom data types component
+
+            let columns = [];
+            let expectedColumns = ['Life Product 2'];//We should only expect the second product, since the first product is unchecked
+            for (const column of dataTypes.columns) {//Iterate over columns in data types component
+                if (column.label !== 'Coverage') {//Don't include coverage column
+                    columns.push(column.label);//Add current column label to columns list
+                }
+            }
+            expect(columns).toEqual(expectedColumns);//Columns in data types component should be equal to expectedColumns
         });
     });
 });
