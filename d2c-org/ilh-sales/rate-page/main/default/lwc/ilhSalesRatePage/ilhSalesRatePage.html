@@ -1,25 +1,27 @@
 <template>
-    
-    <div class="slds-grid slds-gutters">        
-        <div class="slds-col slds-size_1-of-2">           
-                <lightning-tabset variant="scoped">
-                    <lightning-tab label="Life and AD&D"> 
-                        <c-rating-filter coverage={coverage} product-type="Life" oppty-id={recID} ></c-rating-filter>      
-                        <c-rating-filter coverage={coverage} product-type="ADD" oppty-id={recID}></c-rating-filter>  
-                    </lightning-tab>             
-                        <lightning-tab label="Conversion" class="slds-p-top_none"> 
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+            <div class="bg-color__white">
+                <lightning-tabset>
+                    <lightning-tab label="Life and AD&D">
+                        <div class="content-wrapper">
+                            <c-rating-filter coverage={coverage} product-type="Life" oppty-id={recID}></c-rating-filter>
+                            <c-rating-filter coverage={coverage} product-type="ADD" oppty-id={recID}></c-rating-filter>
+                        </div>
+                    </lightning-tab>
+                    <lightning-tab label="Conversion" class="slds-p-top_none">
+                        <div class="content-wrapper">
                             <lightning-card title="Conversions will go here">
                             </lightning-card>
-                        </lightning-tab>
-                </lightning-tabset>  
+                        </div>
+                    </lightning-tab>
+                </lightning-tabset>
+            </div>
         </div>
         <div class="slds-col slds-size_1-of-2">
             <span>
                 <c-ilh-sales-cart oppty-id={recID}></c-ilh-sales-cart>
             </span>
         </div>
-    </div>   
-    
-    
-    
+    </div>
 </template>

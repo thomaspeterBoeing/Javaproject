@@ -1,0 +1,364 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef0"
+      },
+        "Description": "SI Term to Age 80",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "Term",
+        "IsActive": "true",
+        
+        "ConversionProduct__c": "false",
+        "Name": "SITB2",
+        "ProductCode": "2017 SITERM80 B2",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef1"
+      },
+      
+        "Description": "Accidental Death and Dismemberment Non-contributory Coverage",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "ADD",
+        "IsActive": "true",
+        "UnderwritingType__c":"Guaranteed Issue",
+        "ConversionProduct__c": "false",
+        "Name": "ADD Basic",
+        "ProductCode": "2018 ADD Basic",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef2"
+      },
+      
+        "Description": "Accidental Death and Dismemberment Contributory Family Coverage",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "ADD",
+        "IsActive": "true",
+        "UnderwritingType__c":"Guaranteed Issue",
+        "ConversionProduct__c": "false",
+        "Name": "ADD Family Contrib",
+        "ProductCode": "2018 ADD Family Contrib",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef3"
+      },
+      
+        "Description": "Accidental Death and Dismemberment Contributory Single Coverage",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "ADD",
+        "IsActive": "true",
+        "UnderwritingType__c":"Guaranteed Issue",
+        "ConversionProduct__c": "false",
+        "Name": "ADD Single Contrib",
+        "ProductCode": "2018 ADD Single Contrib",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef4"
+      },
+      
+        "Description": "SI Whole Life Age Last Birthday",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "Whole Life",
+        "IsActive": "true",
+        "UnderwritingType__c":"Guaranteed Issue",
+        "ConversionProduct__c": "false",
+        "Name": "SIWL",
+        "ProductCode": "2017 SIWLALB",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef5"
+      },
+      
+        "Description": "SI Whole Life Age Nearest Birthday",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "Whole Life",
+        "IsActive": "true",
+        "UnderwritingType__c":"Guaranteed Issue",
+        "ConversionProduct__c": "false",
+        "Name": "SIWL",
+        "ProductCode": "2017 SIWLANB",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef6"
+      },
+      
+        "Description": "Accidental Death and Dismemberment Non-contributory Coverage",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "ADD",
+        "IsActive": "true",
+        "UnderwritingType__c":"Guaranteed Issue",
+        "ConversionProduct__c": "false",
+        "Name": "ADD Basic",
+        "ProductCode": "2012 ADD Basic",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef7"
+      },
+      
+        "Description": "Accidental Death and Dismemberment Contributory Single Coverage",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "ADD",
+        "IsActive": "true",
+        "UnderwritingType__c":"Guaranteed Issue",
+        "ConversionProduct__c": "false",
+        "Name": "ADD Single Contrib",
+        "ProductCode": "2012 ADD Single Contrib",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef8"
+      },
+      
+        "Description": "Accidental Death and Dismemberment Contributory Family Coverage",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "ADD",
+        "IsActive": "true",
+        "UnderwritingType__c":"Guaranteed Issue",
+        "ConversionProduct__c": "false",
+        "Name": "ADD Family Contrib",
+        "ProductCode": "2012 ADD Family Contrib",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef9"
+      },
+      
+        "Description": "Liberty Mutual Auto",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "Auto",
+        "IsActive": "true",
+        
+        "ConversionProduct__c": "false",
+        "Name": "Liberty Mutual Auto",
+        "ProductCode": "Liberty Mutual Auto",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef10"
+      },
+      
+        "Description": "Liberty Mutual Renter",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "Home",
+        "IsActive": "true",
+        
+        "ConversionProduct__c": "false",
+        "Name": "Liberty Mutual Renter",
+        "ProductCode": "Liberty Mutual Renter",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef11"
+      },
+      
+        "Description": "Liberty Mutual Condo",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "Home",
+        "IsActive": "true",
+        
+        "ConversionProduct__c": "false",
+        "Name": "Liberty Mutual Condo",
+        "ProductCode": "Liberty Mutual Condo",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef12"
+      },
+      
+        "Description": "Liberty Mutual Home",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "Home",
+        "IsActive": "true",
+        
+        "ConversionProduct__c": "false",
+        "Name": "Liberty Mutual Home",
+        "ProductCode": "Liberty Mutual Home",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef13"
+      },
+      
+        "Description": "SI Term to Age 80",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "Term",
+        "IsActive": "true",
+        "UnderwritingType__c":"Simplified Issue",
+        "ConversionProduct__c": "false",
+        "Name": "SIT",
+        "ProductCode": "2016 SITERM80",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef14"
+      },
+      
+        "Description": "2016 GA Whole Life",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "Whole Life",
+        "IsActive": "true",
+        "UnderwritingType__c":"Guaranteed Issue",
+        "ConversionProduct__c": "false",
+        "Name": "GAWL",
+        "ProductCode": "2016 GA Whole Life",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef15"
+      },
+      
+        "Description": "Trustage Advantage Whole Life",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "Whole Life",
+        "IsActive": "true",
+        "UnderwritingType__c":"Simplified Issue",
+        "ConversionProduct__c": "false",
+        "Name": "TAWL",
+        "ProductCode": "2020 MSIWLALB",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef16"
+      },
+      
+        "Description": "SI Whole Life Age Last Birthday",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "Whole Life",
+        "IsActive": "true",
+        "UnderwritingType__c":"Simplified Issue",
+        "ConversionProduct__c": "false",
+        "Name": "2021 SIWL",
+        "ProductCode": "2021 SIWLALB",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef17"
+      },
+      
+        "Description": "SI Whole Life Age Next Birthday",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "Whole Life",
+        "IsActive": "true",
+        "UnderwritingType__c":"Simplified Issue",
+        "ConversionProduct__c": "false",
+        "Name": "2021 SIWL",
+        "ProductCode": "2021 SIWLANB",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "ProductRef18"
+      },
+      
+        "Description": "Conversion Whole Life",
+        "DisplayUrl": "",
+        "ExternalDataSourceId": "",
+        "ExternalId": "",
+        "Family": "Whole Life",
+        "IsActive": "true",
+        "UnderwritingType__c":"Simplified Issue",
+        "ConversionProduct__c": "true",
+        "Name": "Conversion Whole Life",
+        "ProductCode": "2022 Whole Life Conversion",
+        "QuantityUnitOfMeasure": "",
+        "StockKeepingUnit": ""
+      }    
+  ]
+}

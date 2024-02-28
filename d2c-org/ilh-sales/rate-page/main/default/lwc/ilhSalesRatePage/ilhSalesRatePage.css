@@ -1,0 +1,7 @@
+.content-wrapper {
+    padding: var(--lwc-spacingMedium,1rem);
+}
+
+.bg-color__white {
+    background-color: #fff;
+}
