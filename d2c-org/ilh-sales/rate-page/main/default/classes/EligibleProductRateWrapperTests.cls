@@ -5,6 +5,16 @@
 @isTest
 public class EligibleProductRateWrapperTests {
 
+    @testSetup
+    static void setup() {
+        Product2 p1 = new Product2(
+            Name = 'Product1',
+            ProductCode = 'Product 1',
+            IsActive = true
+        );
+        insert p1;
+    }
+
     @isTest
     private static void buildGridTest() {
         EligibleProductQuoteResult ipd1 = new EligibleProductQuoteResult();

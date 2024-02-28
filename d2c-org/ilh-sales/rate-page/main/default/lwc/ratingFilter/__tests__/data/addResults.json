@@ -1,12 +1,12 @@
 {
     "eligibleProducts": [
         {
-            "label": "ADDProduct1",
-            "value": "ADD Product 1"
+            "productCode": "ADDProduct1",
+            "productName": "ADD Product 1"
         },
         {
-            "label": "ADDProduct2",
-            "value": "ADD Product 2"
+            "productCode": "ADDProduct2",
+            "productName": "ADD Product 2"
         }
     ],
     "eligibleRates": [

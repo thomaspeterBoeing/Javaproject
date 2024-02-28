@@ -4,6 +4,8 @@ Purpose: This class builds a rate grid for the rate page
 1.0 - Adam Perschke-Ely   - 1/2/2024  - Created for new D2C Salesfore instance.
 ***/
 public class EligibleProductRateWrapper {
+    private static Map<String, String> productMap {get;set;}
+
     @AuraEnabled
     public List<EligibleProduct> eligibleProducts {get;set;}
     @AuraEnabled
@@ -13,6 +15,7 @@ public class EligibleProductRateWrapper {
 
     //public EligibleProductRateWrapper();
     public EligibleProductRateWrapper(List<EligibleProductQuoteResult> results) {
+        productMap = ILHUtilities.getActiveProductsByProductCode();
         wrapResults(results);
     }
 
@@ -80,14 +83,14 @@ public class EligibleProductRateWrapper {
      */
     public class EligibleProduct {
         @AuraEnabled
-        public String label;
+        public String productName;
     
         @AuraEnabled
-        public String value;
+        public String productCode;
     
-        public EligibleProduct(String value, String label) {
-            this.value = value;
-            this.label = label;
+        public EligibleProduct(String productName, String productCode) {
+            this.productName = productName;
+            this.productCode = productCode;
         }
     }
 
@@ -104,7 +107,9 @@ public class EligibleProductRateWrapper {
 
         //Building cells
         for (EligibleProductQuoteResult result : results) {
-            eligibleProducts.add(new EligibleProduct(result.productName, result.productCode));
+            String productName = productMap.get(result?.productCode);//Get product name from map
+
+            eligibleProducts.add(new EligibleProduct(productName, result.productCode));
             buildCoverageOptions(result, coverageMap);
             buildBillingOptions(result, eligibleBillingOptions);
         }
@@ -125,13 +130,14 @@ public class EligibleProductRateWrapper {
     private void buildCoverageOptions(EligibleProductQuoteResult result, Map<Integer,List<EligibleProductRateWrapper.EligibleRateCell>> coverageMap) {
         for (EligibleProductQuoteResult.CoverageOption co : result.coverages) {
             List<EligibleRateCell> cells = coverageMap.get(co.coverage);//Get any existing cells based on coverage
+            String productName = productMap.get(result?.productCode);//Get product name from map
             EligibleRateCell cell = new EligibleRateCell();
 
             if (cells == null) {
                 cells = new List<EligibleRateCell>();
             }
 
-            cell.productlabel = result?.productName;
+            cell.productlabel = productName;
             cell.productcode = result?.productCode;
             cell.coverage = co?.coverage;
 

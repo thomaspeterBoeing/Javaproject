@@ -56,7 +56,7 @@ private with sharing class QuoteServiceHelperTests {
         Id oppId = [SELECT id FROM Opportunity WHERE Name =: 'Test Opp'].id;
         Map<String, Object> requestMap = new Map<String, Object> {
             'frequency' => 'monthly',
-            'billingMethodCode' => 'ACH',
+            'billingMethodCode' => 'ACH/PAC',
             'productCategory' => 'Life',
             'oppId' => oppId
         };

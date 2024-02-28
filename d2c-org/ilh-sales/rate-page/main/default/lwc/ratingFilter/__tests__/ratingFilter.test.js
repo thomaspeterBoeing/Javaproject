@@ -53,15 +53,15 @@ describe('c-rating-filter', () => {
     describe('ADD', () => {
         it('ADD Results section should render when ADD product category is selected', async () => {
             let expectedBillingMethods = [];
-            const expectedOptions = [//TODO: Why do we use eligible products value for label and value on checkboxes?
+            const expectedOptions = [
                 {
-                    label: ADD_RESULTS.eligibleProducts[0].value,
-                    value: ADD_RESULTS.eligibleProducts[0].value,
+                    label: ADD_RESULTS.eligibleProducts[0].productName,
+                    value: ADD_RESULTS.eligibleProducts[0].productName,
                     checked: true
                 },
                 {
-                    label: ADD_RESULTS.eligibleProducts[1].value,
-                    value: ADD_RESULTS.eligibleProducts[1].value,
+                    label: ADD_RESULTS.eligibleProducts[1].productName,
+                    value: ADD_RESULTS.eligibleProducts[1].productName,
                     checked: true
                 }
             ];
@@ -247,15 +247,15 @@ describe('c-rating-filter', () => {
     describe('Life', () => {
         it('Life Results section should render when life product category is selected', async () => {
             let expectedBillingMethods = [];
-            const expectedOptions = [//TODO: Why do we use eligible products value for label and value on checkboxes?
+            const expectedOptions = [
                 {
-                    label: LIFE_RESULTS.eligibleProducts[0].value,
-                    value: LIFE_RESULTS.eligibleProducts[0].value,
+                    label: LIFE_RESULTS.eligibleProducts[0].productName,
+                    value: LIFE_RESULTS.eligibleProducts[0].productName,
                     checked: true
                 },
                 {
-                    label: LIFE_RESULTS.eligibleProducts[1].value,
-                    value: LIFE_RESULTS.eligibleProducts[1].value,
+                    label: LIFE_RESULTS.eligibleProducts[1].productName,
+                    value: LIFE_RESULTS.eligibleProducts[1].productName,
                     checked: true
                 }
             ];

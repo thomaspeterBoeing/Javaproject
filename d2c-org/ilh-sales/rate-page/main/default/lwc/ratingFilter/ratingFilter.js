@@ -79,17 +79,6 @@ export default class ratingFilter extends LightningElement {
         this.template.querySelector("c-rating-matrix").buildTable(rates,this.productChoices,this.frequencyChoice);
 
    }
-   //TODO: This method is duplicated so it's not getting called
-   /*get productCheckboxLabel(){    
-        let label = 'Eligible Products';
-        if(this.productType === 'Life'){
-            label = 'Life Eligible Products';
-        }
-        if(this.productType === 'ADD'){
-            label = 'AD&D Eligible Products';
-        }
-        return label;
-    }*/
 
     get aDDProductTypeFlag(){
         let returnValue = false;
@@ -162,8 +151,8 @@ export default class ratingFilter extends LightningElement {
         let prods = [];
         for (let index = 0;  index < products?.length; ++index){            
             prods.push({
-                label: this.products[index].value,
-                value: this.products[index].value
+                label: this.products[index].productName,
+                value: this.products[index].productName
            })    
         }
   
@@ -173,7 +162,7 @@ export default class ratingFilter extends LightningElement {
     getProductChoiceNames(products) {
         let prods = [];
         for (let index = 0;  index < products?.length; ++index){
-            prods.push(products[index].value)               
+            prods.push(products[index].productName)               
         }
   
         return prods;

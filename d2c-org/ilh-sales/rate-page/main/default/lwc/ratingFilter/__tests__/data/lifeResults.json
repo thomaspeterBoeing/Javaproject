@@ -1,12 +1,12 @@
 {
     "eligibleProducts": [
         {
-            "label": "LifeProduct1",
-            "value": "Life Product 1"
+            "productCode": "LifeProduct1",
+            "productName": "Life Product 1"
         },
         {
-            "label": "LifeProduct2",
-            "value": "Life Product 2"
+            "productCode": "LifeProduct2",
+            "productName": "Life Product 2"
         }
     ],
     "eligibleRates": [
