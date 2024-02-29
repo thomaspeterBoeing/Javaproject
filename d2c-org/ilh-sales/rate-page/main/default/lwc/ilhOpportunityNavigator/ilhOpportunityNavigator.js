@@ -11,6 +11,7 @@ import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import { subscribe, MessageContext, APPLICATION_SCOPE,unsubscribe } from 'lightning/messageService';
 import STAGE_FIELD from '@salesforce/schema/Opportunity.StageName';
 import PROPOSED_COVERAGE_FIELD from '@salesforce/schema/Opportunity.ProposedCoverage__c';
+import OPTY_STATE_FIELD from '@salesforce/schema/Opportunity.Account.PersonMailingState';
 import OPPORTUNITY_STAGE_CHANGED_CHANNEL from '@salesforce/messageChannel/OpportunityStageChanged__c';
 import { NavigationMixin } from 'lightning/navigation';
 import { reduceErrors } from 'c/ldsUtils';//LWC Reduces one or more LDS errors into a string[] of error messages
@@ -40,13 +41,15 @@ export default class OpportunityNavigator extends NavigationMixin(LightningEleme
         console.log('stage change received' +JSON.stringify(this.subscription));
     }
 
-     @wire(getRecord, { recordId: '$recordId', fields: [STAGE_FIELD, PROPOSED_COVERAGE_FIELD] })
+     @wire(getRecord, { recordId: '$recordId', fields: [STAGE_FIELD, PROPOSED_COVERAGE_FIELD, OPTY_STATE_FIELD] })
     wiredOpportunity({ error, data }) {
         if (data) {
             this.stage = getFieldValue(data, STAGE_FIELD);
             this.coverage =getFieldValue(data,PROPOSED_COVERAGE_FIELD);
+            this.optyState =getFieldValue(data, OPTY_STATE_FIELD);
             console.log('stage->' +this.stage); 
-            console.log('coverage->' +this.coverage);           
+            console.log('coverage->' +this.coverage); 
+            console.log('optyPersonState->' +this.optyState);           
           
         } else if (error) {
             // Log error
@@ -81,7 +84,8 @@ export default class OpportunityNavigator extends NavigationMixin(LightningEleme
             state:{
                 c__recordId :this.recordId,
                 c__stage    :this.stage,
-                c__coverage :this.coverage
+                c__coverage :this.coverage,
+                c__optyState :this.optyState
             }
         }).then(() => {
            

@@ -1,0 +1,101 @@
+<template>
+    <!-- First Row -->
+    <!---->
+    <div class="slds-grid slds-grid_vertical-align-end custom-bottom-margin">
+        <div class="slds-col slds-size_1-of-3">
+            <lightning-combobox label="Conversion Type" options={conversionTypeOptions} value={selectedConversionType} ></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_1-of-3">
+            <lightning-input label="Policy Number" value={policyNumber} onchange={handleChangePolicyNumber} minlength="5" maxlength="16" message-when-too-short="Policy Number required to be between 5 and 16 characters." 
+            message-when-too-long="Policy Number required to be between 5 and 16 characters."></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-3">
+            <lightning-button label="Policy Summary" onclick={handlePolicySummaryClick} variant="bare"  ></lightning-button>
+        </div>
+    </div>
+
+    <!-- Second Row -->
+    <div class="slds-grid slds-grid_align-left custom-bottom-margin">
+        <div class="slds-col slds-size_1-of-3">
+            <lightning-button variant="bare" label="Check Eligibility" onclick={handleClickCheckEligibility} disabled={showSpinner} >
+            </lightning-button>
+                            <!-- Display spinner when isLoading is true -->
+                            <div lwc:if={showSpinner}>
+                                <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+                            </div>
+        </div>
+        <div lwc:if={notEligible}>
+            <!-- Show message when Policy is not eligible for conversion -->
+            <div data-id="messageDisplay" class="slds-p-left_medium" style="color: red">
+                <p>{errorDescription}</p>
+            </div>
+        </div>
+        <div lwc:if={errorResponse}>
+            <!-- Show message when Policy is not eligible for conversion -->
+            <div data-id="messageDisplay" class="slds-p-left_medium" style="color: red">
+                <p>Policy not found</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional section from here on. only show when policy number request returned valid response.. Third Row -->
+    <div lwc:if={Eligible}>
+        <div  class="slds-grid slds-grid_align-left custom-bottom-margin">
+            <div class="slds-col slds-size_1-of-3">
+                <div class="slds-form-element">  <label class="slds-form-element__label" for="text-input-id-47">Effective Date</label>  <div class="slds-form-element__control">    <input type="text" id="text-input-id-47" readonly placeholder="" class="slds-input removeShaddow" value={effectiveDate} style="font-weight: bold;"/>  </div></div>
+            </div>
+            <div class="slds-col slds-size_1-of-3">
+                <div class="slds-form-element">  <label class="slds-form-element__label" for="text-input-id-47">Current Coverage</label>  <div class="slds-form-element__control">   <input type="number" id="number-input-id-48" readonly="" placeholder="" class="slds-input removeShaddow" value={currentCoverage} style="font-weight: bold;"/>  </div></div>
+            </div>
+            <div class="slds-col slds-size_1-of-3">
+                <label class="slds-m-right_small">Continue ADB or Waiver Rider</label>
+                <label class="slds-checkbox_toggle slds-grid">
+                    <span class="slds-form-element__label slds-m-bottom_none"></span>
+                    <input type="checkbox" name="checkbox-toggle-15" value="checkbox-toggle-15" aria-describedby="checkbox-toggle-15" />
+                    <span id="checkbox-toggle-15" class="slds-checkbox_faux_container">
+                        <span class="slds-checkbox_faux"></span>
+                        <span class="slds-checkbox_on">Applicable</span>
+                        <span class="slds-checkbox_off">Not Applicable</span>
+                    </span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Fourth Row -->
+        <div class="slds-grid slds-grid_align-left custom-bottom-margin">
+            <div class="slds-col slds-size_1-of-3">
+                <lightning-input label="Converting Coverage" value={convertingcoverageAmount}  type="number" message-when-type-mismatch="enter only numbers" ></lightning-input>
+            </div>
+            <div class="error">{covAmtError}</div> 
+            <div class="slds-col slds-size_1-of-3">
+                <lightning-combobox label="Pay Frequency" options={payFrequencyOptions} value ={selectedPayFrequency}></lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_1-of-3">
+                <lightning-combobox label="Pay Method" options={payMethodOptions} value={selectedPayMethod} ></lightning-combobox>
+            </div>
+        </div>
+
+        <!-- Fifth Row -->
+        <div class="slds-grid slds-grid_align-left custom-bottom-margin">
+            <div class="slds-col slds-size_1-of-3">
+                <lightning-combobox label="Underwriting Class" read-only options={underwritingClassOptions} value={selectedunderwritingClass} ></lightning-combobox>
+            </div>
+        </div>
+
+        <!-- Sixth Row -->
+        <div class="slds-grid slds-grid_align-left custom-bottom-margin">
+            <div class="slds-col">
+                <label class="slds-m-right_small">Cancel/Continue Term</label>
+                <lightning-radio-group options={cancelContinueOptions} value={cancelContinueValue} onchange={handleCancelContinueChange}></lightning-radio-group>
+            </div>
+        </div>
+
+        <!-- Seventh Row -->
+        <div class="slds-grid slds-grid_align-left">
+            <div class="slds-col">
+                <lightning-button label="Get Rate" onclick={handleGetRate} variant="bare"></lightning-button>
+            </div>
+        </div>
+        </div>
+    
+</template>

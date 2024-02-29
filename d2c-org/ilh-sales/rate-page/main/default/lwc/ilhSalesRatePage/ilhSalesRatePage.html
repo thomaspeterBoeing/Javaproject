@@ -8,9 +8,8 @@
                         <c-rating-filter coverage={coverage} product-type="Life" oppty-id={recID}></c-rating-filter>
                         <c-rating-filter coverage={coverage} product-type="ADD" oppty-id={recID}></c-rating-filter>
                     </lightning-tab>
-                    <lightning-tab label="Conversion" class="slds-p-top_none">
-                        <lightning-card title="Conversions will go here">
-                        </lightning-card>
+                    <lightning-tab label="Conversions" class="slds-p-top_none"> 
+                        <c-conversion coverage={coverage} oppty-id={recID} opty-state={optyState}></c-conversion>
                     </lightning-tab>
                 </lightning-tabset>
             </div>
