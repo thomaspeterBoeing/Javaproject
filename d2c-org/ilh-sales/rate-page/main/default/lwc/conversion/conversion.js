@@ -1,5 +1,6 @@
 import { LightningElement, track,api } from 'lwc';
 import getconversionRates from '@salesforce/apex/ConversionEligibleQuoteController.search';
+import getRates from '@salesforce/apex/ConversionEligibleQuoteController.getRates';
 import searchPolicy from '@salesforce/apex/PolicySummaryController.search';
 import { reduceErrors } from 'c/ldsUtils';
 import { refreshApex  } from '@salesforce/apex';
@@ -26,10 +27,10 @@ export default class LwcDemo extends LightningElement {
     ];
     @track cancelContinueValue = 'cancel';
     @track payFrequencyOptions = [
-        { value: 'Annual', label: 'Annual' },
-        { value: 'SemiAnnual', label: 'Semi-Annual' },
-        { value: 'Quarterly', label: 'Quarterly' },
-        { value: 'Monthly', label: 'Monthly' }
+        { value: 'annual', label: 'Annual' },
+        { value: 'semiannual', label: 'Semi-Annual' },
+        { value: 'quarterly', label: 'Quarterly' },
+        { value: 'monthly', label: 'Monthly' }
     ];
     @track payMethodOptions = [
         { value: 'ACH/PAC', label: 'ACH/PAC' },
@@ -52,6 +53,7 @@ export default class LwcDemo extends LightningElement {
     errorMessage ='';
     notEligible =false;
     cancelpolicy =false;
+    results = [];
 
     /*handleChange(event) {  //might be needed if at some point service would accept conversion type.
         this.selectedConversionType = event.detail.value;
@@ -76,17 +78,82 @@ export default class LwcDemo extends LightningElement {
         
     }
 
+    handleFrequencyChange(event) {
+        this.frequencyChoice = event.detail.value;
+    }
+
+    handleConvertingCoverageAmountChange(event) {
+        const input = event.target;
+        const value = input.value;
+   
+        // Remove non-numeric characters from the input value
+        const sanitizedValue = value.replace(/\D/g, '');
+   
+        // Update the input value with the sanitized value
+        input.value = sanitizedValue;
+   
+        // Update the component property with the sanitized value
+        this.convertingcoverageAmount = sanitizedValue;
+    }
+
     handleCancelContinueChange(event) {
         this.cancelContinueValue = event.detail.value;
         this.cancelpolicy        = this.cancelContinueValue === 'Cancel'?false : true
     } 
 
-    /*handleGetRate() {
-        // if request has not changed since checkeligibility, parse service response and show matrix. if changed, make service calll
-
-            //parse through full conversion or partial conversion node pased on value of cancel/contiue - cancel - false, continue -true.
+    handleGetRate() {
+        this.showSpinner = true;
+        getRates({kvpRequestCriteria: this.createRequestCriteriaMap()})
+        .then(response => {
+            let eligibleRates = [];
+            let productChoices = [];
+            for (const result of response) {
+                for (const product of result.eligibleProducts) {
+                    if (!productChoices.includes(product.productName)) {
+                        productChoices.push(product.productName);
+                    }
+                }
+                for (const rate of result.eligibleRates) {
+                    let rateObj = {coverage : rate.coverage, ...rate.productinfo};          
+                    eligibleRates.push(rateObj);
+                }
+            }
+            let filteredRates = this.filterProposedCoverage(eligibleRates);
+            this.template.querySelector("c-rating-matrix").buildTable(filteredRates,productChoices,this.frequencyChoice);
+            this.showSpinner =false;
+        })
+        .catch(error => {
+            this.errorMessage = reduceErrors(error);
+            console.log('this.errorMessage : ' + this.errorMessage);
+            this.errorResponse =true;
+            this.showSpinner =false;
         });
-    }*/
+    }
+
+    filterProposedCoverage(data){
+        let returndata = [];
+        let minCovRange = 0;
+        let maxCovRange = 0;
+               
+        let coverage = Number(this.convertingcoverageAmount);
+
+
+        //Filters so there are 4 rows above and below the proposed coverage amount.
+        minCovRange = coverage - 25000;
+        maxCovRange = coverage + 25000;
+
+        console.log(minCovRange);
+        console.log(maxCovRange);
+
+        returndata = data.filter(rates => { 
+                                if(rates.coverage >= minCovRange & rates.coverage <= maxCovRange)
+                                    return rates;
+                             }
+                   );
+
+        console.log(JSON.stringify(returndata, null, 4));
+        return returndata;
+    }
 
     async validateSearch(){ // rename method as appropriate
         console.log('inside ValidateSearch on Click of checkEligibility button ' +this.policyNumber);
@@ -204,16 +271,16 @@ export default class LwcDemo extends LightningElement {
     createRequestCriteriaMap(){
         return{
             "conversionProductCode"   : '2022 Whole Life Conversion',
-            "currentTermCompanyCode"  : this.policyNumber.substring(0,2), 
-            "currentTermPolicyNumber" : this.policyNumber.substring(2,16), 
-            "insuredResidentState"    : this.optyState?this.optyState : 'WI',//set to WI if for somereason state is not available. 
+            "currentTermCompanyCode"  : this.policyNumber.substring(0,2),
+            "currentTermPolicyNumber" : this.policyNumber.substring(2,16),
+            "insuredResidentState"    : this.optyState?this.optyState : 'WI',//set to WI if for somereason state is not available.
             // the above 3 are the required fields to be passed in the request for the service
-
-            "conversionCoverageAmount": this.coverage,
-            "isTermBeingKept"         : this.cancelpolicy, 
+ 
+            "conversionCoverageAmount": this.convertingcoverageAmount % 1000 === 0 ? null : this.convertingcoverageAmount,
+            "isTermBeingKept"         : this.cancelpolicy,
             "channel"                 : "TELEM"
-
+ 
         }
-        
+       
     }
 }

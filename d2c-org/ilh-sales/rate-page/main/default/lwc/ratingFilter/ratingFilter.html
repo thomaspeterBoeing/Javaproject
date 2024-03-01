@@ -1,114 +1,114 @@
 <template>  
-        <lightning-spinner lwc:if={spinnerActive} alternative-text="Loading" size="large"></lightning-spinner>
- 
-    <template lwc:if={errorLoadingRates}>   
-        <lightning-card title={errorTitle}>
-            Error occurred and rates could not be loaded.  Please try again by refreshing this page.  If the error occur again do something.
-            <br>
-            <br>
-            Error Message = {errorMessage}
-        </lightning-card>
-    </template>
-    
-    
-        <!-- Life Grid  -->
-        <!-- HCB Products  Proposed Coverage  Payment Frequency  Bill Method -->
-        <template lwc:if={lifeProductTypeFlag}>
-            <div class="slds-grid slds-grid_align-center">
-                <div class="slds-col slds-size_3-of-6" >                 
-                    <c-horizontal-checkbox-group  
-                        name="Products" 
-                        label={productCheckboxLabel}                                            
-                        options={productList}
-                        value={productChoices}
-                        variant="standard"
-                        onchange={handleProductSelection}>
-                    </c-horizontal-checkbox-group>              
-                </div>    
-                <div class="slds-col slds-size_1-of-6">                     
-                    <lightning-input 
-                        type="text" 
-                        label="Proposed Coverage" 
-                        onblur={handleProposedCoverageChange} 
-                        onkeydown={handleProposedCoverageKeyPress} 
-                        value={coverage}>
-                    </lightning-input>
-                </div>
-                <div class="error">{coverageError}</div>      
-   
-                <div class="slds-col slds-size_1-of-6">
-                    <lightning-combobox
-                        name="frequency"
-                        label="Payment Frequency"                
-                        value="Monthly"
-                        onchange={handleFrequencyChange}
-                        options={frequencyOptions}>
-                    </lightning-combobox>
-                </div>
-                <div class="slds-col slds-size_1-of-6">                     
-                    <lightning-combobox
-                        name="billingmethod"
-                        label="Billing Method"
-                        value="ACH"
-                        onchange={handleBillMethodChange}
-                        options={billMethodOptions}>
-                    </lightning-combobox>
-                </div>
+    <lightning-spinner lwc:if={spinnerActive} alternative-text="Loading" size="large"></lightning-spinner>
+
+<template lwc:if={errorLoadingRates}>   
+    <lightning-card title={errorTitle} data-id="errorCard">
+        Error occurred and rates could not be loaded.  Please try again by refreshing this page.  If the error occur again do something.
+        <br>
+        <br>
+        Error Message = {errorMessage}
+    </lightning-card>
+</template>
+
+
+    <!-- Life Grid  -->
+    <!-- HCB Products  Proposed Coverage  Payment Frequency  Bill Method -->
+    <template lwc:if={lifeProductTypeFlag}>
+        <div class="slds-grid slds-grid_align-center" data-id="lifeSection">
+            <div class="slds-col slds-size_3-of-6" >                 
+                <c-horizontal-checkbox-group  
+                    label={productCheckboxLabel}                                            
+                    options={productList}
+                    value={productChoices}
+                    onchange={handleProductSelection}>
+                </c-horizontal-checkbox-group>              
+            </div>    
+            <div class="slds-col slds-size_1-of-6">                     
+                <lightning-input 
+                    data-id="coverage"
+                    type="text" 
+                    label="Proposed Coverage" 
+                    onblur={handleProposedCoverageChange} 
+                    onkeydown={handleProposedCoverageKeyPress} 
+                    value={coverage}>
+                </lightning-input>
             </div>
-        </template>
+            <div class="error" data-id="coverageError">{coverageError}</div>      
 
-        
-        <!-- ADD Grid   -->
-        <!-- HCB Products  Proposed Coverage  Payment Frequency Bill Method Effective Date -->
-        <template lwc:elseif={aDDProductTypeFlag}>
-            <div class="slds-grid slds-grid_align-center">
-                <div class="slds-col slds-size_1-of-3" >                 
-                    <c-horizontal-checkbox-group  
-                        name="Products" 
-                        label={productCheckboxLabel}                                            
-                        options={productList}
-                        value={productChoices}
-                        variant="standard"
-                        onchange={handleProductSelection}>
-                    </c-horizontal-checkbox-group>              
-                </div>    
-                <div class="slds-col slds-size_1-of-6">                     
-                    <lightning-input 
-                        type="text" 
-                        label="Proposed Coverage" 
-                        onblur={handleProposedCoverageChange} 
-                        onkeydown={handleProposedCoverageKeyPress} 
-                        value={coverage}>
-                    </lightning-input>
-                    <div class="error">{coverageError}</div>      
-                </div>
-                <div class="slds-col slds-size_1-of-6">
-                    <lightning-combobox
-                        name="frequency"
-                        label="Payment Frequency"                
-                        value="Monthly"
-                        onchange={handleFrequencyChange}
-                        options={frequencyOptions}>
-                    </lightning-combobox>
-                </div>
-                <div class="slds-col slds-size_1-of-6">                     
-                    <lightning-combobox
-                        name="billingmethod"
-                        label="Billing Method"
-                        value="ACH"
-                        onchange={handleBillMethodChange}
-                        options={billMethodOptions}>
-                    </lightning-combobox>
-                </div>
-       
-                <div class="slds-col slds-size_1-of-6">
-            
-                    Effective Date:
-                    Coming Soon!
-                </div>                              
-             </div>
-        </template>
-        <c-rating-matrix></c-rating-matrix>
+            <div class="slds-col slds-size_1-of-6">
+                <lightning-combobox
+                    data-id="frequency"
+                    name="frequency"
+                    label="Payment Frequency"                
+                    value={frequencyChoice}
+                    onchange={handleFrequencyChange}
+                    options={frequencyOptions}>
+                </lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_1-of-6">                     
+                <lightning-combobox
+                    data-id="billingMethod"
+                    name="billingmethod"
+                    label="Billing Method"
+                    value={billMethodChoice}
+                    onchange={handleBillMethodChange}
+                    options={billMethodOptions}>
+                </lightning-combobox>
+            </div>
+        </div>
+    </template>
 
-  
+    
+    <!-- ADD Grid   -->
+    <!-- HCB Products  Proposed Coverage  Payment Frequency Bill Method Effective Date -->
+    <template lwc:elseif={aDDProductTypeFlag}>
+        <div class="slds-grid slds-grid_align-center" data-id="addSection">
+            <div class="slds-col slds-size_1-of-3" >                 
+                <c-horizontal-checkbox-group
+                    label={productCheckboxLabel}                                            
+                    options={productList}
+                    value={productChoices}
+                    onchange={handleProductSelection}>
+                </c-horizontal-checkbox-group>              
+            </div>    
+            <div class="slds-col slds-size_1-of-6">                     
+                <lightning-input 
+                    data-id="coverage"
+                    type="text" 
+                    label="Proposed Coverage" 
+                    onblur={handleProposedCoverageChange} 
+                    onkeydown={handleProposedCoverageKeyPress} 
+                    value={coverage}>
+                </lightning-input>
+                <div class="error" data-id="coverageError">{coverageError}</div>      
+            </div>
+            <div class="slds-col slds-size_1-of-6">
+                <lightning-combobox
+                    data-id="frequency"
+                    name="frequency"
+                    label="Payment Frequency"                
+                    value={frequencyChoice}
+                    onchange={handleFrequencyChange}
+                    options={frequencyOptions}>
+                </lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_1-of-6">                     
+                <lightning-combobox
+                    data-id="billingMethod"
+                    name="billingmethod"
+                    label="Billing Method"
+                    value={billMethodChoice}
+                    onchange={handleBillMethodChange}
+                    options={billMethodOptions}>
+                </lightning-combobox>
+            </div>
+   
+            <div class="slds-col slds-size_1-of-6">
+                Effective Date: <span data-id="effectiveDate">{effectiveDate}</span>
+            </div>                              
+         </div>
+    </template>
+    <c-rating-matrix></c-rating-matrix>
+
+
 </template>
