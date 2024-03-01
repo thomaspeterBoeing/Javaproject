@@ -9,15 +9,6 @@ public class ILHConversionEligibleQuoteService {
     public ILHConversionEligibleQuoteService() {}
 
     public List<ConversionEligibleQuoteWrapper> getEligibleRates(Map<String, Object> quoteRequest){
-        return dispatchCEQServices(quoteRequest); // CEQ here stands for -> Conversion Eligible Quote
-    }
-
-    /***
-     * This method handles the logic for dispatching Conversion Eligible rate services.
-     * @param rateRequest -- Rate request in the format of a Map
-     * @return Returns an instance of the ConversionEligibleQuoteWrapper.
-     */
-    private List<ConversionEligibleQuoteWrapper> dispatchCEQServices(Map<String, Object> rateRequest) {
         List<ConversionEligibleQuoteWrapper> results = new List<ConversionEligibleQuoteWrapper>();
 
         // Get all search class instances
@@ -25,10 +16,23 @@ public class ILHConversionEligibleQuoteService {
 
         for (IConversionEligible classInstance : classInstances) {
             // Call the getRates method from the current class instance, and add the results to the list
-            results.add(((IConversionEligible) classInstance).getQuoteResponse(rateRequest));
+            results.add(((IConversionEligible) classInstance).getQuoteResponse(quoteRequest));
         }
         system.debug('results from ILHConversionEligibleQuoteService' +results );
 
         return results;
+    }
+
+    public List<EligibleProductRateWrapper> getRates(Map<String, Object> quoteRequest){
+        List<EligibleProductRateWrapper> wrapper = new List<EligibleProductRateWrapper>();
+
+        // Get all search class instances
+        List<IConversionEligible> classInstances = ILHConversionEligibleQuoteFactory.getInstances();
+
+        for (IConversionEligible classInstance : classInstances) {
+            // Call the getRates method from the current class instance, and add the results to the list
+            wrapper.add(((IConversionEligible) classInstance).getRates(quoteRequest));
+        }
+        return wrapper;
     }
 }

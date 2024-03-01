@@ -23,4 +23,19 @@
         
         return results;
     }
+
+    public EligibleProductRateWrapper getRates(Map<String, Object> rateRequest) {
+        ConversionEligibleQuoteWrapper results = new ConversionEligibleQuoteWrapper();
+        Boolean isTermBeingKept = Boolean.valueOf(rateRequest.get('isTermBeingKept'));
+                
+        // Create request to call CEQ endpoint
+        ConversionEligibleQuoteRequest ceqRequest = ILHConversionEligibleQuotehelper.createCEQRequest(rateRequest);
+        
+        // Call helper method to get eligible quotes
+        results = ILHConversionEligibleQuotehelper.getEligibleQuotes(ceqRequest);
+
+        List<EligibleProductQuoteResult> epqrs = EligibleProductQuoteResult.parse(results, isTermBeingKept);
+        EligibleProductRateWrapper wrapper = new EligibleProductRateWrapper(epqrs);
+        return wrapper;
+    }
 }

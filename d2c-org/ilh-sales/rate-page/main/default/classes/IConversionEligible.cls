@@ -16,4 +16,13 @@ public interface IConversionEligible {
          * @return Returns an instance of ConversionEligibleRateWrapper class
          */
         ConversionEligibleQuoteWrapper getQuoteResponse(Map<String, Object> quoteRequest);
+
+        /***
+         * The entry point into the dependency injection framework.
+         *
+         * @param quoteRequest -- request in the format of a key-value-pair mapping
+         *
+         * @return Returns an instance of EligibleProductRateWrapper class
+         */
+        EligibleProductRateWrapper getRates(Map<String, Object> quoteRequest);
     }

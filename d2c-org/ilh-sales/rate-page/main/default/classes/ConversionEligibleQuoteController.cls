@@ -15,4 +15,8 @@ public with sharing class ConversionEligibleQuoteController {
        return (new ILHConversionEligibleQuoteService()).getEligibleRates(kvpRequestCriteria);
    }
 
+   @AuraEnabled
+   public static List<EligibleProductRateWrapper> getRates(Map<String, Object> kvpRequestCriteria) {     
+       return (new ILHConversionEligibleQuoteService()).getRates(kvpRequestCriteria);
+   }
 }

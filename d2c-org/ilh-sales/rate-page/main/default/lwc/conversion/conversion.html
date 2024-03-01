@@ -64,11 +64,11 @@
         <!-- Fourth Row -->
         <div class="slds-grid slds-grid_align-left custom-bottom-margin">
             <div class="slds-col slds-size_1-of-3">
-                <lightning-input label="Converting Coverage" value={convertingcoverageAmount}  type="number" message-when-type-mismatch="enter only numbers" ></lightning-input>
+                <lightning-input label="Converting Coverage" value={convertingcoverageAmount} onchange={handleConvertingCoverageAmountChange}  type="number" message-when-type-mismatch="enter only numbers" ></lightning-input>
             </div>
             <div class="error">{covAmtError}</div> 
             <div class="slds-col slds-size_1-of-3">
-                <lightning-combobox label="Pay Frequency" options={payFrequencyOptions} value ={selectedPayFrequency}></lightning-combobox>
+                <lightning-combobox label="Pay Frequency" options={payFrequencyOptions} value ={selectedPayFrequency} onchange={handleFrequencyChange}></lightning-combobox>
             </div>
             <div class="slds-col slds-size_1-of-3">
                 <lightning-combobox label="Pay Method" options={payMethodOptions} value={selectedPayMethod} ></lightning-combobox>
@@ -97,5 +97,5 @@
             </div>
         </div>
         </div>
-    
+        <c-rating-matrix></c-rating-matrix>
 </template>
