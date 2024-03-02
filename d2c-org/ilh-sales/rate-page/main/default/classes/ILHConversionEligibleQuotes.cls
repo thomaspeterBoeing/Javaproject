@@ -12,7 +12,7 @@
      * @param rateRequest -- The criteria is in request
      * @return -- Returns a List of search results from external CEQS service
      */
-    public ConversionEligibleQuoteWrapper getQuoteResponse(Map<String, Object> rateRequest) {  
+    public ConversionEligibleQuoteWrapper checkEligibility(Map<String, Object> rateRequest) {  
            ConversionEligibleQuoteWrapper results = new ConversionEligibleQuoteWrapper();
                 
         // Create request to call CEQ endpoint

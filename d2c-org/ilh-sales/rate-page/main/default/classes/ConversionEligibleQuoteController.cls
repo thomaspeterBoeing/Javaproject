@@ -10,9 +10,9 @@ public with sharing class ConversionEligibleQuoteController {
     * @return : An instance of the ConversionEligibleQuoteWrapper class with results.
    */
    @AuraEnabled
-   public static list<ConversionEligibleQuoteWrapper> search(Map<String, Object> kvpRequestCriteria) {   
+   public static list<ConversionEligibleQuoteWrapper> checkEligibility(Map<String, Object> kvpRequestCriteria) {   
     //system.debug (new ILHConversionEligibleQuoteService().getEligibleRates(kvpRequestCriteria));   
-       return (new ILHConversionEligibleQuoteService()).getEligibleRates(kvpRequestCriteria);
+       return (new ILHConversionEligibleQuoteService()).checkEligibility(kvpRequestCriteria);
    }
 
    @AuraEnabled

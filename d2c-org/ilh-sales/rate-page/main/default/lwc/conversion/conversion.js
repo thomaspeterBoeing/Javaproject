@@ -1,11 +1,28 @@
+/**********************************************************************************
+ * Title:  Conversion LWC
+ * Date:   March 2024
+ * 
+ * Description:  LWC is to check conversion eligibility and provide input to show conversion product rates 
+ *               in rating matrix
+ * 
+ * Details:      This component also serves as a parent to the Rating Matrix LWC.  Filtered rates
+ *               are loaded into the Rating Matrix.  
+ * 
+ * Parameters:   See createRequestCriteriaMap()
+ * 
+ * Modifications:
+ *************************************************************************************/
 import { LightningElement, track,api } from 'lwc';
-import getconversionRates from '@salesforce/apex/ConversionEligibleQuoteController.search';
+import checkEligibility from '@salesforce/apex/ConversionEligibleQuoteController.checkEligibility';
+import { NavigationMixin } from 'lightning/navigation';
 import getRates from '@salesforce/apex/ConversionEligibleQuoteController.getRates';
 import searchPolicy from '@salesforce/apex/PolicySummaryController.search';
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { reduceErrors } from 'c/ldsUtils';
-import { refreshApex  } from '@salesforce/apex';
+import policysummary from 'c/policySumSearch';
+import PolicyFormat from 'c/policyFormat';
 
-export default class LwcDemo extends LightningElement {
+export default class conversion extends NavigationMixin(LightningElement) {
     @api coverage;
     @api optyState;
     @track conversionTypeOptions = [
@@ -18,7 +35,7 @@ export default class LwcDemo extends LightningElement {
         { value: 'Employee Group', label:'Employee Group' }
     ];
     @track selectedConversionType = 'Term Insurance Policy';
-    @track policyNumber ;
+    @track policyNumber =null;
     @track Eligible = false; 
     @track continueADBorWaiver = false;
     @track cancelContinueOptions = [
@@ -30,7 +47,7 @@ export default class LwcDemo extends LightningElement {
         { value: 'annual', label: 'Annual' },
         { value: 'semiannual', label: 'Semi-Annual' },
         { value: 'quarterly', label: 'Quarterly' },
-        { value: 'monthly', label: 'Monthly' }
+        { value: 'Monthly', label: 'Monthly' }
     ];
     @track payMethodOptions = [
         { value: 'ACH/PAC', label: 'ACH/PAC' },
@@ -54,10 +71,19 @@ export default class LwcDemo extends LightningElement {
     notEligible =false;
     cancelpolicy =false;
     results = [];
+    isModalOpen =false
 
     /*handleChange(event) {  //might be needed if at some point service would accept conversion type.
         this.selectedConversionType = event.detail.value;
     }*/
+
+    async openPolicy() { // this doesn't work for policysummary
+        await policysummary.open({        
+            size: 'small',
+            description: 'Accessible description of modal\'s purpose',
+            content: 'Passed into content api',
+        });
+    }
 
     handleChangePolicyNumber(event) {
         this.policyNumber = event.target.value;
@@ -68,18 +94,38 @@ export default class LwcDemo extends LightningElement {
                
     }
     
-    /*handlePolicySummaryClick() {
-        // Handle policy summary button click. Integrate policy Summary
-    }*/
+    handlePolicySummaryClick() {
+        this.isModalOpen = true;
+    }
+
+    // Method to close the modal
+    closeModal() {
+            this.isModalOpen = false;
+    }
 
     async handleClickCheckEligibility() {
+        if (this.policyNumber === null) {
+            console.log ('inside if');
+            // Show message indicating that policy number is required
+            //this.showToast('Error', 'Policy Number is required.', 'error');
+            const evt = new ShowToastEvent({
+                title: 'Policy Number is required!',
+                message: this._successMessage,
+                variant: 'error',
+                mode: 'dismissible'
+            });
+            this.dispatchEvent(evt);
+           // this.errorResponse =true;
+            return;
+        }
+        
         this.showSpinner = true;
-        await this.validateSearch(); // this method could be renamed          
+        await this.validateSearch(); // Rename method as appropriate
         
     }
 
     handleFrequencyChange(event) {
-        this.frequencyChoice = event.detail.value;
+        this.selectedPayFrequency = event.detail.value;
     }
 
     handleConvertingCoverageAmountChange(event) {
@@ -119,7 +165,7 @@ export default class LwcDemo extends LightningElement {
                 }
             }
             let filteredRates = this.filterProposedCoverage(eligibleRates);
-            this.template.querySelector("c-rating-matrix").buildTable(filteredRates,productChoices,this.frequencyChoice);
+            this.template.querySelector("c-rating-matrix").buildTable(filteredRates,productChoices,this.selectedPayFrequency.toLowerCase());
             this.showSpinner =false;
         })
         .catch(error => {
@@ -170,7 +216,7 @@ export default class LwcDemo extends LightningElement {
         // Log the request criteria map before sending the request
         console.log('Request Criteria Map:', JSON.stringify(this.createRequestCriteriaMap()));
     
-        getconversionRates({kvpRequestCriteria: this.createRequestCriteriaMap()})
+        checkEligibility({kvpRequestCriteria: this.createRequestCriteriaMap()})
             .then(response => {
                   
                 // Check if there are any errors in the response
@@ -223,9 +269,7 @@ export default class LwcDemo extends LightningElement {
                         if (existingOptionIndex === -1) {
                             this.underwritingClassOptions.push({ label: optionLabel, value: optionValue });
                         }
-                        
-
-                        
+                                             
                     }
                     this.showSpinner = false;
                 }
@@ -254,18 +298,7 @@ export default class LwcDemo extends LightningElement {
 		// Return the formatted date string in MM/DD/YYYY format
 		return `${formattedMonth}/${formattedDay}/${year}`;
 	}
-
-    /*handleConvertingCoverageAmountChange(event) {//dont need this as defining type in html is cleaner
-        
-        if (isNaN(event.target.value)){
-            this.covAmtError = 'Coverage must be a number';
-        }else{
-            this.covAmtError = '';
-        }
-        this.coverage = event.target.value;
-        
-    }*/
-    
+   
     
 
     createRequestCriteriaMap(){

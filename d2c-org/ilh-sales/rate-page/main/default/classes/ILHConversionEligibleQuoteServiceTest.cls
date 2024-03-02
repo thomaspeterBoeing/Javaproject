@@ -30,7 +30,7 @@ public with sharing class ILHConversionEligibleQuoteServiceTest {
         };
 
         Test.startTest();
-        List<ConversionEligibleQuoteWrapper> wrapper = (new ILHConversionEligibleQuoteService()).getEligibleRates(quoteRequest);
+        List<ConversionEligibleQuoteWrapper> wrapper = (new ILHConversionEligibleQuoteService()).checkEligibility(quoteRequest);
         // Verifying search results
         System.assert(wrapper.size() > 0, 'Expecting more than 1 result');
 
@@ -58,7 +58,7 @@ public with sharing class ILHConversionEligibleQuoteServiceTest {
         };
 
         Test.startTest();
-        List<ConversionEligibleQuoteWrapper> results = (new ILHConversionEligibleQuoteService()).getEligibleRates(quoteRequest);
+        List<ConversionEligibleQuoteWrapper> results = (new ILHConversionEligibleQuoteService()).checkEligibility(quoteRequest);
 
         // Assert the expected behavior
         System.assertEquals(0, results.size(), 'The result list should be empty for non-successful response.');

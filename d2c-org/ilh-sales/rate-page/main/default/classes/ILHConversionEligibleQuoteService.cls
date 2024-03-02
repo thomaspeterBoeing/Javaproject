@@ -8,15 +8,15 @@
 public class ILHConversionEligibleQuoteService {
     public ILHConversionEligibleQuoteService() {}
 
-    public List<ConversionEligibleQuoteWrapper> getEligibleRates(Map<String, Object> quoteRequest){
+    public List<ConversionEligibleQuoteWrapper> checkEligibility(Map<String, Object> quoteRequest){
         List<ConversionEligibleQuoteWrapper> results = new List<ConversionEligibleQuoteWrapper>();
 
         // Get all search class instances
         List<IConversionEligible> classInstances = ILHConversionEligibleQuoteFactory.getInstances();
 
         for (IConversionEligible classInstance : classInstances) {
-            // Call the getRates method from the current class instance, and add the results to the list
-            results.add(((IConversionEligible) classInstance).getQuoteResponse(quoteRequest));
+            // Call the checkEligibility method from the current class instance, and add the results to the list
+            results.add(((IConversionEligible) classInstance).checkEligibility(quoteRequest));
         }
         system.debug('results from ILHConversionEligibleQuoteService' +results );
 

@@ -10,7 +10,7 @@
             message-when-too-long="Policy Number required to be between 5 and 16 characters."></lightning-input>
         </div>
         <div class="slds-col slds-size_1-of-3">
-            <lightning-button label="Policy Summary" onclick={handlePolicySummaryClick} variant="bare"  ></lightning-button>
+            <lightning-button label="Policy Summary" onclick={openPolicy} variant="bare"  ></lightning-button>
         </div>
     </div>
 
@@ -97,5 +97,12 @@
             </div>
         </div>
         </div>
-        <c-rating-matrix></c-rating-matrix>
+        <div lwc:if={Eligible}>
+            <c-rating-matrix></c-rating-matrix>
+        </div>
+        <template if:true={isModalOpen}>
+                </div>
+                           <c-policy-sum-search record-id={recordId} object-api-name={objectApiName} onpersonidloaded={handlePersonIdLoaded}></c-policy-sum-search> 
+                </div>
+        </template>
 </template>
