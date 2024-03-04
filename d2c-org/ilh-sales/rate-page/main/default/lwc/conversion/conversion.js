@@ -23,6 +23,7 @@ import policysummary from 'c/policySumSearch';
 import PolicyFormat from 'c/policyFormat';
 
 export default class conversion extends NavigationMixin(LightningElement) {
+    @api recID;// ='006DS00000LQQTqYAP';
     @api coverage;
     @api optyState;
     @track conversionTypeOptions = [
@@ -72,18 +73,19 @@ export default class conversion extends NavigationMixin(LightningElement) {
     cancelpolicy =false;
     results = [];
     isModalOpen =false
+    showRateMatrix =false;
 
     /*handleChange(event) {  //might be needed if at some point service would accept conversion type.
         this.selectedConversionType = event.detail.value;
     }*/
 
-    async openPolicy() { // this doesn't work for policysummary
+    /*async openPolicy() { // this doesn't work for policysummary
         await policysummary.open({        
             size: 'small',
             description: 'Accessible description of modal\'s purpose',
             content: 'Passed into content api',
         });
-    }
+    }*/
 
     handleChangePolicyNumber(event) {
         this.policyNumber = event.target.value;
@@ -95,6 +97,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
     }
     
     handlePolicySummaryClick() {
+        console.log('record id here is -> ' +this.recID);
         this.isModalOpen = true;
     }
 
@@ -125,6 +128,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
     }
 
     handleFrequencyChange(event) {
+        this.showRateMatrix =false;
         this.selectedPayFrequency = event.detail.value;
     }
 
@@ -149,6 +153,8 @@ export default class conversion extends NavigationMixin(LightningElement) {
 
     handleGetRate() {
         this.showSpinner = true;
+        this.showRateMatrix =true;
+            console.log('value of showRateMatrix ' +this.showRateMatrix);
         getRates({kvpRequestCriteria: this.createRequestCriteriaMap()})
         .then(response => {
             let eligibleRates = [];
@@ -167,6 +173,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
             let filteredRates = this.filterProposedCoverage(eligibleRates);
             this.template.querySelector("c-rating-matrix").buildTable(filteredRates,productChoices,this.selectedPayFrequency.toLowerCase());
             this.showSpinner =false;
+            
         })
         .catch(error => {
             this.errorMessage = reduceErrors(error);
