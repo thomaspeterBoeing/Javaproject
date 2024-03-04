@@ -6,7 +6,7 @@
             <lightning-combobox label="Conversion Type" options={conversionTypeOptions} value={selectedConversionType} ></lightning-combobox>
         </div>
         <div class="slds-col slds-size_1-of-3">
-            <lightning-input label="Policy Number" value={policyNumber} onchange={handleChangePolicyNumber} minlength="5" maxlength="16" message-when-too-short="Policy Number required to be between 5 and 16 characters." 
+            <lightning-input label="Policy Number" data-id="policyNumber" value={policyNumber} onchange={handleChangePolicyNumber} minlength="5" maxlength="16" message-when-too-short="Policy Number required to be between 5 and 16 characters." 
             message-when-too-long="Policy Number required to be between 5 and 16 characters."></lightning-input>
         </div>
         <div class="slds-col slds-size_1-of-3">
@@ -17,7 +17,7 @@
     <!-- Second Row -->
     <div class="slds-grid slds-grid_align-left custom-bottom-margin">
         <div class="slds-col slds-size_1-of-3">
-            <lightning-button variant="bare" label="Check Eligibility" onclick={handleClickCheckEligibility} disabled={showSpinner} >
+            <lightning-button variant="bare" data-id="checkEligilityBtn" label="Check Eligibility" onclick={handleClickCheckEligibility} disabled={showSpinner} >
             </lightning-button>
                             <!-- Display spinner when isLoading is true -->
                             <div lwc:if={showSpinner}>
@@ -39,7 +39,7 @@
     </div>
 
     <!-- Optional section from here on. only show when policy number request returned valid response.. Third Row -->
-    <div lwc:if={Eligible}>
+    <div lwc:if={Eligible} data-id="eligibleSection">
         <div  class="slds-grid slds-grid_align-left custom-bottom-margin">
             <div class="slds-col slds-size_1-of-3">
                 <div class="slds-form-element">  <label class="slds-form-element__label" for="text-input-id-47">Effective Date</label>  <div class="slds-form-element__control">    <input type="text" id="text-input-id-47" readonly placeholder="" class="slds-input removeShaddow" value={effectiveDate} style="font-weight: bold;"/>  </div></div>
@@ -64,11 +64,11 @@
         <!-- Fourth Row -->
         <div class="slds-grid slds-grid_align-left custom-bottom-margin">
             <div class="slds-col slds-size_1-of-3">
-                <lightning-input label="Converting Coverage" value={convertingcoverageAmount} onchange={handleConvertingCoverageAmountChange}  type="number" message-when-type-mismatch="enter only numbers" ></lightning-input>
+                <lightning-input label="Converting Coverage" data-id="coverage" value={convertingcoverageAmount} onchange={handleConvertingCoverageAmountChange}  type="number" message-when-type-mismatch="enter only numbers" ></lightning-input>
             </div>
             <div class="error">{covAmtError}</div> 
             <div class="slds-col slds-size_1-of-3">
-                <lightning-combobox label="Pay Frequency" options={payFrequencyOptions} value ={selectedPayFrequency} onchange={handleFrequencyChange}></lightning-combobox>
+                <lightning-combobox label="Pay Frequency" data-id="payFrequency" options={payFrequencyOptions} value ={selectedPayFrequency} onchange={handleFrequencyChange}></lightning-combobox>
             </div>
             <div class="slds-col slds-size_1-of-3">
                 <lightning-combobox label="Pay Method" options={payMethodOptions} value={selectedPayMethod} ></lightning-combobox>
@@ -93,7 +93,7 @@
         <!-- Seventh Row -->
         <div class="slds-grid slds-grid_align-left">
             <div class="slds-col">
-                <lightning-button label="Get Rate" onclick={handleGetRate} variant="bare"></lightning-button>
+                <lightning-button label="Get Rate" data-id="getRate" onclick={handleGetRate} variant="bare"></lightning-button>
             </div>
         </div>
         </div>
