@@ -24,7 +24,6 @@ import PolicyFormat from 'c/policyFormat';
 
 export default class conversion extends NavigationMixin(LightningElement) {
     @api opptyId;
-    @api recID;// ='006DS00000LQQTqYAP';
     @api coverage;
     @api optyState;
     @track conversionTypeOptions = [
