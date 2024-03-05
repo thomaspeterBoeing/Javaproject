@@ -23,6 +23,7 @@ import policysummary from 'c/policySumSearch';
 import PolicyFormat from 'c/policyFormat';
 
 export default class conversion extends NavigationMixin(LightningElement) {
+    @api opptyId;
     @api recID;// ='006DS00000LQQTqYAP';
     @api coverage;
     @api optyState;
@@ -162,6 +163,8 @@ export default class conversion extends NavigationMixin(LightningElement) {
             console.log('value of showRateMatrix ' +this.showRateMatrix);
         getRates({kvpRequestCriteria: this.createRequestCriteriaMap()})
         .then(response => {
+            console.log('Request Criteria Map:', JSON.stringify(this.createRequestCriteriaMap()));
+            console.log('handleGetRate response ' +JSON.stringify(response));
             let eligibleRates = [];
             let productChoices = [];
             for (const result of response) {

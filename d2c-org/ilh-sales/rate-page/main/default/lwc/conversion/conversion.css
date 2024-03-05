@@ -4,3 +4,8 @@
 .removeShaddow {
     --slds-c-input-shadow: none;
 }
+:host .disabletruncate .slds-truncate {
+    overflow: visible;
+    
+}
+
