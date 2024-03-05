@@ -79,7 +79,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
         this.selectedConversionType = event.detail.value;
     }*/
 
-    /*async openPolicy() { // this doesn't work for policysummary
+   /* async openPolicy() { // this doesn't work for policysummary
         await policysummary.open({        
             size: 'small',
             description: 'Accessible description of modal\'s purpose',
@@ -87,10 +87,12 @@ export default class conversion extends NavigationMixin(LightningElement) {
         });
     }*/
 
+    
     handleChangePolicyNumber(event) {
         this.policyNumber = event.target.value;
         this.errorDescription='';
         this.Eligible =false;
+        this.showRateMatrix =false;
         this.notEligible =false;
         this.errorResponse =false;
                
@@ -98,6 +100,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
     
     handlePolicySummaryClick() {
         console.log('record id here is -> ' +this.recID);
+        console.log('opty state is '+this.optyState);
         this.isModalOpen = true;
     }
 
@@ -133,6 +136,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
     }
 
     handleConvertingCoverageAmountChange(event) {
+        this.showRateMatrix =false;
         const input = event.target;
         const value = input.value;
    
@@ -149,6 +153,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
     handleCancelContinueChange(event) {
         this.cancelContinueValue = event.detail.value;
         this.cancelpolicy        = this.cancelContinueValue === 'Cancel'?false : true
+        this.showRateMatrix =false;
     } 
 
     handleGetRate() {
