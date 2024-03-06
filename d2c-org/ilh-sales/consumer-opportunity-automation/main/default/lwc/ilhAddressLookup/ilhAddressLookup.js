@@ -1,7 +1,4 @@
-import { LightningElement, api, track, wire } from 'lwc';
-import { getPicklistValues, getObjectInfo } from "lightning/uiObjectInfoApi";
-import ACCOUNT_OBJECT from '@salesforce/schema/Account';
-import DOMICILESTATE_FIELD from "@salesforce/schema/Account.DomicileState__c";
+import { LightningElement, api, track } from 'lwc';
 
 export default class IlhAddressLookup extends LightningElement {
 
@@ -10,7 +7,10 @@ export default class IlhAddressLookup extends LightningElement {
     @api txt_State;
     @api txt_Zip;
     @api txt_Country;
-    stateOptions = [];
+    stateOptions = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 
+    'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 
+    'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 
+    'VA', 'WA', 'WV', 'WI', 'WY' ];
 
     @track
     address = {
@@ -61,18 +61,6 @@ export default class IlhAddressLookup extends LightningElement {
         return postalCodePattern.test(postalCode);
     }
 
-    @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
-    objectInfo;
-
-    @wire(getPicklistValues, { recordTypeId: "$objectInfo.data.defaultRecordTypeId", fieldApiName: DOMICILESTATE_FIELD })
-    getResults({ error, data }) {
-        if (data) {
-            this.stateOptions = [...data.values];
-        } else if (error) {
-            console.log("error", error);
-        }
-    }
-
     handleChange(event) {
         this.txt_Street = event.detail.street;
         this.txt_City = event.detail.city;
@@ -83,12 +71,14 @@ export default class IlhAddressLookup extends LightningElement {
     }
 
     formatPostalCode(strPostalCode) {
-        let formattedPostalCode = strPostalCode.replace(this.specialCharacters, "");
+        let formattedPostalCode;
 
-        if (formattedPostalCode.length > 5) {
-            formattedPostalCode = formattedPostalCode.slice(0, 5) + '-' + formattedPostalCode.slice(5);
+        if (strPostalCode) {
+            formattedPostalCode = strPostalCode.replace(this.specialCharacters, "");
+            if (formattedPostalCode.length > 5) {
+                formattedPostalCode = formattedPostalCode.slice(0, 5) + '-' + formattedPostalCode.slice(5);
+            }    
         }
-
         return formattedPostalCode;
     }
 
