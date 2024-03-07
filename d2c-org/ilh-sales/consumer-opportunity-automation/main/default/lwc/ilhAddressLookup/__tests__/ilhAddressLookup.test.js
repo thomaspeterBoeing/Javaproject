@@ -10,57 +10,115 @@ describe('c-ilh-address-lookup', () => {
         jest.clearAllMocks();
     });
 
-    async function flushPromises() {
-        return Promise.resolve();
-    }
-
-
-    it('Validate with values for country and postal code', async () => {
+    it('Validate when country and postal code has values', () => {
         const element = createElement('c-ilh-address-lookup', {//Create lookup component
             is: IlhAddressLookup
         });
 
         document.body.appendChild(element);//Add lookup component to page
 
-        let inputAddress = element.shadowRoot.querySelector('lightning-input-address');
-        inputAddress.country = 'US';
-        inputAddress.postalCode = '11111';
+        let inputAddress = element.shadowRoot.querySelector('lightning-input-address');//Query address component
+        inputAddress.country = 'US';//Update value of country property
+        inputAddress.postalCode = '11111';//Update value of postal code property
 
-        expect(element.validate().isValid).toBeTruthy();
+        expect(element.validate().isValid).toBeTruthy();//The value from the validate method should be valid
     });
 
-    it('Validate country with no value', () => {
-        // Arrange
-        const element = createElement('c-ilh-address-lookup', {
+    it('Validate when country has no value', () => {
+        const element = createElement('c-ilh-address-lookup', {//Create lookup component
             is: IlhAddressLookup
         });
+
+        document.body.appendChild(element);//Add lookup component to page
+
+        let inputAddress = element.shadowRoot.querySelector('lightning-input-address');//Query address component
+        inputAddress.country = '';//Update value of country property
+        inputAddress.postalCode = '11111';//Update value of postal code property
+
+        expect(element.validate().isValid).not.toBeTruthy();//The value from the validate method should not be valid because country is empty
     });
 
-    it('Validate postal code with no value', () => {
-        // Arrange
-        const element = createElement('c-ilh-address-lookup', {
+    it('Validate when postal code has no value', () => {
+        const element = createElement('c-ilh-address-lookup', {//Create lookup component
             is: IlhAddressLookup
         });
-    });
 
-    it('Validate postal code with a value', () => {
-        // Arrange
-        const element = createElement('c-ilh-address-lookup', {
-            is: IlhAddressLookup
-        });
+        document.body.appendChild(element);//Add lookup component to page
+
+        let inputAddress = element.shadowRoot.querySelector('lightning-input-address');//Query address component
+        inputAddress.country = 'US';//Update value of country property
+        inputAddress.postalCode = '';//Update value of postal code property
+
+        expect(element.validate().isValid).not.toBeTruthy();//The value from the validate method should not be valid because postal code is empty
     });
 
     it('Test handleChange with no postal code value', () => {
-        // Arrange
-        const element = createElement('c-ilh-address-lookup', {
+        const element = createElement('c-ilh-address-lookup', {//Create lookup component
             is: IlhAddressLookup
         });
+
+        document.body.appendChild(element);//Add lookup component to page
+
+        expect(element.txt_Zip).toBeUndefined();//Check that the zip property is undefined before we update
+
+        let inputAddress = element.shadowRoot.querySelector('lightning-input-address');//Query address component
+        inputAddress.postalCode = '';//Update postal code
+        inputAddress.dispatchEvent(new CustomEvent('change', {detail: {postalCode: inputAddress.postalCode}}));//Input address onChange
+
+        expect(element.txt_Zip).toBeUndefined();//Zip property should still be undefined
     });
 
-    it('Test handleChange with a postal code value', () => {
-        // Arrange
-        const element = createElement('c-ilh-address-lookup', {
+    it('Test handleChange when postal code has a value, and should format correctly', () => {
+        const element = createElement('c-ilh-address-lookup', {//Create lookup component
             is: IlhAddressLookup
         });
+
+        document.body.appendChild(element);//Add lookup component to page
+
+        expect(element.txt_Zip).toBeUndefined();//Check that the zip property is undefined before we update
+
+        let inputAddress = element.shadowRoot.querySelector('lightning-input-address');//Query address component
+        inputAddress.postalCode = '111111111';//Update postal code
+        inputAddress.dispatchEvent(new CustomEvent('change', {detail: {postalCode: inputAddress.postalCode}}));//Input address onChange
+
+        expect(element.txt_Zip).toEqual('11111-1111');//Zip property should be formatted correctly
+    });
+
+    it('Input properties should have a value when values are changed', () => {
+        const element = createElement('c-ilh-address-lookup', {//Create lookup component
+            is: IlhAddressLookup
+        });
+
+        document.body.appendChild(element);//Add lookup component to page
+
+        expect(element.txt_Zip).toBeUndefined();//Check that the zip property is undefined before we update
+        expect(element.txt_Street).toBeUndefined();//Check that the street property is undefined before we update
+        expect(element.txt_City).toBeUndefined();//Check that the city property is undefined before we update
+        expect(element.txt_State).toBeUndefined();//Check that the state property is undefined before we update
+        expect(element.txt_Country).toBeUndefined();//Check that the country property is undefined before we update
+
+        let inputAddress = element.shadowRoot.querySelector('lightning-input-address');//Query address component
+
+        inputAddress.postalCode = '11111';//Update postal code
+        inputAddress.street = '123 Main Street';//Update street
+        inputAddress.city = 'Madison';//Update city
+        inputAddress.province = 'WI';//Update state
+        inputAddress.country = 'US';//Update country
+
+        inputAddress.dispatchEvent(new CustomEvent('change', {//Input address component onChange event
+            detail: { 
+                postalCode: inputAddress.postalCode,
+                street: inputAddress.street,
+                city: inputAddress.city,
+                province: inputAddress.province,
+                country: inputAddress.country
+            }
+        }));
+
+        expect(element.txt_Zip).toEqual('11111');//Zip property should have been updated correctly
+        expect(element.txt_Street).toEqual('123 Main Street');//Street property should have been updated correctly
+        expect(element.txt_City).toEqual('Madison');//City property should have been updated correctly
+        expect(element.txt_State).toEqual('WI');//State property should have been updated correctly
+        expect(element.txt_Country).toEqual('US');//Country property should have been updated correctly
     });
 });
