@@ -1,7 +1,4 @@
-import { LightningElement, api, track, wire } from 'lwc';
-import { getPicklistValues, getObjectInfo } from "lightning/uiObjectInfoApi";
-import ACCOUNT_OBJECT from '@salesforce/schema/Account';
-import DOMICILESTATE_FIELD from "@salesforce/schema/Account.DomicileState__c";
+import { LightningElement, api, track } from 'lwc';
 
 export default class IlhAddressLookup extends LightningElement {
 
@@ -10,7 +7,22 @@ export default class IlhAddressLookup extends LightningElement {
     @api txt_State;
     @api txt_Zip;
     @api txt_Country;
-    stateOptions = [];
+    stateOptions = [
+        { "value": "AK", "label": "AK" }, { "value": "AL", "label": "AL" }, { "value": "AR", "label": "AR" }, { "value": "AZ", "label": "AZ" },
+        { "value": "CA", "label": "CA" }, { "value": "CO", "label": "CO" }, { "value": "CT", "label": "CT" }, { "value": "DC", "label": "DC" },
+        { "value": "DE", "label": "DE" }, { "value": "FL", "label": "FL" }, { "value": "GA", "label": "GA" }, { "value": "HI", "label": "HI" },
+        { "value": "IA", "label": "IA" }, { "value": "ID", "label": "ID" }, { "value": "IL", "label": "IL" }, { "value": "IN", "label": "IN" },
+        { "value": "KS", "label": "KS" }, { "value": "KY", "label": "KY" }, { "value": "LA", "label": "LA" }, { "value": "MA", "label": "MA" },
+        { "value": "MD", "label": "MD" }, { "value": "ME", "label": "ME" }, { "value": "MI", "label": "MI" }, { "value": "MN", "label": "MN" },
+        { "value": "MO", "label": "MO" }, { "value": "MS", "label": "MS" }, { "value": "MT", "label": "MT" }, { "value": "NC", "label": "NC" },
+        { "value": "ND", "label": "ND" }, { "value": "NE", "label": "NE" }, { "value": "NH", "label": "NH" }, { "value": "NJ", "label": "NJ" },
+        { "value": "NM", "label": "NM" }, { "value": "NV", "label": "NV" }, { "value": "NY", "label": "NY" }, { "value": "OH", "label": "OH" },
+        { "value": "OK", "label": "OK" }, { "value": "OR", "label": "OR" }, { "value": "PA", "label": "PA" }, { "value": "RI", "label": "RI" },
+        { "value": "SC", "label": "SC" }, { "value": "SD", "label": "SD" }, { "value": "TN", "label": "TN" }, { "value": "TX", "label": "TX" },
+        { "value": "UT", "label": "UT" }, { "value": "VA", "label": "VA" }, { "value": "VT", "label": "VT" }, { "value": "WA", "label": "WA" },
+        { "value": "WI", "label": "WI" }, { "value": "WV", "label": "WV" }, { "value": "WY", "label": "WY" }, { "value": "PR", "label": "PR" },
+        { "value": "VI", "label": "VI" }, { "value": "FM", "label": "FM" }, { "value": "GU", "label": "GU" }
+    ];
 
     @track
     address = {
@@ -18,7 +30,7 @@ export default class IlhAddressLookup extends LightningElement {
         city: '',
         province: '',
         postalCode: '',
-        country: '',
+        country: 'US',
     };
 
     connectedCallback() {
@@ -61,18 +73,6 @@ export default class IlhAddressLookup extends LightningElement {
         return postalCodePattern.test(postalCode);
     }
 
-    @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT })
-    objectInfo;
-
-    @wire(getPicklistValues, { recordTypeId: "$objectInfo.data.defaultRecordTypeId", fieldApiName: DOMICILESTATE_FIELD })
-    getResults({ error, data }) {
-        if (data) {
-            this.stateOptions = [...data.values];
-        } else if (error) {
-            console.log("error", error);
-        }
-    }
-
     handleChange(event) {
         this.txt_Street = event.detail.street;
         this.txt_City = event.detail.city;
@@ -83,12 +83,14 @@ export default class IlhAddressLookup extends LightningElement {
     }
 
     formatPostalCode(strPostalCode) {
-        let formattedPostalCode = strPostalCode.replace(this.specialCharacters, "");
+        let formattedPostalCode;
 
-        if (formattedPostalCode.length > 5) {
-            formattedPostalCode = formattedPostalCode.slice(0, 5) + '-' + formattedPostalCode.slice(5);
+        if (strPostalCode) {
+            formattedPostalCode = strPostalCode.replace(this.specialCharacters, "");
+            if (formattedPostalCode.length > 5) {
+                formattedPostalCode = formattedPostalCode.slice(0, 5) + '-' + formattedPostalCode.slice(5);
+            }    
         }
-
         return formattedPostalCode;
     }
 
