@@ -3,6 +3,7 @@
     <fullName>TotalPremiumAmount__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
+    <deprecated>false</deprecated>
     <description>Sum of base premium+Rider premiums</description>
     <externalId>false</externalId>
     <label>Total Premium Amount</label>

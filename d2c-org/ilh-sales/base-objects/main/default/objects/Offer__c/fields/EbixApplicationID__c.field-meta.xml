@@ -3,6 +3,7 @@
     <fullName>EbixApplicationID__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
+    <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Ebix Application ID</label>
     <length>15</length>

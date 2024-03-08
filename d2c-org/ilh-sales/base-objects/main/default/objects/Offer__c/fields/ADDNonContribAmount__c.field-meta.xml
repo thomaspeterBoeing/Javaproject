@@ -3,6 +3,7 @@
     <fullName>ADDNonContribAmount__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
+    <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>ADD Non-Contrib Amount</label>
     <precision>18</precision>

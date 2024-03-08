@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>OfferNAP__c</fullName>
+    <fullName>NAP__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
+    <deprecated>false</deprecated>
     <externalId>false</externalId>
     <formula>CASE(PaymentFrequency__c,
 &quot;Semi-Annually&quot;, ROUND(TotalPremiumAmount__c * 2, 2),
@@ -18,7 +19,7 @@
 &quot;Weekly&quot;, ROUND(TotalPremiumAmount__c * 52, 2),
 TotalPremiumAmount__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <label>Offer NAP</label>
+    <label>NAP</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

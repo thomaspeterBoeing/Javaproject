@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>CHSBR__c</fullName>
+    <fullName>SentDate__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
+    <deprecated>false</deprecated>
     <externalId>false</externalId>
-    <label>CHSBR</label>
-    <precision>18</precision>
+    <label>Sent Date</label>
     <required>false</required>
-    <scale>2</scale>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
-    <type>Currency</type>
+    <type>Date</type>
 </CustomField>

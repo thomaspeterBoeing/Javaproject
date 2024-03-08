@@ -3,6 +3,7 @@
     <fullName>EmailAddress__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
+    <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Email Address</label>
     <required>false</required>

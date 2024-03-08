@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>MailToPostalCode__c</fullName>
+    <fullName>vSigSubmitted__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field is used to track the agent has clicked on the Voice Signature button.</description>
     <externalId>false</externalId>
-    <label>Mail To Postal Code</label>
-    <length>10</length>
-    <required>false</required>
+    <label>vSig Submitted</label>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Checkbox</type>
 </CustomField>
