@@ -1,4 +1,4 @@
- /**********************************************************************************
+/**********************************************************************************
  * Title:  PersonID Provider Controller
  * Date:   Nov 2023
  * 
@@ -24,7 +24,7 @@ public with sharing class PersonIDProviderController {
                 if (objectType == 'Account') {
                      rec = [SELECT ID,PersonID__pc FROM Account WHERE Id = :recordId LIMIT 1];
                 } else if (objectType == 'Opportunity') {
-                     rec = [SELECT AccountId, Account.PersonID__pc FROM Opportunity WHERE Id = :recordId LIMIT 1];
+                     rec = [SELECT AccountId, Account.PersonID__pc, Account.Gender__pc FROM Opportunity WHERE Id = :recordId LIMIT 1];
                 }
             }
         }catch(Exception ex) {
