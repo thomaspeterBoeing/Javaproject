@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>CallTaskMessage</masterLabel>
+    <isExposed>true</isExposed>
+    <description>TBD</description>    
+    <lightningMessageFields>
+        <fieldName>CallAction</fieldName>
+        <description>What call action occurred.  StartCall, EndCall </description>
+    </lightningMessageFields>       
+</LightningMessageChannel>

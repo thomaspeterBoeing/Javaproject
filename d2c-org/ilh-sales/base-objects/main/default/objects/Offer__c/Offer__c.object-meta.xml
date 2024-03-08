@@ -143,6 +143,7 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
     <description>Ebix Offer Object.  Sourced from Ebix</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>

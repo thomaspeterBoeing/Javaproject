@@ -4,6 +4,7 @@
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
     <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>eSig Submitted</label>
     <securityClassification>Internal</securityClassification>

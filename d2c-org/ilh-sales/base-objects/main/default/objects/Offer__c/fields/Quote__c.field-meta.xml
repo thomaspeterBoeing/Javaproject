@@ -4,6 +4,7 @@
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
     <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
     <description>Quote Offer is created from.</description>
     <externalId>false</externalId>
     <label>Quote</label>

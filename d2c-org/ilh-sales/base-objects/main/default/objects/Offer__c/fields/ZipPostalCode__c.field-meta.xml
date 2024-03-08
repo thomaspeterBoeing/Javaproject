@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>CBRCoverageAmount__c</fullName>
+    <fullName>ZipPostalCode__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
+    <deprecated>false</deprecated>
     <externalId>false</externalId>
-    <label>CBR Coverage Amount</label>
-    <precision>18</precision>
+    <label>Zip/Postal Code</label>
+    <length>10</length>
     <required>false</required>
-    <scale>2</scale>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
-    <type>Currency</type>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

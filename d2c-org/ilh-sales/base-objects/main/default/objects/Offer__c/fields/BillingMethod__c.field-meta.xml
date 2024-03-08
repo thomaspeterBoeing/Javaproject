@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>OfferApplicationStatus__c</fullName>
+    <fullName>BillingMethod__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
     <externalId>false</externalId>
-    <label>Offer Application Status</label>
+    <label>Billing Method</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
@@ -13,14 +13,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Sent to Underwriting</fullName>
+                <fullName>ACH</fullName>
                 <default>false</default>
-                <label>Sent to Underwriting</label>
+                <label>ACH</label>
             </value>
             <value>
-                <fullName>Automatic Application</fullName>
+                <fullName>PAC</fullName>
                 <default>false</default>
-                <label>Automatic Application</label>
+                <label>PAC</label>
             </value>
         </valueSetDefinition>
     </valueSet>

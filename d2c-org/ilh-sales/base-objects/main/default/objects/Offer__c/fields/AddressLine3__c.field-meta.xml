@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>OriginalOfferSentDate__c</fullName>
+    <fullName>AddressLine3__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
+    <deprecated>false</deprecated>
     <externalId>false</externalId>
-    <label>Original Offer Sent Date</label>
+    <label>Address Line 3</label>
+    <length>64</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
-    <type>Date</type>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

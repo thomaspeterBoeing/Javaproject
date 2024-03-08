@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>OfferSequenceNumber__c</fullName>
+    <fullName>StateProvince__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
-    <description>Generated from Salesforce. Uses a seed number from Sequence # Range database.</description>
+    <deprecated>false</deprecated>
     <externalId>false</externalId>
-    <label>Offer Sequence Number</label>
-    <precision>13</precision>
+    <label>State/Province</label>
     <required>false</required>
-    <scale>0</scale>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
-    <type>Number</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>States</valueSetName>
+    </valueSet>
 </CustomField>

@@ -3,6 +3,7 @@
     <fullName>CoverageAmount__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
+    <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Coverage Amount</label>
     <precision>18</precision>

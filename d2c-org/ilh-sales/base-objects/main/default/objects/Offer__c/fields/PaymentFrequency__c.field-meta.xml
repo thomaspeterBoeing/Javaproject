@@ -3,6 +3,7 @@
     <fullName>PaymentFrequency__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
+    <deprecated>false</deprecated>
     <description>Frequency of payments.</description>
     <externalId>false</externalId>
     <label>Payment Frequency</label>

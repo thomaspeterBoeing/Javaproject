@@ -27,6 +27,15 @@
         <type>Flexipage</type>
         <pageOrSobjectType>Account</pageOrSobjectType>
     </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Offer</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Offer__c</pageOrSobjectType>
+    </actionOverrides>
     <brand>
         <headerColor>#0070D2</headerColor>
         <logo>TruStage_Standard_Logo_RGB</logo>
@@ -40,89 +49,8 @@
     <isNavTabPersistenceDisabled>true</isNavTabPersistenceDisabled>
     <label>ILH Sales Console</label>
     <navType>Console</navType>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>ILHConsumerSalesOpportunity</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Opportunity</pageOrSobjectType>
-        <recordType>Opportunity.ILHSales</recordType>
-        <type>Flexipage</type>
-        <profile>ILH Sales Planner</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>ILHConsumerSalesOpportunity</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Opportunity</pageOrSobjectType>
-        <recordType>Opportunity.ILHSales</recordType>
-        <type>Flexipage</type>
-        <profile>ILH Sales Agent</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>ILHConsumerSalesOpportunity</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Opportunity</pageOrSobjectType>
-        <recordType>Opportunity.ILHSales</recordType>
-        <type>Flexipage</type>
-        <profile>Admin</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>ILHSalesConsumerPage</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Account</pageOrSobjectType>
-        <recordType>PersonAccount.Consumer</recordType>
-        <type>Flexipage</type>
-        <profile>Admin</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>ILHSalesConsumerPage</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Account</pageOrSobjectType>
-        <recordType>PersonAccount.Consumer</recordType>
-        <type>Flexipage</type>
-        <profile>ILH Sales Planner</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>ILHSalesConsumerPage</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Account</pageOrSobjectType>
-        <recordType>PersonAccount.Consumer</recordType>
-        <type>Flexipage</type>
-        <profile>ILH Sales Agent</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>AffiliationAccountPage</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Account</pageOrSobjectType>
-        <recordType>Account.Affiliation</recordType>
-        <type>Flexipage</type>
-        <profile>ILH Sales Planner</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>AffiliationAccountPage</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Account</pageOrSobjectType>
-        <recordType>Account.Affiliation</recordType>
-        <type>Flexipage</type>
-        <profile>ILH Sales Agent</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>AffiliationAccountPage</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Account</pageOrSobjectType>
-        <recordType>Account.Affiliation</recordType>
-        <type>Flexipage</type>
-        <profile>Admin</profile>
-    </profileActionOverrides>
     <setupExperience>all</setupExperience>
-    <tabs>standard-Opportunity</tabs>    
+    <tabs>standard-Opportunity</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Campaign</tabs>
     <tabs>ILHSalesConsumerSearch</tabs>
@@ -137,7 +65,7 @@
         </mappings>
         <mappings>
             <tab>standard-Campaign</tab>
-        </mappings>        
+        </mappings>
         <mappings>
             <tab>standard-Opportunity</tab>
         </mappings>

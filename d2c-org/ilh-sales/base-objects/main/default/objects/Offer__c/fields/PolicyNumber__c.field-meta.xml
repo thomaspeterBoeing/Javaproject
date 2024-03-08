@@ -3,6 +3,7 @@
     <fullName>PolicyNumber__c</fullName>
     <businessOwnerGroup>ILHSalesDataOwner</businessOwnerGroup>
     <businessStatus>Active</businessStatus>
+    <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Policy Number</label>
     <length>40</length>
