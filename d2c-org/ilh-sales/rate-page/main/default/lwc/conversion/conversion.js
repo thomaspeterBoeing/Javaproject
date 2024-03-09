@@ -13,24 +13,24 @@
  * Modifications:
  *************************************************************************************/
 import { LightningElement, wire, track, api } from 'lwc';
-import { getFieldValue, getRecord, getObjectInfo   } from 'lightning/uiRecordApi';
+import { getFieldValue, getRecord } from 'lightning/uiRecordApi';
 import DOB from '@salesforce/schema/Opportunity.Account.PersonBirthdate';
 import FNAME from '@salesforce/schema/Opportunity.Account.FirstName';
-import CONTACTID from '@salesforce/schema/Opportunity.Account.PersonContactId';
 import checkEligibility from '@salesforce/apex/ConversionEligibleQuoteController.checkEligibility';
 import { NavigationMixin } from 'lightning/navigation';
 import getRates from '@salesforce/apex/ConversionEligibleQuoteController.getRates';
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { reduceErrors } from 'c/ldsUtils';
-import policysummary from 'c/policySumSearch'; // remove this
-import PolicyFormat from 'c/policyFormat'; // remove this
+import CONSUMERCHECK from '@salesforce/label/c.ConsumerCheck';
+import SPECIALHANDLING from '@salesforce/label/c.SpecialHandling';
+import ADBORWAIVERRIDER from '@salesforce/label/c.ADBorWaiverRider';
+
 
 export default class conversion extends NavigationMixin(LightningElement) {
     @api opptyId;
     @api coverage;
     @api optyState;
     @api objectApiName;
-    @track conversionTypeOptions = [
+    conversionTypeOptions = [
         { value:'Term Insurance Policy', label:'Term Insurance Policy' },
         { value:'Other Insured Rider', label:'Other Insured Rider' },
         { value:'Term Insurance Rider', label: 'Term Insurance Rider' },
@@ -39,40 +39,40 @@ export default class conversion extends NavigationMixin(LightningElement) {
         { value: 'Guaranteed Insurability Rider', label:'Guaranteed Insurability Rider' },
         { value: 'Employee Group', label:'Employee Group' }
     ];
-    @track selectedConversionType = 'Term Insurance Policy';
-    @track policyNumber =null;
-    @track eligible = false; 
-    @track continueADBorWaiver = false;
-    @track cancelContinueOptions = [
+    selectedConversionType = 'Term Insurance Policy';
+    policyNumber =null;
+    eligible = false; 
+    continueADBorWaiver = false;
+    cancelContinueOptions = [
         { label: 'Cancel', value: 'cancel' },
         { label: 'Continue', value: 'continue' }
     ];
-    @track cancelContinueValue = 'cancel';
-    @track payFrequencyOptions = [
+    cancelContinueValue = 'cancel';
+    payFrequencyOptions = [
         { value: 'annual', label: 'Annual' },
         { value: 'semiannual', label: 'Semi-Annual' },
         { value: 'quarterly', label: 'Quarterly' },
         { value: 'Monthly', label: 'Monthly' }
     ];
-    @track payMethodOptions = [
+    payMethodOptions = [
         { value: 'ACH/PAC', label: 'ACH/PAC' },
         { value: 'DirectBill', label: 'Direct Bill' },
         { value: 'CreditCard', label: 'Credit Card' }
     ];
-    //@track paymentMethod ='';
-    @track effectiveDate ='';
-    @track currentCoverage ='';
-    @track underwritingClassOptions = []; // options are dynamically populated from the service
-    @track convertingcoverageAmount ='';
-    @track underwritingClassCode;
-    @track selectedunderwritingClass ='';
+    
+    effectiveDate ='';
+    currentCoverage ='';
+    underwritingClassOptions = []; // options are dynamically populated from the service
+    convertingcoverageAmount =0;
+    underwritingClassCode;
+    selectedunderwritingClass ='';
+    adbWaiverRiderChecked = false;
     userenteredconvertingcoverageAmount ='';
     selectedPayMethod ='';
     selectedPayFrequency ='';
-    @track showSpinner = false;
+    showSpinner = false;
     errorDescription ='';
     errorResponse =false; 
-    //covAmtError ='';
     errorMessage ='';
     notEligible =false;
     cancelpolicy =false;
@@ -80,41 +80,17 @@ export default class conversion extends NavigationMixin(LightningElement) {
     isModalOpen =false
     showRateMatrix =false;
 
-    /*handleChange(event) {  //might be needed if at some point service would accept conversion type.
-        this.selectedConversionType = event.detail.value;
-    }*/
-
-   /* async openPolicy() { // this doesn't work for policysummary
-        await policysummary.open({        
-            size: 'small',
-            description: 'Accessible description of modal\'s purpose',
-            content: 'Passed into content api',
-        });
-    }*/
-
-    /*@wire(getObjectInfo, { objectApiName: Account})
-    acc;
-
-    get fields()
-    {
-        return [this.acc.data.fields.gender__pc];
-    }*/
-    //GENDERFIELD ="Opportunity.Account.Gender__pc";
-
-    @wire(getRecord,{recordId : '$opptyId', fields: [DOB, FNAME, CONTACTID/*, GENDERFIELD*/]})
+    @wire(getRecord,{recordId : '$opptyId', fields: [DOB, FNAME]})
     wiredOpportunity({error, data}){
     
          if(data){
             console.log('inside wiredOpportunity ' +JSON.stringify(data));
              this.dob           =getFieldValue(data, DOB);
              this.fname         =getFieldValue(data, FNAME);
-             //this.gender        =getFieldValue(data, GENDER);
-             this.contactId     =getFieldValue(data, CONTACTID);
              console.log ('Date of Birth is ' +this.dob);
              console.log ('First Name is ' +this.fname);
-             //console.log ('Gender is ' +this.gender);
-             console.log ('contact id is ' +this.contactId);
-            
+             
+ 
          }
          else if (error) {
             //console.error('Error fetching data:', error.data.body);
@@ -130,8 +106,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
         if (event.detail && event.detail.Account && event.detail.Account.Gender__pc) {
             this.gender = event.detail.Account.Gender__pc;
             console.log('Gender from provider component is ->' +this.gender);
-            // use this.personId to fetch policy data
-            //this.fetchPolicyData(this.personId);
+            
         } else {
             console.log('Gender is undefined or not available.');
             this.isLoading = false;
@@ -143,6 +118,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
     handleChangePolicyNumber(event) {
         this.policyNumber = event.target.value;
         console.log('inside handleChangePolicyNumber '+this.policyNumber);
+        // resetting to clear messages and hide sections.
         this.errorDescription='';
         this.eligible =false;
         this.showRateMatrix =false;
@@ -152,12 +128,8 @@ export default class conversion extends NavigationMixin(LightningElement) {
     }
     
     async handlePolicySummaryClick() {
-        console.log('record id here is -> ' +this.recID);
-        console.log('opty state is '+this.optyState);
         this.isModalOpen = true;
-        let temp = await this.template.querySelector('div[class^=slds-modal');//.classList.remove('slds-truncate');
-        console.log ('value of temp ' +temp);
-
+        
     }
 
     // Method to close the modal
@@ -166,7 +138,10 @@ export default class conversion extends NavigationMixin(LightningElement) {
     }
 
     async handleClickCheckEligibility() {
+        // resetting to clear messages and hide sections.
         this.convertingcoverageAmount = null;
+        this.rateerrormessages='';
+        this.showSubsequentSections = true;
         // Check if policyNumber is null or not within the required length
         if (this.policyNumber ===null || this.policyNumber.length < 3 || this.policyNumber.length > 16) {
             this.errorDescription = "Enter a valid Policy Number between 3-16 characters";
@@ -179,6 +154,24 @@ export default class conversion extends NavigationMixin(LightningElement) {
         await this.validateSearch(); // Rename method as appropriate
     }
     
+    handleADBWaiverChange(event) {
+        this.adbWaiverRiderChecked = event.target.checked;
+        
+        if (this.adbWaiverRiderChecked) {
+            // Display message
+            this.ADBmessage = ADBORWAIVERRIDER;
+
+            // Hide subsequent sections
+            this.showSubsequentSections = false;
+            this.showRateMatrix =false;
+        } else {
+            // Clear message
+            this.ADBmessage = '';
+
+            // Show subsequent sections
+            this.showSubsequentSections = true;
+        }
+    }
 
     handleFrequencyChange(event) {
         this.showRateMatrix =false;
@@ -208,37 +201,57 @@ export default class conversion extends NavigationMixin(LightningElement) {
         this.cancelContinueValue = event.detail.value;
         this.cancelpolicy        = this.cancelContinueValue === 'cancel'?false : true
         console.log('value of Cancel/Continue Term radiobutton '+this.cancelpolicy);
+        this.rateerrormessages='';
         this.showRateMatrix =false;
     } 
 
     handleGetRate() {
         this.rateerrormessages='';
         this.showSpinner = true;
+        //if (isNaN(event.target.value)){
+        /*if (isNan(this.convertingcoverageAmount)) {
+            this.rateerrormessages = "Enter a valid amount ";
+            //this.notEligible =true;
+            return;
+        }*/
         
         const conversionEligibilityDetails = this.getConversionEligibilityDetails();
         console.log('before coverage rule');
+        console.log('Converting Coverage amount ' +this.convertingcoverageAmount);
+
+        // Determine which conversion details to use based on this.cancelpolicy
+        const conversionDetails = this.cancelpolicy ? conversionEligibilityDetails.partialConversion : conversionEligibilityDetails.fullConversion;
+
+        
+        // Extract max and min coverage amounts based on the chosen conversion details
+        const maxCoverageAmount = parseFloat(conversionDetails.coverageAmounts.maximumCoverageAmount);
+        console.log('maxCoverageAmount ' +maxCoverageAmount);
+        const minCoverageAmount = parseFloat(conversionDetails.coverageAmounts.minimumCoverageAmount);
+        console.log('maxCoverageAmount ' +minCoverageAmount);
 
         // Convert string values to numbers for comparison
-        const userEnteredCoverageAmount = parseFloat(this.userenteredconvertingcoverageAmount);
-        console.log('userEnteredCoverageAmount after parseFloat '+userEnteredCoverageAmount);
-        const maxCoverageAmount = parseFloat(conversionEligibilityDetails.fullConversion.coverageAmounts.maximumCoverageAmount);
-        console.log('maxCoverageAmount after parseFloat  ' +maxCoverageAmount);
+        //const userEnteredCoverageAmount = parseFloat(this.userenteredconvertingcoverageAmount);
+        const coverageAmount = parseFloat(this.convertingcoverageAmount);
+        console.log('coverageAmount from UI/userentered ' +coverageAmount);
+        //console.log('userEnteredCoverageAmount after parseFloat '+userEnteredCoverageAmount);
+        //const maxCoverageAmount = parseFloat(conversionEligibilityDetails.fullConversion.coverageAmounts.maximumCoverageAmount); --refactor
+        //console.log('maxCoverageAmount after parseFloat  ' +maxCoverageAmount);
         
         // Convert string values to numbers for  comparison
-        const minCoverageAmount = parseFloat(conversionEligibilityDetails.fullConversion.coverageAmounts.minimumCoverageAmount);
+        //const minCoverageAmount = parseFloat(conversionEligibilityDetails.fullConversion.coverageAmounts.minimumCoverageAmount); --refactor
         
-
+        console.log('value of this.cancelpolicy ' +this.cancelpolicy);
         // max coverage rule
-        if (!this.cancelpolicy && userEnteredCoverageAmount > maxCoverageAmount) { //policy is being canceled
+        if (!this.cancelpolicy && coverageAmount > maxCoverageAmount) { //policy is being canceled
             console.log('inside  max coverage rule');
             this.rateerrormessages = "Coverage Amount cannot exceed the total coverage available " +this.formatNumberWithCommas(maxCoverageAmount);
             this.ratevalidation = true;
             this.showSpinner = false;
             this.convertingcoverageAmountinput = null;
             return;
-        }else if (this.cancelpolicy && userEnteredCoverageAmount > maxCoverageAmount-minCoverageAmount) { //Policy is being continued
+        }else if (this.cancelpolicy && coverageAmount > maxCoverageAmount) { //Policy is being continued
             console.log('inside else if of max coverage rule');
-            this.rateerrormessages = "Coverage Amount cannot exceed the total coverage available " + this.formatNumberWithCommas(maxCoverageAmount-minCoverageAmount);
+            this.rateerrormessages = "Coverage Amount cannot exceed the total coverage available " + this.formatNumberWithCommas(maxCoverageAmount);
             this.ratevalidation = true;
             this.showSpinner = false;
             this.convertingcoverageAmountinput = null;
@@ -246,8 +259,8 @@ export default class conversion extends NavigationMixin(LightningElement) {
 
         }
 
-        // min coverage rule2
-        if (this.cancelpolicy && userEnteredCoverageAmount < minCoverageAmount || !this.cancelpolicy && userEnteredCoverageAmount < minCoverageAmount )  {
+        // min coverage rule
+        if (this.cancelpolicy && coverageAmount < minCoverageAmount || !this.cancelpolicy && coverageAmount < minCoverageAmount )  {
             console.log('inside min coverage rule');
             this.rateerrormessages = "Coverage Amount is below the minimum coverage " +this.formatNumberWithCommas(minCoverageAmount);
             this.ratevalidation = true;
@@ -324,7 +337,8 @@ export default class conversion extends NavigationMixin(LightningElement) {
     }
 
     async checkifEligible(){
-        this.errorMessage = ''
+        this.errorMessage = '';
+        this.cancelpolicy = true; // setting to get full and partial conversion nodes.
         
         // Log the request criteria map before sending the request
         console.log('Request Criteria Map:', JSON.stringify(this.createRequestCriteriaMap()));
@@ -368,7 +382,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
                         this.gender !== currentTermPolicyInfo.insured.gender ||
                         this.dob !== currentTermPolicyInfo.insured.birthDate 
                     ) {
-                        this.errorDescription = 'One or more of the following data fields do not match information on the existing policy: First Name, Date of Birth, or Gender. Contact Customer Care to correct prior to processing Conversion';
+                        this.errorDescription = CONSUMERCHECK;
                         this.notEligible = true;
                         this.eligible = false;
                         this.showSpinner = false;
@@ -377,7 +391,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
 
                     // Rule 2: Check if specialHandlingCode === 'X'
                     if (currentTermPolicyInfo.specialHandlingCode !== 'X') {
-                        this.errorDescription = 'Special handling code is not X. Proceed with Paper Kit ';
+                        this.errorDescription = SPECIALHANDLING;
                         this.notEligible = true;
                         this.eligible = false;
                         this.showSpinner = false;
@@ -430,6 +444,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
                         console.log('value of  currentCoverageFormatted ' +this.currentCoverageFormatted);*/
                     
                     this.showSpinner = false;
+                    this.cancelpolicy = false; //resetting after eligibility check is done and have the entire payload
                 }
             })
             .catch(error => {

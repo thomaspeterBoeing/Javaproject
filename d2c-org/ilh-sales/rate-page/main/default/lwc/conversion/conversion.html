@@ -1,18 +1,48 @@
+<!--
+/**********************************************************************************
+ * Title:  Conversion LWC HTML
+ * Date:   March 2024
+ * 
+ * Description:  This layout was built based on UI/UX recommendation documented in figma (Look for Conversion happy path flow)
+ * 
+ * Details:      For ease of building sections per UI/UX recommendation, First Row, Second row notations have been used. Each row could have one or more elements.
+ *               Sections are shown or  hidden based on service response and or user input per UI/UX recommendation.  
+ * 
+ * Modifications:
+ *************************************************************************************/
+
+-->
 <template>
     <!-- First Row -->
-    <!---->
+    <!--c-person-id-provider-l-w-c is being included here to get value of opportunity.Account.Gender__pc. This is a workaround for limitation of importing custom __pc fields in the javascript-->
     <c-person-id-provider-l-w-c record-id={opptyId} object-api-name={objectApiName} onpersonidloaded={handlePreLoadedInfo}></c-person-id-provider-l-w-c>
     <div class="slds-grid slds-grid_vertical-align-end custom-bottom-margin">
         <div class="slds-col slds-size_1-of-3">
             <lightning-combobox label="Conversion Type" options={conversionTypeOptions} value={selectedConversionType} ></lightning-combobox>
         </div>
         <div class="slds-col slds-size_1-of-3">
-            <lightning-input label="Policy Number" data-id="policyNumber" value={policyNumber} onchange={handleChangePolicyNumber} minlength="5" maxlength="16" message-when-too-short="Policy Number required to be between 5 and 16 characters." 
+            <lightning-input label="Policy Number" data-id="policyNumber" value={policyNumber} onchange={handleChangePolicyNumber} minlength="3" maxlength="16" message-when-too-short="Policy Number required to be between 3 and 16 characters." 
             message-when-too-long="Policy Number required to be between 5 and 16 characters."></lightning-input>
         </div>
         <div class="slds-col slds-size_1-of-3">
             <lightning-button label="Policy Summary" onclick={handlePolicySummaryClick} variant="bare"  ></lightning-button>
         </div>
+        <template lwc:if={isModalOpen}>
+            <!---modal-->
+            <div class="slds-modal slds-fade-in-open " style="width: 1080px;" role="dialog" aria-modal="true" >
+                <div class="slds-modal__container">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                    </button>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-button label="Close" onclick={closeModal} variant="neutral" class="slds-float_right"></lightning-button>
+                        </div>
+                        <c-policy-sum-search record-id={opptyId} ></c-policy-sum-search>
+                    </div>
+                </div>
+            </div>
+        </template>
     </div>
 
     <!-- Second Row -->
@@ -20,7 +50,7 @@
         <div class="slds-col slds-size_1-of-3">
             <lightning-button variant="bare" data-id="checkEligilityBtn" label="Check Eligibility" onclick={handleClickCheckEligibility} disabled={showSpinner} >
             </lightning-button>
-                            <!-- Display spinner when isLoading is true -->
+                            <!-- Display spinner when showSpinner is true -->
                             <div lwc:if={showSpinner}>
                                 <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
                             </div>
@@ -39,7 +69,7 @@
         </div>
     </div>
 
-    <!-- Optional section from here on. only show when policy number request returned valid response.. Third Row -->
+    <!--Third Row ... Optional section from here on. only show when policy number returned valid response..-->
     <div lwc:if={eligible} data-id="eligibleSection">
         <div  class="slds-grid slds-grid_align-left custom-bottom-margin">
             <div class="slds-col slds-size_1-of-3">
@@ -52,7 +82,7 @@
                 <label class="slds-m-right_small">Continue ADB or Waiver Rider</label>
                 <label class="slds-checkbox_toggle slds-grid">
                     <span class="slds-form-element__label slds-m-bottom_none"></span>
-                    <input type="checkbox" name="checkbox-toggle-15" value="checkbox-toggle-15" aria-describedby="checkbox-toggle-15" />
+                    <input type="checkbox" name="checkbox-toggle-15" value="checkbox-toggle-15" onchange={handleADBWaiverChange} aria-describedby="checkbox-toggle-15" />
                     <span id="checkbox-toggle-15" class="slds-checkbox_faux_container">
                         <span class="slds-checkbox_faux"></span>
                         <span class="slds-checkbox_on">Applicable</span>
@@ -60,69 +90,62 @@
                     </span>
                 </label>
             </div>
+            
         </div>
-
-        <!-- Fourth Row -->
-        <div class="slds-grid slds-grid_align-left custom-bottom-margin">
-            <div class="slds-col slds-size_1-of-3">
-                <lightning-input label="Converting Coverage" data-id="coverage" value={convertingcoverageAmount} onchange={handleConvertingCoverageAmountChange}  type="number" message-when-type-mismatch="enter only numbers" ></lightning-input>
-            </div>
-            <div class="error">{covAmtError}</div> 
-            <div class="slds-col slds-size_1-of-3">
-                <lightning-combobox label="Pay Frequency" data-id="payFrequency" options={payFrequencyOptions} value ={selectedPayFrequency} onchange={handleFrequencyChange}></lightning-combobox>
-            </div>
-            <div class="slds-col slds-size_1-of-3">
-                <lightning-combobox label="Pay Method" options={payMethodOptions} value={selectedPayMethod} ></lightning-combobox>
+        
+        <div lwc:if={adbWaiverRiderChecked}>
+            <div data-id="messageDisplay" class="slds-p-left_medium" style="color: red">
+            {ADBmessage}
             </div>
         </div>
-
-        <!-- Fifth Row -->
-        <div class="slds-grid slds-grid_align-left custom-bottom-margin">
-            <div class="slds-col slds-size_1-of-3">
-                <lightning-combobox label="Underwriting Class" read-only options={underwritingClassOptions} value={selectedunderwritingClass} ></lightning-combobox>
-            </div>
-        </div>
-
-        <!-- Sixth Row -->
-        <div class="slds-grid slds-grid_align-left custom-bottom-margin">
-            <div class="slds-col">
-                <label class="slds-m-right_small">Cancel/Continue Term</label>
-                <lightning-radio-group data-id="cancelContinue" options={cancelContinueOptions} value={cancelContinueValue} onchange={handleCancelContinueChange}></lightning-radio-group>
-            </div>
-        </div>
-
-        <!-- Seventh Row -->
-        <div class="slds-grid slds-grid_align-left">
-            <div class="slds-col">
-                <lightning-button label="Get Rate" data-id="getRate" onclick={handleGetRate} variant="bare"></lightning-button>
-            </div>
-            <div lwc:if={ratevalidation}>
-                <!-- Show message when Policy is not eligible for conversion -->
-                <div data-id="messageDisplay" class="slds-p-left_medium" style="color: rgb(8, 8, 8)">
-                    <p>{rateerrormessages}</p>
+        <!-- Fourth Row... show below sections only when adbWaiverRiderChecked is false and showSubsequentSection is true -->
+        <div lwc:if={showSubsequentSections}>
+            <div class="slds-grid slds-grid_align-left custom-bottom-margin">
+                <div class="slds-col slds-size_1-of-3">
+                    <lightning-input label="Converting Coverage" data-id="coverage" value={convertingcoverageAmount} onchange={handleConvertingCoverageAmountChange}  type="number" message-when-type-mismatch="enter only numbers" ></lightning-input>
+                </div>
+                <div class="error">{covAmtError}</div> 
+                <div class="slds-col slds-size_1-of-3">
+                    <lightning-combobox label="Pay Frequency" data-id="payFrequency" options={payFrequencyOptions} value ={selectedPayFrequency} onchange={handleFrequencyChange}></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-3">
+                    <lightning-combobox label="Pay Method" options={payMethodOptions} value={selectedPayMethod} ></lightning-combobox>
                 </div>
             </div>
+
+            <!-- Fifth Row -->
+            <div class="slds-grid slds-grid_align-left custom-bottom-margin">
+                <div class="slds-col slds-size_1-of-3">
+                    <lightning-combobox label="Underwriting Class" read-only options={underwritingClassOptions} value={selectedunderwritingClass} ></lightning-combobox>
+                </div>
+            </div>
+
+            <!-- Sixth Row -->
+            <div class="slds-grid slds-grid_align-left custom-bottom-margin">
+                <div class="slds-col">
+                    <label class="slds-m-right_small">Cancel/Continue Term</label>
+                    <lightning-radio-group data-id="cancelContinue" options={cancelContinueOptions} value={cancelContinueValue} onchange={handleCancelContinueChange}></lightning-radio-group>
+                </div>
+            </div>
+
+            <!-- Seventh Row -->
+            <div class="slds-grid slds-grid_align-left">
+                <div class="slds-col">
+                    <lightning-button label="Get Rate" data-id="getRate" onclick={handleGetRate} variant="bare"></lightning-button>
+                </div>
+                <div lwc:if={ratevalidation}>
+                    <!-- Show message when Policy is not eligible for conversion -->
+                    <div data-id="messageDisplay" class="slds-p-left_medium" style="color: red">
+                        <p>{rateerrormessages}</p>
+                    </div>
+                </div>
+            </div>
+            </div>
         </div>
-        </div>
+        <!-- ratingMatrix Grid below-->
         <template lwc:if={showRateMatrix}>
             <c-rating-matrix></c-rating-matrix>
         </template>
-                           
-            <template lwc:if={isModalOpen}>
-                <!---modal-->
-                <div class="slds-modal slds-fade-in-open " style="width: 1080px;" role="dialog" aria-modal="true" >
-                    <div class="slds-modal__container">
-                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
-                            <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
-                        </button>
-                        <div class="slds-modal__content slds-p-around_medium">
-                            <div class="slds-col slds-size_1-of-3">
-                                <lightning-button label="Close" onclick={closeModal} variant="neutral" class="slds-float_right"></lightning-button>
-                            </div>
-                            <c-policy-sum-search record-id={opptyId} ></c-policy-sum-search>
-                        </div>
-                    </div>
-                </div>
-            </template>
+                          
                
 </template>
