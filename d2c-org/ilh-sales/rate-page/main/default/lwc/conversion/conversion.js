@@ -208,16 +208,21 @@ export default class conversion extends NavigationMixin(LightningElement) {
     handleGetRate() {
         this.rateerrormessages='';
         this.showSpinner = true;
-        //if (isNaN(event.target.value)){
-        /*if (isNan(this.convertingcoverageAmount)) {
-            this.rateerrormessages = "Enter a valid amount ";
+        console.log('inside handleGetRate');
+        console.log('Converting Coverage amount ' +this.convertingcoverageAmount);
+
+        
+        if (this.convertingcoverageAmount === "") {
+            this.rateerrormessages = "Enter a valid Converting Coverage amount ";
+            this.ratevalidation =true;
+            this.showSpinner = false;
             //this.notEligible =true;
             return;
-        }*/
+        }
         
         const conversionEligibilityDetails = this.getConversionEligibilityDetails();
         console.log('before coverage rule');
-        console.log('Converting Coverage amount ' +this.convertingcoverageAmount);
+        //console.log('Converting Coverage amount ' +this.convertingcoverageAmount);
 
         // Determine which conversion details to use based on this.cancelpolicy
         const conversionDetails = this.cancelpolicy ? conversionEligibilityDetails.partialConversion : conversionEligibilityDetails.fullConversion;
