@@ -3,8 +3,8 @@
     <actionCalls>
         <name>Create_Opportunity_Errors</name>
         <label>Create Opportunity Errors</label>
-        <locationX>528</locationX>
-        <locationY>1082</locationY>
+        <locationX>1194</locationX>
+        <locationY>1580</locationY>
         <actionName>ErrorLogger</actionName>
         <actionType>apex</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -30,9 +30,41 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
+        <name>GetCampaignRecordError</name>
+        <label>Get Campaign Record Error</label>
+        <locationX>930</locationX>
+        <locationY>674</locationY>
+        <actionName>ErrorLogger</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Assign_Opportunity_Values_No_Campaign</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>errorDescription</name>
+            <value>
+                <stringValue>Campaign Record Not Found</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>operation</name>
+            <value>
+                <stringValue>Get Campaign</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>processName</name>
+            <value>
+                <stringValue>ILH_OpportunityCreationUpdate.flow</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>ErrorLogger</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
         <name>Handle_Get_Record_Type_ID_Errors</name>
         <label>Handle Get Record Type ID Errors</label>
-        <locationX>1056</locationX>
+        <locationX>1986</locationX>
         <locationY>242</locationY>
         <actionName>ErrorLogger</actionName>
         <actionType>apex</actionType>
@@ -59,12 +91,49 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
+        <name>HandleCreateCampaignMemberError</name>
+        <label>Handle Create Campaign Member Error</label>
+        <locationX>402</locationX>
+        <locationY>998</locationY>
+        <actionName>ErrorLogger</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Create_Opportunity</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>errorDescription</name>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>operation</name>
+            <value>
+                <stringValue>Create Campaign Member</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>processName</name>
+            <value>
+                <stringValue>ILH_OpportunityCreationUpdate.flow</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>ErrorLogger</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
         <name>HandleGetCampaignError</name>
         <label>Handle Get Campaign Error</label>
-        <locationX>792</locationX>
+        <locationX>1722</locationX>
         <locationY>350</locationY>
         <actionName>ErrorLogger</actionName>
         <actionType>apex</actionType>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>AssignOpportunityValuesNoCampaign</targetReference>
+        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>errorDescription</name>
@@ -87,12 +156,105 @@
         <nameSegment>ErrorLogger</nameSegment>
         <versionSegment>1</versionSegment>
     </actionCalls>
-    <apiVersion>58.0</apiVersion>
+    <actionCalls>
+        <name>HandleGetCampaignMemberError</name>
+        <label>Handle Get Campaign Member Error</label>
+        <locationX>666</locationX>
+        <locationY>782</locationY>
+        <actionName>ErrorLogger</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Create_Opportunity</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>errorDescription</name>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>operation</name>
+            <value>
+                <stringValue>Get Campaign Member</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>processName</name>
+            <value>
+                <stringValue>ILH_OpportunityCreationUpdate.flow</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>ErrorLogger</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>HandleGetContactError</name>
+        <label>Handle Get Contact Error</label>
+        <locationX>1458</locationX>
+        <locationY>458</locationY>
+        <actionName>ErrorLogger</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>errorDescription</name>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>operation</name>
+            <value>
+                <stringValue>Get Contact Record</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>processName</name>
+            <value>
+                <stringValue>ILH_OpportunityCreationUpdate.flow</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>ErrorLogger</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
     <assignments>
+        <description>Assign Campaign Values to Opportunity</description>
         <name>Assign_Opportunity_Values</name>
         <label>Assign Opportunity Values</label>
-        <locationX>176</locationX>
-        <locationY>350</locationY>
+        <locationX>50</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>opportunityRecord.ProposedCoverage__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Campaign_Record.ProposedCoverageAmount__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>opportunityRecord.CampaignId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Campaign_Record.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>opportunityRecord.Product__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Campaign_Record.Product__r.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_campaign_Member</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Opportunity_Values_No_Campaign</name>
+        <label>Assign Opportunity Values</label>
+        <locationX>490</locationX>
+        <locationY>1364</locationY>
         <assignmentItems>
             <assignToReference>opportunityRecord.Name</assignToReference>
             <operator>Assign</operator>
@@ -128,36 +290,15 @@
                 <elementReference>GetRecordTypeID.Id</elementReference>
             </value>
         </assignmentItems>
-        <assignmentItems>
-            <assignToReference>opportunityRecord.ProposedCoverage__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Campaign_Record.ProposedCoverageAmount__c</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>opportunityRecord.CampaignId</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Campaign_Record.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>opportunityRecord.Product__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Campaign_Record.Product__r.Id</elementReference>
-            </value>
-        </assignmentItems>
         <connector>
-            <targetReference>GetContact</targetReference>
+            <targetReference>Create_Opportunity</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Assign_Output_Variable</name>
         <label>Assign Output Variable</label>
-        <locationX>176</locationX>
-        <locationY>1082</locationY>
+        <locationX>490</locationX>
+        <locationY>1580</locationY>
         <assignmentItems>
             <assignToReference>outputTxt_OpportunityId</assignToReference>
             <operator>Assign</operator>
@@ -165,12 +306,57 @@
                 <elementReference>opportunityRecord.Id</elementReference>
             </value>
         </assignmentItems>
+        <connector>
+            <targetReference>CreateCallTask</targetReference>
+        </connector>
     </assignments>
+    <assignments>
+        <description>Campaign not found.  Set the Proposed coverage to 0</description>
+        <name>AssignOpportunityValuesNoCampaign</name>
+        <label>Assign Opportunity Values No Campaign</label>
+        <locationX>930</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>opportunityRecord.ProposedCoverage__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>GetCampaignRecordError</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>CheckForCampaignRecord</name>
+        <label>Check For Campaign Record</label>
+        <locationX>490</locationX>
+        <locationY>458</locationY>
+        <defaultConnector>
+            <targetReference>AssignOpportunityValuesNoCampaign</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No - Campaign Record</defaultConnectorLabel>
+        <rules>
+            <name>Yes_CampaignRecord</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Campaign_Record.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Opportunity_Values</targetReference>
+            </connector>
+            <label>Yes-Campaign Record</label>
+        </rules>
+    </decisions>
     <decisions>
         <name>member_already_exists</name>
         <label>Campaign member already exists</label>
-        <locationX>176</locationX>
-        <locationY>674</locationY>
+        <locationX>50</locationX>
+        <locationY>782</locationY>
         <defaultConnector>
             <targetReference>CreateCampaignMember</targetReference>
         </defaultConnector>
@@ -186,7 +372,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Create_Opportunity</targetReference>
+                <targetReference>Assign_Opportunity_Values_No_Campaign</targetReference>
             </connector>
             <label>Yes</label>
         </rules>
@@ -228,8 +414,8 @@
     <recordCreates>
         <name>Create_Opportunity</name>
         <label>Create Opportunity</label>
-        <locationX>176</locationX>
-        <locationY>974</locationY>
+        <locationX>490</locationX>
+        <locationY>1472</locationY>
         <connector>
             <targetReference>Assign_Output_Variable</targetReference>
         </connector>
@@ -241,11 +427,14 @@
     <recordCreates>
         <name>CreateCampaignMember</name>
         <label>Create Campaign Member</label>
-        <locationX>264</locationX>
-        <locationY>782</locationY>
+        <locationX>138</locationX>
+        <locationY>890</locationY>
         <connector>
-            <targetReference>Create_Opportunity</targetReference>
+            <targetReference>Assign_Opportunity_Values_No_Campaign</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>HandleCreateCampaignMemberError</targetReference>
+        </faultConnector>
         <inputAssignments>
             <field>CampaignId</field>
             <value>
@@ -270,11 +459,11 @@
     <recordLookups>
         <name>Campaign_Record</name>
         <label>Campaign Record</label>
-        <locationX>176</locationX>
+        <locationX>490</locationX>
         <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Assign_Opportunity_Values</targetReference>
+            <targetReference>GetContact</targetReference>
         </connector>
         <faultConnector>
             <targetReference>HandleGetCampaignError</targetReference>
@@ -301,12 +490,15 @@
     <recordLookups>
         <name>Get_campaign_Member</name>
         <label>Get campaign Member</label>
-        <locationX>176</locationX>
-        <locationY>566</locationY>
+        <locationX>50</locationX>
+        <locationY>674</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>member_already_exists</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>HandleGetCampaignMemberError</targetReference>
+        </faultConnector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>ContactId</field>
@@ -329,12 +521,15 @@
     <recordLookups>
         <name>GetContact</name>
         <label>Get Contact</label>
-        <locationX>176</locationX>
-        <locationY>458</locationY>
+        <locationX>490</locationX>
+        <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_campaign_Member</targetReference>
+            <targetReference>CheckForCampaignRecord</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>HandleGetContactError</targetReference>
+        </faultConnector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>AccountId</field>
@@ -350,7 +545,7 @@
     <recordLookups>
         <name>GetRecordTypeID</name>
         <label>Get Record Type ID</label>
-        <locationX>176</locationX>
+        <locationX>490</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -367,18 +562,51 @@
                 <stringValue>ILHSales</stringValue>
             </value>
         </filters>
+        <filters>
+            <field>SobjectType</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Opportunity</stringValue>
+            </value>
+        </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>RecordType</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <runInMode>DefaultMode</runInMode>
     <start>
-        <locationX>50</locationX>
+        <locationX>364</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>GetRecordTypeID</targetReference>
         </connector>
     </start>
     <status>Active</status>
+    <subflows>
+        <name>CreateCallTask</name>
+        <label>Create Call Task</label>
+        <locationX>490</locationX>
+        <locationY>1688</locationY>
+        <flowName>ILHSalesCreateInboundCallTask</flowName>
+        <inputAssignments>
+            <name>inputTxt_OwnerId</name>
+            <value>
+                <elementReference>$User.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>InputTxt_WhatId</name>
+            <value>
+                <elementReference>opportunityRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>inputTxt_WhoId</name>
+            <value>
+                <elementReference>GetContact.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
     <variables>
         <name>contactIdavailable</name>
         <dataType>String</dataType>
