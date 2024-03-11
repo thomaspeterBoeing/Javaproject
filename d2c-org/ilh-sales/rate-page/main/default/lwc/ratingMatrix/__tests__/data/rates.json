@@ -1,0 +1,192 @@
+[
+    {
+      "coverage": "10000",
+      "ADD Family Contrib": {
+        "annual": 18,
+        "coverage": 10000,
+        "monthly": 1.5,
+        "productcode": "2018 ADD Family Contrib",
+        "productlabel": "ADD Family Contrib",
+        "quarterly": 4.5,
+        "semiannual": 9
+      },
+      "ADD Single Contrib": {
+        "annual": 13.2,
+        "coverage": 10000,
+        "monthly": 1.1,
+        "productcode": "2018 ADD Single Contrib",
+        "productlabel": "ADD Single Contrib",
+        "quarterly": 3.3,
+        "semiannual": 6.6
+      }
+    },
+    {
+      "coverage": "15000",
+      "ADD Family Contrib": {
+        "annual": 27,
+        "coverage": 15000,
+        "monthly": 2.25,
+        "productcode": "2018 ADD Family Contrib",
+        "productlabel": "ADD Family Contrib",
+        "quarterly": 6.75,
+        "semiannual": 13.5
+      },
+      "ADD Single Contrib": {
+        "annual": 19.8,
+        "coverage": 15000,
+        "monthly": 1.65,
+        "productcode": "2018 ADD Single Contrib",
+        "productlabel": "ADD Single Contrib",
+        "quarterly": 4.95,
+        "semiannual": 9.9
+      }
+    },
+    {
+      "coverage": "20000",
+      "ADD Family Contrib": {
+        "annual": 36,
+        "coverage": 20000,
+        "monthly": 3,
+        "productcode": "2018 ADD Family Contrib",
+        "productlabel": "ADD Family Contrib",
+        "quarterly": 9,
+        "semiannual": 18
+      },
+      "ADD Single Contrib": {
+        "annual": 26.4,
+        "coverage": 20000,
+        "monthly": 2.2,
+        "productcode": "2018 ADD Single Contrib",
+        "productlabel": "ADD Single Contrib",
+        "quarterly": 6.6,
+        "semiannual": 13.2
+      }
+    },
+    {
+      "coverage": "25000",
+      "ADD Family Contrib": {
+        "annual": 45,
+        "coverage": 25000,
+        "monthly": 3.75,
+        "productcode": "2018 ADD Family Contrib",
+        "productlabel": "ADD Family Contrib",
+        "quarterly": 11.25,
+        "semiannual": 22.5
+      },
+      "ADD Single Contrib": {
+        "annual": 33,
+        "coverage": 25000,
+        "monthly": 2.75,
+        "productcode": "2018 ADD Single Contrib",
+        "productlabel": "ADD Single Contrib",
+        "quarterly": 8.25,
+        "semiannual": 16.5
+      }
+    },
+    {
+      "coverage": "30000",
+      "ADD Family Contrib": {
+        "annual": 54,
+        "coverage": 30000,
+        "monthly": 4.5,
+        "productcode": "2018 ADD Family Contrib",
+        "productlabel": "ADD Family Contrib",
+        "quarterly": 13.5,
+        "semiannual": 27
+      },
+      "ADD Single Contrib": {
+        "annual": 39.6,
+        "coverage": 30000,
+        "monthly": 3.3,
+        "productcode": "2018 ADD Single Contrib",
+        "productlabel": "ADD Single Contrib",
+        "quarterly": 9.9,
+        "semiannual": 19.8
+      }
+    },
+    {
+      "coverage": "35000",
+      "ADD Family Contrib": {
+        "annual": 63,
+        "coverage": 35000,
+        "monthly": 5.25,
+        "productcode": "2018 ADD Family Contrib",
+        "productlabel": "ADD Family Contrib",
+        "quarterly": 15.75,
+        "semiannual": 31.5
+      },
+      "ADD Single Contrib": {
+        "annual": 46.2,
+        "coverage": 35000,
+        "monthly": 3.85,
+        "productcode": "2018 ADD Single Contrib",
+        "productlabel": "ADD Single Contrib",
+        "quarterly": 11.55,
+        "semiannual": 23.1
+      }
+    },
+    {
+      "coverage": "40000",
+      "ADD Family Contrib": {
+        "annual": 72,
+        "coverage": 40000,
+        "monthly": 6,
+        "productcode": "2018 ADD Family Contrib",
+        "productlabel": "ADD Family Contrib",
+        "quarterly": 18,
+        "semiannual": 36
+      },
+      "ADD Single Contrib": {
+        "annual": 52.8,
+        "coverage": 40000,
+        "monthly": 4.4,
+        "productcode": "2018 ADD Single Contrib",
+        "productlabel": "ADD Single Contrib",
+        "quarterly": 13.2,
+        "semiannual": 26.4
+      }
+    },
+    {
+      "coverage": "45000",
+      "ADD Family Contrib": {
+        "annual": 81,
+        "coverage": 45000,
+        "monthly": 6.75,
+        "productcode": "2018 ADD Family Contrib",
+        "productlabel": "ADD Family Contrib",
+        "quarterly": 20.25,
+        "semiannual": 40.5
+      },
+      "ADD Single Contrib": {
+        "annual": 59.4,
+        "coverage": 45000,
+        "monthly": 4.95,
+        "productcode": "2018 ADD Single Contrib",
+        "productlabel": "ADD Single Contrib",
+        "quarterly": 14.85,
+        "semiannual": 29.7
+      }
+    },
+    {
+      "coverage": "50000",
+      "ADD Family Contrib": {
+        "annual": 90,
+        "coverage": 50000,
+        "monthly": 7.5,
+        "productcode": "2018 ADD Family Contrib",
+        "productlabel": "ADD Family Contrib",
+        "quarterly": 22.5,
+        "semiannual": 45
+      },
+      "ADD Single Contrib": {
+        "annual": 66,
+        "coverage": 50000,
+        "monthly": 5.5,
+        "productcode": "2018 ADD Single Contrib",
+        "productlabel": "ADD Single Contrib",
+        "quarterly": 16.5,
+        "semiannual": 33
+      }
+    }
+  ]
+  
