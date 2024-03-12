@@ -1,0 +1,268 @@
+{
+    "eligibleProducts": [
+        {
+            "productCode": "ADDProduct1",
+            "productName": "ADD Product 1"
+        },
+        {
+            "productCode": "ADDProduct2",
+            "productName": "ADD Product 2"
+        }
+    ],
+    "eligibleRates": [
+        {
+            "coverage": "5000",
+            "ADD Product 1": {
+                "coverage": 5000,
+                "annual": 5.0,
+                "monthly": 8.0,
+                "quarterly": 7.0,
+                "semiannual": 6.0,
+                "productcode": "ADDProduct1",
+                "productlabel": "ADD Product 1"
+            }
+        },
+        {
+            "coverage": "10000",
+            "ADD Product 1": {
+                "coverage": 10000,
+                "annual": 10.0,
+                "monthly": 9.0,
+                "quarterly": 8.0,
+                "semiannual": 7.0,
+                "productcode": "ADDProduct1",
+                "productlabel": "ADD Product 1"
+            }
+        },
+        {
+            "coverage": "15000",
+            "ADD Product 1": {
+                "coverage": 15000,
+                "annual": 15.0,
+                "monthly": 14.0,
+                "quarterly": 13.0,
+                "semiannual": 12.0,
+                "productcode": "ADDProduct1",
+                "productlabel": "ADD Product 1"
+            }
+        },
+        {
+            "coverage": "20000",
+            "ADD Product 1": {
+                "coverage": 20000,
+                "annual": 20.0,
+                "monthly": 19.0,
+                "quarterly": 18.0,
+                "semiannual": 17.0,
+                "productcode": "ADDProduct1",
+                "productlabel": "ADD Product 1"
+            }
+        },
+        {
+            "coverage": "25000",
+            "ADD Product 1": {
+                "coverage": 25000,
+                "annual": 25.0,
+                "monthly": 24.0,
+                "quarterly": 23.0,
+                "semiannual": 22.0,
+                "productcode": "ADDProduct1",
+                "productlabel": "ADD Product 1"
+            }
+        },
+        {
+            "coverage": "30000",
+            "ADD Product 1": {
+                "coverage": 30000,
+                "annual": 30.0,
+                "monthly": 29.0,
+                "quarterly": 28.0,
+                "semiannual": 27.0,
+                "productcode": "ADDProduct1",
+                "productlabel": "ADD Product 1"
+            }
+        },
+        {
+            "coverage": "35000",
+            "ADD Product 1": {
+                "coverage": 35000,
+                "annual": 35.0,
+                "monthly": 34.0,
+                "quarterly": 33.0,
+                "semiannual": 32.0,
+                "productcode": "ADDProduct1",
+                "productlabel": "ADD Product 1"
+            }
+        },
+        {
+            "coverage": "40000",
+            "ADD Product 1": {
+                "coverage": 40000,
+                "annual": 40.0,
+                "monthly": 39.0,
+                "quarterly": 38.0,
+                "semiannual": 37.0,
+                "productcode": "ADDProduct1",
+                "productlabel": "ADD Product 1"
+            }
+        },
+        {
+            "coverage": "45000",
+            "ADD Product 1": {
+                "coverage": 45000,
+                "annual": 45.0,
+                "monthly": 44.0,
+                "quarterly": 43.0,
+                "semiannual": 42.0,
+                "productcode": "ADDProduct1",
+                "productlabel": "ADD Product 1"
+            }
+        },
+        {
+            "coverage": "50000",
+            "ADD Product 1": {
+                "coverage": 50000,
+                "annual": 50.0,
+                "monthly": 49.0,
+                "quarterly": 48.0,
+                "semiannual": 47.0,
+                "productcode": "ADDProduct1",
+                "productlabel": "ADD Product 1"
+            }
+        },
+        {
+            "coverage": "5000",
+            "ADD Product 2": {
+                "coverage": 5000,
+                "annual": 5.0,
+                "monthly": 8.0,
+                "quarterly": 7.0,
+                "semiannual": 6.0,
+                "productcode": "ADDProduct2",
+                "productlabel": "ADD Product 2"
+            }
+        },
+        {
+            "coverage": "10000",
+            "ADD Product 2": {
+                "coverage": 10000,
+                "annual": 10.0,
+                "monthly": 9.0,
+                "quarterly": 8.0,
+                "semiannual": 7.0,
+                "productcode": "ADDProduct2",
+                "productlabel": "ADD Product 2"
+            }
+        },
+        {
+            "coverage": "15000",
+            "ADD Product 2": {
+                "coverage": 15000,
+                "annual": 15.0,
+                "monthly": 14.0,
+                "quarterly": 13.0,
+                "semiannual": 12.0,
+                "productcode": "ADDProduct2",
+                "productlabel": "ADD Product 2"
+            }
+        },
+        {
+            "coverage": "20000",
+            "ADD Product 2": {
+                "coverage": 20000,
+                "annual": 20.0,
+                "monthly": 19.0,
+                "quarterly": 18.0,
+                "semiannual": 17.0,
+                "productcode": "ADDProduct2",
+                "productlabel": "ADD Product 2"
+            }
+        },
+        {
+            "coverage": "25000",
+            "ADD Product 2": {
+                "coverage": 25000,
+                "annual": 25.0,
+                "monthly": 24.0,
+                "quarterly": 23.0,
+                "semiannual": 22.0,
+                "productcode": "ADDProduct2",
+                "productlabel": "ADD Product 2"
+            }
+        },
+        {
+            "coverage": "30000",
+            "ADD Product 2": {
+                "coverage": 30000,
+                "annual": 30.0,
+                "monthly": 29.0,
+                "quarterly": 28.0,
+                "semiannual": 27.0,
+                "productcode": "ADDProduct2",
+                "productlabel": "ADD Product 2"
+            }
+        },
+        {
+            "coverage": "35000",
+            "ADD Product 2": {
+                "coverage": 35000,
+                "annual": 35.0,
+                "monthly": 34.0,
+                "quarterly": 33.0,
+                "semiannual": 32.0,
+                "productcode": "ADDProduct2",
+                "productlabel": "ADD Product 2"
+            }
+        },
+        {
+            "coverage": "40000",
+            "ADD Product 2": {
+                "coverage": 40000,
+                "annual": 40.0,
+                "monthly": 39.0,
+                "quarterly": 38.0,
+                "semiannual": 37.0,
+                "productcode": "ADDProduct2",
+                "productlabel": "ADD Product 2"
+            }
+        },
+        {
+            "coverage": "45000",
+            "ADD Product 2": {
+                "coverage": 45000,
+                "annual": 45.0,
+                "monthly": 44.0,
+                "quarterly": 43.0,
+                "semiannual": 42.0,
+                "productcode": "ADDProduct2",
+                "productlabel": "ADD Product 2"
+            }
+        },
+        {
+            "coverage": "50000",
+            "ADD Product 2": {
+                "coverage": 50000,
+                "annual": 50.0,
+                "monthly": 49.0,
+                "quarterly": 48.0,
+                "semiannual": 47.0,
+                "productcode": "ADDProduct2",
+                "productlabel": "ADD Product 2"
+            }
+        }
+    ],
+    "eligibleBillingOptions": [
+        {
+            "billingMethod": "ACH",
+            "effectiveDate": "04/01/2024"
+        },
+        {
+            "billingMethod": "PAC",
+            "effectiveDate": "04/02/2024"
+        },
+        {
+            "billingMethod": "Credit Card",
+            "effectiveDate": "04/03/2024"
+        }
+    ]
+}

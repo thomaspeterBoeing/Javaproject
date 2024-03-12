@@ -537,4 +537,21 @@ export default class conversion extends NavigationMixin(LightningElement) {
         }
        
     }
+
+    /**
+     * Handles cell section event from cell selector component
+     * @param {*} event Cell selection event
+     */
+    handleRateSelection(event) {
+        const value = {...event.detail.value};//Value of cell that was selected
+        const billingMethodLabel =  this.payMethodOptions.find((billMethod) => billMethod.value === this.selectedPayMethod)?.label;//Get label from billing method options
+        let rateObj = {
+            paymentFrequency: this.selectedPayFrequency,
+            billingMethod:  billingMethodLabel,
+            rateInfo: value,
+            uwClass: this.underwritingClass,
+            uwClassCode: this.underwritingClassCode
+        }
+        this.template.querySelector("c-ilh-cart-util").publishCartMessage(rateObj);//Call cart util to publish cart message
+    }
 }

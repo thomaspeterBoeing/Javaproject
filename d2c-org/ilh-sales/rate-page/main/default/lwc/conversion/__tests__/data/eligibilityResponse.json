@@ -193,7 +193,18 @@
       "coverageAmount": "100000",
       "paymentFrequency": "Monthly",
       "paymentMethod": "CreditCard",
-      "underwritingClass": "STANDARD"
+      "underwritingClass": "STANDARD",
+      "specialHandlingCode": "X",
+      "insured": {
+        "gender": "Male",
+        "birthDate": "1990-11-11",
+        "name": {
+          "suffix": "",
+          "lastName": "TEST",
+          "middleName": "",
+          "firstName": "TEST"
+        }
+      }
     }
   }
 ]

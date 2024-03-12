@@ -149,8 +149,8 @@
         </div>
         <!-- ratingMatrix Grid below-->
         <template lwc:if={showRateMatrix}>
-            <c-rating-matrix></c-rating-matrix>
+            <c-rating-matrix oncellselect={handleRateSelection}></c-rating-matrix>
         </template>
-                          
+        <c-ilh-cart-util></c-ilh-cart-util>                  
                
 </template>
