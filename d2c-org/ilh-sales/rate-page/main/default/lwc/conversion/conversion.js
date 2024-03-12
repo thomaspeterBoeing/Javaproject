@@ -50,7 +50,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
     cancelContinueValue = 'cancel';
     payFrequencyOptions = [
         { value: 'annual', label: 'Annual' },
-        { value: 'semiannual', label: 'Semi-Annual' },
+        { value: 'semiAnnual', label: 'Semi-Annual' },
         { value: 'quarterly', label: 'Quarterly' },
         { value: 'Monthly', label: 'Monthly' }
     ];
@@ -183,6 +183,11 @@ export default class conversion extends NavigationMixin(LightningElement) {
     handleFrequencyChange(event) {
         this.showRateMatrix =false;
         this.selectedPayFrequency = event.detail.value;
+    }
+
+    handlePaymentMethodChange(event) {
+        this.showRateMatrix =false;
+        this.selectedPayMethod = event.detail.value;
     }
 
     handleConvertingCoverageAmountChange(event) {
