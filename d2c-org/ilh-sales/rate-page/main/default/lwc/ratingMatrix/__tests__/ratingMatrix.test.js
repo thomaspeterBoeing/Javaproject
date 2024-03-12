@@ -94,14 +94,14 @@ describe('c-rating-matrix', () => {
         await flushPromises();// Wait for any asynchronous DOM updates
 
         let dataTypes = element.shadowRoot.querySelector('c-ilh-sales-custom-data-types');//Query data types component
+        expect(dataTypes.columns).toEqual(EXPECTED_COLUMNS);//Data types column should match expected columns
+        expect(dataTypes.data).toEqual(RATE_DATA);//Data types data should match rate data
         dataTypes.dispatchEvent(//Mock cell selection
             new CustomEvent('cellselect', {
                 detail: { value: EVENT_VALUE},
                 bubbles: true
             })
         );
-        expect(dataTypes.columns).toEqual(EXPECTED_COLUMNS);//Data types column should match expected columns
-        expect(dataTypes.data).toEqual(RATE_DATA);//Data types data should match rate data
     });
 
     it('Table should not have any columns if there\'s no products passed in', async () => {

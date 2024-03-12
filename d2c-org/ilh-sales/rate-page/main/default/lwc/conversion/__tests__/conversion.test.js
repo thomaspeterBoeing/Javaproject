@@ -1,5 +1,6 @@
 import { createElement } from 'lwc';
 import Conversion from 'c/conversion';
+import { getFieldValue, getRecord } from 'lightning/uiRecordApi';
 import checkEligibility from '@salesforce/apex/ConversionEligibleQuoteController.checkEligibility';
 import getRates from '@salesforce/apex/ConversionEligibleQuoteController.getRates';
 import { ShowToastEventName } from 'lightning/platformShowToastEvent';
@@ -29,10 +30,11 @@ jest.mock(
 const CHECK_ELIGIBILITY_RESPONSE = require('./data/eligibilityResponse.json');
 const GET_RATES_RESPONSE = require('./data/getRatesResponse.json');
 const NON_ELIGIBLE_RESPONSE = require('./data/nonEligibleResponse.json');
+const MOCK_GET_RECORD = require('./data/mockGetRecord.json')
 const POLICY_NUMBER_REQUIRED = 'Policy Number is required!';
 const NOT_QUOTABLE_MESSAGE = 'Not Quotable';
 const BAD_INPUT_MESSAGE = 'Bad Input';
-const POLICY_NOT_FOUND_MESSAGE = 'Policy not found';
+const POLICY_NOT_FOUND_MESSAGE = 'This policy/product is not found in the Conversion Eligibility Service';
 const APEX_PARAMETERS = { 
     "conversionProductCode": "2022 Whole Life Conversion", 
     "currentTermCompanyCode": "12", 
@@ -68,6 +70,11 @@ describe('c-conversion', () => {
 
         document.body.appendChild(element);//Add conversion component to page
 
+        getRecord.emit(MOCK_GET_RECORD);
+
+        let personIdProvider = element.shadowRoot.querySelector('c-person-id-provider-l-w-c');
+        personIdProvider.dispatchEvent(new CustomEvent('personidloaded', { detail: { Account: {Gender__pc: 'Male'}}}));
+
         let eligibleSection = element.shadowRoot.querySelector('div[data-id=eligibleSection]');//Query Eligibilty section
         expect(eligibleSection).toBeNull();//Expect eligibility section to be null when page is loaded 
 
@@ -101,7 +108,7 @@ describe('c-conversion', () => {
     });
 
     it('Error should display when for bad input', async () => {
-        checkEligibility.mockRejectedValue(() => {throw new Error(BAD_INPUT_MESSAGE);});//Throwing an error for checkEligibility APEX method
+        checkEligibility.mockResolvedValue([{}]);//Throwing an error for checkEligibility APEX method
 
         const element = createElement('c-conversion', {//Create conversion component
             is: Conversion
@@ -163,6 +170,11 @@ describe('c-conversion', () => {
 
         document.body.appendChild(element);//Add conversion component to page
 
+        getRecord.emit(MOCK_GET_RECORD);
+
+        let personIdProvider = element.shadowRoot.querySelector('c-person-id-provider-l-w-c');
+        personIdProvider.dispatchEvent(new CustomEvent('personidloaded', { detail: { Account: {Gender__pc: 'Male'}}}));
+
         let policyNumber = element.shadowRoot.querySelector('lightning-input[data-id=policyNumber]');//Query policy number field
         policyNumber.value = '12345';//Assign a value to the policy number field
         policyNumber.dispatchEvent(new CustomEvent('change', { detail: { value: policyNumber.value } }));//Policy number field onChange
@@ -210,6 +222,11 @@ describe('c-conversion', () => {
 
         document.body.appendChild(element);//Add conversion component to page
 
+        getRecord.emit(MOCK_GET_RECORD);
+
+        let personIdProvider = element.shadowRoot.querySelector('c-person-id-provider-l-w-c');
+        personIdProvider.dispatchEvent(new CustomEvent('personidloaded', { detail: { Account: {Gender__pc: 'Male'}}}));
+
         let policyNumber = element.shadowRoot.querySelector('lightning-input[data-id=policyNumber]');//Query policy number field
         policyNumber.value = '12345';//Assign a value to the policy number field
         policyNumber.dispatchEvent(new CustomEvent('change', { detail: { value: policyNumber.value } }));//Policy number field onChange
@@ -249,6 +266,11 @@ describe('c-conversion', () => {
 
         document.body.appendChild(element);//Add conversion component to page
 
+        getRecord.emit(MOCK_GET_RECORD);
+
+        let personIdProvider = element.shadowRoot.querySelector('c-person-id-provider-l-w-c');
+        personIdProvider.dispatchEvent(new CustomEvent('personidloaded', { detail: { Account: {Gender__pc: 'Male'}}}));
+
         let policyNumber = element.shadowRoot.querySelector('lightning-input[data-id=policyNumber]');//Query policy number field
         policyNumber.value = '12345';//Assign a value to the policy number field
         policyNumber.dispatchEvent(new CustomEvent('change', { detail: { value: policyNumber.value } }));//Policy number field onChange
@@ -287,6 +309,11 @@ describe('c-conversion', () => {
         });
 
         document.body.appendChild(element);//Add conversion component to page
+
+        getRecord.emit(MOCK_GET_RECORD);
+
+        let personIdProvider = element.shadowRoot.querySelector('c-person-id-provider-l-w-c');
+        personIdProvider.dispatchEvent(new CustomEvent('personidloaded', { detail: { Account: {Gender__pc: 'Male'}}}));
 
         let policyNumber = element.shadowRoot.querySelector('lightning-input[data-id=policyNumber]');//Query policy number field
         policyNumber.value = '12345';//Assign a value to the policy number field

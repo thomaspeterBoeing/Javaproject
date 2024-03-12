@@ -25,8 +25,8 @@ export default class IlhCartUtil extends LightningElement {
             billingMethod: messageObj?.billingMethod,
             coverage: rateInfo?.coverage,
             cost: rateInfo[frequency],
-            uwClass: messageObj?.uwClass,
-            uwClassCode: messageObj?.uwClass
+            underwritingClass: messageObj?.uwClass,
+            underwritingClassCode: messageObj?.uwClassCode
         }
         publish(this.MessageContext, CART_CHANNEL, payload);
     }

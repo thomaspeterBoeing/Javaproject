@@ -1,0 +1,44 @@
+{
+  "apiName": "Opportunity",
+  "childRelationships": {},
+  "fields": {
+    "Account": {
+      "displayValue": "TEST TEST",
+      "value": {
+        "apiName": "Account",
+        "childRelationships": {},
+        "fields": {
+          "FirstName": { "displayValue": null, "value": "TEST" },
+          "PersonBirthdate": {
+            "displayValue": "11/11/1990",
+            "value": "1990-11-11"
+          }
+        },
+        "id": "0017e00001nCFcrAAG",
+        "lastModifiedById": "0057e00000WcNPwAAN",
+        "lastModifiedDate": "2024-03-12T13:23:07.000Z",
+        "recordTypeId": "0127e000002rJbyAAE",
+        "recordTypeInfo": {
+          "available": true,
+          "defaultRecordTypeMapping": false,
+          "master": false,
+          "name": "Consumer",
+          "recordTypeId": "0127e000002rJbyAAE"
+        },
+        "systemModstamp": "2024-03-12T13:23:07.000Z"
+      }
+    }
+  },
+  "id": "0067e00000PLqKtAAL",
+  "lastModifiedById": "0057e00000WcNPwAAN",
+  "lastModifiedDate": "2024-03-12T16:09:57.000Z",
+  "recordTypeId": "0127e000002rJbxAAE",
+  "recordTypeInfo": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "ILH Sales",
+    "recordTypeId": "0127e000002rJbxAAE"
+  },
+  "systemModstamp": "2024-03-12T16:09:57.000Z"
+}
