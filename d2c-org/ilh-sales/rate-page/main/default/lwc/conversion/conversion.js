@@ -67,11 +67,11 @@ export default class conversion extends NavigationMixin(LightningElement) {
     underwritingClassCode;
     selectedunderwritingClass ='';
     adbWaiverRiderChecked = false;
-    userenteredconvertingcoverageAmount ='';
     selectedPayMethod ='';
     selectedPayFrequency ='';
     showSpinner = false;
     errorDescription ='';
+    noContent =false;
     errorResponse =false; 
     errorMessage ='';
     notEligible =false;
@@ -123,8 +123,15 @@ export default class conversion extends NavigationMixin(LightningElement) {
         this.eligible =false;
         this.showRateMatrix =false;
         this.notEligible =false;
-        this.errorResponse =false;
+        this.noContent =false;
                
+    }
+
+    //If enter key is pressed in PolicyNumber field then 
+    handlePolicyNumnberKeyPress(event){
+        if(event.key === "Enter"){
+           this.handleClickCheckEligibility(event);
+        }
     }
     
     async handlePolicySummaryClick() {
@@ -213,7 +220,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
 
         
         if (this.convertingcoverageAmount === "") {
-            this.rateerrormessages = "Enter a valid Converting Coverage amount ";
+            this.rateerrormessages = "Enter a valid converting coverage amount ";
             this.ratevalidation =true;
             this.showSpinner = false;
             //this.notEligible =true;
@@ -351,11 +358,30 @@ export default class conversion extends NavigationMixin(LightningElement) {
         checkEligibility({kvpRequestCriteria: this.createRequestCriteriaMap()})
             .then(response => {
                   
-                // Check if there are any errors in the response
-                if(response && response.error) {
-                    console.error('Error in response:', response.error);
+                console.log ('results from service ' +JSON.stringify(response));
+
+                // Check if the response is an array containing an empty object
+                if (response && Array.isArray(response) && response.length === 1 && Object.keys(response[0]).length === 0) { // this is to handle [{}] from service
+                    console.log('No content available from the service');
+                    this.noContent = true;
+                    this.showSpinner = false;
+                    // Handle scenario when no content is available
+                    // For example, display a message to the user
                     return;
                 }
+                // Check if there are any errors in the response
+                if(response && response.error) {
+                    console.log('Error in response:', response.error);
+                    return;
+                }
+                // Check for 204 (No Content) response
+                /*if (response && response.statusCode === 204) {
+                    console.log('No content available from the service');
+                    this.noContent =true;
+                    // Handle scenario when no content is available
+                    // For example, display a message to the user
+                    return;
+                }*/
                 this.results = response;
                 console.log ('results from service ' +JSON.stringify(this.results));
                    

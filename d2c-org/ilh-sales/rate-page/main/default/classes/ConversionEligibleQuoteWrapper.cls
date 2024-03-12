@@ -17,6 +17,7 @@ public class ConversionEligibleQuoteWrapper {
 	public class CurrentTermPolicyInfo {
 		@AuraEnabled    
 		public String contractStatus;
+		@AuraEnabled
 		public Insured insured;
 		public Owner owner;
 		@AuraEnabled
@@ -34,6 +35,7 @@ public class ConversionEligibleQuoteWrapper {
 		public String planMarketingMethod;
 		public String agentId;
 		public String contractNumber;
+		@AuraEnabled
 		public String specialHandlingCode;
 	}
 
@@ -52,14 +54,19 @@ public class ConversionEligibleQuoteWrapper {
 	}
 
 	public class Insured {
+		@AuraEnabled
 		public Name name;
+		@AuraEnabled
 		public String birthDate;
+		@AuraEnabled
 		public String gender;
 	}
 
 	public class Name {
+		@AuraEnabled
 		public String firstName;
 		public String middleName;
+		@AuraEnabled
 		public String lastName;
 		public String suffix;
 	}
