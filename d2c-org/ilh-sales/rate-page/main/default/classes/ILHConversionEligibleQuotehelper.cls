@@ -38,12 +38,7 @@ public with sharing class ILHConversionEligibleQuotehelper {
             try {
                 response = HttpHelper.sendAPICRequest('ConversionEligibleQuote', requestPayload);
 
-                // Check for non-successful status codes
-                if (response.getStatusCode() > 200) {
-                    handleNonSuccessfulResponse(response, requestPayload);
-                    return ilhCeqResults; // Return an empty list for now
-                }
-
+                if(response.getStatusCode() == 200){ 
                 String jsonResponse = response?.getBody();
                 System.debug('raw response from service ' + jsonResponse);
                 // insert another method to parse through response and get coverage amount from CurrentTermPolicyInfo and EffectiveDate (primaryConversionDate) from ConversionEligibilityDetails
@@ -53,6 +48,14 @@ public with sharing class ILHConversionEligibleQuotehelper {
                 ilhCeqResults =ConversionEligibleQuoteWrapper.parseFromJSON(jsonResponse);
                 //ilhCeqResults.add(new ConversionEligibleQuoteWrapper(quoteGridRows));
                 system.debug('ilhCeqResults showing currentTermPolicyInfo and conversionEligibilityDetails nodes' + ilhCeqResults);
+                }else if (response.getStatusCode() == 204) {
+                    // If the response is 204 (No Content), return an empty result
+                    System.debug('No content available from the service');
+                }    
+                else {  // Check for non-successful status codes
+                    handleNonSuccessfulResponse(response, requestPayload);
+                    return ilhCeqResults; // Return an empty list for now
+                }
             } catch (Exception ex) {
                 new ErrorLogger(ex, 'An error occurred while calling CEQS Service.', 'ILHConversionEligibleQuotehelper.cls', null, 'CEQS Service', requestPayload,
                                 'ConversionEligibleQuote', response?.getStatusCode());

@@ -21,7 +21,7 @@
             <lightning-combobox label="Conversion Type" options={conversionTypeOptions} value={selectedConversionType} ></lightning-combobox>
         </div>
         <div class="slds-col slds-size_1-of-3">
-            <lightning-input label="Policy Number" data-id="policyNumber" value={policyNumber} onchange={handleChangePolicyNumber} minlength="3" maxlength="16" message-when-too-short="Policy Number required to be between 3 and 16 characters." 
+            <lightning-input label="Policy Number" data-id="policyNumber" value={policyNumber} onchange={handleChangePolicyNumber} onkeydown={handlePolicyNumnberKeyPress} minlength="3" maxlength="16" message-when-too-short="Policy Number required to be between 3 and 16 characters." 
             message-when-too-long="Policy Number required to be between 5 and 16 characters."></lightning-input>
         </div>
         <div class="slds-col slds-size_1-of-3">
@@ -61,10 +61,15 @@
                 <p>{errorDescription}</p>
             </div>
         </div>
-        <div lwc:if={errorResponse}>
+        <div lwc:if={noContent}>
             <!-- Show message when Policy is not eligible for conversion -->
             <div data-id="messageDisplay" class="slds-p-left_medium" style="color: red">
                 <p>This policy/product is not found in the Conversion Eligibility Service</p>
+            </div>
+        </div>
+        <div lwc:elseif={errorResponse}>
+            <div data-id="alternateMessage" class="slds-p-left_medium" style="color: red">
+            <p>Conversion eligibility service has failed</p>
             </div>
         </div>
     </div>
