@@ -45,10 +45,19 @@ export default class ratingFilter extends LightningElement {
     frequencyChoice = "monthly";   //Frequency option selected on Frequency field.
     spinnerActive = false; 
 
-    billMethodChoice = '';  //Bill method default choice.  Set as value in Bill Method combo box.
+    //billMethodChoice = '';  //Bill method default choice.  Set as value in Bill Method combo box.
+    _billMethodChoice = '';
     effectiveDate = '';//Effective date for ADD products
 
     frequencyOptions = [
+        {
+            value: 'monthly',
+            label: 'Monthly'
+        },
+        {
+            value: 'quarterly',
+            label: 'Quarterly'
+        },
         { 
             value: 'annual', 
             label: 'Annual'
@@ -56,15 +65,7 @@ export default class ratingFilter extends LightningElement {
         {
             value: 'semiannual',
             label: 'Semi-Annual'
-        },
-        {
-            value: 'quarterly',
-            label: 'Quarterly'
-        },
-        {
-            value: 'monthly',
-            label: 'Monthly'
-        },
+        }
     ];
 
     billMethodOptions = [];
@@ -294,5 +295,17 @@ export default class ratingFilter extends LightningElement {
             rateInfo: value
         }
         this.template.querySelector("c-ilh-cart-util").publishCartMessage(rateObj);//Call cart util to publish cart message
+    }
+
+    set billMethodChoice(value) {
+        this._billMethodChoice = value;
+    }
+
+    get billMethodChoice() {//If billing options contain ACH/PAC, then set ACH/PAC as selected choice.  Otherwise use the current value
+        return this.optionsContainACHPAC ? 'ACH/PAC' : this._billMethodChoice;
+    }
+
+    get optionsContainACHPAC() {//Returns true if bill method choice is blank and billing option contains ACH/PAC as a value
+        return !this._billMethodChoice && this.billMethodOptions && this.billMethodOptions.some(option => option.value === 'ACH/PAC');
     }
 }
