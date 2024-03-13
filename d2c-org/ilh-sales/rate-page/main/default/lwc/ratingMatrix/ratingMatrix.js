@@ -11,22 +11,11 @@
  * Modifications:
  *************************************************************************************/
 
-import { LightningElement, api, wire } from 'lwc';
-import { publish, MessageContext } from 'lightning/messageService';
-import CART_CHANNEL from '@salesforce/messageChannel/Cart__c';
-
+import { LightningElement, api } from 'lwc';
 export default class RatingMatrix extends LightningElement {
     rateData = [];
     rateColumns = [];
-    subscription = null;
     payload;
-
-    /**
-        * Purpose: Wiring message context
-    */
-    @wire(MessageContext)
-    MessageContext;
-
 
     @api buildTable(rates, products, frequency) {
         this.rateData = [...rates];
@@ -74,16 +63,5 @@ export default class RatingMatrix extends LightningElement {
                 break;
             }
         }
-
-        //Creates a message that is published to the Cart Channel.  This channel is listed to by the Rate iLHSaleCart LWC and creates
-        //a quote from this message.
-        let payload = {
-            productCode: value?.productcode,
-            paymentFrequency: 'Monthly',
-            billingMethod: 'ACH',
-            coverage: value?.coverage,
-            cost: value?.monthly
-        }
-        publish(this.MessageContext, CART_CHANNEL, payload);
     }
 }

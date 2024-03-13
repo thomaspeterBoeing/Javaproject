@@ -210,6 +210,16 @@ describe('c-rating-filter', () => {
         });
 
         it('Correct products should display in matrix when product checkboxes are selected for ADD', async () => {
+            const EVENT_VALUE = {//Value of event to be sent when cell is selected
+                annual: 5.0,
+                coverage: 5000,
+                monthly: 8.0,
+                productcode: "ADDProduct1",
+                productlabel: "ADD Product 1",
+                quarterly: 7.0,
+                semiannual: 6.0
+            };
+
             getRates.mockResolvedValue(ADD_RESULTS);//Mock ADD results from getRates APEX method
             // Arrange
             const element = createElement('c-rating-filter', {
@@ -241,6 +251,12 @@ describe('c-rating-filter', () => {
                 }
             }
             expect(columns).toEqual(expectedColumns);//Columns in data types component should be equal to expectedColumns
+            matrix.dispatchEvent(//Mock cell selection
+            new CustomEvent('cellselect', {
+                detail: { value: EVENT_VALUE},
+                bubbles: true
+            })
+        );
         });
     });
 
@@ -379,6 +395,16 @@ describe('c-rating-filter', () => {
         });
 
         it('Correct products should display in matrix when product checkboxes are selected for Life', async () => {
+            const EVENT_VALUE = {//Value of event to be sent when cell is selected
+                annual: 5.0,
+                coverage: 5000,
+                monthly: 8.0,
+                productcode: "LifeProduct1",
+                productlabel: "Life Product 1",
+                quarterly: 7.0,
+                semiannual: 6.0
+            };
+
             getRates.mockResolvedValue(LIFE_RESULTS);//Mock Life results from getRates APEX method
             // Arrange
             const element = createElement('c-rating-filter', {
@@ -410,6 +436,12 @@ describe('c-rating-filter', () => {
                 }
             }
             expect(columns).toEqual(expectedColumns);//Columns in data types component should be equal to expectedColumns
+            matrix.dispatchEvent(//Mock cell selection
+            new CustomEvent('cellselect', {
+                detail: { value: EVENT_VALUE},
+                bubbles: true
+            })
+        );
         });
     });
 });
