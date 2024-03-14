@@ -45,8 +45,7 @@ export default class ratingFilter extends LightningElement {
     frequencyChoice = "monthly";   //Frequency option selected on Frequency field.
     spinnerActive = false; 
 
-    //billMethodChoice = '';  //Bill method default choice.  Set as value in Bill Method combo box.
-    _billMethodChoice = '';
+    billMethodChoice = '';  //Bill method default choice.  Set as value in Bill Method combo box.
     effectiveDate = '';//Effective date for ADD products
 
     frequencyOptions = [
@@ -273,6 +272,9 @@ export default class ratingFilter extends LightningElement {
             if (currentRow.billingMethod === this.billMethodChoice) {//If the billing method for this row is equal to the billing method in the ui, the set effective date
                 this.effectiveDate = currentRow.effectiveDate;
             }
+            if (!this.billMethodChoice) {//If billing choice is blank, then try to populate with either ACH/PAC or ACH
+                this.billMethodChoice = currentRow.billingMethod === 'ACH/PAC' ? 'ACH/PAC' : (currentRow.billingMethod === 'ACH' ? 'ACH' : this.billMethodChoice);
+            }
             let option = {
                 label: currentRow.billingMethod,
                 value: currentRow.billingMethod.replace(/\s/g, '')//Remove spaces from billing method
@@ -295,17 +297,5 @@ export default class ratingFilter extends LightningElement {
             rateInfo: value
         }
         this.template.querySelector("c-ilh-cart-util").publishCartMessage(rateObj);//Call cart util to publish cart message
-    }
-
-    set billMethodChoice(value) {
-        this._billMethodChoice = value;
-    }
-
-    get billMethodChoice() {//If billing options contain ACH/PAC, then set ACH/PAC as selected choice.  Otherwise use the current value
-        return this.optionsContainACHPAC ? 'ACH/PAC' : this._billMethodChoice;
-    }
-
-    get optionsContainACHPAC() {//Returns true if bill method choice is blank and billing option contains ACH/PAC as a value
-        return !this._billMethodChoice && this.billMethodOptions && this.billMethodOptions.some(option => option.value === 'ACH/PAC');
     }
 }
