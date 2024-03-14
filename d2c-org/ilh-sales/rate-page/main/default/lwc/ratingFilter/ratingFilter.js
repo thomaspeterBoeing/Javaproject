@@ -49,6 +49,14 @@ export default class ratingFilter extends LightningElement {
     effectiveDate = '';//Effective date for ADD products
 
     frequencyOptions = [
+        {
+            value: 'monthly',
+            label: 'Monthly'
+        },
+        {
+            value: 'quarterly',
+            label: 'Quarterly'
+        },
         { 
             value: 'annual', 
             label: 'Annual'
@@ -56,15 +64,7 @@ export default class ratingFilter extends LightningElement {
         {
             value: 'semiannual',
             label: 'Semi-Annual'
-        },
-        {
-            value: 'quarterly',
-            label: 'Quarterly'
-        },
-        {
-            value: 'monthly',
-            label: 'Monthly'
-        },
+        }
     ];
 
     billMethodOptions = [];
@@ -271,6 +271,9 @@ export default class ratingFilter extends LightningElement {
             let currentRow = options[index];//Get current row
             if (currentRow.billingMethod === this.billMethodChoice) {//If the billing method for this row is equal to the billing method in the ui, the set effective date
                 this.effectiveDate = currentRow.effectiveDate;
+            }
+            if (!this.billMethodChoice) {//If billing choice is blank, then try to populate with either ACH/PAC or ACH
+                this.billMethodChoice = currentRow.billingMethod === 'ACH/PAC' ? 'ACH/PAC' : (currentRow.billingMethod === 'ACH' ? 'ACH' : this.billMethodChoice);
             }
             let option = {
                 label: currentRow.billingMethod,
