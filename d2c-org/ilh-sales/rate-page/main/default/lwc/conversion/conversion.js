@@ -49,10 +49,11 @@ export default class conversion extends NavigationMixin(LightningElement) {
     ];
     cancelContinueValue = 'cancel';
     payFrequencyOptions = [
-        { value: 'annual', label: 'Annual' },
-        { value: 'semiAnnual', label: 'Semi-Annual' },
+        { value: 'Monthly', label: 'Monthly' },
         { value: 'quarterly', label: 'Quarterly' },
-        { value: 'Monthly', label: 'Monthly' }
+        { value: 'annual', label: 'Annual' },
+        { value: 'SemiAnnual', label: 'Semi-Annual' } 
+                
     ];
     payMethodOptions = [
         { value: 'ACH/PAC', label: 'ACH/PAC' },
@@ -87,22 +88,16 @@ export default class conversion extends NavigationMixin(LightningElement) {
             console.log('inside wiredOpportunity ' +JSON.stringify(data));
              this.dob           =getFieldValue(data, DOB);
              this.fname         =getFieldValue(data, FNAME);
-             console.log ('Date of Birth is ' +this.dob);
-             console.log ('First Name is ' +this.fname);
-             
- 
-         }
+                         
+          }
          else if (error) {
-            //console.error('Error fetching data:', error.data.body);
-             // Handle error
+            console.error('Error in wiredOpportunity:', error);
+            
          }
  
     }
-
-
     // Event handler to handle the preloaded event from personIdProvider component. this fires on navigation to conversion tab.
     handlePreLoadedInfo(event) {
-        console.log('is handlePreLoadedInfo even firing');
         if (event.detail && event.detail.Account && event.detail.Account.Gender__pc) {
             this.gender = event.detail.Account.Gender__pc;
             console.log('Gender from provider component is ->' +this.gender);
@@ -117,9 +112,9 @@ export default class conversion extends NavigationMixin(LightningElement) {
     
     handleChangePolicyNumber(event) {
         this.policyNumber = event.target.value;
-        console.log('inside handleChangePolicyNumber '+this.policyNumber);
         // resetting to clear messages and hide sections.
         this.errorDescription='';
+        this.errorResponse=false;
         this.eligible =false;
         this.showRateMatrix =false;
         this.notEligible =false;
@@ -146,6 +141,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
 
     async handleClickCheckEligibility() {
         // resetting to clear messages and hide sections.
+        this.errorResponse =false;
         this.convertingcoverageAmount = null;
         this.rateerrormessages='';
         this.showSubsequentSections = true;
@@ -155,7 +151,6 @@ export default class conversion extends NavigationMixin(LightningElement) {
             this.notEligible =true;
             return;
         }
-        
         // Proceed with the search
         this.showSpinner = true;
         await this.validateSearch(); // Rename method as appropriate
@@ -204,26 +199,21 @@ export default class conversion extends NavigationMixin(LightningElement) {
    
         // Update the component property with the sanitized value
         this.convertingcoverageAmount = sanitizedValue;
-        this.userenteredconvertingcoverageAmount = sanitizedValue;
 
     }
 
     handleCancelContinueChange(event) {
-        console.log('inside handleCancelContinueChange');
         this.cancelContinueValue = event.detail.value;
         this.cancelpolicy        = this.cancelContinueValue === 'cancel'?false : true
-        console.log('value of Cancel/Continue Term radiobutton '+this.cancelpolicy);
         this.rateerrormessages='';
         this.showRateMatrix =false;
     } 
 
     handleGetRate() {
         this.rateerrormessages='';
+        this.errorResponse=false;
         this.showSpinner = true;
-        console.log('inside handleGetRate');
-        console.log('Converting Coverage amount ' +this.convertingcoverageAmount);
-
-        
+                
         if (this.convertingcoverageAmount === "") {
             this.rateerrormessages = "Enter a valid converting coverage amount ";
             this.ratevalidation =true;
@@ -233,41 +223,26 @@ export default class conversion extends NavigationMixin(LightningElement) {
         }
         
         const conversionEligibilityDetails = this.getConversionEligibilityDetails();
-        console.log('before coverage rule');
-        //console.log('Converting Coverage amount ' +this.convertingcoverageAmount);
-
         // Determine which conversion details to use based on this.cancelpolicy
         const conversionDetails = this.cancelpolicy ? conversionEligibilityDetails.partialConversion : conversionEligibilityDetails.fullConversion;
-
         
         // Extract max and min coverage amounts based on the chosen conversion details
         const maxCoverageAmount = parseFloat(conversionDetails.coverageAmounts.maximumCoverageAmount);
-        console.log('maxCoverageAmount ' +maxCoverageAmount);
         const minCoverageAmount = parseFloat(conversionDetails.coverageAmounts.minimumCoverageAmount);
-        console.log('maxCoverageAmount ' +minCoverageAmount);
 
         // Convert string values to numbers for comparison
-        //const userEnteredCoverageAmount = parseFloat(this.userenteredconvertingcoverageAmount);
         const coverageAmount = parseFloat(this.convertingcoverageAmount);
-        console.log('coverageAmount from UI/userentered ' +coverageAmount);
-        //console.log('userEnteredCoverageAmount after parseFloat '+userEnteredCoverageAmount);
-        //const maxCoverageAmount = parseFloat(conversionEligibilityDetails.fullConversion.coverageAmounts.maximumCoverageAmount); --refactor
-        //console.log('maxCoverageAmount after parseFloat  ' +maxCoverageAmount);
-        
-        // Convert string values to numbers for  comparison
-        //const minCoverageAmount = parseFloat(conversionEligibilityDetails.fullConversion.coverageAmounts.minimumCoverageAmount); --refactor
-        
-        console.log('value of this.cancelpolicy ' +this.cancelpolicy);
+
         // max coverage rule
         if (!this.cancelpolicy && coverageAmount > maxCoverageAmount) { //policy is being canceled
-            console.log('inside  max coverage rule');
+            
             this.rateerrormessages = "Coverage Amount cannot exceed the total coverage available " +this.formatNumberWithCommas(maxCoverageAmount);
             this.ratevalidation = true;
             this.showSpinner = false;
             this.convertingcoverageAmountinput = null;
             return;
         }else if (this.cancelpolicy && coverageAmount > maxCoverageAmount) { //Policy is being continued
-            console.log('inside else if of max coverage rule');
+            
             this.rateerrormessages = "Coverage Amount cannot exceed the total coverage available " + this.formatNumberWithCommas(maxCoverageAmount);
             this.ratevalidation = true;
             this.showSpinner = false;
@@ -278,21 +253,20 @@ export default class conversion extends NavigationMixin(LightningElement) {
 
         // min coverage rule
         if (this.cancelpolicy && coverageAmount < minCoverageAmount || !this.cancelpolicy && coverageAmount < minCoverageAmount )  {
-            console.log('inside min coverage rule');
+            
             this.rateerrormessages = "Coverage Amount is below the minimum coverage " +this.formatNumberWithCommas(minCoverageAmount);
             this.ratevalidation = true;
             this.showSpinner = false;
             this.convertingcoverageAmountinput = null;
             return;
         }
-
-        
+      
         this.showRateMatrix =true;
-            console.log('value of showRateMatrix ' +this.showRateMatrix);
+        // apex call to get rates           
         getRates({kvpRequestCriteria: this.createRequestCriteriaMap()})
         .then(response => {
             console.log('Request Criteria Map:', JSON.stringify(this.createRequestCriteriaMap()));
-            console.log('handleGetRate response ' +JSON.stringify(response));
+            
             let eligibleRates = [];
             let productChoices = [];
             for (const result of response) {
@@ -312,7 +286,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
             
         })
         .catch(error => {
-            this.errorMessage = reduceErrors(error);
+            console.error('Error in Get Rate:', error);
             console.log('this.errorMessage : ' + this.errorMessage);
             this.errorResponse =true;
             this.showSpinner =false;
@@ -340,12 +314,10 @@ export default class conversion extends NavigationMixin(LightningElement) {
                              }
                    );
 
-        console.log(JSON.stringify(returndata, null, 4));
         return returndata;
     }
 
-    async validateSearch(){ // rename method as appropriate
-        console.log('inside ValidateSearch on Click of checkEligibility button ' +this.policyNumber);
+    async validateSearch(){ 
         if(this.policyNumber != null){
             this.policyNumber =this.policyNumber.trim();
             await this.checkifEligible(); // method that calls apex to see if request returns a valid response
@@ -355,64 +327,39 @@ export default class conversion extends NavigationMixin(LightningElement) {
 
     async checkifEligible(){
         this.errorMessage = '';
+        this.eligible = false;
+        this.showRateMatrix = false;
         this.cancelpolicy = true; // setting to get full and partial conversion nodes.
         
         // Log the request criteria map before sending the request
-        console.log('Request Criteria Map:', JSON.stringify(this.createRequestCriteriaMap()));
+        console.log('Request Criteria Map:', JSON.stringify(this.createRequestCriteriaMap(),null,4));
     
         checkEligibility({kvpRequestCriteria: this.createRequestCriteriaMap()})
             .then(response => {
-                  
-                console.log ('results from service ' +JSON.stringify(response));
-
+                              
                 // Check if the response is an array containing an empty object
                 if (response && Array.isArray(response) && response.length === 1 && Object.keys(response[0]).length === 0) { // this is to handle [{}] from service
                     console.log('No content available from the service');
                     this.noContent = true;
                     this.showSpinner = false;
-                    // Handle scenario when no content is available
-                    // For example, display a message to the user
                     return;
                 }
-                // Check if there are any errors in the response
-                if(response && response.error) {
-                    console.log('Error in response:', response.error);
-                    return;
-                }
-                // Check for 204 (No Content) response
-                /*if (response && response.statusCode === 204) {
-                    console.log('No content available from the service');
-                    this.noContent =true;
-                    // Handle scenario when no content is available
-                    // For example, display a message to the user
-                    return;
-                }*/
                 this.results = response;
-                console.log ('results from service ' +JSON.stringify(this.results));
-                   
                 if(this.results != null){  
                     
                     // Additional logic to retrieve and assign values
                     const conversionEligibilityDetails = this.results[0].conversionEligibilityDetails;
-                    //this.convEligibilityDetails = conversionEligibilityDetails;
                     const currentTermPolicyInfo = this.results[0].currentTermPolicyInfo;
                     
                     this.eligible = conversionEligibilityDetails.isEligible; // shows rest of the form if policy is eligible. if not eligible and has a reason from service display reason.
-                    //this.Eligible = conversionEligibilityDetails.isEligible;
 
                     if(!this.eligible){
-                        this.errorDescription = conversionEligibilityDetails.isNotEligibleReason[0].errorDescription; // show message from service when not eligible
+                        this.errorDescription = conversionEligibilityDetails.isNotEligibleReason?.[0]?.errorDescription; // show message from service when not eligible
                         this.notEligible = true;
                     }
                     // Salesforce internal rules 
                     
                     // Rule 1: Check if this.fname, this.gender, and this.dob are not equal to the corresponding fields from the service
-                    console.log('this.fname:', this.fname);
-                    console.log('this.gender:', this.gender);
-                    console.log('this.dob:', this.dob);
-                    console.log('currentTermPolicyInfo.owner.person.insured.name.firstName:', currentTermPolicyInfo.insured.name.firstName);
-                    console.log('currentTermPolicyInfo.insured.gender:', currentTermPolicyInfo.insured.gender);
-                    console.log('currentTermPolicyInfo.insured.birthdate:', currentTermPolicyInfo.insured.birthDate);
                     if (
                         this.fname !== currentTermPolicyInfo.insured.name.firstName ||
                         this.gender !== currentTermPolicyInfo.insured.gender ||
@@ -438,22 +385,10 @@ export default class conversion extends NavigationMixin(LightningElement) {
 
                     if(currentTermPolicyInfo ){
                         this.convertingcoverageAmount   = currentTermPolicyInfo.coverageAmount;
-                        this.userenteredconvertingcoverageAmount            = currentTermPolicyInfo.coverageAmount;
                         this.currentCoverage            = this.formatNumberWithCommas(currentTermPolicyInfo.coverageAmount);
-                        console.log('value of original convertingcoverageAmount ' +this.userenteredconvertingcoverageAmount);
                         this.selectedPayMethod          = currentTermPolicyInfo.paymentMethod;
-                        this.selectedPayFrequency       = currentTermPolicyInfo.paymentFrequency;                        ;
-
-                        /*if (this.currentTermPolicyInfo.paymentMethod) {
-                            // Filter the payMethodOptions array to include only the selected payment method
-                            this.payMethodOptions = this.payMethodOptions.filter(option => option.value === this.currentTermPolicyInfo.paymentMethod);
-                        } */
-                    }/*else {
-                        this.errorDescription = 'Product 2022 Whole Life Conversion is not Quotable. Send a paper kit if appropriate ';
-                        this.Eligible = false;
-                        this.notEligible = true;
-                        
-                    }*/
+                        this.selectedPayFrequency       = currentTermPolicyInfo.paymentFrequency;
+                    }
                
                     
                     if(conversionEligibilityDetails) {
@@ -475,12 +410,9 @@ export default class conversion extends NavigationMixin(LightningElement) {
                         }
                                              
                     }
-                    
-                        /*this.currentCoverageFormatted = this.currentCoverage.toLocaleString();
-                        console.log('value of  currentCoverageFormatted ' +this.currentCoverageFormatted);*/
-                    
+                   
                     this.showSpinner = false;
-                    this.cancelpolicy = false; //resetting after eligibility check is done and have the entire payload
+                    this.cancelpolicy = false; //resetting after eligibility check is done and have the entire payload on checkEligibility
                 }
             })
             .catch(error => {

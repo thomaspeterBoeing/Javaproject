@@ -84,10 +84,11 @@
                 <div class="slds-form-element">  <label class="slds-form-element__label" for="text-input-id-47">Current Coverage</label>  <div class="slds-form-element__control">   <input type="text" id="number-input-id-48" readonly="" placeholder="" class="slds-input removeShaddow" value={currentCoverage} style="font-weight: bold;"/>  </div></div>
             </div>
             <div class="slds-col slds-size_1-of-3">
+                <!--we had to do the following instead of just lightning input type toggle to stack the label and checkbox -->
                 <label class="slds-m-right_small">Continue ADB or Waiver Rider</label>
                 <label class="slds-checkbox_toggle slds-grid">
                     <span class="slds-form-element__label slds-m-bottom_none"></span>
-                    <input type="checkbox" name="checkbox-toggle-15" value="checkbox-toggle-15" onchange={handleADBWaiverChange} aria-describedby="checkbox-toggle-15" />
+                    <input type="checkbox" name="checkbox-toggle-15" value="checkbox-toggle-15" data-id="adbwaivercheckbox" onchange={handleADBWaiverChange} aria-describedby="checkbox-toggle-15" />
                     <span id="checkbox-toggle-15" class="slds-checkbox_faux_container">
                         <span class="slds-checkbox_faux"></span>
                         <span class="slds-checkbox_on">Applicable</span>
@@ -114,7 +115,7 @@
                     <lightning-combobox label="Pay Frequency" data-id="payFrequency" options={payFrequencyOptions} value ={selectedPayFrequency} onchange={handleFrequencyChange}></lightning-combobox>
                 </div>
                 <div class="slds-col slds-size_1-of-3">
-                    <lightning-combobox label="Pay Method" options={payMethodOptions} value={selectedPayMethod} onchange={handlePaymentMethodChange} ></lightning-combobox>
+                    <lightning-combobox label="Pay Method" data-id="payMethod" options={payMethodOptions} value={selectedPayMethod} onchange={handlePaymentMethodChange} ></lightning-combobox>
                 </div>
             </div>
 
@@ -140,7 +141,7 @@
                 </div>
                 <div lwc:if={ratevalidation}>
                     <!-- Show message when Policy is not eligible for conversion -->
-                    <div data-id="messageDisplay" class="slds-p-left_medium" style="color: red">
+                    <div data-id="messageDisplayRate" class="slds-p-left_medium" style="color: red">
                         <p>{rateerrormessages}</p>
                     </div>
                 </div>
@@ -149,7 +150,7 @@
         </div>
         <!-- ratingMatrix Grid below-->
         <template lwc:if={showRateMatrix}>
-            <c-rating-matrix oncellselect={handleRateSelection}></c-rating-matrix>
+            <c-rating-matrix  data-id="showRateMatrix" oncellselect={handleRateSelection}></c-rating-matrix>
         </template>
         <c-ilh-cart-util></c-ilh-cart-util>                  
                
