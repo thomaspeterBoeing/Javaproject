@@ -1,3 +1,12 @@
+/**********************************************************************************
+ * Title:  Cart Util LWC
+ * Date:   March 2024
+ * 
+ * Description: This LWC accepts an an object and sends the object info to the cart channel
+ * for a new quote to be inserted in the cart
+ * 
+ * Modifications:
+ *************************************************************************************/
 import { LightningElement, api, wire } from 'lwc';
 import { publish, MessageContext } from 'lightning/messageService';
 import CART_CHANNEL from '@salesforce/messageChannel/Cart__c';
