@@ -49,6 +49,33 @@ private class EligibleProductQuoteResultTests {
     }
 
     @isTest
+    private static void parseConversionTest() {
+        ConversionEligibleQuoteWrapper.ConversionDateQuotes cdq = new ConversionEligibleQuoteWrapper.ConversionDateQuotes();
+        cdq.annualPremiumAmount = '1.00';
+        cdq.monthlyPremiumAmount = '2.00';
+        cdq.quarterlyPremiumAmount = '3.00';
+        cdq.semiAnnualPremiumAmount = '4.00';
+        cdq.coverageAmount = '1000';
+
+        ConversionEligibleQuoteWrapper.Quotes qs = new ConversionEligibleQuoteWrapper.Quotes();
+        qs.primaryConversionDateQuotes = new List<ConversionEligibleQuoteWrapper.ConversionDateQuotes>{cdq};
+
+        ConversionEligibleQuoteWrapper.Conversion conversion = new ConversionEligibleQuoteWrapper.Conversion();
+        conversion.quotes = qs;
+
+        ConversionEligibleQuoteWrapper.ConversionEligibilityDetails ced = new ConversionEligibleQuoteWrapper.ConversionEligibilityDetails();
+        ced.productCode = 'Test';
+        ced.fullConversion = conversion;
+
+        ConversionEligibleQuoteWrapper wrapper = new ConversionEligibleQuoteWrapper();
+        wrapper.conversionEligibilityDetails = ced;
+
+        List<EligibleProductQuoteResult> results = new List<EligibleProductQuoteResult>();
+        results = EligibleProductQuoteResult.parse(wrapper, false);
+        Assert.areEqual(1, results.size(), 'Should only be one result');
+    }
+
+    @isTest
     private static void shouldParseResultTest() {
         ConsumerEligibleQuoteResponse.CoverageOptions co1 = new ConsumerEligibleQuoteResponse.CoverageOptions();
         co1.coverage = 3000;
@@ -75,17 +102,21 @@ private class EligibleProductQuoteResultTests {
     }
 
     @isTest
-    private static void parseResultInfoTest() {
-        ConsumerEligibleQuoteResponse.InsuranceProductDetails ipd = new ConsumerEligibleQuoteResponse.InsuranceProductDetails();
-        ipd.insuranceProductDisplayName = 'Test Product';
+    private static void parseCoverageOptionConversionTest() {
+        ConversionEligibleQuoteWrapper.ConversionDateQuotes cdq = new ConversionEligibleQuoteWrapper.ConversionDateQuotes();
+        cdq.annualPremiumAmount = '1.00';
+        cdq.monthlyPremiumAmount = '2.00';
+        cdq.quarterlyPremiumAmount = '3.00';
+        cdq.semiAnnualPremiumAmount = '4.00';
+        cdq.coverageAmount = '1000';
 
-        ConsumerEligibleQuoteResponse.ProductQuotes pq = new ConsumerEligibleQuoteResponse.ProductQuotes();
-        pq.productCode = 'Test';
-        pq.insuranceProductDetails = ipd;
-
-        EligibleProductQuoteResult result = EligibleProductQuoteResult.parseResultInfo(pq);
-        Assert.areEqual('Test Product', result.productName, 'Product name is equal to product display name from response');
-        Assert.areEqual('Test', result.productCode, 'Product code is equal to product code from response');
+        Test.startTest();
+        EligibleProductQuoteResult.CoverageOption co = EligibleProductQuoteResult.parseCoverageOption(cdq);
+        Assert.areEqual(1.00, co.annual, 'Annual premium is mapped correctly');
+        Assert.areEqual(2.00, co.monthly, 'Monthly premium is mapped correctly');
+        Assert.areEqual(3.00, co.quarterly, 'Quarterly premium is mapped correctly');
+        Assert.areEqual(4.00, co.semiannual, 'Semi-Annual premium is mapped correctly');
+        Assert.areEqual(1000, co.coverage, 'Coverage is mapped correctly');
     }
 
     @isTest
@@ -95,11 +126,25 @@ private class EligibleProductQuoteResultTests {
         co1.frequency = 'Monthly';
         co1.premium = 3.00;
 
-        List<ConsumerEligibleQuoteResponse.CoverageOptions> cos = new List<ConsumerEligibleQuoteResponse.CoverageOptions>{co1};
+        ConsumerEligibleQuoteResponse.CoverageOptions co2 = new ConsumerEligibleQuoteResponse.CoverageOptions();
+        co2.coverage = 3000;
+        co2.frequency = 'Quarterly';
+        co2.premium = 3.00;
+
+        ConsumerEligibleQuoteResponse.CoverageOptions co3 = new ConsumerEligibleQuoteResponse.CoverageOptions();
+        co3.coverage = 3000;
+        co3.frequency = 'Semiannual';
+        co3.premium = 3.00;
+
+        ConsumerEligibleQuoteResponse.CoverageOptions co4 = new ConsumerEligibleQuoteResponse.CoverageOptions();
+        co4.coverage = 3000;
+        co4.frequency = 'Annual';
+        co4.premium = 3.00;
+
+        List<ConsumerEligibleQuoteResponse.CoverageOptions> cos = new List<ConsumerEligibleQuoteResponse.CoverageOptions>{co1, co2, co3, co4};
         List<EligibleProductQuoteResult.CoverageOption> cos2 =  EligibleProductQuoteResult.parseCoverageOptions(cos);
-        Assert.areEqual('Monthly', cos2[0].frequency, 'Frequency is equal to frequency from response');
         Assert.areEqual(3000, cos2[0].coverage, 'Coverage is equal to coverage from response');
-        Assert.areEqual(3.00, cos2[0].premium, 'Premium is equal to premium from response');
+        Assert.areEqual(3.00, cos2[0].monthly, 'Premium is equal to premium from response');
     }
 
     @isTest

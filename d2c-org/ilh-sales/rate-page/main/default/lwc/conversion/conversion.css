@@ -1,0 +1,10 @@
+.custom-bottom-margin {
+    margin-bottom: 6px; 
+}
+.removeShaddow {
+    --slds-c-input-shadow: none;
+}
+
+
+
+

@@ -1,5 +1,6 @@
 <template>
-    <lightning-card title="Policy Summary">
+    <lightning-card>
+        <h2 class="custom-title">Policy Summary</h2>
         <template if:true={errorMessage}>
             <div data-id="errorDisplay" class="slds-p-left_medium" style="color:red">{errorMessage}</div>
         </template>

@@ -1,0 +1,68 @@
+[{
+  "currentTermPolicyInfo" : {
+    "underwritingClass" : "STANDARD",
+    "specialHandlingCode" : "Not Eligible for Quoting",
+    "reinsuranceIndicator" : null,
+    "planMarketingMethod" : "IONLN",
+    "paymentMethod" : "CreditCard",
+    "paymentFrequency" : "Monthly",
+    "paidToDate" : "2024-04-07",
+    "owner" : {
+      "person" : {
+        "name" : {
+          "suffix" : "",
+          "middleName" : "",
+          "lastName" : "APRIL",
+          "firstName" : "MUSUMECI"
+        }
+      },
+      "organization" : null
+    },
+    "insured" : {
+      "name" : {
+        "suffix" : "",
+        "middleName" : "",
+        "lastName" : "TEST",
+        "firstName" : "TEST"
+      },
+      "gender" : "Male",
+      "birthDate" : "1990-11-11"
+    },
+    "coverageAmount" : "100000",
+    "contractStatus" : "Active",
+    "contractNumber" : "04811978",
+    "agentId" : "00006",
+    "achRoutingNumber" : null,
+    "achAccountNumber" : null
+  },
+  "conversionEligibilityDetails" : {
+    "underwritingClassCode" : "S",
+    "underwritingClass" : "Aggregate",
+    "secondaryConversionDate" : null,
+    "productCode" : "2022 Whole Life Conversion",
+    "primaryConversionDate" : "2024-04-07",
+    "partialConversion" : {
+      "quotes" : {
+        "secondaryConversionDateQuotes" : []
+
+      },
+      "coverageAmounts" : {
+        "minimumCoverageAmount" : "5000",
+        "maximumCoverageAmount" : "95000"
+      }
+    },
+    "isNotEligibleReason" : [ ],
+    "isEligible" : true,
+    "fullConversion" : {
+      "quotes" : {
+        "secondaryConversionDateQuotes" : []
+
+      },
+      "coverageAmounts" : {
+        "minimumCoverageAmount" : "5000",
+        "maximumCoverageAmount" : "100000"
+      }
+    }
+  }
+}
+]

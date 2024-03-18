@@ -18,30 +18,23 @@ public class EligibleProductRateWrapperTests {
     @isTest
     private static void buildGridTest() {
         EligibleProductQuoteResult ipd1 = new EligibleProductQuoteResult();
-        ipd1.productName = 'Product1';
         ipd1.productCode = 'Product 1';
 
         EligibleProductQuoteResult.CoverageOption co1 = new EligibleProductQuoteResult.CoverageOption();
         co1.coverage = 1000;
-        co1.premium = 1.00;
-        co1.frequency = 'Annual';
+        co1.annual = 1.00;
+        co1.monthly = 2.00;
+        co1.quarterly = 3.00;
+        co1.semiannual = 4.00;
 
         EligibleProductQuoteResult.CoverageOption co2 = new EligibleProductQuoteResult.CoverageOption();
-        co2.coverage = 1000;
-        co2.premium = 2.00;
-        co2.frequency = 'Monthly';
+        co2.coverage = 2000;
+        co2.annual = 2.00;
+        co2.monthly = 4.00;
+        co2.quarterly = 5.00;
+        co2.semiannual = 6.00;
 
-        EligibleProductQuoteResult.CoverageOption co3 = new EligibleProductQuoteResult.CoverageOption();
-        co3.coverage = 1000;
-        co3.premium = 3.00;
-        co3.frequency = 'Quarterly';
-
-        EligibleProductQuoteResult.CoverageOption co4 = new EligibleProductQuoteResult.CoverageOption();
-        co4.coverage = 1000;
-        co4.premium = 4.00;
-        co4.frequency = 'Semiannual';
-
-        ipd1.coverages = new List<EligibleProductQuoteResult.CoverageOption>{co1, co2, co3, co4};
+        ipd1.coverages = new List<EligibleProductQuoteResult.CoverageOption>{co1, co2};
 
         EligibleProductQuoteResult.BillingOption bo1 = new EligibleProductQuoteResult.BillingOption();
         bo1.billingMethod = 'ACH';
@@ -65,7 +58,7 @@ public class EligibleProductRateWrapperTests {
 
         Test.startTest();
         EligibleProductRateWrapper result = new EligibleProductRateWrapper(results);
-        Assert.areEqual(1, result.eligibleRates.size(), 'One row returned');
+        Assert.areEqual(2, result.eligibleRates.size(), 'Two rows returned');
         Assert.areEqual('1000', result.eligibleRates[0].coverage, 'Coverage is 1000');
         
         EligibleProductRateWrapper.EligibleRateCell product1Cell = result.eligibleRates[0].productinfo.get('Product1');

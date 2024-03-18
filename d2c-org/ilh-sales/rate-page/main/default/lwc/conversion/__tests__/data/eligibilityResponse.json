@@ -1,0 +1,314 @@
+[{
+  "currentTermPolicyInfo" : {
+    "underwritingClass" : "STANDARD",
+    "specialHandlingCode" : "X",
+    "reinsuranceIndicator" : null,
+    "planMarketingMethod" : "IONLN",
+    "paymentMethod" : "CreditCard",
+    "paymentFrequency" : "Monthly",
+    "paidToDate" : "2024-04-07",
+    "owner" : {
+      "person" : {
+        "name" : {
+          "suffix" : "",
+          "middleName" : "",
+          "lastName" : "APRIL",
+          "firstName" : "MUSUMECI"
+        }
+      },
+      "organization" : null
+    },
+    "insured" : {
+      "name" : {
+        "suffix" : "",
+        "middleName" : "",
+        "lastName" : "TEST",
+        "firstName" : "TEST"
+      },
+      "gender" : "Male",
+      "birthDate" : "1990-11-11"
+    },
+    "coverageAmount" : "100000",
+    "contractStatus" : "Active",
+    "contractNumber" : "04811978",
+    "agentId" : "00006",
+    "achRoutingNumber" : null,
+    "achAccountNumber" : null
+  },
+  "conversionEligibilityDetails" : {
+    "underwritingClassCode" : "S",
+    "underwritingClass" : "Aggregate",
+    "secondaryConversionDate" : null,
+    "productCode" : "2022 Whole Life Conversion",
+    "primaryConversionDate" : "2024-04-07",
+    "partialConversion" : {
+      "quotes" : {
+        "secondaryConversionDateQuotes" : [ ],
+        "primaryConversionDateQuotes" : [ {
+          "semiAnnualPremiumAmount" : "77.7",
+          "quarterlyPremiumAmount" : "38.85",
+          "monthlyPremiumAmount" : "12.95",
+          "coverageAmount" : "5000",
+          "annualPremiumAmount" : "155.4"
+        }, {
+          "semiAnnualPremiumAmount" : "137.4",
+          "quarterlyPremiumAmount" : "68.7",
+          "monthlyPremiumAmount" : "22.9",
+          "coverageAmount" : "10000",
+          "annualPremiumAmount" : "274.8"
+        }, {
+          "semiAnnualPremiumAmount" : "197.1",
+          "quarterlyPremiumAmount" : "98.55",
+          "monthlyPremiumAmount" : "32.85",
+          "coverageAmount" : "15000",
+          "annualPremiumAmount" : "394.2"
+        }, {
+          "semiAnnualPremiumAmount" : "256.8",
+          "quarterlyPremiumAmount" : "128.4",
+          "monthlyPremiumAmount" : "42.8",
+          "coverageAmount" : "20000",
+          "annualPremiumAmount" : "513.6"
+        }, {
+          "semiAnnualPremiumAmount" : "304.5",
+          "quarterlyPremiumAmount" : "152.25",
+          "monthlyPremiumAmount" : "50.75",
+          "coverageAmount" : "25000",
+          "annualPremiumAmount" : "609"
+        }, {
+          "semiAnnualPremiumAmount" : "361.8",
+          "quarterlyPremiumAmount" : "180.9",
+          "monthlyPremiumAmount" : "60.3",
+          "coverageAmount" : "30000",
+          "annualPremiumAmount" : "723.6"
+        }, {
+          "semiAnnualPremiumAmount" : "419.1",
+          "quarterlyPremiumAmount" : "209.55",
+          "monthlyPremiumAmount" : "69.85",
+          "coverageAmount" : "35000",
+          "annualPremiumAmount" : "838.2"
+        }, {
+          "semiAnnualPremiumAmount" : "476.4",
+          "quarterlyPremiumAmount" : "238.2",
+          "monthlyPremiumAmount" : "79.4",
+          "coverageAmount" : "40000",
+          "annualPremiumAmount" : "952.8"
+        }, {
+          "semiAnnualPremiumAmount" : "533.7",
+          "quarterlyPremiumAmount" : "266.85",
+          "monthlyPremiumAmount" : "88.95",
+          "coverageAmount" : "45000",
+          "annualPremiumAmount" : "1067.4"
+        }, {
+          "semiAnnualPremiumAmount" : "567",
+          "quarterlyPremiumAmount" : "283.5",
+          "monthlyPremiumAmount" : "94.5",
+          "coverageAmount" : "50000",
+          "annualPremiumAmount" : "1134"
+        }, {
+          "semiAnnualPremiumAmount" : "621.9",
+          "quarterlyPremiumAmount" : "310.95",
+          "monthlyPremiumAmount" : "103.65",
+          "coverageAmount" : "55000",
+          "annualPremiumAmount" : "1243.8"
+        }, {
+          "semiAnnualPremiumAmount" : "676.8",
+          "quarterlyPremiumAmount" : "338.4",
+          "monthlyPremiumAmount" : "112.8",
+          "coverageAmount" : "60000",
+          "annualPremiumAmount" : "1353.6"
+        }, {
+          "semiAnnualPremiumAmount" : "731.7",
+          "quarterlyPremiumAmount" : "365.85",
+          "monthlyPremiumAmount" : "121.95",
+          "coverageAmount" : "65000",
+          "annualPremiumAmount" : "1463.4"
+        }, {
+          "semiAnnualPremiumAmount" : "786.6",
+          "quarterlyPremiumAmount" : "393.3",
+          "monthlyPremiumAmount" : "131.1",
+          "coverageAmount" : "70000",
+          "annualPremiumAmount" : "1573.2"
+        }, {
+          "semiAnnualPremiumAmount" : "841.5",
+          "quarterlyPremiumAmount" : "420.75",
+          "monthlyPremiumAmount" : "140.25",
+          "coverageAmount" : "75000",
+          "annualPremiumAmount" : "1683"
+        }, {
+          "semiAnnualPremiumAmount" : "896.4",
+          "quarterlyPremiumAmount" : "448.2",
+          "monthlyPremiumAmount" : "149.4",
+          "coverageAmount" : "80000",
+          "annualPremiumAmount" : "1792.8"
+        }, {
+          "semiAnnualPremiumAmount" : "951.3",
+          "quarterlyPremiumAmount" : "475.65",
+          "monthlyPremiumAmount" : "158.55",
+          "coverageAmount" : "85000",
+          "annualPremiumAmount" : "1902.6"
+        }, {
+          "semiAnnualPremiumAmount" : "1006.2",
+          "quarterlyPremiumAmount" : "503.1",
+          "monthlyPremiumAmount" : "167.7",
+          "coverageAmount" : "90000",
+          "annualPremiumAmount" : "2012.4"
+        }, {
+          "semiAnnualPremiumAmount" : "1061.1",
+          "quarterlyPremiumAmount" : "530.55",
+          "monthlyPremiumAmount" : "176.85",
+          "coverageAmount" : "95000",
+          "annualPremiumAmount" : "2122.2"
+        } ]
+      },
+      "coverageAmounts" : {
+        "minimumCoverageAmount" : "5000",
+        "maximumCoverageAmount" : "95000"
+      }
+    },
+    "isNotEligibleReason" : [ ],
+    "isEligible" : true,
+    "fullConversion" : {
+      "quotes" : {
+        "secondaryConversionDateQuotes" : [ ],
+        "primaryConversionDateQuotes" : [ {
+          "semiAnnualPremiumAmount" : "77.7",
+          "quarterlyPremiumAmount" : "38.85",
+          "monthlyPremiumAmount" : "12.95",
+          "coverageAmount" : "5000",
+          "annualPremiumAmount" : "155.4"
+        }, {
+          "semiAnnualPremiumAmount" : "137.4",
+          "quarterlyPremiumAmount" : "68.7",
+          "monthlyPremiumAmount" : "22.9",
+          "coverageAmount" : "10000",
+          "annualPremiumAmount" : "274.8"
+        }, {
+          "semiAnnualPremiumAmount" : "197.1",
+          "quarterlyPremiumAmount" : "98.55",
+          "monthlyPremiumAmount" : "32.85",
+          "coverageAmount" : "15000",
+          "annualPremiumAmount" : "394.2"
+        }, {
+          "semiAnnualPremiumAmount" : "256.8",
+          "quarterlyPremiumAmount" : "128.4",
+          "monthlyPremiumAmount" : "42.8",
+          "coverageAmount" : "20000",
+          "annualPremiumAmount" : "513.6"
+        }, {
+          "semiAnnualPremiumAmount" : "304.5",
+          "quarterlyPremiumAmount" : "152.25",
+          "monthlyPremiumAmount" : "50.75",
+          "coverageAmount" : "25000",
+          "annualPremiumAmount" : "609"
+        }, {
+          "semiAnnualPremiumAmount" : "361.8",
+          "quarterlyPremiumAmount" : "180.9",
+          "monthlyPremiumAmount" : "60.3",
+          "coverageAmount" : "30000",
+          "annualPremiumAmount" : "723.6"
+        }, {
+          "semiAnnualPremiumAmount" : "419.1",
+          "quarterlyPremiumAmount" : "209.55",
+          "monthlyPremiumAmount" : "69.85",
+          "coverageAmount" : "35000",
+          "annualPremiumAmount" : "838.2"
+        }, {
+          "semiAnnualPremiumAmount" : "476.4",
+          "quarterlyPremiumAmount" : "238.2",
+          "monthlyPremiumAmount" : "79.4",
+          "coverageAmount" : "40000",
+          "annualPremiumAmount" : "952.8"
+        }, {
+          "semiAnnualPremiumAmount" : "533.7",
+          "quarterlyPremiumAmount" : "266.85",
+          "monthlyPremiumAmount" : "88.95",
+          "coverageAmount" : "45000",
+          "annualPremiumAmount" : "1067.4"
+        }, {
+          "semiAnnualPremiumAmount" : "567",
+          "quarterlyPremiumAmount" : "283.5",
+          "monthlyPremiumAmount" : "94.5",
+          "coverageAmount" : "50000",
+          "annualPremiumAmount" : "1134"
+        }, {
+          "semiAnnualPremiumAmount" : "621.9",
+          "quarterlyPremiumAmount" : "310.95",
+          "monthlyPremiumAmount" : "103.65",
+          "coverageAmount" : "55000",
+          "annualPremiumAmount" : "1243.8"
+        }, {
+          "semiAnnualPremiumAmount" : "676.8",
+          "quarterlyPremiumAmount" : "338.4",
+          "monthlyPremiumAmount" : "112.8",
+          "coverageAmount" : "60000",
+          "annualPremiumAmount" : "1353.6"
+        }, {
+          "semiAnnualPremiumAmount" : "731.7",
+          "quarterlyPremiumAmount" : "365.85",
+          "monthlyPremiumAmount" : "121.95",
+          "coverageAmount" : "65000",
+          "annualPremiumAmount" : "1463.4"
+        }, {
+          "semiAnnualPremiumAmount" : "786.6",
+          "quarterlyPremiumAmount" : "393.3",
+          "monthlyPremiumAmount" : "131.1",
+          "coverageAmount" : "70000",
+          "annualPremiumAmount" : "1573.2"
+        }, {
+          "semiAnnualPremiumAmount" : "841.5",
+          "quarterlyPremiumAmount" : "420.75",
+          "monthlyPremiumAmount" : "140.25",
+          "coverageAmount" : "75000",
+          "annualPremiumAmount" : "1683"
+        }, {
+          "semiAnnualPremiumAmount" : "896.4",
+          "quarterlyPremiumAmount" : "448.2",
+          "monthlyPremiumAmount" : "149.4",
+          "coverageAmount" : "80000",
+          "annualPremiumAmount" : "1792.8"
+        }, {
+          "semiAnnualPremiumAmount" : "951.3",
+          "quarterlyPremiumAmount" : "475.65",
+          "monthlyPremiumAmount" : "158.55",
+          "coverageAmount" : "85000",
+          "annualPremiumAmount" : "1902.6"
+        }, {
+          "semiAnnualPremiumAmount" : "1006.2",
+          "quarterlyPremiumAmount" : "503.1",
+          "monthlyPremiumAmount" : "167.7",
+          "coverageAmount" : "90000",
+          "annualPremiumAmount" : "2012.4"
+        }, {
+          "semiAnnualPremiumAmount" : "1061.1",
+          "quarterlyPremiumAmount" : "530.55",
+          "monthlyPremiumAmount" : "176.85",
+          "coverageAmount" : "95000",
+          "annualPremiumAmount" : "2122.2"
+        }, {
+          "semiAnnualPremiumAmount" : "1116",
+          "quarterlyPremiumAmount" : "558",
+          "monthlyPremiumAmount" : "186",
+          "coverageAmount" : "100000",
+          "annualPremiumAmount" : "2232"
+        } ]
+      },
+      "coverageAmounts" : {
+        "minimumCoverageAmount" : "5000",
+        "maximumCoverageAmount" : "100000"
+      }
+    },
+    "eligibleBillingOptions" : [ {
+      "billingMethod" : "ACH/PAC",
+      "billingFrequencies" : [ "Annual", "Monthly", "Quarterly", "Semiannual" ]
+    }, {
+      "billingMethod" : "Credit Card",
+      "billingFrequencies" : [ "Annual", "Monthly", "Quarterly", "Semiannual" ]
+    }, {
+      "billingMethod" : "Direct Bill",
+      "billingFrequencies" : [ "Annual", "Monthly", "Quarterly", "Semiannual" ]
+    } ],
+    "eligibilityStartDate" : "2018-03-08",
+    "eligibilityEndDate" : "2063-04-07"
+  }
+}
+]

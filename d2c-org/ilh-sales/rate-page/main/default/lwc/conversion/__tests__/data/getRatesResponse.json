@@ -1,0 +1,293 @@
+[
+  {
+    "eligibleBillingOptions": [],
+    "eligibleProducts": [
+      {
+        "productCode": "2022 Whole Life Conversion",
+        "productName": "Conversion Whole Life"
+      }
+    ],
+    "eligibleRates": [
+      {
+        "coverage": "5000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 155.4,
+            "coverage": 5000,
+            "monthly": 12.95,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 38.85,
+            "semiannual": 77.7
+          }
+        }
+      },
+      {
+        "coverage": "10000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 274.8,
+            "coverage": 10000,
+            "monthly": 22.9,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 68.7,
+            "semiannual": 137.4
+          }
+        }
+      },
+      {
+        "coverage": "15000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 394.2,
+            "coverage": 15000,
+            "monthly": 32.85,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 98.55,
+            "semiannual": 197.1
+          }
+        }
+      },
+      {
+        "coverage": "20000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 513.6,
+            "coverage": 20000,
+            "monthly": 42.8,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 128.4,
+            "semiannual": 256.8
+          }
+        }
+      },
+      {
+        "coverage": "25000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 609,
+            "coverage": 25000,
+            "monthly": 50.75,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 152.25,
+            "semiannual": 304.5
+          }
+        }
+      },
+      {
+        "coverage": "30000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 723.6,
+            "coverage": 30000,
+            "monthly": 60.3,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 180.9,
+            "semiannual": 361.8
+          }
+        }
+      },
+      {
+        "coverage": "35000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 838.2,
+            "coverage": 35000,
+            "monthly": 69.85,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 209.55,
+            "semiannual": 419.1
+          }
+        }
+      },
+      {
+        "coverage": "40000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 952.8,
+            "coverage": 40000,
+            "monthly": 79.4,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 238.2,
+            "semiannual": 476.4
+          }
+        }
+      },
+      {
+        "coverage": "45000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 1067.4,
+            "coverage": 45000,
+            "monthly": 88.95,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 266.85,
+            "semiannual": 533.7
+          }
+        }
+      },
+      {
+        "coverage": "50000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 1134,
+            "coverage": 50000,
+            "monthly": 94.5,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 283.5,
+            "semiannual": 567
+          }
+        }
+      },
+      {
+        "coverage": "55000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 1243.8,
+            "coverage": 55000,
+            "monthly": 103.65,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 310.95,
+            "semiannual": 621.9
+          }
+        }
+      },
+      {
+        "coverage": "60000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 1353.6,
+            "coverage": 60000,
+            "monthly": 112.8,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 338.4,
+            "semiannual": 676.8
+          }
+        }
+      },
+      {
+        "coverage": "65000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 1463.4,
+            "coverage": 65000,
+            "monthly": 121.95,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 365.85,
+            "semiannual": 731.7
+          }
+        }
+      },
+      {
+        "coverage": "70000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 1573.2,
+            "coverage": 70000,
+            "monthly": 131.1,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 393.3,
+            "semiannual": 786.6
+          }
+        }
+      },
+      {
+        "coverage": "75000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 1683,
+            "coverage": 75000,
+            "monthly": 140.25,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 420.75,
+            "semiannual": 841.5
+          }
+        }
+      },
+      {
+        "coverage": "80000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 1792.8,
+            "coverage": 80000,
+            "monthly": 149.4,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 448.2,
+            "semiannual": 896.4
+          }
+        }
+      },
+      {
+        "coverage": "85000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 1902.6,
+            "coverage": 85000,
+            "monthly": 158.55,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 475.65,
+            "semiannual": 951.3
+          }
+        }
+      },
+      {
+        "coverage": "90000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 2012.4,
+            "coverage": 90000,
+            "monthly": 167.7,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 503.1,
+            "semiannual": 1006.2
+          }
+        }
+      },
+      {
+        "coverage": "95000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 2122.2,
+            "coverage": 95000,
+            "monthly": 176.85,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 530.55,
+            "semiannual": 1061.1
+          }
+        }
+      },
+      {
+        "coverage": "100000",
+        "productinfo": {
+          "Conversion Whole Life": {
+            "annual": 2232,
+            "coverage": 100000,
+            "monthly": 186,
+            "productcode": "2022 Whole Life Conversion",
+            "productlabel": "Conversion Whole Life",
+            "quarterly": 558,
+            "semiannual": 1116
+          }
+        }
+      }
+    ]
+  }
+]

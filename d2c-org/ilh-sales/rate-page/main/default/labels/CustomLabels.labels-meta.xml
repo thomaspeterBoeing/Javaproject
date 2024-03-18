@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>ADBorWaiverRider</fullName>
+        <categories>ConversionSalesforceMessaging</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ADBorWaiverRider</shortDescription>
+        <value>Continuing ADB or Waiver Rider requires paper kit. Please proceed with paper kit</value>
+    </labels>
+    <labels>
+        <fullName>ConsumerCheck</fullName>
+        <categories>ConversionSalesforceMessaging</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ConsumerCheck</shortDescription>
+        <value>One or more of the following data fields do not match information on the existing policy: First Name, Date of Birth, or Gender. Contact Customer Care to correct prior to processing Conversion</value>
+    </labels>
+    <labels>
+        <fullName>SpecialHandling</fullName>
+        <categories>ConversionSalesforceMessaging</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SpecialHandling</shortDescription>
+        <value>Special handling requires paper kit. Please proceed with paper kit.</value>
+    </labels>
+</CustomLabels>

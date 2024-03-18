@@ -140,16 +140,10 @@ public class EligibleProductRateWrapper {
             cell.productlabel = productName;
             cell.productcode = result?.productCode;
             cell.coverage = co?.coverage;
-
-            if (co.frequency == 'Annual') {
-                cell.annual = co.premium;
-            } else if (co.frequency == 'Monthly') {
-                cell.monthly = co.premium;
-            } else if (co.frequency == 'Quarterly') {
-                cell.quarterly = co.premium;
-            } else if (co.frequency == 'Semiannual') {
-                cell.semiannual = co.premium;
-            }
+            cell.annual = co?.annual;
+            cell.monthly = co?.monthly;
+            cell.quarterly = co?.quarterly;
+            cell.semiannual = co?.semiannual;
                     
             cells.add(cell);//Adding new cell to list of cells
             coverageMap.put(co.coverage, cells);//Add cells to map based on coverage
@@ -186,20 +180,7 @@ public class EligibleProductRateWrapper {
             }
 
             EligibleRateCell existingCell = row.productinfo.get(cell.productlabel);//Find an existing cell.  Assign the premium values to the existingCell values
-            if (existingCell != null) {
-                if (cell.annual != null) {
-                    existingCell.annual = cell.annual;
-                } else if (cell.monthly != null) {
-                    existingCell.monthly = cell.monthly;
-                } else if (cell.quarterly != null) {
-                    existingCell.quarterly = cell.quarterly;
-                } else if (cell.semiannual != null) {
-                    existingCell.semiannual = cell.semiannual;
-                }
-                row.productinfo.put(cell.productlabel, existingCell);//Updating the existing cell
-            } else {
-                row.productinfo.put(cell.productlabel, cell);//We don't have an existing cell, so add the new cell
-            }
+            row.productinfo.put(cell.productlabel, cell);//Assign cell to corresponding product for the current row
         }
     }
 
@@ -209,11 +190,13 @@ public class EligibleProductRateWrapper {
      * @param eligibleBillingOptions Pass-by-value parameter
      */
     private void buildBillingOptions(EligibleProductQuoteResult result, Set<EligibleBillingOption> eligibleBillingOptions) {
-        for (EligibleProductQuoteResult.BillingOption billOption : result?.billingOptions) {
-            EligibleBillingOption newBillOption = new EligibleBillingOption();
-            newBillOption.effectiveDate = billOption?.effectiveDate;
-            newBillOption.billingMethod = billOption?.billingMethod;
-            eligibleBillingOptions.add(newBillOption);
+        if (result?.billingOptions != null) {
+            for (EligibleProductQuoteResult.BillingOption billOption : result?.billingOptions) {
+                EligibleBillingOption newBillOption = new EligibleBillingOption();
+                newBillOption.effectiveDate = billOption?.effectiveDate;
+                newBillOption.billingMethod = billOption?.billingMethod;
+                eligibleBillingOptions.add(newBillOption);
+            }
         }
     }
 }

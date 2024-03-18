@@ -21,6 +21,7 @@ import { setTabLabel,setTabIcon,EnclosingTabId } from 'lightning/platformWorkspa
 export default class IlhSalesRatePage extends LightningElement {
     coverage = null;
     recID=null;
+    optyState=null;
     highResolution = true;
 
     @wire(CurrentPageReference)
@@ -29,6 +30,7 @@ export default class IlhSalesRatePage extends LightningElement {
         
         this.coverage = currentPageReference.state?.c__coverage;
         this.recID = currentPageReference.state?.c__recordId;
+        this.optyState = currentPageReference.state?.c__optyState;
        }
     }
 
