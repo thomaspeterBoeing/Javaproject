@@ -17,22 +17,6 @@
         <value>One or more of the following data fields do not match information on the existing policy: First Name, Date of Birth, or Gender. Contact Customer Care to correct prior to processing Conversion</value>
     </labels>
     <labels>
-        <fullName>EnableConsumerUpdate</fullName>
-        <categories>Consumer Update</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Enable Consumer Update</shortDescription>
-        <value>true</value>
-    </labels>
-    <labels>
-        <fullName>EnableErrorLogs</fullName>
-        <categories>Error Handling Framework</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Enable Error Logs</shortDescription>
-        <value>true</value>
-    </labels>
-    <labels>
         <fullName>SpecialHandling</fullName>
         <categories>ConversionSalesforceMessaging</categories>
         <language>en_US</language>
