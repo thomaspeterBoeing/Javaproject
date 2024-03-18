@@ -4,7 +4,7 @@
  * 
  * Description:  This is the interface for Conversion Eligible Quote Service.  
  *  
- * Details    :  The interface definition that all concrete search service classes will implement         
+ * Details    :  The interface definition that all concrete service classes will implement         
  * Modifications:
  *************************************************************************************/
 public interface IConversionEligible {

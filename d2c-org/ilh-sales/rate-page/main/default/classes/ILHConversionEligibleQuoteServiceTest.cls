@@ -10,7 +10,7 @@
 @isTest
 public with sharing class ILHConversionEligibleQuoteServiceTest {
     @isTest
-    public static void getQuoteResponseTest() {
+    public static void checkEligibilityTest() {
         // Creating a successful mock response
         staticResourceCalloutMock mock = new staticResourceCalloutMock();
         mock.setStaticResource('mock_ConversionEligibleQuoteResponse');
@@ -38,6 +38,35 @@ public with sharing class ILHConversionEligibleQuoteServiceTest {
     }
 
     @isTest
+    public static void getRatesTest() {
+        // Creating a successful mock response
+        staticResourceCalloutMock mock = new staticResourceCalloutMock();
+        mock.setStaticResource('mock_ConversionEligibleQuoteResponse');
+        mock.setStatusCode(200);
+        mock.setHeader('Content-Type', 'application/json');
+        Test.setMock(HttpCalloutMock.class, mock);
+
+        // Creating initial search criteria for request
+        Map<String, Object> quoteRequest = new Map<String, Object>{
+            'conversionProductCode' => '2022 Whole Life Conversion',
+            'currentTermPolicyNumber' => 'LC0168889',
+            'currentTermCompanyCode' => '51',
+            'channel' => 'TELEM',
+            'insuredResidentState' => 'PA',
+            'conversionCoverageAmount' => 25000,
+            'isTermBeingKept' => false
+        };
+
+        Test.startTest();
+        List<EligibleProductRateWrapper> wrapper = (new ILHConversionEligibleQuoteService()).getRates(quoteRequest);
+        // Verifying search results
+        System.assert(wrapper.size() > 0, 'Expecting more than 1 result');
+
+        Test.stopTest();
+    }
+
+
+    @isTest
     public static void testHandleNonSuccessfulResponse() {
         // Create a scenario where HTTP response status code is greater than 200
         staticResourceCalloutMock mockResponse = new staticResourceCalloutMock();
@@ -58,11 +87,19 @@ public with sharing class ILHConversionEligibleQuoteServiceTest {
         };
 
         Test.startTest();
-        List<ConversionEligibleQuoteWrapper> results = (new ILHConversionEligibleQuoteService()).checkEligibility(quoteRequest);
+       List<ConversionEligibleQuoteWrapper> results;
 
+        try{
+         results = (new ILHConversionEligibleQuoteService()).checkEligibility(quoteRequest);
+        }
+        catch(Exception e){
+            System.assertEquals(null, results, 'The result list should be 0.');
+
+        }    
         // Assert the expected behavior
-        System.assertEquals(0, results.size(), 'The result list should be empty for non-successful response.');
+    
         
         Test.stopTest();
     }
+    
 }

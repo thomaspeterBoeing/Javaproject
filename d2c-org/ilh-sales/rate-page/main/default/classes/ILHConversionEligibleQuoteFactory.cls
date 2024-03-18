@@ -2,7 +2,7 @@
  * Title:  ILHConversionEligibleQuoteFactory
  * Date:   Jan 2024
  * 
- * Description: Constructs instances of concrete classes that implement designated interfaces based off of the calulated persona.  
+ * Description: Constructs instances of concrete classes that implement designated interfaces based off of the calculated persona.  
  * 
  *************************************************************************************/
 

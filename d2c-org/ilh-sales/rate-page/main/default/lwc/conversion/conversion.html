@@ -6,7 +6,7 @@
  * Description:  This layout was built based on UI/UX recommendation documented in figma (Look for Conversion happy path flow)
  * 
  * Details:      For ease of building sections per UI/UX recommendation, First Row, Second row notations have been used. Each row could have one or more elements.
- *               Sections are shown or  hidden based on service response and or user input per UI/UX recommendation
+ *               Sections are shown or  hidden based on service response and or user input per UI/UX recommendation.
  * 
  * Modifications:
  *************************************************************************************/
@@ -25,11 +25,11 @@
             message-when-too-long="Policy Number required to be between 5 and 16 characters."></lightning-input>
         </div>
         <div class="slds-col slds-size_1-of-3">
-            <lightning-button label="Policy Summary" onclick={handlePolicySummaryClick} variant="bare"  ></lightning-button>
+            <lightning-button label="Policy Summary" data-id="policySumbtn" onclick={handlePolicySummaryClick} variant="bare"  ></lightning-button>
         </div>
         <template lwc:if={isModalOpen}>
             <!---modal-->
-            <div class="slds-modal slds-fade-in-open " style="width: 1080px;" role="dialog" aria-modal="true" >
+            <div class="slds-modal slds-fade-in-open " data-id="policySumModal" style="width: 1080px;" role="dialog" aria-modal="true" >
                 <div class="slds-modal__container">
                     <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
                         <lightning-icon icon-name="utility:close" size="small"></lightning-icon>

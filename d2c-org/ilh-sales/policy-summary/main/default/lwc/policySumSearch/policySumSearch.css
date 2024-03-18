@@ -1,0 +1,9 @@
+.custom-title {
+    font-weight: bold;
+    font-size:  1rem;
+    white-space: nowrap;
+    margin-top: 0 !important;
+    margin-block-start: 0.0em;
+    margin-block-end: 0.0em;
+    margin-inline-start: 15px;
+}

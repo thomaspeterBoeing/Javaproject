@@ -19,7 +19,7 @@
         ConversionEligibleQuoteRequest ceqRequest = ILHConversionEligibleQuotehelper.createCEQRequest(rateRequest);
         
         // Call helper method to get eligible quotes
-        results = ILHConversionEligibleQuotehelper.getEligibleQuotes(ceqRequest);
+        results = ILHConversionEligibleQuotehelper.getEligibleQuotes(ceqRequest, false); // false indicates not to include quotes node during checking Eligibility
         
         return results;
     }
@@ -32,7 +32,7 @@
         ConversionEligibleQuoteRequest ceqRequest = ILHConversionEligibleQuotehelper.createCEQRequest(rateRequest);
         
         // Call helper method to get eligible quotes
-        results = ILHConversionEligibleQuotehelper.getEligibleQuotes(ceqRequest);
+        results = ILHConversionEligibleQuotehelper.getEligibleQuotes(ceqRequest, true); // true indicates to include quotes node when rates need to be shown.
 
         List<EligibleProductQuoteResult> epqrs = EligibleProductQuoteResult.parse(results, isTermBeingKept);
         EligibleProductRateWrapper wrapper = new EligibleProductRateWrapper(epqrs);

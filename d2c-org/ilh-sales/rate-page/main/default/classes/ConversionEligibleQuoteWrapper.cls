@@ -134,8 +134,21 @@ public class ConversionEligibleQuoteWrapper {
 		public List<EligibleBillingOptions> eligibleBillingOptions;
 	}
 
-    // Parse method to deserialize JSON response
-    public static ConversionEligibleQuoteWrapper parseFromJSON(String jsonResponse) {
-        return (ConversionEligibleQuoteWrapper) JSON.deserialize(jsonResponse, ConversionEligibleQuoteWrapper.class);
+	// New field to indicate whether to include quotes
+    public Boolean includeQuotes;
+
+    // Parse method to deserialize JSON response and return different response nodes based on includeQuotes
+	// Conversion CheckEligibility functionality does not need quotes. 
+    public static ConversionEligibleQuoteWrapper parseFromJSON(String jsonResponse, Boolean includeQuotes) {
+        ConversionEligibleQuoteWrapper wrapper = (ConversionEligibleQuoteWrapper) JSON.deserialize(jsonResponse, ConversionEligibleQuoteWrapper.class);
+        if (!includeQuotes) {
+            if (wrapper.conversionEligibilityDetails.fullConversion != null) {
+                wrapper.conversionEligibilityDetails.fullConversion.quotes = null;
+            }
+            if (wrapper.conversionEligibilityDetails.partialConversion != null) {
+                wrapper.conversionEligibilityDetails.partialConversion.quotes = null;
+            }
+        }
+        return wrapper;
     }
 }

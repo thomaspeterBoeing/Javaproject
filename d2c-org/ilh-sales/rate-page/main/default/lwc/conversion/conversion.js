@@ -3,7 +3,7 @@
  * Date:   March 2024
  * 
  * Description:  LWC is to check conversion eligibility and provide input to show conversion product rates 
- *               in rating matrix
+ *               in rating matrix.
  * 
  * Details:      This component also serves as a parent to the Rating Matrix LWC.  Filtered rates
  *               are loaded into the Rating Matrix.  
@@ -85,13 +85,13 @@ export default class conversion extends NavigationMixin(LightningElement) {
     wiredOpportunity({error, data}){
     
          if(data){
-            console.log('inside wiredOpportunity ' +JSON.stringify(data));
              this.dob           =getFieldValue(data, DOB);
              this.fname         =getFieldValue(data, FNAME);
                          
           }
          else if (error) {
-            console.error('Error in wiredOpportunity:', error);
+            console.log('Error in  wiredOpportunity: = ' + reduceErrors(error));
+            this.errorMessage = reduceErrors(error);
             
          }
  
@@ -286,8 +286,8 @@ export default class conversion extends NavigationMixin(LightningElement) {
             
         })
         .catch(error => {
-            console.error('Error in Get Rate:', error);
-            console.log('this.errorMessage : ' + this.errorMessage);
+            console.log('Error in Get Rate = ' + reduceErrors(error));
+            this.errorMessage = reduceErrors(error);
             this.errorResponse =true;
             this.showSpinner =false;
         });
@@ -416,7 +416,7 @@ export default class conversion extends NavigationMixin(LightningElement) {
                 }
             })
             .catch(error => {
-                console.error('Error in checkifEligible:', error);
+                console.log('Error in checkifEligible = ' + reduceErrors(error));
                 this.errorMessage = reduceErrors(error);
                 this.errorResponse =true;
                 this.eligible =false;

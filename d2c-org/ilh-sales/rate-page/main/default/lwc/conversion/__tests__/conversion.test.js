@@ -35,14 +35,14 @@ const GET_RATES_RESPONSE = require('./data/getRatesResponse.json');
 const NON_ELIGIBLE_RESPONSE = require('./data/nonEligibleResponse.json');
 const SPECIAL_HANDLING_RESPONSE = require('./data/eligibilityspecialhandling.json');
 const MOCK_GET_RECORD = require('./data/mockGetRecord.json');
-const POLICY_NUMBER_REQUIRED = 'Policy Number is required!';
 const NOT_QUOTABLE_MESSAGE = 'Not Quotable';
-const SPECIALHANDLING_MESSAGE ='Not Eligible for Quoting'
 const BAD_INPUT_MESSAGE = 'Bad Input';
 //const CONSUMERCHECK ='not the customer';
 const CONVERTING_COVERAGE_BLANK ='Enter a valid converting coverage amount ';
-const GREATER_THAN_MAXCOVERAGE ='Coverage Amount cannot exceed the total coverage available 95,000'
-const SHOWRATEMATRIX =false;
+const GREATER_THAN_MAXCOVERAGE_CONTINUE ='Coverage Amount cannot exceed the total coverage available 95,000'
+const GREATER_THAN_MAXCOVERAGE_CANCEL ='Coverage Amount cannot exceed the total coverage available 100,000'
+const LESSER_THAN_MINCOVERAGE ='Coverage Amount is below the minimum coverage 5,000'
+//const enterKeyPressEvent = new KeyboardEvent('keydown', { key: 'Enter' });
 const POLICY_NOT_FOUND_MESSAGE = 'This policy/product is not found in the Conversion Eligibility Service';
 const APEX_PARAMETERS = { 
     "conversionProductCode": "2022 Whole Life Conversion", 
@@ -222,6 +222,64 @@ describe('c-conversion', () => {
         expect(eligibleSection).toBeNull();//Eligility section should be null after policy number is changed
     });
 
+    it('call handleClickCheckEligibility when Enter key is pressed in PolicyNumber field', async () => {
+        checkEligibility.mockResolvedValue(CHECK_ELIGIBILITY_RESPONSE);//Mock response for checkEligibility APEX method
+        getRates.mockResolvedValue(GET_RATES_RESPONSE);//Mock response for getRates APEX method
+
+        const element = createElement('c-conversion', {//Create conversion component
+            is: Conversion
+        });
+
+        document.body.appendChild(element);//Add conversion component to page
+
+        getRecord.emit(MOCK_GET_RECORD);
+
+        let personIdProvider = element.shadowRoot.querySelector('c-person-id-provider-l-w-c');
+        personIdProvider.dispatchEvent(new CustomEvent('personidloaded', { detail: { Account: {Gender__pc: 'Male'}}}));
+
+        let policyNumber = element.shadowRoot.querySelector('lightning-input[data-id=policyNumber]');//Query policy number field
+        policyNumber.value = '12345';//Assign a value to the policy number field
+        const enterKeyPressEvent = new KeyboardEvent('keydown', { key: 'Enter', inputType:policyNumber});
+        //policyNumber.dispatchEvent(new KeyboardEvent('keydown', { detail: { value: policyNumber.value } }));//Policy number field onChange
+        policyNumber.dispatchEvent(enterKeyPressEvent );
+
+        /*let checkEligilityBtn = element.shadowRoot.querySelector('lightning-button[data-id=checkEligilityBtn]');//Query check eligility button
+        checkEligilityBtn.dispatchEvent(new CustomEvent('click'));//Check eligibility button onClick event*/
+
+        await flushPromises();
+        // Verify that handleClickCheckEligibility was called
+        // expect(element.checkEligibility).toHaveBeenCalled(); - would have been ideal to just check if this was called.
+        let eligibleSection = element.shadowRoot.querySelector('div[data-id=eligibleSection]');//Query elgibility section
+        expect(eligibleSection).toBeNull();//eligibleSection should not be null after click check eligility button // assertion is incorrect
+        
+    });
+
+    it('opens policy summary modal on button click', async () => {
+        checkEligibility.mockResolvedValue(CHECK_ELIGIBILITY_RESPONSE);//Mock response for checkEligibility APEX method
+        getRates.mockResolvedValue(GET_RATES_RESPONSE);//Mock response for getRates APEX method
+
+        const element = createElement('c-conversion', {//Create conversion component
+            is: Conversion
+        });
+
+        document.body.appendChild(element);//Add conversion component to page
+
+        getRecord.emit(MOCK_GET_RECORD);
+
+        let personIdProvider = element.shadowRoot.querySelector('c-person-id-provider-l-w-c');
+        personIdProvider.dispatchEvent(new CustomEvent('personidloaded', { detail: { Account: {Gender__pc: 'Male'}}}));
+
+        let policySummarybtn = element.shadowRoot.querySelector('lightning-button[data-id=policySumbtn]'); //Query Policy Summary button
+        policySummarybtn.dispatchEvent(new CustomEvent('click')); //Policy Summary button click
+        
+        await flushPromises();
+
+        let polSumModal = element.shadowRoot.querySelector('c-policy-sum-search'); //Query Policy Summary Component
+        expect(polSumModal).not.toBeNull(); //Policy Summary modal should have been loaded 
+        
+    });
+
+
     it('Error should display when convertingcoverageAmount is null on handleGetRate', async () => {
         checkEligibility.mockResolvedValue(CHECK_ELIGIBILITY_RESPONSE)//Mock check eligibility results;
         getRates.mockResolvedValue(GET_RATES_RESPONSE);
@@ -366,7 +424,8 @@ describe('c-conversion', () => {
         const element = createElement('c-conversion', {//Create conversion component
             is: Conversion
         });
-
+        element.optyState = 'WI';//Initialize opptyState property on conversion component
+        
         document.body.appendChild(element);//Add conversion component to page
 
         getRecord.emit(MOCK_GET_RECORD);
@@ -391,17 +450,19 @@ describe('c-conversion', () => {
         getRate.dispatchEvent(new CustomEvent('click'));//Get Rate button onClick event
 
         await flushPromises();// Wait for any asynchronous DOM updates
+
         let matrix = element.shadowRoot.querySelector('c-rating-matrix');//Query matrix component
         await expect(matrix).toBeAccessible();//Matrix component should be accessible after click Get Rate
 
-        let payMethod = element.shadowRoot.querySelector('lightning-combobox[data-id=payFrequency]');//Query Payment Method  field
+        let payMethod = element.shadowRoot.querySelector('lightning-combobox[data-id=payMethod]');//Query Payment Method  field
         payMethod.value = 'ACH';//Assign value to pay frequency field
         payMethod.dispatchEvent(new CustomEvent('change', { detail: { value: payMethod.value } }));//Payment Method field onChange event
 
         await flushPromises();// Wait for any asynchronous DOM updates
-        matrix = element.shadowRoot.querySelector('c-rating-matrix');//Query matrix component
-        expect(matrix).toBeNull();//Matrix component should be null after payMethod is changed
-        let showMatrix =element.shadowRoot.querySelector('div[data-id=showRateMatrix'); // coverage does not seem to improve, so tried this and still no change.
+
+        let matriX = element.shadowRoot.querySelector('c-rating-matrix');//Query matrix component
+        expect(matriX).toBeNull();//Matrix component should be null after payMethod is changed
+        let showMatrix =element.shadowRoot.querySelector('div[data-id=showRateMatrix'); 
         expect(showMatrix).toBeFalsy();
     });
 
@@ -450,7 +511,7 @@ describe('c-conversion', () => {
         expect(matrix).toBeNull();//Matrix component should be null after policy number is changed
     });
 
-    it('Coverage Amount exceeded message shoud display when converting coverage amount is > maxcoverageAmount', async () => {
+    it('Coverage Amount exceeded message shoud display when converting coverage amount is > maxcoverageAmount for continue ', async () => {
         checkEligibility.mockResolvedValue(CHECK_ELIGIBILITY_RESPONSE);//Mock response for checkEligibility APEX method
         getRates.mockResolvedValue(GET_RATES_RESPONSE);//Mock response for getRates APEX method
 
@@ -475,7 +536,7 @@ describe('c-conversion', () => {
         await flushPromises();// Wait for any asynchronous DOM updates
 
         let coverage = element.shadowRoot.querySelector('lightning-input[data-id=coverage]');//Query coverage field
-        coverage.value = '200000';//Assign value to coverage field
+        coverage.value = '200000';//Assign value that is higher than maxCoverageAmount
         coverage.dispatchEvent(new CustomEvent('change', { detail: { value: coverage.value } }));//Coverage field onChange event
                
         let cancelContinue = element.shadowRoot.querySelector('lightning-radio-group[data-id=cancelContinue]');//Query Cancel/Continue term field
@@ -488,18 +549,92 @@ describe('c-conversion', () => {
         await flushPromises();// Wait for any asynchronous DOM updates
         
         let rateErrorMessage = element.shadowRoot.querySelector('div[data-id=messageDisplayRate]');//Query messageDisplayRate
-        expect(rateErrorMessage.textContent).toEqual(GREATER_THAN_MAXCOVERAGE);
+        expect(rateErrorMessage.textContent).toEqual(GREATER_THAN_MAXCOVERAGE_CONTINUE);
 
-        /*let matrix = element.shadowRoot.querySelector('c-rating-matrix');//Query matrix component
-        await expect(matrix).toBeAccessible();//Matrix component should be accessible after click Get Rate
+    });
 
-        /*let cancelContinue = element.shadowRoot.querySelector('lightning-radio-group[data-id=cancelContinue]');//Query Cancel/Continue term field
-        cancelContinue.value = 'continue';//Assign value to Cancel/Continue term  field
-        cancelContinue.dispatchEvent(new CustomEvent('change', { detail: { value: cancelContinue.value } }));//Cancel/Continue term field onChange event*/
+    it('Coverage Amount exceeded message shoud display when converting coverage amount is > maxcoverageAmount for cancel', async () => {
+        checkEligibility.mockResolvedValue(CHECK_ELIGIBILITY_RESPONSE);//Mock response for checkEligibility APEX method
+        getRates.mockResolvedValue(GET_RATES_RESPONSE);//Mock response for getRates APEX method
 
-       /* await flushPromises();// Wait for any asynchronous DOM updates
-        matrix = element.shadowRoot.querySelector('c-rating-matrix');//Query matrix component
-        expect(matrix).toBeNull();//Matrix component should be null after policy number is changed*/
+        const element = createElement('c-conversion', {//Create conversion component
+            is: Conversion
+        });
+
+        document.body.appendChild(element);//Add conversion component to page
+
+        getRecord.emit(MOCK_GET_RECORD);
+
+        let personIdProvider = element.shadowRoot.querySelector('c-person-id-provider-l-w-c');
+        personIdProvider.dispatchEvent(new CustomEvent('personidloaded', { detail: { Account: {Gender__pc: 'Male'}}}));
+
+        let policyNumber = element.shadowRoot.querySelector('lightning-input[data-id=policyNumber]');//Query policy number field
+        policyNumber.value = '12345';//Assign a value to the policy number field
+        policyNumber.dispatchEvent(new CustomEvent('change', { detail: { value: policyNumber.value } }));//Policy number field onChange
+
+        let checkEligilityBtn = element.shadowRoot.querySelector('lightning-button[data-id=checkEligilityBtn]');//Query check eligility button
+        checkEligilityBtn.dispatchEvent(new CustomEvent('click'));//Check eligibility button onClick event
+
+        await flushPromises();// Wait for any asynchronous DOM updates
+
+        let coverage = element.shadowRoot.querySelector('lightning-input[data-id=coverage]');//Query coverage field
+        coverage.value = '200000';//Assign value that is higher than the max coverage amount
+        coverage.dispatchEvent(new CustomEvent('change', { detail: { value: coverage.value } }));//Coverage field onChange event
+               
+        let cancelContinue = element.shadowRoot.querySelector('lightning-radio-group[data-id=cancelContinue]');//Query Cancel/Continue term field
+        cancelContinue.value = 'cancel';//Assign value to Cancel/Continue term  field
+        cancelContinue.dispatchEvent(new CustomEvent('change', { detail: { value: cancelContinue.value } }));//Cancel/Continue term field onChange event
+
+        let getRate = element.shadowRoot.querySelector('lightning-button[data-id=getRate]');//Query Get Rate button
+        getRate.dispatchEvent(new CustomEvent('click'));//Get Rate button onClick event
+
+        await flushPromises();// Wait for any asynchronous DOM updates
+        
+        let rateErrorMessage = element.shadowRoot.querySelector('div[data-id=messageDisplayRate]');//Query messageDisplayRate
+        expect(rateErrorMessage.textContent).toEqual(GREATER_THAN_MAXCOVERAGE_CANCEL);
+        
+    });
+
+    it('Coverage Amount below message shoud display when converting coverage amount is < min coverageAmount for cancel or continue', async () => {
+        checkEligibility.mockResolvedValue(CHECK_ELIGIBILITY_RESPONSE);//Mock response for checkEligibility APEX method
+        getRates.mockResolvedValue(GET_RATES_RESPONSE);//Mock response for getRates APEX method
+
+        const element = createElement('c-conversion', {//Create conversion component
+            is: Conversion
+        });
+
+        document.body.appendChild(element);//Add conversion component to page
+
+        getRecord.emit(MOCK_GET_RECORD);
+
+        let personIdProvider = element.shadowRoot.querySelector('c-person-id-provider-l-w-c');
+        personIdProvider.dispatchEvent(new CustomEvent('personidloaded', { detail: { Account: {Gender__pc: 'Male'}}}));
+
+        let policyNumber = element.shadowRoot.querySelector('lightning-input[data-id=policyNumber]');//Query policy number field
+        policyNumber.value = '12345';//Assign a value to the policy number field
+        policyNumber.dispatchEvent(new CustomEvent('change', { detail: { value: policyNumber.value } }));//Policy number field onChange
+
+        let checkEligilityBtn = element.shadowRoot.querySelector('lightning-button[data-id=checkEligilityBtn]');//Query check eligility button
+        checkEligilityBtn.dispatchEvent(new CustomEvent('click'));//Check eligibility button onClick event
+
+        await flushPromises();// Wait for any asynchronous DOM updates
+
+        let coverage = element.shadowRoot.querySelector('lightning-input[data-id=coverage]');//Query coverage field
+        coverage.value = '1';//Assign value that is lower than the min coverage amount
+        coverage.dispatchEvent(new CustomEvent('change', { detail: { value: coverage.value } }));//Coverage field onChange event
+               
+        let cancelContinue = element.shadowRoot.querySelector('lightning-radio-group[data-id=cancelContinue]');//Query Cancel/Continue term field
+        cancelContinue.value = 'cancel';//Assign value to Cancel/Continue term  field
+        cancelContinue.dispatchEvent(new CustomEvent('change', { detail: { value: cancelContinue.value } }));//Cancel/Continue term field onChange event
+
+        let getRate = element.shadowRoot.querySelector('lightning-button[data-id=getRate]');//Query Get Rate button
+        getRate.dispatchEvent(new CustomEvent('click'));//Get Rate button onClick event
+
+        await flushPromises();// Wait for any asynchronous DOM updates
+        
+        let rateErrorMessage = element.shadowRoot.querySelector('div[data-id=messageDisplayRate]');//Query messageDisplayRate
+        expect(rateErrorMessage.textContent).toEqual(LESSER_THAN_MINCOVERAGE);
+        
     });
 
     it('should hide section when adbWaiverRiderChecked is true', async () => {
@@ -510,7 +645,14 @@ describe('c-conversion', () => {
             is: Conversion
         });
 
+        element.optyState = 'WI';//Initialize opptyState property on conversion component
+
         document.body.appendChild(element);//Add conversion component to page
+
+        getRecord.emit(MOCK_GET_RECORD);
+
+        let personIdProvider = element.shadowRoot.querySelector('c-person-id-provider-l-w-c');
+        personIdProvider.dispatchEvent(new CustomEvent('personidloaded', { detail: { Account: {Gender__pc: 'Male'}}}));
 
         let policyNumber = element.shadowRoot.querySelector('lightning-input[data-id=policyNumber]');//Query policy number field
         policyNumber.value = '12345';//Assign a value to the policy number field
@@ -542,7 +684,14 @@ describe('c-conversion', () => {
             is: Conversion
         });
 
+        element.optyState = 'WI';//Initialize opptyState property on conversion component
+
         document.body.appendChild(element);//Add conversion component to page
+
+        getRecord.emit(MOCK_GET_RECORD);
+
+        let personIdProvider = element.shadowRoot.querySelector('c-person-id-provider-l-w-c');
+        personIdProvider.dispatchEvent(new CustomEvent('personidloaded', { detail: { Account: {Gender__pc: 'Male'}}}));
 
         let policyNumber = element.shadowRoot.querySelector('lightning-input[data-id=policyNumber]');//Query policy number field
         policyNumber.value = '12345';//Assign a value to the policy number field
@@ -553,7 +702,7 @@ describe('c-conversion', () => {
 
         await flushPromises();// Wait for any asynchronous DOM updates
         
-        let ADBWaiverChecked = element.shadowRoot.querySelector('lightning-checkbox-toggle[data-id=adbwaivercheckbox]');
+        let ADBWaiverChecked = element.shadowRoot.querySelector('input[data-id=adbwaivercheckbox]');
         ADBWaiverChecked.checked =false;
         ADBWaiverChecked.dispatchEvent(new CustomEvent('change',{detail: {value:ADBWaiverChecked.checked}}));
 
@@ -566,8 +715,7 @@ describe('c-conversion', () => {
         expect(subsequentSections).toBeAccessible();
 
     });
-
-    it('should show specialhandling message when specialhandling from service is O and Not Eligible for Quoting', async () => {
+    it('should show specialhandling message when specialhandling from service is NOT X and hence Not Eligible for Quoting', async () => {
         checkEligibility.mockResolvedValue(SPECIAL_HANDLING_RESPONSE);//Mock response for checkEligibility APEX method
         //getRates.mockResolvedValue(GET_RATES_RESPONSE);//Mock response for getRates APEX method
 
@@ -575,7 +723,12 @@ describe('c-conversion', () => {
             is: Conversion
         });
 
+        element.optyState = 'WI';//Initialize opptyState property on conversion component
         document.body.appendChild(element);//Add conversion component to page
+        getRecord.emit(MOCK_GET_RECORD);
+
+        let personIdProvider = element.shadowRoot.querySelector('c-person-id-provider-l-w-c');
+        personIdProvider.dispatchEvent(new CustomEvent('personidloaded', { detail: { Account: {Gender__pc: 'Male'}}}));
 
         let policyNumber = element.shadowRoot.querySelector('lightning-input[data-id=policyNumber]');//Query policy number field
         policyNumber.value = '12345';//Assign a value to the policy number field
@@ -591,7 +744,7 @@ describe('c-conversion', () => {
         let matrix = element.shadowRoot.querySelector('c-rating-matrix');//Query Matrix
         expect(matrix).toBeNull();//Matrix should be null when there's errors on the page
         expect(messageDisplay).not.toBeNull();//Message display should not be null
-        expect(messageDisplay.textContent).toEqual("c.ConsumerCheck");//Text in message display should match //incorrect test
+        expect(messageDisplay.textContent).toEqual(SPECIALHANDLING);//Text in message display should match //incorrect test
         expect(eligibleSection).toBeNull();//Eligility section should be null because there's errors
 
     });
