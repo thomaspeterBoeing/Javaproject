@@ -338,6 +338,10 @@
         {
           "package": "ILH Sales Consumer Quoteservice",
           "versionNumber": "1.0.0.LATEST"        
+        },
+        {
+          "package": "ILH Sales Policy Summary",
+          "versionNumber": "1.0.0.LATEST"
         }
       ]
     },
@@ -424,5 +428,6 @@
     "ILH Sales Rate Page": "0HoDm0000004CFQKA2",
     "ILH Sales Consumer Quoteservice": "0HoDm0000004CFVKA2",
     "ILH Sales Product List": "0HoDm0000004CFaKAM"
+    
   }
 }
